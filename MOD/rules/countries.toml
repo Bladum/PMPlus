@@ -1,0 +1,24 @@
+#
+#  COUNTRIES
+#
+#   each world tile might have an owner = country, this is done with a flag
+#
+
+[countries]
+
+[countries.usa]
+name = "USA"
+description = "The United States of America, a powerful and influential nation located in North America."
+flag_id = 1
+color = '#FF00FF'
+funding = 50
+funding_cap = 100
+
+service_provided = []
+service_forbidden = []
+
+[countries.russia]
+name = "Russia"
+description = "A vast and powerful nation located in Eurasia, Russia is known for its rich history and culture."
+flag_id = 2
+founding = 40

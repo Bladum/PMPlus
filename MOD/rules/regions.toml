@@ -1,0 +1,28 @@
+#
+#   REGIONS
+#
+#   each tile MUST be assigned to region
+#   region is either land or water
+#   region has a weight for mission selection
+
+[regions]
+
+[regions.europe]
+name = "Europe"
+is_land = true
+description = "A continent known for its rich history and diverse cultures."
+flag_id = 1
+color = '#FF00FF'
+mission_weight = 18
+base_cost = 800
+
+service_provided = []
+service_forbidden = []
+
+[regions.north_africa]
+name = "North Africa"
+is_land = true
+description = "A continent known for its rich history and diverse cultures."
+flag_id = 1
+mission_weight = 12
+base_cost = 600

@@ -1,0 +1,40 @@
+#
+#   ORGANIZATIONS
+#
+
+[organizations]
+
+[organizations.xcom]
+name = "XCOM"
+description = "The Extraterrestrial Combat Unit, XCOM is a secret organization dedicated to defending Earth from alien threats."
+id = 0
+
+[organizations.aliens]
+name = "Aliens Mars"
+description = "Aliens on Mars, a secret organization dedicated to defending Mars from human threats."
+id = 1
+
+[organizations.syndicate]
+name = "The Syndicate"
+description = "A powerful and secretive organization that operates in the shadows, manipulating events to their advantage."
+id = 2
+
+[organizations.council]
+name = "The Council"
+description = "A powerful and secretive organization that operates in the shadows, manipulating events to their advantage."
+id = 3
+
+[organizations.mib]
+name ="Man in Black"
+description = "A secret organization dedicated to protecting humanity from extraterrestrial threats."
+id = 4
+
+[organizations.exalt]
+name = "EXALT"
+description = "A secret organization dedicated to advancing human interests, often at the expense of others."
+id = 5
+
+[organizations.bos]
+name = 'The Brotherhood'
+description = 'A secret organization dedicated to advancing human interests, often at the expense of others.'
+id = 6

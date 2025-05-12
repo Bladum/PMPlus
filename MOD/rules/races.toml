@@ -1,0 +1,135 @@
+#
+#   RACES
+#
+
+[races]
+
+#
+#   HUMANS
+#
+
+human = { name = "Human", description = "Desc" }
+orc = { name = "Orc", description = "Desc" }
+spartan = { name = "Spartan", description = "Desc" }
+olympian = { name = "Olympain", description = "Desc" }
+
+#
+#   XCOM TANKS
+#
+
+[races.xcom_tank]
+name = 'Tank'
+description = 'Human tank'
+icon = 'tank.png'
+size = 2
+is_big = true
+gain_experience = false
+is_mechanical = true
+
+
+
+mobility = 7
+health = 4
+energy = 8
+strength = 4
+reaction = [4,5,6]
+melee = 3
+aim = [4,5,6]
+psi = 4
+will = 6
+sanity = 8
+sight = [22, 16]
+sense = 8
+
+# purchase_cost = 500
+# sell_cost = 250
+# purchase_time = 14
+# purchase_technology = [ 'hybrids_recruitment' ]
+# female_frequency = 0
+# level_max = 0
+# level_train = 0
+# level_start = 0
+
+#
+#   HYBRID
+#
+
+[races.hybrid]
+name = 'Hybrid'
+description = 'A hybrid species, combining traits from both humans and sectoids. They are known for their adaptability and unique abilities.'
+icon = 'hybrid.png'
+size = 0.8
+
+mobility = 7
+health = 4
+energy = 8
+strength = 4
+reaction = [4,5,6]
+melee = 3
+aim = [4,5,6]
+psi = 4
+will = 6
+sanity = 8
+sight = [22, 16]
+sense = 8
+
+# purchase_cost = 30
+# sell_cost = 0
+# purchase_time = 7
+# purchase_technology = [ 'hybrids_recruitment' ]
+# purchase_facility = [ 'hybrids_barracks' ]
+# death_sound = [ 'hybrid_death_01', 'hybrid_death_02' ]
+# female_frequency = 0.25
+# level_max = 5
+# level_train = 2
+# level_start = 0
+
+#
+#   ALIENS
+#
+
+[races.sectoid]
+name = 'Sectoid'
+description = 'A sectoid species.'
+icon = 'sectoid.png'
+sound_death = 'sectoid_death'
+corpse_image = 'sectoid_corpse.png'
+size = 0.8
+
+mobility = 7
+health = 4
+health_regen = 0
+energy = 8
+strength = 4
+reaction = 5
+melee = 3
+aim = 6
+psi = 4
+will = 6
+sanity = 8
+
+cover = [ 0, 0 ]
+sight = [ 22, 16 ]
+sense = 8
+
+agression = 0.5
+inteligence = 0.9
+
+immune_panic = false
+immune_pain = false
+immune_bleed = true
+can_run = true
+can_kneel = true
+can_sneak = false
+can_surrender = true
+can_capture = true
+spawn_on_death = nan
+avoids_fire = true
+
+
+spotter = 0
+sniper = 0
+
+#
+#   BEASTS
+#
