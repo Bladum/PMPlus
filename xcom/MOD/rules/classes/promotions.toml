@@ -1,0 +1,36 @@
+#
+#   CLASSES FOR SOLDIERS
+#
+#   TYPE
+#       0 default is for XCOM to use when soldier is promoted
+#       1 is for enemy only
+#       2 is for random career path when soldier is hired for first time
+#       3 is for soldier transformatoin during gameplay
+#       4 is for special awards aka medals
+#       5 is for pernament wounds from battle / random events
+#       6 is for temporary effects on battle like auras
+
+# STANDARD XCOM PROMOTIONS
+
+[classes]
+
+[classes.sniper]
+name = "Sniper"
+icon = 'sniper.png'
+races = ["human", "orc"]
+description = "A master of long-range combat, the sniper excels at picking off enemies from a distance."
+technology = [ 'tech_class_sniper' ]
+min_level = 0
+type = 0
+stats = { health = 1, mobility = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }
+
+[classes.scout]
+[classes.soldier]
+[classes.heavy]
+[classes.medic]
+[classes.assult]
+[classes.ninja]
+[classes.leader]
+[classes.psychic]
+[classes.engineer]
+[classes.pilot]

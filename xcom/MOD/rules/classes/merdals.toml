@@ -1,0 +1,28 @@
+#
+#   CLASSES FOR SOLDIERS
+#
+#   TYPE
+#       0 default is for XCOM to use when soldier is promoted
+#       1 is for enemy only
+#       2 is for random career path when soldier is hired for first time
+#       3 is for soldier transformatoin during gameplay
+#       4 is for special awards aka medals
+#       5 is for pernament wounds from battle / random events
+#       6 is for temporary effects on battle like auras
+
+# STANDARD XCOM PROMOTIONS
+
+[classes]
+
+# MEDALS
+
+
+[classes.medal_night_ops]
+name = "Medal for nigh operations"
+icon = 'nightops.png'
+races = [ "human", 'hybrid' ]
+type = 4
+description = "Medal for nigh operations"
+stats = { sight = [ 0, 1 ], cover = [0, 1], sanity = 1 }
+
+

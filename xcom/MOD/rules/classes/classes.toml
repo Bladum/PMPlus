@@ -1,0 +1,46 @@
+#
+#   CLASSES FOR SOLDIERS
+#
+#   TYPE
+#       0 default is for XCOM to use when soldier is promoted
+#       1 is for enemy only
+#       2 is for random career path when soldier is hired for first time
+#       3 is for soldier transformatoin during gameplay
+#       4 is for special awards aka medals
+#       5 is for pernament wounds from battle / random events
+#       6 is for temporary effects on battle like auras
+
+[classes]
+
+# ALIENS
+
+
+[classes.alien_soldier]
+name = "Soldier (alien)"
+icon = 'soldier_alien.png'
+races = ["sectoid"]
+description = "A grunt."
+technology = [ ]
+min_level = 0
+type = 1
+stats = { health = 1, mobility = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }
+
+
+[classes.alien_navigator]
+name = "Navigator (alien)"
+icon = 'navigator_alien.png'
+races = ["sectoid"]
+description = "A grunt."
+technology = [ ]
+min_level = 0
+stats = { health = 1, mobility = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }
+
+
+[classes.alien_leader]
+name = "Leader (alien)"
+icon = 'leader_alien.png'
+races = ["sectoid"]
+description = "A grunt."
+technology = [ ]
+min_level = 0
+stats = { health = 1, mobility = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }
