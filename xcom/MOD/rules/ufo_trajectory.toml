@@ -1,0 +1,91 @@
+#
+#   UFO TRAJECTORIES
+#
+
+
+
+[trajectory_steps]
+
+start_random = 'Starts in random tile in region'
+start_city = 'Starts in random city in region'
+start_abase = 'Starts in random abase in region'
+start_xbase = 'Starts in random xbase in region'
+
+move_random = 'Move to random tile in region'
+move_city = 'Move to random city in region'
+move_craft = 'Move to random xcom craft in region'
+move_abase = 'Move to random abase in region'
+move_xbase = 'Move to random xbase in region'
+move_region = 'Move to another region close to this region'
+move_country = 'Move to tile that is owned by country'
+move_land = 'Move to land tile in this region'
+move_sea = 'Move to sea tile in this region'
+move_remote = 'Move to random tile that is far from any existing city'
+
+patrol = 'Stay in air but do not move'
+land = 'Land on land, if on water then remove'
+dive = 'Dive under water, if on land then crash'
+crash = 'Force crash on land or water'
+
+build_base = 'Create alien base for the same faction'
+
+end = 'Remove ufo, score points for mission'
+
+
+[[trajectories]]
+name = 'Patrol'
+desc = "Enemy will patrol in this location until its attacked and recovered by XCOM"
+
+[[trajectories]]
+name = 'Land'
+desc = "Enemy landed and can be attacked and recovered by XCOM"
+steps = { 'random_place' = 0, 'land' = 6, 'move_random' = 1, 'end' = 0 }
+
+[[trajectories]]
+name = 'Crash'
+desc = "Enemy crashed and can be recovered by XCOM"
+steps = { 'start_random' = 0, 'crash' = 12, 'end' = 0 }
+
+[[trajectories]]
+name = 'Research'
+desc = "Enemy will try to get score by scanning earth to find new valuable places"
+
+[[trajectories]]
+name = 'Harverst'
+desc = "Enemy will try to get score in rural areas by land and collect resources"
+
+[[trajectories]]
+name = 'Abduction'
+desc = "Enemy will try to get score in cities by land and collecting people"
+
+[[trajectories]]
+name = 'Scout'
+desc = "Enemy will try to find x-com base"
+
+[[trajectories]]
+name = 'Terror'
+desc = "Enemy will try to attack city and terror its citizens"
+
+[[trajectories]]
+name = 'Supply'
+desc = "Enemy will try to upgrade / supply existing own base to next level"
+
+[[trajectories]]
+name = 'Retaliation'
+desc = 'Enemy will try to destroy x-com base"
+
+[[trajectories]]
+name = 'Infiltration'
+desc = "Enemy will try to impact country that founds x-com budget"
+
+[[trajectories]]
+name = 'Hunt'
+desc = "Enemy will try to hunt xcom crafts"
+
+[[trajectories]]
+name = 'Base'
+desc = 'Enemy will try to build alien base"
+
+[[trajectories]]
+name = 'Raid'
+desc = 'Enemy will try to raid / bomb and destroy our world"

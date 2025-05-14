@@ -26,3 +26,39 @@ description = "A continent known for its rich history and diverse cultures."
 flag_id = 1
 mission_weight = 12
 base_cost = 600
+
+
+[regions.south_africa]
+[regions.north_america]
+[regions.central_america]
+[regions.south_america]
+[regions.middle_east]
+[regions.russia]
+[regions.central_asia]
+[regions.siberia]
+[regions.china]
+[regions.far_east]
+[regions.australia]
+[regions.artctic]
+[regions.antarctic]
+
+# seas
+
+[regions.mediterean]
+[regions.north_atlantic]
+[regions.south_antantic]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
