@@ -1,0 +1,114 @@
+#
+#   UNITS
+#
+
+[units]
+
+#
+#   XCOM UNIT WHEN PURCHASED
+#
+
+[units.xcom_soldier]
+race = 'human'
+rank = 0
+skills = [  ]
+
+armour = nan
+primary = nan
+secondary = nan
+
+score_dead = -50
+score_alive = 0
+
+items_dead = [ 'corpse_human' ]
+items_alive = [ 'live_xcom_soldier' ]
+ai_ignore = false
+vip = false
+
+#
+#   ALIENS SECTOID
+#
+
+[units.sectoid_soldier_1]
+race = 'sectoid'
+rank = 1
+skills = [ 'soldier' ]
+
+armour = 'arm_sectoid_soldier'
+primary = 'item_plasma_rifle'
+secondary = nan
+
+score_dead = 5
+score_alive = 20
+
+items_dead = [ 'corpse_sectoid' ]
+items_alive = [ 'live_sectoid_soldier' ]
+ai_ignore = false
+vip = false
+
+[units.sectoid_soldier_2]
+race = 'sectoid'
+rank = 2
+skills = [ 'soldier', 'soldier' ]
+
+armour = 'arm_sectoid_soldier'
+primary = 'item_plasma_cannon'
+secondary = [ 'item_alien_grenade', nan, nan ]
+
+score_dead = 5
+score_alive = 20
+
+items_dead = [ 'corpse_sectoid' ]
+items_alive = [ 'live_sectoid_soldier' ]
+
+[units.sectoid_soldier_3]
+race = 'sectoid'
+rank = 3
+skills = [ 'soldier', 'soldier', 'soldier' ]
+
+armour = 'arm_sectoid_soldier_2'
+primary = [ 'item_plasma_rifle', 'item_plasma_rifle', 'item_plasma_cannon' ]
+secondary = [ 'item_alien_grenade', nan, 'item_alien_grenade' ]
+
+score_dead = 5
+score_alive = 20
+
+items_dead = [ 'corpse_sectoid' ]
+items_alive = [ 'live_sectoid_soldier' ]
+
+#
+#   MAN IN BLACK
+#
+
+
+#
+#   RED DAWN
+#
+
+[units.red_dawn_trooper]
+[units.red_dawn_soldier]
+[units.red_dawn_ranger]
+[units.red_dawn_officer]
+[units.red_dawn_leader]
+[units.red_dawn_commando]
+
+#
+#   BLACK LOTUS
+#
+
+#
+#   CHURCH OF DAGON
+#
+
+#
+#   ZOMBIES
+#
+
+[units.zombie]
+[units.zombie_fat]
+[units.zombie_red]
+[units.zombie_green]
+
+#
+#   EXALT
+#

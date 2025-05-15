@@ -1,0 +1,80 @@
+#
+#   ITEMS for SOLDIERS
+#
+
+[unit_armours]
+
+#
+#   XCOM ARMOURS
+#
+
+[unit_armours.suit]
+name = "Suit"
+category = "unit_armour"
+description = "A basic suit of armour, providing minimal protection."
+sprite = "suit.png"
+
+tech_needed = []
+
+armour = 1
+resistance = { melee = 1.2, kinetic = 1.3, explosive = 1.1, laser = 0, plasma = 0.9 }
+weight = 1
+size = 0.1
+cover = [ 0, 0 ]
+
+sell_cost = 2
+
+[unit_armours.personal_armour]
+name = "Personal armour"
+category = "unit_armour"
+description = "A basic suit of armour, providing minimal protection."
+sprite = "personal_armour.png"
+
+tech_needed = []
+
+armour = 8
+resistance = { melee = 1.2, kinetic = 1.3, explosive = 1.1, laser = 0, plasma = 0.9 }
+shield = 0
+shield_regen = 0
+weight = 4
+size = 0.5
+cover = [ 0, 0 ]
+sight = [ 0, 0 ]
+sense = 0
+
+sell_cost = 80
+
+
+#
+#   primary weapons
+#       rifle
+#       shotgun
+#       heavy cannon
+#       autorifle
+#       SMG
+#       sniper rifle
+#       sword (2H melee)
+#       rocket launcher
+#       mini gun
+#       glove - magiczne przedmioty ktore atakuja
+
+#   secondary weapons
+#       pistol                      lekkie strzelanie
+#       knife                       lekka walka wrecz
+#       grenade / explosives        do rzucania
+#       stun rod                    do usypiania
+#       shield                      zwieksza armour jednostki o 1-2 punkty
+#       medikit                     leczy innych lub sebie
+#       psi amp                     kontrola psi
+#       flare                       wieksza widocznosc w ciagu dnia
+#       night google                wiekszy sight
+#       cloak device                zwieksza cover
+#       shield generator            dodaje oslone do pancerza ktora sie regeneruje np 4/1
+#       motion scanner              wykrywa ruch, zwieksza sens
+#       throwing knife              bron rzucana
+#       ammo box                    zwieksza pojemnosc aumunicj primary broni
+#       aura sztandary              zwieksza jakies umiejetnosci jednostkek w pobliżu
+#       repair box                  leczy jednostki mechaniczne
+#       life regereenate            auto leczenie
+#       anty grav unit              zwieksza SILE / zmniejsza MASE mozna wiekszy przedmiot niesc
+#       jetpack                     pozwala latwiej poruszac sie po terenie

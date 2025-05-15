@@ -1,0 +1,69 @@
+#
+#   BIOME
+#
+#       single tile on world map
+#
+
+[biomes]
+
+#
+#   EARTH
+#
+
+# EARTH WATER
+
+[biomes.ocean]
+map_id = 1
+type = 'water'
+name = "Ocean"
+image = "ocean.png"
+description = "A vast expanse of water, the ocean is home to a variety of marine life and is a major source of food and resources."
+
+terrains = {}
+
+
+[biomes.sea]
+map_id = 2
+type = 'water'
+name = "Sea"
+image = "sea.png"
+description = "Shallow water"
+
+terrains = {}
+
+
+# EARTH LAND
+
+[biomes.farmland]
+map_id = 3
+type = 'land'
+name = "Farmland"
+image = "farmland.png"
+description = "Grasslands and farmlands"
+
+terrains = { farmland = 20, farmland_village = 15, farmland_forest = 10 }
+
+
+
+[biomes.forest]
+map_id = 4
+type = 'land'
+name = "Forest"
+image = "forest.png"
+description = "Different types of forest"
+
+terrains = { forest = 20, forest_swamp = 15, forest_high = 10 }
+
+#
+#   MARS
+#
+
+
+[biomes.mars]
+map_id = 21
+type = 'land'
+name = "Mars"
+image = "mars.png"
+description = "Mars is a barren and desolate world with a harsh environment."
+
+terrains = { mars_surface = 20, mars_canyon = 15, mars_rock = 10 }

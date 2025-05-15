@@ -1,0 +1,10 @@
+#
+#   STORY
+#
+
+[stories]
+
+[stories.0001]
+name = 'Found sahalin'
+desc = 'Long description that something happened'
+label = 1

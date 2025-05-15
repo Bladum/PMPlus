@@ -1,0 +1,80 @@
+#
+#   ITEMS for SOLDIERS
+#
+
+[unit_items]
+
+#
+#   XCOM ARMOURS
+#
+
+[unit_items.old_pistol]
+name = "Old Pistol"
+category = "unit_equipment"
+description = "A basic pistol, providing minimal damage"
+sprite = "old_pistol.png"
+
+weight = 1
+size = 0.1
+
+unit_damage = 4
+unit_damage_type = "piercing"
+unit_range = 15
+unit_accuracy = 0.6
+unit_ammo = 25
+unit_action_points = 1
+
+sell_cost = 2
+
+
+
+
+#
+#   NEUTRAL ARMOURS
+#
+
+#
+#   ALIEN ARMOURS
+#
+
+#
+#   BEAST ARMOURS
+#
+
+#
+#   TANKS ARMOURS
+#
+
+#
+#   primary weapons
+#       rifle
+#       shotgun
+#       heavy cannon
+#       autorifle
+#       SMG
+#       sniper rifle
+#       sword (2H melee)
+#       rocket launcher
+#       mini gun
+#       glove - magiczne przedmioty ktore atakuja
+
+#   secondary weapons
+#       pistol                      lekkie strzelanie
+#       knife                       lekka walka wrecz
+#       grenade / explosives        do rzucania
+#       stun rod                    do usypiania
+#       shield                      zwieksza armour jednostki o 1-2 punkty
+#       medikit                     leczy innych lub sebie
+#       psi amp                     kontrola psi
+#       flare                       wieksza widocznosc w ciagu dnia
+#       night google                wiekszy sight
+#       cloak device                zwieksza cover
+#       shield generator            dodaje oslone do pancerza ktora sie regeneruje np 4/1
+#       motion scanner              wykrywa ruch, zwieksza sens
+#       throwing knife              bron rzucana
+#       ammo box                    zwieksza pojemnosc aumunicj primary broni
+#       aura sztandary              zwieksza jakies umiejetnosci jednostkek w pobliżu
+#       repair box                  leczy jednostki mechaniczne
+#       life regereenate            auto leczenie
+#       anty grav unit              zwieksza SILE / zmniejsza MASE mozna wiekszy przedmiot niesc
+#       jetpack                     pozwala latwiej poruszac sie po terenie

@@ -1,0 +1,19 @@
+#
+#   SKILLS FOR UNITS
+#
+#   TYPE
+#       6 is for temporary effects on battle like auras
+
+
+[auras]
+
+# AURAS ?
+
+[auras.berzerk]
+name = "Battle frenzy"
+icon = 'berzerk.png'
+races = [ ]
+type = 6
+description = "Berzerk rage"
+stats = { aim = -3, reaction = -3 }
+recovery_time = 30
