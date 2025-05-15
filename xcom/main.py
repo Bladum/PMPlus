@@ -411,7 +411,7 @@ class BattleScape(QGraphicsView):
 
 if __name__ == "__main__":
     app = QApplication([])
-    battlescape = BattleScape()
+    battlescape = BattleScape(map_blocks_x=6, map_blocks_y=6, block_size=15, tile_size=16)
     battlescape.setWindowTitle("X-COM Battlescape")
     battlescape.resize(800, 600)
     battlescape.show()
@@ -419,7 +419,7 @@ if __name__ == "__main__":
     # Example of selecting a specific tile (row 5, column 5)
     center_tile = battlescape.select_single_tile(8, 13)
     # Select all tiles within range 20 from the center tile
-    battlescape.select_tiles_in_range(center_tile, 24)
+    battlescape.select_tiles_in_range(center_tile, 20)
 
     app.exec()
 

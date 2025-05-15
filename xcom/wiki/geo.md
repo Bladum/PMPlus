@@ -1,5 +1,8 @@
 # [Geoscape]()
 
+## Detection
+## Interception
+
 ### [World]() 
 
 - world is based on tiles, earth is 90x45 tiles, each is aprox 500km
@@ -55,7 +58,7 @@ Biomes:
 
 There might be events that do modify Biome of a tile to something else e.g. biomas or star ghosts or mars terraformation.
 
-### [World Time & days]()
+### [World Time]()
 
 - game on world is turn based 
 - one turn = 1 day, 30 days = month and 12 months = year
@@ -63,10 +66,13 @@ There might be events that do modify Biome of a tile to something else e.g. biom
 - there is only either day or night, nothing in between
 - special events are triggered every day, every monday, every month, every quarter, every year
 
-### [Objects on world map]()
+### [Locations]()
+
+on world map you can find
 - cities
 - xcom bases
-- xcom craft
 - alien bases
-- alien ufo (all alien activity other than base is ufo)
+- xcom craft
+- alien ufo
+- sites (static missions)
 - portal to another world for crafts only

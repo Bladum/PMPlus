@@ -62,24 +62,6 @@ Typical craft weapons:
 | BLASTER BOMB  | 1    | 3  | 80    | 30     | 90%    | 3      |
 
 
-### [Base defences]()
-
-Same way works base defenses, it is considered to be a craft weapon mounted on base, but more powerful
-
-| Weapon           | Rate | AP | Range | Damage | Chance | Ammo | 
-|------------------|------|----|-------|--------|--------|------|
-| CANNON DEFENSES  | 8    | 1  | 10    | 1      | 20%    | 200  |
-| MISSILE DEFENSES | 3    | 2  | 60    | 15     | 20%    | 200  |
-| LASER DEFENSES   | 3    | 1  | 30    | 3      | 20%    | 200  |
-| PLASMA DEFENSES  | 2    | 2  | 50    | 7      | 20%    | 200  |
-| FUSION DEFENSES  | 1    | 2  | 80    | 30     | 20%    | 200  |
-
-There might be special craft / base weapons that impact ufo on geoscape
-- make it slower ?
-- make it stop ?
-- make it crash ?
-
-
 ### [Ufo detection]()
 
 - each ufo has a cover power, which means its like health
@@ -111,11 +93,10 @@ Example:
 
 ### [Ufo status]()
 
-- in general ufo is everything that is not xcom craft
+- ufo is specific type of location, that can move
 - it may move, patrol, land, crash or be static action
-- there is NO seperate interception phase, it is done in geoscape
+- when intercepted there is a mini game
 - both bases have defenses that may be used to intercept ufos and xcom craft
-- so here game looks like simple tower defense game
 
 Statuses
 - patrol    - in air but not moving
@@ -152,7 +133,23 @@ Craft acceleration:
 
 This means that 4 AP per turn to move 12km with accel 3
 
-![img.png](img.png)
+### [Base defences]()
+
+Same way works base defenses, it is considered to be a craft weapon mounted on base, but more powerful
+
+| Weapon           | Rate | AP | Range | Damage | Chance | Ammo | 
+|------------------|------|----|-------|--------|--------|------|
+| CANNON DEFENSES  | 8    | 1  | 10    | 1      | 20%    | 200  |
+| MISSILE DEFENSES | 3    | 2  | 60    | 15     | 20%    | 200  |
+| LASER DEFENSES   | 3    | 1  | 30    | 3      | 20%    | 200  |
+| PLASMA DEFENSES  | 2    | 2  | 50    | 7      | 20%    | 200  |
+| FUSION DEFENSES  | 1    | 2  | 80    | 30     | 20%    | 200  |
+
+There might be special craft / base weapons that impact ufo on geoscape
+- make it slower ?
+- make it stop ?
+- make it crash ?
+- 
 
 ### [Base defences dogfight]()
 
@@ -163,16 +160,26 @@ This means that 4 AP per turn to move 12km with accel 3
 - damage done to base is done to health of each facility, and some of them might be destroyed
 - damaged facility could impact content in side like items, soldiers, crafts, research
 
-![img_1.png](img_1.png)
-
 ### [Ufo crash]()
 
 - when ufo gets damage above 50% of its health there is a chance to crash, which is based on damage above 50% 
-- when it crash on land -> change status
+- when it crash on land -> change status and convert to site
 - when it crash on water -> remove it (unless its a water ufo)
 
 ### [XCOM Craft crash]()
 
 - when xcom craft gets damage it got crash and rescue mission could be done
 - this will not save the craft , but may save pilot and items on the craft
-- if it crashes over water then game over
+- if it crashes over water then its lost
+
+### [Craft Pilots]()
+
+- In general i don't like idea of using soldiers as pilots
+- it is better to hire crew like 
+- crew can get experience over time and may provide some bonus
+- this may be considered as special item loaded into craft
+- impact of crew on dogefight
+  - low skilled 3AP
+  - normal skilled 4AP
+  - high skilled 5AP
+  - ultra high skilled 6AP

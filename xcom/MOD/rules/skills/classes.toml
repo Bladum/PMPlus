@@ -1,0 +1,40 @@
+#
+#   SKILLS FOR UNITS
+#
+#   TYPE
+#       1 is for enemy only
+
+[classes]
+
+# ALIENS
+
+
+[classes.alien_soldier]
+name = "Soldier (alien)"
+icon = 'soldier_alien.png'
+races = ["sectoid"]
+description = "A grunt."
+tech_needed = [ ]
+min_level = 0
+type = 1
+stats = { health = 1, speed = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }
+
+
+[classes.alien_navigator]
+name = "Navigator (alien)"
+icon = 'navigator_alien.png'
+races = ["sectoid"]
+description = "A grunt."
+tech_needed = [ ]
+min_level = 0
+stats = { health = 1, speed = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }
+
+
+[classes.alien_leader]
+name = "Leader (alien)"
+icon = 'leader_alien.png'
+races = ["sectoid"]
+description = "A grunt."
+tech_needed = [ ]
+min_level = 0
+stats = { health = 1, speed = 1, aim = 2, sanity = 2, will = 1, sight = [ 2, 1 ] }

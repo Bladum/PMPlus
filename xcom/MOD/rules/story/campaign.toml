@@ -1,0 +1,136 @@
+#
+#   campaigns
+#
+
+[campaigns]
+
+#
+#   ALIEN STANDARD
+#
+
+[campaigns.alien_resefactionh_early]
+score = 0
+faction = 'aliens'
+tech_startrt = [ ]
+tech_end = [ ]
+regions = { 'north_america' = 10, 'south_america' = 5, 'europe' = 12 }
+
+[[missions]]
+ufo = 'alien_small_scout'
+count = 1
+timer = 9
+[[missions]]
+ufo = 'alien_medium_scout'
+count = 1
+timer = 7
+
+
+
+[campaigns.alien_resefactionh]
+score = 0
+faction = 'aliens'
+tech_startrt = [ ]
+tech_end = [ ]
+regions = { 'north_america' = 10, 'south_america' = 5, 'europe' = 12 }
+
+[[missions]]
+ufo = 'alien_small_scout'
+count = 1
+timer = 9
+[[missions]]
+ufo = 'alien_medium_scout'
+count = 1
+timer = 7
+[[missions]]
+ufo = 'alien_excavator'
+count = 1
+timer = 2
+[[missions]]
+ufo = 'alien_large_scout'
+count = 2
+timer = 9
+[[missions]]
+ufo = 'alien_lab_ship'
+count = 1
+timer = 9
+deployments =  { 'alien_lab_ship_sectoid' = 5, 'alien_lab_ship_floater' = 3, 'alien_lab_ship_muton' = 3 }
+
+#
+#   MAN IN BLACK
+#
+
+[campaigns.mib_supply]
+score = 20
+objective = 5
+faction = 'mib'
+tech_startrt = [ ]
+tech_end = [ ]
+regions = { 'europe' = 12 }
+
+[[missions]]
+ufo = 'mib_engineering_ship'
+count = 1
+timer = 6
+
+
+[campaigns.mib_outpost]
+score = 20
+objective = 2
+faction = 'mib'
+tech_startrt = [ ]
+tech_end = [ ]
+regions = { 'europe' = 12 }
+
+[[missions]]
+ufo = 'mib_engineering_ship'
+count = 1
+timer = 2
+
+
+#
+#   EXALT
+#
+
+[campaigns.exalt_supply]
+score = 20
+objective = 5
+faction = 'exalt'
+tech_startrt = [ ]
+tech_end = [ ]
+regions = { 'north_america' = 12, 'south_america' = 9 }
+
+[[missions]]
+ufo = 'exalt_suppy_ship'
+count = 1
+timer = 6
+
+#
+#   ZOMBIE
+#
+
+[campaigns.zombie_attack]
+score = 20
+faction = 'zombie'
+tech_startrt = [ ]
+tech_end = [ ]
+regions = { 'north_america' = 12, 'south_america' = 9 }
+
+[[missions]]
+site = 'zombie_attack'
+count = 1
+timer = 20
+
+[[missions]]
+site = 'zombie_attack'
+count = 1
+timer = 20
+
+[[missions]]
+site = 'zombie_attack'
+count = 1
+timer = 20
+
+[[missions]]
+site = 'zombie_attack'
+count = 1
+timer = 20
