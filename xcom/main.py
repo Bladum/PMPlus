@@ -269,8 +269,8 @@ class BattleScape(QGraphicsView):
         # Create a timer to handle the fading
         timer = QTimer()
         start_time = 0
-        total_duration = 200  # 2 seconds
-        fade_duration = 150  # Last 0.5 seconds for fading
+        total_duration = 600  # 2 seconds
+        fade_duration = 300  # Last 0.5 seconds for fading
 
         def update_line():
             nonlocal start_time

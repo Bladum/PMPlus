@@ -128,6 +128,8 @@ each tile contains:
 - mission might have many objective, if all are fulfilled then its over
 - mission is always over when all units are dead or surrender
 
+## Battle Mission Objectives
+
 #### Core Objectives
 - Eliminate - Defeat all enemy units (default objective)
 - Escape - Move all units to extraction point
