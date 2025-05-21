@@ -1,0 +1,151 @@
+#
+#   ARMOUR RESISTANCE
+#
+
+[armour_resistance]
+
+kinetic = { name = "Slash", color = "#FF0000", icon = "slash.png" }
+explosive = { name = "Slash",  color = "#FF0000", icon = "slash.png" }
+melee = {}
+laser = {}
+plasma = {}
+warp = {}
+stun = {}
+smoke = {}
+fire = {}
+bio = {}
+acid = {}
+psi = {}
+emp = {}
+
+#
+#  SALARY
+#
+
+[salaries]
+
+soldier = [ 10, 15, 20, 25, 30, 35, 40, 45, 50 ]    # per unit level
+scientist = 60
+engineer = 40
+pilot = 50
+
+#
+#   TILE TERRAIN TYPE
+#
+
+[terrain_resistance]
+
+default = { kinetic = 0.5, explosive = 0.75, fire = 1.0, acid = 1.5, stun = 0, melee = 0.5, laser = 1.0, plasma = 1.0, warp = 1.0, smoke = 0, bio = 0, emp = 0 }
+organic = {}
+plant = {}
+wood = { fire = 2.0, acid = 1.5, stun = 0 }
+metal = {}
+gold = {}
+brick = {}
+stone = {}
+concreate = {}
+sand = {}
+earth = {}
+glass = { kinetic = 2.5, explosive = 2.5 }
+plastic = { fire = 3.0 }
+cotton = {}
+alien_metal = {}
+
+#
+#   BATTLE MAP SIZES
+#
+
+[battlemap_sizes]
+micro = [3, 3]
+small = [ 4, 4]
+medium = [ 5, 5]
+large = [ 6, 6]
+huge = [ 7, 7]
+
+
+#
+#   STARTING BASE
+#
+
+[start_base]
+soldiers = 4
+facilities = [ 'general_stores', 'access_lift', 'hangar', 'hangar', 'HQ', 'corridor', 'living_quarters', 'gym', 'prison' ]
+items = { 'combat_knife' = 2, 'small_shotgun' = 2, 'small_pistol' = 4, 'medipack' = 2, 'flares' = 6 }
+crafts = [ 'car' ]
+
+
+#
+#   ITEM TYPES
+#
+
+[item_types]
+
+craft_systems = 2
+auxiliary = 4
+outfits = 5
+throwing = 10
+bows = 15
+crossbows = 17
+melee = 20
+pistols = 30
+smgs = 40
+shotguns = 50
+rifles = 60
+sniper_rifles = 70
+machine_guns = 80
+cannons = 90
+launchers = 100
+heavy_weapons = 110
+firearms = 120
+mass_driver = 130
+explosives = 140
+incendiaries = 150
+laser = 160
+ion = 165
+plasma = 170
+sonic = 180
+electric = 185
+emp = 188
+chemicals = 190
+bioactive = 191
+anti_e115 = 192
+warp = 193
+psi = 198
+incapacitate = 200
+smoke = 210
+clips = 220
+grenades = 230
+medical = 240
+equipment = 250
+accessories = 255
+junk = 265
+shields = 267
+other = 270
+land = 340
+underwater = 350
+space = 360
+dream = 380
+concealable = 400
+labor = 405
+sports = 410
+beach = 415
+religious = 420
+human_tech = 500
+xcom_tech = 510
+alien_tech = 520
+tleth_tech = 522
+shogg_tech = 525
+dimension_x_tech = 530
+wrecks = 800
+corpses = 810
+robots = 900
+humans = 910
+beasts = 920
+demons = 920
+ghosts = 920
+alien_specimens = 930
+evidence = 960
+hulls = 970
+components = 980
+built_ins = 998
+blanks = 999

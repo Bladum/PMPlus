@@ -1,0 +1,33 @@
+#
+#   WORLDS
+#
+#       list of worlds
+#
+
+[worlds]
+
+[worlds.earth]
+name = "Earth"
+description = "The home planet of humanity, Earth is a diverse and vibrant world filled with life and culture."
+size = [ 80, 40 ]
+map = "earth_map.tmx"
+countries = true
+bases = true
+factions = true
+regions = true
+
+tech_needed = [ ]
+
+
+
+
+[worlds.mars]
+name = "Mars"
+description = "The red planet, Mars is a barren and desolate world with a harsh environment."
+size = [ 40, 20 ]
+map = "mars_map.tmx"
+countries = false
+factions = true
+regions = false
+bases = false
+tech_needed = [ 'mars_terraforming' ]

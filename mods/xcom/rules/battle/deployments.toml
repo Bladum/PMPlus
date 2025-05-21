@@ -1,0 +1,59 @@
+#
+#   UNIT_DEPLOYMENTS
+#
+
+[deployments]
+
+#
+#   ALIENS
+#
+
+# SMALL SCOUT
+
+[deployments.small_scout_sectoid]
+effect = 'insanity_small'
+civilians = 10
+
+[[units]]
+qty_low = 1
+qty_high = 2
+units = { 'sectoid_soldier_1' = 3, 'sectoid_soldier_2' = 2, 'sectoid_soldier_3' = 1 }
+outside_ufo = 0.5
+
+[[units]]
+qty_low = 1
+qty_high = 3
+units = { 'sectoid_medic_1' = 3, 'sectoid_medic_2' = 2, 'sectoid_medic_3' = 1 }
+outside_ufo = 0.5
+
+
+[deployments.small_scout_floater]
+effect = 'insanity_small'
+
+[[units]]
+qty_low = 1
+qty_high = 2
+units = { 'floater_soldier_1' = 3, 'floater_soldier_2'  = 2, 'floater_soldier_3' = 1 }
+outside_ufo = 0.5
+
+[[units]]
+qty_low = 1
+qty_high = 3
+units = { 'floater_medic_1' = 3, 'floater_medic_2' = 3, 'floater_medic_3' = 3 }
+outside_ufo = 0.5
+
+
+[deployments.small_scout_muton]
+
+# MEDIUM SCOUT
+
+[deployments.medium_scout_sectoid]
+[deployments.medium_scout_floater]
+[deployments.medium_scout_muton]
+
+
+# LARGE SCOUT
+
+[deployments.large_scout_sectoid]
+[deployments.large_scout_floater]
+[deployments.large_scout_muton]

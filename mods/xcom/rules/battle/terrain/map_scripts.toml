@@ -1,0 +1,95 @@
+#
+#   BATTLE SCAPE MAP SCRIPTS
+#
+
+[map_scripts]
+
+# ------------------------------------------------------------ FARMLAND
+
+[map_scripts.farmland]
+
+[[steps]]
+type = 'add_line'
+group = 1
+label = 1
+direction = 'vertical'
+chance = 0.2
+
+[[steps]]
+type = 'add_line'
+group = 2
+label = 2
+condition = [-1]
+direction = 'horizontal'
+chance = 0.2
+
+[[steps]]
+type = 'add_line'
+group = 3
+label = 3
+condition = [ -1, -2 ]
+direction = 'both'
+chance = 0.2
+
+[[steps]]
+type = 'add_block'
+group = 0
+size = 3
+chance = 0.75
+
+[[steps]]
+type = 'add_block'
+group = 0
+size = 2
+runs = 2
+chance = 0.75
+
+[[steps]]
+type = 'fill_block'
+group = 0
+size = 1
+
+[[steps]]
+type = 'add_ufo'
+
+[[steps]]
+type = 'add_craft'
+
+# ------------------------------------------------------------ POLARS
+
+[map_scripts.polar]
+
+[[steps]]
+type = 'add_block'
+size = 3
+chance = 0.50
+
+[[steps]]
+type = 'add_block'
+size = 2
+chance = 0.50
+
+[[steps]]
+type = 'fill_block'
+group = 0
+size = 1
+
+[[steps]]
+type = 'add_ufo'
+
+[[steps]]
+type = 'add_craft'
+
+# ------------------------------------------------------------ REPORTID BASE
+
+[map_scripts.reptoid_surface_base]
+
+[[steps]]
+type = 'add_ufo'
+ufo = 'ufo_small_scout'
+chance = 0.35
+
+[[steps]]
+type = 'fill_block'
+group = 0
+size = 1

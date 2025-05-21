@@ -1,0 +1,22 @@
+[[tilesets]]
+name = 'urban_port'
+
+id,	x, y, name, 		type,	mcost,	msfx,	dead,	arm, 	dsfx, 	mat
+0,	0, 0, Blank,		0, 	  	1,		step,	-1		1000,	-1,		earth
+1,	0, 1, Road, 		0,		1,		step,	0,		8,		-1,		earth
+2, 	0, 2, Grass, 		0		1, 		grass, 	2		4,		-1, 	plant
+14, 1, 4, Barrel, 		1, 		0, 		-1, 	-1, 	6		metal,	metal,
+
+
+---------------------------------------------------------------
+
+duże mapy np budunki wielopoziomowe
+-> robie jaki kilka budynków jednopoziomych
+
+tereny poza city jak np jungle
+    -> robie higher level (ale tylko jeden poziom)
+    -> robie duzo roznych przeszkadzajek jak drzewka / kamienie / krzaki etc
+
+duże ufo ktore normalnie jest wielopoziomowe
+    -> robie jeszcze wieksze płaskie i max wykorzystuje bloki np 45x45
+    -> da sie zrobic duzy battleship na 3x3 bloki i jeden poziom

@@ -1,0 +1,1080 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "xbas/xbase10.tmx",
+    "expandedProjectPaths": [
+        "xbas",
+        "world",
+        "tiles",
+        "units",
+        "culta",
+        "ufo",
+        "desert",
+        "polar",
+        "."
+    ],
+    "fileStates": {
+        "C:/Users/tombl/Documents/XCOM/other/biomes.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farm_001.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farm_002.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farm_003.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farm_new_17.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 119,
+                "y": 119.83333333333334
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farm_new_18.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farm_new_18B.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 120.07489078427294
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/farmland.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/tombl/Documents/XCOM/other/pcx_blank.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/tombl/Documents/XCOM/other/urban_port_01.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 120.06940427993061
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/world_earth.tmx": {
+            "scale": 0.6808333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 719.7062423500613,
+                "y": 359.8531211750306
+            }
+        },
+        "C:/Users/tombl/Documents/XCOM/other/xcom_units.tsx": {
+            "scaleInDock": 1
+        },
+        "culta/culta00.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta01.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 218.6234817813765
+            }
+        },
+        "culta/culta02.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 218.6234817813765
+            }
+        },
+        "culta/culta03.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta04.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 218.6234817813765
+            }
+        },
+        "culta/culta05.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta06.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta07.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta08.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta09.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993061,
+                "y": 119.89589358010412
+            }
+        },
+        "culta/culta10.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993061,
+                "y": 119.89589358010412
+            }
+        },
+        "culta/culta11.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993061,
+                "y": 119.89589358010412
+            }
+        },
+        "culta/culta12.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta13.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 218.6234817813765
+            }
+        },
+        "culta/culta14.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 120.06940427993061
+            }
+        },
+        "culta/culta15.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta16.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 120.06940427993061,
+                "y": 119.89589358010412
+            }
+        },
+        "culta/culta16B.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta17.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 119.7223828802776
+            }
+        },
+        "culta/culta18.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta18B.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/culta30.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 79.5,
+                "y": 183.5
+            }
+        },
+        "culta/culta31.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 120.07489078427294
+            }
+        },
+        "culta/culta32.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 88,
+                "y": 127.5
+            }
+        },
+        "culta/culta33.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 120.07489078427294
+            }
+        },
+        "culta/culta34.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 120.07489078427294
+            }
+        },
+        "culta/cultaact00.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/cultaact01.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/cultaact02.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 102.33333333333331,
+                "y": 166
+            }
+        },
+        "culta/cultaact02B.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 120.06940427993061
+            }
+        },
+        "culta/cultabig01.tmx": {
+            "scale": 1.4408333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 240.13880855986125,
+                "y": 338.6928860613071
+            }
+        },
+        "culta/cultabig02.tmx": {
+            "scale": 1.4408333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 240.13880855986125,
+                "y": 338.6928860613071
+            }
+        },
+        "culta/cultabig03.tmx": {
+            "scale": 1.4408333333333332,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 240.13880855986125,
+                "y": 338.6928860613071
+            }
+        },
+        "culta/cultabig04.tmx": {
+            "scale": 1.4408333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 240.13880855986125,
+                "y": 338.6928860613071
+            }
+        },
+        "culta/cultafarm00.tmx": {
+            "scale": 1.4408333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 240.13880855986125,
+                "y": 338.6928860613071
+            }
+        },
+        "culta/cultafarm17.tmx": {
+            "scale": 1.4408333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 240.13880855986125,
+                "y": 338.6928860613071
+            }
+        },
+        "culta/cultaroad01.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/cultaroad02.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.5
+            }
+        },
+        "culta/cultaroad03.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 119.7223828802776
+            }
+        },
+        "culta/farm.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "culta/farm00.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/farm01.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/farm10.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/farm11.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/farm12.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120.06940427993062,
+                "y": 169.34644303065355
+            }
+        },
+        "culta/units.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "culta00.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 104.83333333333333,
+                "y": 126.33333333333334
+            }
+        },
+        "culta01.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 81.83333333333333,
+                "y": 156.33333333333334
+            }
+        },
+        "culta02.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 105.83333333333333,
+                "y": 145.33333333333334
+            }
+        },
+        "culta03.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 91.83333333333333,
+                "y": 172.33333333333334
+            }
+        },
+        "culta04.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 130.16666666666666,
+                "y": 115.66666666666664
+            }
+        },
+        "culta05.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 152.1531100478469,
+                "y": 120.07489078427294
+            }
+        },
+        "culta06.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.83333333333334
+            }
+        },
+        "culta07.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "culta08.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.83333333333334
+            }
+        },
+        "culta09.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "culta10.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "culta11.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.75
+            }
+        },
+        "culta12.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.83333333333334
+            }
+        },
+        "culta13.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.83333333333334
+            }
+        },
+        "culta14.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 85.5,
+                "y": 117
+            }
+        },
+        "culta15.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.75
+            }
+        },
+        "culta16.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 62.16666666666666,
+                "y": 138.33333333333334
+            }
+        },
+        "culta16B.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 99,
+                "y": 177.33333333333334
+            }
+        },
+        "culta17.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 26.25,
+                "y": 163
+            }
+        },
+        "culta18.tmx": {
+            "scale": 1.9,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 262.36842105263156,
+                "y": 199.47368421052633
+            }
+        },
+        "culta18B.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 99,
+                "y": 177.33333333333334
+            }
+        },
+        "cultaact00.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 129.83333333333331,
+                "y": 118.33333333333334
+            }
+        },
+        "cultaact01.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 98.75,
+                "y": 127.5
+            }
+        },
+        "cultaact02.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 115.25,
+                "y": 166.5
+            }
+        },
+        "cultaact02B.tmx": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.75
+            }
+        },
+        "cultabig01.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 141.16666666666669,
+                "y": 93.33333333333334
+            }
+        },
+        "cultabig02.tmx": {
+            "scale": 2.0029166666666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 239.90014562096945,
+                "y": 240.14978156854588
+            }
+        },
+        "cultabig03.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 190.33333333333331,
+                "y": 256.6666666666667
+            }
+        },
+        "cultabig04.tmx": {
+            "scale": 4,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 137.125,
+                "y": 355.75
+            }
+        },
+        "cultafarm00.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 265.66666666666663,
+                "y": 216
+            }
+        },
+        "cultafarm17.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 246.33333333333331,
+                "y": 234
+            }
+        },
+        "cultaroad01.tmx": {
+            "scale": 3.677291666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06118633505187,
+                "y": 119.92521670160333
+            }
+        },
+        "cultaroad02.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 122.25,
+                "y": 192
+            }
+        },
+        "cultaroad03.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 122.25,
+                "y": 192
+            }
+        },
+        "desert.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "desert/desert.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "desert/desert01.tmx": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.75
+            }
+        },
+        "desert/desert05.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "desert/desert06.tmx": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.75
+            }
+        },
+        "desert/desert07.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "desert/farm.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "desert05.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.83333333333334
+            }
+        },
+        "farm.tmx": {
+            "scale": 2.8816666666666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06940427993061,
+                "y": 70.61885482938115
+            }
+        },
+        "farm.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 3,
+            "scaleInEditor": 5.5
+        },
+        "farm00.tmx": {
+            "scale": 3.677291666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06118633505187,
+                "y": 119.92521670160333
+            }
+        },
+        "farm01.tmx": {
+            "scale": 3.677291666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06118633505187,
+                "y": 119.92521670160333
+            }
+        },
+        "farm10.tmx": {
+            "scale": 3.677291666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06118633505187,
+                "y": 119.92521670160333
+            }
+        },
+        "farm11.tmx": {
+            "scale": 3.677291666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.06118633505187,
+                "y": 119.92521670160333
+            }
+        },
+        "farm12.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 124.83333333333333,
+                "y": 115.33333333333334
+            }
+        },
+        "polar/polar01.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.9500728104847
+            }
+        },
+        "polar/polar08.tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 119.82525483669649
+            }
+        },
+        "polar/polar09.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 151.33333333333331,
+                "y": 120.33333333333334
+            }
+        },
+        "polar/polar14.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 239.5,
+                "y": 121
+            }
+        },
+        "polar/polar15.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 279.3333333333333,
+                "y": 121.33333333333334
+            }
+        },
+        "polar/polar16.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 279.3333333333333,
+                "y": 121.33333333333334
+            }
+        },
+        "tiles/desert.tsx": {
+            "scaleInDock": 4
+        },
+        "tiles/farm.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 3
+        },
+        "tiles/polar.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tiles/ufo.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "tiles/xbase.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "ufo/ufo.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "ufo/ufo01.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 239.5,
+                "y": 121
+            }
+        },
+        "ufo/ufo02.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 134.66666666666669,
+                "y": 159.66666666666663
+            }
+        },
+        "units.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "units/units.tsx": {
+            "scaleInDock": 1
+        },
+        "xbas/xbase00.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 79,
+                "y": 138.5
+            }
+        },
+        "xbas/xbase01.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "xbas/xbase02.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "xbas/xbase03.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 138.99999999999997,
+                "y": 135.33333333333334
+            }
+        },
+        "xbas/xbase04..tmx": {
+            "scale": 4.005833333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.07489078427292,
+                "y": 120.07489078427294
+            }
+        },
+        "xbas/xbase04.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 93.66666666666666,
+                "y": 115
+            }
+        },
+        "xbas/xbase05.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "xbas/xbase06.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "xbas/xbase07.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 85.33333333333331,
+                "y": 129.66666666666663
+            }
+        },
+        "xbas/xbase08.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "xbas/xbase09.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 119.99999999999999,
+                "y": 119.66666666666664
+            }
+        },
+        "xbas/xbase10.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 95.33333333333331,
+                "y": 116
+            }
+        },
+        "xbas/xbase11.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 95.33333333333331,
+                "y": 116
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/tombl/Documents/XCOM/mods/xcom/tiles/xbas",
+    "last.externalTilesetPath": "C:/Users/tombl/Documents/XCOM/mods/xcom/tiles/tiles",
+    "last.imagePath": "C:/Users/tombl/Documents/XCOM/mods/xcom/tiles/tiles",
+    "last.worldFilePath": "C:/Users/tombl/Documents/XCOM/mods/xcom/tiles",
+    "loadedWorlds": [
+        "C:/Users/tombl/Documents/XCOM/mods/xcom/tiles/farm.world"
+    ],
+    "map.height": 15,
+    "map.lastUsedExportFilter": "Wszystkie pliki (*)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 15,
+    "openFiles": [
+        "xbas/xbase06.tmx",
+        "xbas/xbase00.tmx",
+        "xbas/xbase11.tmx",
+        "xbas/xbase01.tmx",
+        "xbas/xbase09.tmx",
+        "xbas/xbase08.tmx",
+        "xbas/xbase07.tmx",
+        "xbas/xbase10.tmx"
+    ],
+    "project": "xcom.tiled-project",
+    "recentFiles": [
+        "xbas/xbase06.tmx",
+        "xbas/xbase00.tmx",
+        "xbas/xbase11.tmx",
+        "xbas/xbase01.tmx",
+        "xbas/xbase09.tmx",
+        "xbas/xbase08.tmx",
+        "xbas/xbase07.tmx",
+        "xbas/xbase10.tmx",
+        "polar/polar09.tmx",
+        "xbas/xbase02.tmx",
+        "xbas/xbase03.tmx",
+        "xbas/xbase04.tmx"
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 1,
+    "tileset.spacing": 2,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

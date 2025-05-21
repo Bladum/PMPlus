@@ -1,0 +1,252 @@
+#
+#   TERRAINS -> set of map blocks
+#
+#
+#   map blocks group
+#       0 - default
+#       1 - landing zone for xcom / ufo
+#       2 - road A
+#       3 - road B
+#       4 - road AB
+
+[terrains]
+
+
+# --------------------------------------------------------- FARMLANDS
+
+
+[terrains.farmland]
+name = "Farmland"
+description = "A fertile area of land used for agriculture, farmland is home to a variety of crops and livestock."
+tileset = 'farmland'
+script = "farmland"
+units_civilian = [ "farmer_01", "farmer_02", "farmer_03" ]
+
+[[map_blocks]]
+name = "farm_01"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "farm_02"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "farm_03"
+size = 1
+group = 0
+chance = 5
+
+
+# --------------------------------------------------------- FARMLAND WARM
+
+
+[terrains.farmland_warm]
+name = "Farmland warm climate"
+description = "Desc"
+tileset = 'farmland'
+script = "farmland_warm"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- FOREST
+
+
+[terrains.forest]
+name = "Forest"
+description = "Desc"
+tileset = 'forest'
+script = "forest"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+[[map_blocks]]
+name = "forest_01"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "forest_02"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "forest_03"
+size = 1
+group = 0
+chance = 5
+
+
+# --------------------------------------------------------- FOREST SNOW
+
+
+[terrains.forest_snow]
+name = "Forest with snow"
+description = "Desc"
+tileset = 'forest'
+script = "forest"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+[[map_blocks]]
+name = "forest_01"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "forest_02"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "forest_03"
+size = 1
+group = 0
+chance = 5
+
+
+# --------------------------------------------------------- DESERT
+
+
+[terrains.desert]
+name = "Sand desert"
+description = "Desc"
+tileset = 'desert'
+script = "desert"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- MARS
+
+
+[terrains.mars]
+name = "Mars planet"
+description = "Desc"
+tileset = 'mars'
+script = "mars"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- MOUNTAINS
+
+
+[terrains.mountains]
+name = "Empty Mountains"
+description = "Desc"
+tileset = 'mountains'
+script = "mountains"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- POLAR
+
+
+[terrains.polar]
+name = "Poland / Tundra"
+description = "Desc"
+tileset = 'polar'
+script = "polar"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- JUNGLE
+
+
+[terrains.jungle]
+name = "Jungle / Wetlands"
+description = "Desc"
+tileset = 'jungle'
+script = "jungle"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- URBAM HOUSING
+
+
+[terrains.urban_house]
+name = "Urbam housing"
+description = "Desc"
+tileset = 'urban_house'
+script = "urban_house"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- URBAM COMMERCIAL
+
+
+[terrains.urban_commercial]
+name = "Urbam comercial"
+description = "Desc"
+tileset = 'urban_commercial'
+script = "urban_commercial"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- URBAM INDUSTRIAL
+
+
+[terrains.urban_industrial]
+name = "Urbam industrial"
+description = "Desc"
+tileset = 'urban_industrial'
+script = "urban_industrial"
+units_civilian = [ "male_01", "male_02", "male_03" ]
+
+
+# --------------------------------------------------------- XCOM BASE
+
+
+[terrains.xbase]
+name = "XCOM Base"
+description = "Desc"
+tileset = 'xbase'
+script = "xbase"
+
+
+
+
+
+# --------------------------------------------------------- ALIEN BASE
+
+
+[terrains.abase]
+name = "Alien Base"
+description = "Desc"
+tileset = 'abase'
+script = "abase"
+
+[[map_blocks]]
+name = "abase_01"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "abase_02"
+size = 1
+group = 0
+chance = 5
+
+[[map_blocks]]
+name = "abase_03"
+size = 1
+group = 0
+chance = 5
+items = { item_golden_x = [4, 5] }
+units = { unit_turret = [4, 5] }
+show = true
+
+
+# --------------------------------------------------------- XCOM CRAFT
+
+
+[terrains.xcraft]
+name = "XCOM craft"
+description = "Desc"
+tileset = 'xcraft'
+script = "xcraft"

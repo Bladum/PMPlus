@@ -1,0 +1,67 @@
+#
+#   CRAFT ITEMS
+#
+
+[craft_items]
+
+[craft_items.cannon]
+name = "Cannon"
+description = "A basic cannon for use on vehicles, the cannon is powerful and accurate."
+pedia = "pedia_craft_item_cannon"
+sprite = 'craft_item_cannon.png'
+sound = 'cannon_fire'
+
+tech_needed = []
+
+sell_cost = 10
+reload_cost = 1
+reload_time = 1
+
+damage = 1
+accuracy = 0.2
+range = 1
+ammo = 50
+size = 1
+rate = 8
+rearm_rate = 25
+
+underwater = false
+
+
+[craft_items.stingray]
+name = "Stingray"
+description = "A basic missile for use on vehicles, the stingray is fast and agile."
+pedia_image = "pedia_craft_item_stringray"
+
+tech_needed = []
+
+sell_cost = 40
+reload_cost = 5
+reload_time = 1
+
+damage = 6
+accuracy = 0.6
+range = 2
+ammo = 6
+size = 2
+rate = 2
+
+
+
+[craft_items.avallanche]
+name = "Avallanche"
+description = "A complex missile for use on vehicles, the stingray is fast and agile."
+pedia_image = "pedia_craft_item_avallanche"
+
+tech_needed = []
+
+sell_cost = 80
+reload_cost = 15
+reload_time = 1
+
+damage = 20
+accuracy = 0.4
+range = 3
+ammo = 3
+size = 3
+rate = 1

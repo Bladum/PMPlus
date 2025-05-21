@@ -1,0 +1,160 @@
+#
+#   TILESETS
+#
+
+[tilesets]
+
+#
+#   crafts
+#
+
+[tilesets.xcraft]
+name = "XCOM Craft"
+file = "xcraft.png"
+
+[tilesets.ufo]
+name = "Alien ufo"
+file = "ufo.png"
+
+#
+#   base
+#
+
+[tilesets.xbase]
+name = "XCOM Base"
+file = "xbase.png"
+
+[tilesets.abase]
+name = "Alien base"
+file = "abase.png"
+
+[tilesets.mibbase]
+name = "Man in Black base"
+file = "mibbase.png"
+
+[tilesets.redbase]
+name = "Red Dawn base"
+file = "redbase.png"
+
+[tilesets.cultbase]
+name = "Cultist base"
+file = "cultbase.png"
+
+[tilesets.lotusbase]
+name = "Lotus base"
+file = "lotusbase.png"
+
+#
+#   biomes
+#
+
+
+[tilesets.farmland]
+name = "Farmland"
+file = "farmland.png"
+
+[tilesets.polar]
+name = "Polar"
+file = "polar.png"
+
+[tilesets.desert]
+name = "Desert"
+file = "desert.png"
+
+[tilesets.mountain]
+name = "Mountain"
+file = "mountains.png"
+
+[tilesets.mountain_snow]
+name = "Mountain Snow"
+file = "mountain_snow.png"
+
+[tilesets.forest]
+name = "Forest"
+file = "forest.png"
+
+[tilesets.forest_snow]
+name = "Forest snow - tajga"
+file = "forest_snow.png"
+
+[tilesets.jungle]
+name = "Jungle"
+file = "jungle.png"
+
+#
+#   special biomes
+#
+
+
+[tilesets.piramids]
+name = "Desert piramids"
+file = "piramids.png"
+
+[tilesets.undeground]
+name = "Underground"
+file = "underground.png"
+
+
+#
+#   special tilesets
+#
+
+
+[tilesets.island]           # map surounded by water
+name = "Island"
+file = "island.png"
+
+[tilesets.ship_cargo]       # map 8x3
+name = "Cargo ship"
+file = "ship_cargo.png"
+
+[tilesets.ship_cruise]      # map 8x3
+name = "Cruise ship"
+file = "ship_cruise.png"
+
+
+#
+#   other planets
+#
+
+
+[tilesets.mars]
+name = "Mars"
+file = "mars.png"
+
+[tilesets.moon]
+name = "Moon"
+file = "moon.png"
+
+#
+#   human cities
+#
+
+
+[tilesets.urban_house]
+name = "Urban house"
+file = "urban_house.png"
+
+[tilesets.urban_commercial]
+name = "Urban commercial"
+file = "urban_commercial.png"
+
+[tilesets.urban_port]
+name = "Urban port"
+file = "urban_port.png"
+
+[tilesets.urban_industrial]
+name = "Urban industrial"
+file = "urban_industrial.png"
+
+[tilesets.urban_village]
+name = "Urban village"
+file = "urban_village.png"
+
+[tilesets.urban_hotel]
+name = "Urban hotel"
+file = "urban_hotel.png"
+
+[tilesets.urban_slums]
+name = "Urban slums"
+file = "urban_slums.png"

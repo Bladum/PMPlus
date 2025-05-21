@@ -1,0 +1,21 @@
+#
+#   SKILLS FOR UNITS
+#
+#   TYPE
+#       4 is for special awards aka medals
+#
+
+[medals]
+
+# MEDALS
+
+
+[medals.medal_night_ops]
+name = "Medal for nigh operations"
+icon = 'nightops.png'
+races = [ "human", 'hybrid' ]
+type = 4
+description = "Medal for nigh operations"
+stats = { sight = [ 0, 1 ], cover = [0, 1], sanity = 1 }
+
+

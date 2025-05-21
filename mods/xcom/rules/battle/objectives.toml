@@ -1,0 +1,65 @@
+#
+#   OBJECTIVES
+#
+
+[objectives]
+
+# CORE
+
+[objectives.eliminate]
+desc = "Defeat all enemy units (default objective)"
+
+[objectives.escape]
+desc = "Move all xcom units to extraction point"
+
+# TIME LIMITED
+
+[objectives.hold]
+desc = "Survive for specified number of turns"
+
+[objectives.blitz]
+desc = "Eliminate all enemies before specific number of turns"
+
+# TERRITORY CONTROL
+
+[objectives.defend]
+desc = "Prevent enemies from capturing marked POC"
+
+[objectives.conquer]
+desc = "Conquer marked POC from enemy forces"
+
+[objectives.explore]
+desc = "Reveal specified percentage of the map"
+
+# UNITS
+
+[objectives.rescue]
+desc = "Locate friendly units and escort them to extraction point"
+
+[objectives.capture]
+desc = "Capture alive specific units"
+
+[objectives.hunt]
+desc = "Eliminate specific units"
+
+[objectives.recon]
+desc = "Identify/mark specific enemy units without engaging"
+
+[objectives.protect]
+desc = "Ensure specific units survive the mission"
+
+# OBJECTS
+
+[objectives.sabotage]
+desc = "Destroy designated objects"
+
+[objectives.retrieve]
+desc = "Collect designated objects"
+
+# OTHER
+
+[objectives.escort]
+desc = "Protect moving target as it travels across the map"
+
+[objectives.ambush]
+desc = "Set up position and eliminate enemy patrol/convoy"

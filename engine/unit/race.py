@@ -1,0 +1,60 @@
+class TRace:
+    """
+    Represents race = type of unit and its basic stats
+    """
+
+    def __init__(self, race_id, data):
+        self.id = race_id
+        self.name = data.get('name', race_id)
+        self.description = data.get('description', '')
+        self.icon = data.get('icon', '')
+        self.size = data.get('size', 1.0)
+        self.is_big = data.get('is_big', False)
+        self.is_mechanical = data.get('is_mechanical', False)
+        self.gain_experience = data.get('gain_experience', True)
+
+        self.sound_death = data.get('sound_death', None)
+        self.corpse_image = data.get('corpse_image', None)
+
+        # Stats
+        self.speed = data.get('speed', 0)
+        self.health = data.get('health', 0)
+        self.health_regen = data.get('health_regen', 0)
+        self.energy = data.get('energy', 0)
+        self.strength = data.get('strength', 0)
+        self.reaction = data.get('reaction', 0)
+        self.melee = data.get('melee', 0)
+        self.aim = data.get('aim', 0)
+        self.psi = data.get('psi', 0)
+        self.will = data.get('will', 0)
+        self.sanity = data.get('sanity', 0)
+        self.sight = data.get('sight', [0, 0])
+        self.sense = data.get('sense', [0, 0])
+        self.cover = data.get('cover', [0, 0])
+
+        # AI behavior
+        self.aggression = data.get('aggression', 0.0)
+        self.intelligence = data.get('intelligence', 0.0)
+
+        # Abilities and immunities
+        self.immune_panic = data.get('immune_panic', False)
+        self.immune_pain = data.get('immune_pain', False)
+        self.immune_bleed = data.get('immune_bleed', False)
+        self.can_run = data.get('can_run', True)
+        self.can_kneel = data.get('can_kneel', True)
+        self.can_sneak = data.get('can_sneak', True)
+        self.can_surrender = data.get('can_surrender', False)
+        self.can_capture = data.get('can_capture', False)
+        self.spawn_on_death = data.get('spawn_on_death', None)
+        self.avoids_fire = data.get('avoids_fire', False)
+
+        # Combat roles
+        self.spotter = data.get('spotter', 0)
+        self.sniper = data.get('sniper', 0)
+
+        # Purchase info
+        self.sell_cost = data.get('sell_cost', 0)
+        self.female_frequency = data.get('female_frequency', 0.0)
+        self.level_max = data.get('level_max', 0)
+        self.level_train = data.get('level_train', 0)
+        self.level_start = data.get('level_start', 0)
