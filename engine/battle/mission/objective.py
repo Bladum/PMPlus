@@ -25,7 +25,7 @@ OBJECTIVE_TYPES = [
     "ambush",
 ]
 
-class BattleObjective:
+class TBattleObjective:
     """
     Represents a single mission objective for the battle.
     type: e.g. 'eliminate', 'escape', 'hold', 'defend', 'rescue', etc.

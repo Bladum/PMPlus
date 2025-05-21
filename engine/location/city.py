@@ -1,6 +1,8 @@
 from engine.globe.location import TLocation
 
 
+# TODO if city is inside a country then it can contain country specific elements e.g. units or tiles
+
 class TCity(TLocation):
     """
     Represents a city on the world map as location

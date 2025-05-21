@@ -1,7 +1,7 @@
 from engine.battle.map.battle_generator import TBattleGenerator
 from engine.battle.tile.battle_tile import TBattleTile
 from engine.unit.unit import TUnit
-from engine.battle.mission.objective import BattleObjective
+from engine.battle.mission.objective import TBattleObjective
 
 
 class TBattle:
@@ -44,7 +44,7 @@ class TBattle:
         self.turn = 1
 
         # Mission objectives
-        self.objectives: list[BattleObjective] = []
+        self.objectives: list[TBattleObjective] = []
 
     def add_unit(self, unit: TUnit, side: int, x: int, y: int):
         """Adds a unit to the battle on a given side and position."""

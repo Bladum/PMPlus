@@ -35,6 +35,9 @@ class TItemType:
         self.unit_range = data.get('unit_range', 0)
         self.unit_ammo = data.get('unit_ammo', 0)
         self.unit_action_point = data.get('unit_action_point', 2)
+        # Ammo/reload details after battle / when move to base
+        self.unit_rearm_cost = data.get('unit_rearm_cost', 0)       # after battle, as monthly report
+        self.unit_rearm_item = data.get('unit_rearm_item', None)    # after battle
 
         # Armor stats
         self.armour_defense = data.get('armour_defense', 0)
@@ -52,7 +55,10 @@ class TItemType:
         self.craft_range = data.get('craft_range', 0)
         self.craft_ammo = data.get('craft_ammo', 0)
         self.craft_size = data.get('craft_size', 1)     # small or large
-        self.craft_action_point = data.get('craft_action_point', 0)
+        self.craft_action_point = data.get('craft_action_point', 1)
+        self.craft_rearm_time = data.get('craft_rearm_time', 1)           # time to reload craft
+        self.craft_rearm_cost = data.get('craft_rearm_cost', 0)           # time to reload craft
+        self.craft_reload_time = data.get('craft_reload_time', 0)           # time to reload weapon during battle
 
         # Manufacturing info
         self.manufacture_tech = data.get('manufacture_tech', [])
@@ -61,9 +67,7 @@ class TItemType:
         self.purchase_tech = data.get('purchase_tech', [])
         self.sell_cost = data.get('sell_cost', 0)
 
-        # Ammo/reload details after battle / when move to base
-        self.reload_cost = data.get('reload_cost', 0)       # after battle, as monthly report
-        self.reload_item = data.get('reload_item', None)    # after battle
+
 
         # Special properties
         self.effects = data.get('effects', {})

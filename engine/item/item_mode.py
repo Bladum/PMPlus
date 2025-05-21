@@ -1,0 +1,4 @@
+
+
+class TWeaponMode:
+    pass

@@ -20,21 +20,21 @@ class TGame:
 
     def __init__(self):
         # World map: tiles, countries, regions, biomes, locations
-        self.worldmap = None  # type: TWorld
+        self.worldmap : TWorld = None
+
         # Current campaigns, missions, and campaign generator
-        self.campaigns = []  # type: list[TCampaign]
+        self.campaigns : list[TCampaign] = []
+
         # Calendar for date, turn, and event triggers
-        self.calendar = None  # type: TCalendar
+        self.calendar : TCalendar = None
+
         # XCOM budget, funding, and scoring
         self.budget = 0
         self.funding = 0
         self.scoring = 0
+
         # Global research tree
-        self.research_tree = None  # type: TResearchTree
-        # Global transfer list
-        self.transfer_list = []  # type: list[TTransfer]
-        # Factions and diplomacy/relations
-        self.factions = []  # type: list[TFaction]
-        self.diplomacy = {}  # type: dict[str, int]
+        self.research_tree : TResearchTree = None
+
         # Loaded mod data (e.g., item stats)
-        self.mod_data = None  # type: TMod
+        self.mod:TMod = None

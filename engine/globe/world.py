@@ -1,4 +1,6 @@
+from economy.transfer import TTransfer
 from engine.globe.world_tile import TWorldTile
+from lore.faction import TFaction
 
 
 class TWorld:
@@ -24,6 +26,13 @@ class TWorld:
 
         # Access to world via requirements
         self.tech_start = data.get('tech_start', [])
+
+        # Global transfer list
+        self.transfer_list = list[TTransfer]
+
+        # Factions and diplomacy/relations
+        self.factions : list[TFaction] = []
+        self.diplomacy : dict[str, int] = {}
 
     def get_day_night_map(self, day_of_month):
         """
