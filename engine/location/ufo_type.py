@@ -2,9 +2,11 @@ class TUfoType:
     """
     Represents a type of UFO with all its parameters and stats.
     """
-    def __init__(self, ufo_id, data):
-        self.id = ufo_id
-        self.name = data.get('name', ufo_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+
+        self.name = data.get('name', pid)
+
         self.pedia = data.get('pedia', '')
         self.vessel = data.get('vessel', '')        # image during dogfight
         self.marker = data.get('marker', 'alien')   # image on geoscape

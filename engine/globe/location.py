@@ -5,9 +5,10 @@ class TLocation:
     Single location on world map, it could be a base, a city, a UFO crash site
     it may or may not be detected by xcom
     """
-    def __init__(self, loc_id,  data : dict = {}):
+    def __init__(self, pid,  data : dict = {}):
         # Required fields
-        self.loc_id = loc_id
+        self.pid = pid
+
         self.name = data.get("name", "")
         self.description = data.get("description", "")
         pos = data.get("position", [])

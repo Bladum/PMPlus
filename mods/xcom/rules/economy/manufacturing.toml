@@ -9,6 +9,7 @@
 #
 
 [manufacturing.laser_cannon]
+name = "Laser Cannon"
 category = 'craft_weapon'
 tech_needed = [ 'laser_cannon']
 build_time = 300
@@ -18,6 +19,7 @@ items_build = { 'laser_cannon' = 1 }
 
 
 [manufacturing.plasma_beam]
+name = "Plasma Beam"
 category = 'craft_weapon'
 tech_needed = [ 'plasma_cannon']
 build_time = 500
@@ -30,6 +32,7 @@ items_build = { 'plasma_beam' = 1 }
 
 
 [manufacturing.heavy_plasma]
+name = "Heavy Plasma"
 category = 'unit_weapon'
 tech_needed = [ 'heavy_plasma' ]
 build_time = 1000
@@ -43,6 +46,7 @@ items_build = { 'heavy_plasma' = 1 }
 #
 
 [manufacturing.craft_avenger]
+name = "Avenger"
 category = 'craft'
 tech_needed = [ 'ultimate_craft' ]
 build_time = 34000
@@ -56,6 +60,7 @@ craft_build = { 'craft_avenger' = 1 }
 #
 
 [manufacturing.personal_armour]
+name = "Personal Armour"
 category = 'unit_armour'
 tech_needed = [ 'personal_armour' ]
 build_time = 800

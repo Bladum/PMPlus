@@ -9,6 +9,7 @@
 #
 
 [units.xcom_soldier]
+name = "XCOM Soldier"
 race = 'human'
 rank = 0
 skills = [  ]
@@ -30,6 +31,7 @@ vip = false
 #
 
 [units.sectoid_soldier_1]
+name = "Sectoid Soldier Junior"
 race = 'sectoid'
 rank = 1
 skills = [ 'soldier' ]
@@ -47,6 +49,7 @@ ai_ignore = false
 vip = false
 
 [units.sectoid_soldier_2]
+name = "Sectoid Soldier"
 race = 'sectoid'
 rank = 2
 skills = [ 'soldier', 'soldier' ]
@@ -62,6 +65,7 @@ items_dead = [ 'corpse_sectoid' ]
 items_alive = [ 'live_sectoid_soldier' ]
 
 [units.sectoid_soldier_3]
+name = "Sectoid Soldier Senior"
 race = 'sectoid'
 rank = 3
 skills = [ 'soldier', 'soldier', 'soldier' ]

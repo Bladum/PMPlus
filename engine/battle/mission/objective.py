@@ -32,9 +32,9 @@ class TBattleObjective:
     params: dict with details (unit ids, tile coords, turns, etc.)
     status: 'incomplete', 'complete', 'failed'
     """
-    def __init__(self, obj_type: str, params: dict[str, Any]):
-        self.type = obj_type
-        self.params = params
+    def __init__(self, pid, data = {}):
+        self.type = pid
+        self.params = data
         self.status = 'incomplete'
         self.progress = 0  # For objectives with progress (e.g. explore %)
 

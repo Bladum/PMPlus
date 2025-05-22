@@ -17,9 +17,10 @@ class TTerrain:
     Each terrain may be linked with BIOME or be separated
     Terrain has list of map blocks and map script used to generate battle map
     """
-    def __init__(self, terrain_id, data):
-        self.id = terrain_id
-        self.name = data.get('name', terrain_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+        self.name = data.get('name', pid)
+
         self.description = data.get('description', '')
         self.tileset = data.get('tileset', '')
         self.script = data.get('script', None)

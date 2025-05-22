@@ -12,7 +12,7 @@
 #
 
 [ufos.cultist_car]
-
+name = "Car"
 pedia = "pedia_cultist_car"
 vessel = "vessel_cultist_car.png"
 marker = 'cultist'
@@ -54,7 +54,7 @@ deployments =  { 'cultivist_car_team' = 5 }
 #
 
 [ufos.mib_scout]
-
+name = "MIB Scout"
 pedia = "pedia_mib_scout"
 vessel = "vessel_mib_scout.png"
 marker = 'mib'
@@ -95,7 +95,7 @@ deployments =  { 'mib_scout_team' = 5 }
 #
 
 [ufos.alien_small_scout]
-
+name = "Alien Small Scout"
 pedia = "pedia_small_scout"
 vessel_image = "vessel_small_scout.png"
 
@@ -125,7 +125,7 @@ deployments =  { 'small_scout_sectoid' = 5, 'small_scout_floater' = 3, 'small_sc
 
 
 [ufos.alien_medium_scout]
-
+name = "Alien Medium Scout"
 pedia = "pedia_medium_scout"
 vessel_image = "vessel_medium_scout.png"
 

@@ -4,10 +4,10 @@ class TCountry:
     score in his tiles is used to calculate funding of XCOM
     Country may be part or leave XCOM
     """
-    def __init__(self, data : dict = {}):
+    def __init__(self, pid, data : dict = {}):
         # Required fields
+        self.pid = pid
         self.name = data.get("name", "")
-        self.id = data.get("id", 0)
 
         # Optional fields with defaults
         self.description = data.get("description", "")

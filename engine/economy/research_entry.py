@@ -3,9 +3,10 @@ class TResearchEntry:
     Represents a research entry, it is a list of research tasks
     """
 
-    def __init__(self, tech_id, data):
-        self.id = tech_id
-        self.name = data.get('name', tech_id)
+    def __init__(self, pid, data = {}):
+        self.pid = pid
+
+        self.name = data.get('name', '')
         self.cost = data.get('cost', 0)
         self.score = data.get('score', 0)
 

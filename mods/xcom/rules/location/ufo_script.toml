@@ -18,61 +18,62 @@
 #    BASE = start from alien base, move to random location in region, far from xcom base, far from alien base, stay there for long time N turns, then disapear and create alien base instead
 #
 
+[ufo_script]
 
-[[ufo_script]]
+[ufo_script.patrol]
 name = 'Patrol'
 desc = "Enemy will patrol in this location until its attacked and recovered by XCOM"
 
-[[ufo_script]]
+[ufo_script.land]
 name = 'Land'
 desc = "Enemy landed and can be attacked and recovered by XCOM"
 steps = { 'random_place' = 0, 'land' = 6, 'move_random' = 1, 'end' = 0 }
 
-[[ufo_script]]
+[ufo_script.crash]
 name = 'Crash'
 desc = "Enemy crashed and can be recovered by XCOM"
 steps = { 'start_random' = 0, 'crash' = 12, 'end' = 0 }
 
-[[ufo_script]]
+[ufo_script.research]
 name = 'Research'
 desc = "Enemy will try to get score by scanning earth to find new valuable places"
 
-[[ufo_script]]
+[ufo_script.harverst]
 name = 'Harverst'
 desc = "Enemy will try to get score in rural areas by land and collect resources"
 
-[[ufo_script]]
+[ufo_script.abduction]
 name = 'Abduction'
 desc = "Enemy will try to get score in cities by land and collecting people"
 
-[[ufo_script]]
+[ufo_script.scout]
 name = 'Scout'
 desc = "Enemy will try to find x-com base"
 
-[[ufo_script]]
+[ufo_script.terror]
 name = 'Terror'
 desc = "Enemy will try to attack city and terror its citizens"
 
-[[ufo_script]]
+[ufo_script.supply]
 name = 'Supply'
 desc = "Enemy will try to upgrade / supply existing own base to next level"
 
-[[ufo_script]]
+[ufo_script.retaliation]
 name = 'Retaliation'
 desc = "Enemy will try to destroy x-com base"
 
-[[ufo_script]]
+[ufo_script.infiltration]
 name = 'Infiltration'
 desc = "Enemy will try to impact country that founds x-com budget"
 
-[[ufo_script]]
+[ufo_script.hunt]
 name = 'Hunt'
 desc = "Enemy will try to hunt xcom crafts"
 
-[[ufo_script]]
+[ufo_script.base]
 name = 'Base'
 desc = "Enemy will try to build alien base"
 
-[[ufo_script]]
+[ufo_script.raid]
 name = 'Raid'
 desc = "Enemy will try to raid / bomb and destroy our world"

@@ -7,6 +7,7 @@
 [purchasing]
 
 [purchasing.pistol]
+name = "Pistol"
 category = 'unit_equipment'
 purchase_cost = 4
 purchase_time = 2
@@ -20,6 +21,7 @@ supplier = 'name_of_faction'
 
 
 [purchasing.rifle]
+name = "Rifle"
 category = 'unit_equipment'
 purchase_cost = 10
 purchase_time = 2
@@ -31,6 +33,7 @@ service_needed = []
 
 
 [purchasing.grenade]
+name = "Grenade"
 category = 'unit_equipment'
 purchase_cost = 3
 purchase_time = 3
@@ -45,6 +48,7 @@ service_needed = []
 #
 
 [purchasing.land_survey]
+name = "Land Survey"
 category = 'general'
 purchase_cost = 50
 purchase_time = 7

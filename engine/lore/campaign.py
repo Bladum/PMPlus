@@ -19,8 +19,9 @@ class TCampaign:
     OBJECTIVE_SUPPLY = 7            # supply existing base
     OBJECTIVE_HUNT = 8              # hunt xcom crafts
 
-    def __init__(self, campaign_id, data):
-        self.id = campaign_id
+    def __init__(self, pid, data):
+        self.pid = pid
+        self.name = data.get('name', '')
         self.score = data.get('score', 0)
         self.objective = data.get('objective', 0)
         self.faction = data.get('faction', '')

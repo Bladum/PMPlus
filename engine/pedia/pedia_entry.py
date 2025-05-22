@@ -38,10 +38,10 @@ class TPediaEntry:
     ALIEN_MISSIONS = 36  # research, base supply
     ALIEN_ARTEFACTS = 37  # alien alloys, zrbite, power navigation
 
-    def __init__(self, entry_id, data):
-        self.id = entry_id
+    def __init__(self, pid, data):
+        self.pid = pid
         self.type = data.get('type', 0)
-        self.name = data.get('name', entry_id)
+        self.name = data.get('name', pid)
         self.section = data.get('section', '')
         self.description = data.get('description', '')
         self.image = data.get('image', '')

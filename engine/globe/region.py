@@ -5,11 +5,11 @@ class TRegion:
     Regions have analytics for score
     """
 
-    def __init__(self, data : dict = {}):
+    def __init__(self, pid, data : dict = {}):
         # Required fields
+        self.pid = pid
         self.name = data.get("name", "")
         self.is_land = data.get("is_land", False)
-        self.id = data.get("id", 0)
 
         # Optional fields with defaults
         self.description = data.get("description", "")

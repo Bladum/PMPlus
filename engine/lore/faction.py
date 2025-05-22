@@ -4,8 +4,10 @@ class TFaction:
     Faction may be ally or enemy of XCOM
     """
 
-    def __init__(self, data : dict = {}):
+    def __init__(self, pid, data : dict = {}):
         # Required fields
+        self.pid = pid
+
         self.name = data.get("name", "")
         self.description = data.get("description", "")
         self.id = data.get("id", 0)

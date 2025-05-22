@@ -7,7 +7,9 @@ class TDeployment:
     Represents a deployment for a battle, loaded from TOML.
     Contains a list of TDeploymentGroup and civilian info.
     """
-    def __init__(self, data, terrain_civilian_types=None):
+    def __init__(self, pid, data = {}, terrain_civilian_types=None):
+        self.pid = pid
+
         self.effect = data.get('effect', None)
         self.civilians = int(data.get('civilians', 0))
         self.groups = []

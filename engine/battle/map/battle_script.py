@@ -6,8 +6,9 @@ class TBattleScript:
     Represents a script for map block,
     it is used to generate map for battle from map block in specific way
     """
-    def __init__(self, script_id, data):
-        self.id = script_id
+    def __init__(self, pid, data):
+        self.pid = pid
+
         # Process steps
         self.steps = []
         if 'steps' in data and isinstance(data['steps'], list):

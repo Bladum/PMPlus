@@ -8,17 +8,18 @@ class TSkill:
     """
 
     # Class type constants
-    TYPE_PROMOTION = 0     # XCOM soldier promotion
-    TYPE_ENEMY = 1         # Enemy only class
-    TYPE_CAREER = 2        # Random career path when soldier is hired
-    TYPE_TRANSFORMATION = 3  # Soldier transformation during gameplay
-    TYPE_MEDAL = 4         # Special awards/medals
-    TYPE_WOUND = 5         # Permanent wounds from battle/events
-    TYPE_AURA = 6          # Temporary effects on battle like auras
+    SKILL_PROMOTION = 0     # XCOM soldier promotion
+    SKILL_ENEMY = 1         # Enemy only class
+    SKILL_CAREER = 2        # Random career path when soldier is hired
+    SKILL_TRANSFORMATION = 3  # Soldier transformation during gameplay
+    SKILL_MEDAL = 4         # Special awards/medals
+    SKILL_WOUND = 5         # Permanent wounds from battle/events
+    SKILL_AURA = 6          # Temporary effects on battle like auras
 
-    def __init__(self, class_id, data):
-        self.id = class_id
-        self.name = data.get('name', class_id)
+    def __init__(self, pid, data):
+        self.id = pid
+
+        self.name = data.get('name', pid)
         self.icon = data.get('icon', '')
         self.description = data.get('description', '')
         self.type = data.get('type', 0)  # Default to promotion type

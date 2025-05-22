@@ -1,7 +1,7 @@
 from engine.globe.region import TRegion
 from engine.lore.faction import TFaction
 from engine.location.city import TCity
-from engine.base.geo.abase import TAbase
+from engine.base.geo.abase import TBaseAlien
 from engine.craft.craft import TCraft
 
 class TUfoScript:
@@ -32,9 +32,10 @@ class TUfoScript:
     STEP_BUILD_BASE = 'Create alien base for the same faction'
     STEP_END = 'Remove ufo, score points for mission'
 
-    def __init__(self, script_id, data):
-        self.id = script_id
-        self.name = data.get('name', script_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+
+        self.name = data.get('name', pid)
         self.description = data.get('desc', '')
         # Steps: list of dicts {type, duration, ...kwargs}
         self.steps = data.get('steps', [])

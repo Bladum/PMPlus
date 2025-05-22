@@ -1,4 +1,5 @@
 from globe.location import TLocation
+from .site_type import TSiteType
 
 
 class TSite(TLocation):
@@ -12,9 +13,14 @@ class TSite(TLocation):
     def __init__(self, loc_id, data):
         super().__init__(loc_id, data)
 
-        self.map_blocks = data.get('map_blocks')
-        if self.map_blocks is None:
-            self.map_blocks = self.generate_random_map_blocks()
+        from engine.engine.game import TGame
+        self.game: TGame = TGame()
+
+        site_type = data.get('site_type')
+        self.site_type  = self.game.mod.sites.get(site_type)
+
+        # Use map_blocks from type if not present in instance data
+        self.map_blocks = self.generate_random_map_blocks()
 
     def generate_random_map_blocks(self, num_blocks=4):
         """
@@ -26,3 +32,4 @@ class TSite(TLocation):
         block_types = ['urban', 'forest', 'farm', 'desert', 'mountain']
         return {f'block_{i+1}': random.choice(block_types) for i in range(num_blocks)}
 
+        # TODO fix this

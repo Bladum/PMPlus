@@ -3,9 +3,9 @@ class TRace:
     Represents race = type of unit and its basic stats
     """
 
-    def __init__(self, race_id, data):
-        self.id = race_id
-        self.name = data.get('name', race_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+        self.name = data.get('name', pid)
         self.description = data.get('description', '')
         self.icon = data.get('icon', '')
         self.size = data.get('size', 1.0)

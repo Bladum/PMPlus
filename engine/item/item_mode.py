@@ -1,6 +1,8 @@
 class TWeaponMode:
-    def __init__(self, name, data):
-        self.name = name
+    def __init__(self, pid, data):
+        self.pid = pid
+
+        self.name = data.get('name', pid)
         self.key = data.get('key', '')
         self.ap_cost_modifier = data.get('ap_cost_modifier', 1.0)
         self.range_modifier = data.get('range_modifier', 1.0)

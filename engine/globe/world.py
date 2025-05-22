@@ -9,9 +9,9 @@ class TWorld:
     Can be many worlds in game
     """
 
-    def __init__(self, world_id, data):
-        self.id = world_id
-        self.name = data.get('name', world_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+        self.name = data.get('name', pid)
         self.description = data.get('description', '')
 
         # World map properties

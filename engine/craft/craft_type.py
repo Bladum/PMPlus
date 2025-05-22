@@ -2,9 +2,11 @@ class TCraftType:
     """
     Represents a type of craft used by XCOM with basic stats
     """
-    def __init__(self, craft_id, data):
-        self.id = craft_id
-        self.name = data.get('name', craft_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+
+        self.name = data.get('name', pid)
+
         self.description = data.get('description', '')
         self.pedia = data.get('pedia', '')
         self.map_block = data.get('map_block', '')

@@ -4,8 +4,10 @@ class TManufactureEntry:
     Represents a manufacturing entry, what can be manufactured
     """
 
-    def __init__(self, project_id, data):
-        self.id = project_id
+    def __init__(self, pid, data = {}):
+        self.pid = pid
+
+        self.name = data.get('name', '')
         self.category = data.get('category', '')
 
         # cost

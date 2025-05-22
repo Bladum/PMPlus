@@ -3,10 +3,11 @@ class TBiome:
     Each tile on worls map is assigned to a biome like forest, desert, ocean
     Biomes are used to generate battle with specific terrain type
     """
-    def __init__(self, data : dict = {}):
+    def __init__(self, pid, data : dict = {}):
+        self.pid = pid
+
         # Required fields
         self.name = data.get("name", "")
-        self.id = data.get("id", 0)
 
         # Optional fields with defaults
         self.description = data.get("description", "")

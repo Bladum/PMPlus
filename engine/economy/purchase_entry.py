@@ -3,8 +3,10 @@ class TPurchaseEntry:
     """
     Represents a purchasable entry, what can be purchased
     """
-    def __init__(self, project_id, data):
-        self.id = project_id
+    def __init__(self, pid, data = {} ):
+        self.pid = pid
+
+        self.name = data.get('name', '')
         self.category = data.get('category', '')
         self.supplier = data.get('supplier', None)
 

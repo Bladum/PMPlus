@@ -33,16 +33,18 @@ class TModLoader:
                             else:
                                 self.data[top_key] = value
 
-    def display_top_structure(self):
-        """Displays the top-level structure of the loaded mod data."""
-        print(f"Loaded data structure for mod '{self.mod_name}':")
-        for top_key, value in self.data.items():
-            print(f"  {top_key}:")
-            if isinstance(value, dict):
-                for sub_key in value.keys():
-                    print(f"    {sub_key}")
-            else:
-                print(f"    {type(value).__name__}: {value}")
+    def get_subpath(self, *subpaths):
+        """
+        Returns an absolute path within the mod directory for the given subpath(s).
+        Example: loader.get_subpath('rules', 'items.toml')
+        """
+        return os.path.join(self.mod_path, *subpaths)
+
+    def get_file_path(self, filename):
+        """
+        Returns the absolute path to a file in the mod's root directory.
+        """
+        return os.path.join(self.mod_path, filename)
 
     def get_data(self):
         """Returns the loaded mod data as a multilevel dict."""
@@ -64,10 +66,6 @@ class TModLoader:
                     found_files.append(file_path)
         if not found_files:
             print("No TOML files found.")
-        else:
-            print("Found TOML files:")
-            for f in found_files:
-                print(f" - {f}")
         print(f"Total TOML files found: {len(found_files)}")
 
     @staticmethod
@@ -101,11 +99,18 @@ class TModLoader:
         mod_name = mod_info.get('path', mod_key)
         return cls(mod_name)
 
+    def create_mod(self):
+        """
+        Creates and returns a TMod object, initializing all objects from the loaded TOML data.
+        """
+        from engine.engine.mod import TMod
+        # Pass the merged data dict to TMod
+        return TMod(self.data)
 
 
 # Example usage:
 if __name__ == "__main__":
     loader = TModLoader.from_mods_toml('xcom')
     loader.test_load_and_display_files()
+    loader.create_mod()
 
-    loader.display_top_structure()

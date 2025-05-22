@@ -2,10 +2,9 @@ class TFacilityType:
     """
     Represents a facility type in base, with its stats (blueprint loaded from TOML)
     """
-    def __init__(self, data=None):
-        if data is None:
-            data = {}
-        self.id = data.get('id', '')
+    def __init__(self, pid, data={}):
+        self.pid = pid
+
         self.name = data.get('name', '')
         self.description = data.get('description', '')
         self.build_time = data.get('build_time', 0)

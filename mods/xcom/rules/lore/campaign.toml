@@ -8,7 +8,8 @@
 #   ALIEN STANDARD
 #
 
-[campaigns.alien_resefactionh_early]
+[campaigns.alien_research_early]
+name = 'Resefaction H'
 score = 0
 faction = 'aliens'
 tech_startrt = [ ]
@@ -26,7 +27,8 @@ timer = 7
 
 
 
-[campaigns.alien_resefactionh]
+[campaigns.alien_research]
+name = 'Resefaction H'
 score = 0
 faction = 'aliens'
 tech_startrt = [ ]
@@ -60,6 +62,7 @@ deployments =  { 'alien_lab_ship_sectoid' = 5, 'alien_lab_ship_floater' = 3, 'al
 #
 
 [campaigns.mib_supply]
+name = "MIB Supply"
 score = 20
 objective = 5
 faction = 'mib'
@@ -74,6 +77,7 @@ timer = 6
 
 
 [campaigns.mib_outpost]
+name = "MIB Outpost"
 score = 20
 objective = 2
 faction = 'mib'
@@ -92,6 +96,7 @@ timer = 2
 #
 
 [campaigns.exalt_supply]
+name = "EXALT Supply"
 score = 20
 objective = 5
 faction = 'exalt'
@@ -109,6 +114,7 @@ timer = 6
 #
 
 [campaigns.zombie_attack]
+name = "Zombie Attack"
 score = 20
 faction = 'zombie'
 tech_startrt = [ ]

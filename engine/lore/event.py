@@ -4,9 +4,9 @@ class TEvent:
     Represents a event in game, that may give / take something to player
     Event may trigger a mission
     """
-    def __init__(self, event_id, data):
-        self.id = event_id
-        self.name = data.get('name', event_id)
+    def __init__(self, pid, data):
+        self.pid = pid
+        self.name = data.get('name', pid)
         self.description = data.get('description', '')
         self.image = data.get('image', '')
 

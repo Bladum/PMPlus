@@ -5,8 +5,10 @@ class TUnitType:
     This is a combination of RACE, SKILLS, and ITEMS
     """
 
-    def __init__(self, unit_id, data):
-        self.id = unit_id
+    def __init__(self, pid, data):
+        self.pid = pid
+
+        self.name = data.get('name', '')
         self.race = data.get('race', '')
         self.rank = data.get('rank', 0)
         self.skills = data.get('skills', [])

@@ -12,9 +12,9 @@ class TItemType:
     ITEM_UNIT_ARMOUR = 4
     ITEM_UNIT_CAPTURE = 5
 
-    def __init__(self, item_id, data, mode_defs=None):
-        self.id = item_id
-        self.name = data.get('name', item_id)
+    def __init__(self, pid, data, mode_defs=None):
+        self.pid = pid
+        self.name = data.get('name', pid)
         self.category = data.get('category', '')
         self.description = data.get('description', '')
 
