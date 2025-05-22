@@ -1,3 +1,5 @@
+from engine.globe.world_point import WorldPoint
+
 class TLocation:
     """
     Single location on world map, it could be a base, a city, a UFO crash site
@@ -8,7 +10,8 @@ class TLocation:
         self.loc_id = loc_id
         self.name = data.get("name", "")
         self.description = data.get("description", "")
-        self.position = data.get("position", [])
+        pos = data.get("position", [])
+        self.position = WorldPoint.from_iterable(pos)
 
         # Radar detection fields
         self.initial_cover = data.get("initial_cover", 0)  # max cover value
@@ -26,23 +29,14 @@ class TLocation:
 
     def get_position(self):
         """
-        Returns the (x, y) position of the location as a tuple.
+        Returns the position of the location as a WorldPoint.
         """
-        if isinstance(self.position, (list, tuple)) and len(self.position) == 2:
-            return tuple(self.position)
-        return (0, 0)
+        return self.position
 
     def distance_to(self, other):
         """
-        Returns the Euclidean distance to another TLocation or (x, y) tuple.
+        Returns the Euclidean distance to another TLocation or WorldPoint or (x, y) tuple.
         """
         if isinstance(other, TLocation):
-            ox, oy = other.get_position()
-        elif isinstance(other, (list, tuple)) and len(other) == 2:
-            ox, oy = other
-        else:
-            raise ValueError("Invalid target for distance calculation")
-        x, y = self.get_position()
-        import math
-        return math.hypot(ox - x, oy - y)
-
+            other = other.get_position()
+        return self.position.distance_to(other)

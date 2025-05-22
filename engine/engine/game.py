@@ -2,7 +2,7 @@ from engine.globe.world import TWorld
 from engine.lore.campaign import TCampaign
 from engine.lore.calendar import TCalendar
 from engine.economy.research_tree import TResearchTree
-from engine.economy.transfer import TTransfer
+
 from engine.lore.faction import TFaction
 from engine.engine.mod import TMod
 

@@ -41,6 +41,18 @@ class TMod:
     """
     def __init__(self, mod_data):
 
+        # Path setup
+        import os
+        self.mod_path = mod_data.get('mod_path') if isinstance(mod_data, dict) else None
+        if self.mod_path:
+            self.maps_path = os.path.join(self.mod_path, 'maps')
+            self.rules_path = os.path.join(self.mod_path, 'rules')
+            self.tiles_path = os.path.join(self.mod_path, 'tiles')
+        else:
+            self.maps_path = None
+            self.rules_path = None
+            self.tiles_path = None
+
         # base
         self.facilities: dict[str, TFacilityType] = {}
 
@@ -90,5 +102,6 @@ class TMod:
 
         # pedia
         self.pedia_entries : dict[str, TPediaEntry] = {}
+
 
 

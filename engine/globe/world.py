@@ -1,4 +1,4 @@
-from economy.transfer import TTransfer
+from economy.ttransfer import TTransfer
 from engine.globe.world_tile import TWorldTile
 from lore.faction import TFaction
 
@@ -94,11 +94,13 @@ class TWorld:
                     'region_id': region_id
                 })
                 self.tiles[y][x] = tile
-                # Assign to country
-                if country_id in countries:
-                    countries[country_id].add_tile((x, y))
+
+        # Assign owned tiles to each country using TCountry method
+        for country in countries.values():
+            country.calculate_owned_tiles(self.tiles, width, height)
 
         # Pass 2: assign region tiles (with overlap)
+        # Build region_tile_map for neighbor calculation
         region_tile_map = {region.id: set() for region in regions.values()}
         for y in range(height):
             for x in range(width):
@@ -116,20 +118,6 @@ class TWorld:
                     region_neighbors[id1].add(id2)
                     region_neighbors[id2].add(id1)
 
-        # Assign region_tiles and neighbors
+        # Assign region_tiles and neighbors using TRegion method
         for region in regions.values():
-
-            # Start with tiles assigned to this region
-            region_tiles = region_tile_map[region.id]
-            # Expand: add all neighboring tiles (8-way)
-            expanded = set(region_tiles)
-
-            for x, y in region_tiles:
-                for dx in [-1, 0, 1]:
-                    for dy in [-1, 0, 1]:
-                        nx, ny = x + dx, y + dy
-                        if 0 <= nx < width and 0 <= ny < height:
-                            expanded.add((nx, ny))
-
-            region.region_tiles = list(expanded)
-            region.neighbors = [rid for rid in region_neighbors[region.id]]
+            region.calculate_region_tiles(self.tiles, width, height, region_neighbors)

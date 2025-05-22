@@ -2,6 +2,8 @@ import random
 from engine.craft.craft import TCraft
 from engine.craft.craft_type import TCraftType
 from engine.craft.craft_item import TCraftItem
+from location.ufo import TUfo
+
 
 class TInterception:
     """
@@ -9,8 +11,12 @@ class TInterception:
     Manages dogfighting between XCOM craft and UFOs
     Calculates hit chances, damage, and evasion
     """
-    def __init__(self, craft1, craft2, distance=100):
-        self.crafts = [craft1, craft2]  # [XCOM, UFO]
+    def __init__(self, craft1 : TCraft , ufo1 : TUfo, distance=100):
+
+        from engine.engine.game import TGame
+        self.game = TGame()
+
+        self.crafts = [craft1, ufo1]  # [XCOM, UFO]
         self.distance = distance  # in km
         self.turn = 0
         self.ap = [4, 4]  # action points for each craft per turn

@@ -1,6 +1,6 @@
 from engine.globe.location import TLocation
 
-class Transit:
+class TTransfer:
     """
     Represents a single transit for one item, craft, or unit.
     Contains info about what, where, when, and quantity.

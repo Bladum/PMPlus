@@ -3,7 +3,7 @@ class TMapBlockEntry:
     represents how map blocks are managed inside terrain
     """
     def __init__(self, data):
-        self.name = data.get('name', '')
+        self.map = data.get('map', '')
         self.size = data.get('size', 1)
         self.group = data.get('group', 0)
         self.chance = data.get('chance', 1)

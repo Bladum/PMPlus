@@ -1,3 +1,4 @@
+from battle.terrain.map_block import TMapBlock
 from engine.battle.map.battle_script_step import TBattleScriptStep
 
 class TBattleScript:
@@ -90,7 +91,7 @@ class TBattleScript:
                         generator.block_grid[y][x] = TMapBlock(size=entry.size)
 
     def _filter_blocks(self, generator, group=None, size=None, name=None):
-        blocks = generator.terrain.map_blocks
+        blocks = generator.terrain.map_blocks_entries
         if group is not None:
             blocks = [b for b in blocks if getattr(b, 'group', None) == group]
         if size is not None:

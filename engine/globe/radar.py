@@ -1,3 +1,5 @@
+from engine.globe.world_point import WorldPoint
+
 class TGlobalRadar:
     """
     Manage radar / detection of UFOs and locations
@@ -12,21 +14,18 @@ class TGlobalRadar:
         bases: list of XCOM base objects (must provide get_radar_facilities())
         crafts: list of XCOM craft objects (must provide radar_power, radar_range, and position)
         """
-        # Helper to compute tile distance
-        def tile_distance(pos1, pos2):
-            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
         # 1. Scan from bases
         for base in bases:
             radar_list = base.get_radar_facilities()  # Each should have .power and .range
-            base_pos = base.position
+            base_pos = WorldPoint.from_iterable(base.position)
             for radar in radar_list:
                 for loc in locations:
                     if loc.name.startswith('XCOM'):  # skip xcom bases/crafts
                         continue
                     if not loc.position:
                         continue
-                    if tile_distance(base_pos, loc.position) <= radar.range:
+                    loc_pos = WorldPoint.from_iterable(loc.position)
+                    if base_pos.tile_distance(loc_pos) <= radar.range:
                         loc.cover = max(0, loc.cover - radar.power)
                         loc.update_visibility()
 
@@ -34,7 +33,7 @@ class TGlobalRadar:
         for craft in crafts:
             if not craft.is_on_world():
                 continue
-            craft_pos = craft.position
+            craft_pos = WorldPoint.from_iterable(craft.position)
             radar_power = getattr(craft, 'radar_power', 0)
             radar_range = getattr(craft, 'radar_range', 0)
             for loc in locations:
@@ -42,7 +41,8 @@ class TGlobalRadar:
                     continue
                 if not loc.position:
                     continue
-                if tile_distance(craft_pos, loc.position) <= radar_range:
+                loc_pos = WorldPoint.from_iterable(loc.position)
+                if craft_pos.tile_distance(loc_pos) <= radar_range:
                     loc.cover = max(0, loc.cover - radar_power)
                     loc.update_visibility()
 

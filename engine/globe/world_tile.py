@@ -7,10 +7,12 @@ class TWorldTile:
     def __init__(self, x, y, data=None):
         self.x = x
         self.y = y
+
         self.region_id = None
         self.owner_country_id = None  # country id or None
         self.biome = None
         self.locations = []
+
         if data:
             self.region_id = data.get('region_id', None)
             self.owner_country_id = data.get('owner_country_id', None)

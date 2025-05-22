@@ -21,6 +21,20 @@ class TBattleTile:
         self.fog_of_war = []
         self.objective_marker: str = None  # Marker for objectives (e.g. 'extraction', 'poc', 'sabotage')
 
+    @classmethod
+    def from_layer_ids(cls, floor_id, wall_id, roof_id, gid_map=None):
+        """
+        Create a TBattleTile from layer IDs and optional gid_map for properties.
+        """
+        tile = cls()
+        tile.floor = TBattleFloor() if floor_id else None
+        tile.wall = TBattleWall() if wall_id else None
+        tile.roof_id = roof_id if roof_id else None
+        # Optionally, use gid_map to set properties
+        # if gid_map and floor_id in gid_map:
+        #     tile.floor_properties = gid_map[floor_id]
+        return tile
+
     def is_walkable(self):
         """Returns True if tile can be walked on (no wall)."""
         return self.wall is None

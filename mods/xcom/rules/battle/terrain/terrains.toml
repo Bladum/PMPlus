@@ -20,22 +20,23 @@ name = "Farmland"
 description = "A fertile area of land used for agriculture, farmland is home to a variety of crops and livestock."
 tileset = 'farmland'
 script = "farmland"
+maps_folder = 'culta'
 units_civilian = [ "farmer_01", "farmer_02", "farmer_03" ]
 
 [[map_blocks]]
-name = "farm_01"
+map = "farm_01"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "farm_02"
+map = "farm_02"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "farm_03"
+map = "farm_03"
 size = 1
 group = 0
 chance = 5
@@ -48,6 +49,7 @@ chance = 5
 name = "Farmland warm climate"
 description = "Desc"
 tileset = 'farmland'
+maps_folder = 'culta'
 script = "farmland_warm"
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
@@ -60,22 +62,23 @@ name = "Forest"
 description = "Desc"
 tileset = 'forest'
 script = "forest"
+maps_folder = 'forest'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 [[map_blocks]]
-name = "forest_01"
+map = "forest_01"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "forest_02"
+map = "forest_02"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "forest_03"
+map = "forest_03"
 size = 1
 group = 0
 chance = 5
@@ -89,22 +92,24 @@ name = "Forest with snow"
 description = "Desc"
 tileset = 'forest'
 script = "forest"
+maps_folder = 'forest'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
+
 [[map_blocks]]
-name = "forest_01"
+map = "forest_01"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "forest_02"
+map = "forest_02"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "forest_03"
+map = "forest_03"
 size = 1
 group = 0
 chance = 5
@@ -118,6 +123,7 @@ name = "Sand desert"
 description = "Desc"
 tileset = 'desert'
 script = "desert"
+maps_folder = 'desert'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -129,6 +135,7 @@ name = "Mars planet"
 description = "Desc"
 tileset = 'mars'
 script = "mars"
+maps_folder = 'mars'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -140,6 +147,7 @@ name = "Empty Mountains"
 description = "Desc"
 tileset = 'mountains'
 script = "mountains"
+maps_folder = 'mountains'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -151,6 +159,7 @@ name = "Poland / Tundra"
 description = "Desc"
 tileset = 'polar'
 script = "polar"
+maps_folder = 'polar'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -162,6 +171,7 @@ name = "Jungle / Wetlands"
 description = "Desc"
 tileset = 'jungle'
 script = "jungle"
+maps_folder = 'jungle'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -173,6 +183,7 @@ name = "Urbam housing"
 description = "Desc"
 tileset = 'urban_house'
 script = "urban_house"
+maps_folder = 'urban'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -184,6 +195,7 @@ name = "Urbam comercial"
 description = "Desc"
 tileset = 'urban_commercial'
 script = "urban_commercial"
+maps_folder = 'urban'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -195,6 +207,7 @@ name = "Urbam industrial"
 description = "Desc"
 tileset = 'urban_industrial'
 script = "urban_industrial"
+maps_folder = 'urban'
 units_civilian = [ "male_01", "male_02", "male_03" ]
 
 
@@ -206,6 +219,7 @@ name = "XCOM Base"
 description = "Desc"
 tileset = 'xbase'
 script = "xbase"
+maps_folder = 'xbase'
 
 
 
@@ -219,21 +233,22 @@ name = "Alien Base"
 description = "Desc"
 tileset = 'abase'
 script = "abase"
+maps_folder = 'abase'
 
 [[map_blocks]]
-name = "abase_01"
+map = "abase_01"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "abase_02"
+map = "abase_02"
 size = 1
 group = 0
 chance = 5
 
 [[map_blocks]]
-name = "abase_03"
+map = "abase_03"
 size = 1
 group = 0
 chance = 5
@@ -250,3 +265,4 @@ name = "XCOM craft"
 description = "Desc"
 tileset = 'xcraft'
 script = "xcraft"
+maps_folder = 'xcraft'

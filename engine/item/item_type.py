@@ -1,3 +1,4 @@
+from .item_mode import TWeaponMode
 
 class TItemType:
     """
@@ -11,7 +12,7 @@ class TItemType:
     ITEM_UNIT_ARMOUR = 4
     ITEM_UNIT_CAPTURE = 5
 
-    def __init__(self, item_id, data):
+    def __init__(self, item_id, data, mode_defs=None):
         self.id = item_id
         self.name = data.get('name', item_id)
         self.category = data.get('category', '')
@@ -67,11 +68,33 @@ class TItemType:
         self.purchase_tech = data.get('purchase_tech', [])
         self.sell_cost = data.get('sell_cost', 0)
 
-
-
         # Special properties
         self.effects = data.get('effects', {})
         self.bonus = data.get('bonus', {})
         self.requirements = data.get('requirements', {})
 
         self.is_underwater = data.get('is_underwater', False)
+
+        # Item modes
+        self.modes = {}
+        mode_names = data.get('modes', ['snap'])
+        if mode_defs is None:
+            mode_defs = {}
+        for mode_name in mode_names:
+            mode_data = mode_defs.get(mode_name, {})
+            self.modes[mode_name] = TWeaponMode(mode_name, mode_data)
+
+    def get_mode_parameters(self, mode_name):
+        """
+        Returns the effective parameters for the given mode.
+        """
+        base_params = {
+            'ap_cost': self.unit_action_point,
+            'range': self.unit_range,
+            'accuracy': self.unit_accuracy,
+            'shots': 1,
+            'damage': self.unit_damage
+        }
+        mode = self.modes.get(mode_name, self.modes.get('snap'))
+        return mode.apply(base_params)
+
