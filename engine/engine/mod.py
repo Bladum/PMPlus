@@ -1,3 +1,4 @@
+from pathlib import Path
 from pytmx import TiledTileset
 
 from base.facility_type import TFacilityType
@@ -39,15 +40,14 @@ class TMod:
     It is used to manage all data in game
     It is used to manage all events in game
     """
-    def __init__(self, mod_data):
+    def __init__(self, mod_data, mod_path):
+        self.mod_data = mod_data
+        self.mod_path = Path(mod_path)
 
-        # Path setup
-        import os
-        self.mod_path = mod_data.get('mod_path') if isinstance(mod_data, dict) else None
         if self.mod_path:
-            self.maps_path = os.path.join(self.mod_path, 'maps')
-            self.rules_path = os.path.join(self.mod_path, 'rules')
-            self.tiles_path = os.path.join(self.mod_path, 'tiles')
+            self.maps_path = self.mod_path / 'maps'
+            self.rules_path = self.mod_path / 'rules'
+            self.tiles_path = self.mod_path / 'tiles'
         else:
             self.maps_path = None
             self.rules_path = None
@@ -103,15 +103,13 @@ class TMod:
         # pedia
         self.pedia_entries : dict[str, TPediaEntry] = {}
 
-        if mod_data:
-            self.load_objects_from_data(mod_data)
-
-    def load_objects_from_data(self, mod_data):
+    def load_objects_from_data(self):
         """
         For each section in mod_data, create objects and store them in the appropriate dict.
         """
 
         # BASE
+        mod_data = self.mod_data
 
         datas = mod_data.get('facilities', {})
         for pid, dat in datas.items():
@@ -361,5 +359,9 @@ class TMod:
             # armour_resistance = TArmourResistance
             # salaries = 1
 
-
-
+    def load_all_terrain_map_blocks(self):
+        """
+        Loads all map blocks for all terrains in this mod.
+        """
+        for terrain in self.terrains.values():
+            terrain.load_maps_and_blocks(self.maps_path / terrain.maps_folder)

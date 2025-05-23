@@ -1,116 +1,53 @@
-import os
+from pathlib import Path
 import tomli
+
+from engine.engine.tiled.tiled_tileset_loader import TilesetLoader
+
 
 class TModLoader:
     """
     Class to load mod from files and folders. Loads all TOML files in the mod's folder,
     parses them, and builds a multilevel dict with all data.
     """
-    def __init__(self, mod_name):
+    def __init__(self, mod_name, mod_path):
         self.mod_name = mod_name
-        # Find the current file's directory and build the mods path relative to it
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        root_dir = os.path.abspath(os.path.join(current_dir, '../..'))
-        self.mod_path = os.path.join(root_dir, 'mods', mod_name)
-        self.data = {}
-        self._load_all_toml_files()
+        self.mod_path = Path(mod_path)
+        self.toml_data = {}
 
-    def _load_all_toml_files(self):
-        if not os.path.isdir(self.mod_path):
+    def load_all_toml_files(self):
+        if not self.mod_path.is_dir():
             raise FileNotFoundError(f"Mod folder not found: {self.mod_path}")
-        for root, _, files in os.walk(self.mod_path):
-            for file in files:
-                if file.lower().endswith('.toml'):
-                    file_path = os.path.join(root, file)
-                    with open(file_path, 'rb') as f:
-                        toml_data = tomli.load(f)
-                        for top_key, value in toml_data.items():
-                            if top_key not in self.data:
-                                self.data[top_key] = {}
-                            # Properly merge nested dictionaries
-                            if isinstance(value, dict) and isinstance(self.data[top_key], dict):
-                                self.data[top_key].update(value)
-                            else:
-                                self.data[top_key] = value
-
-    def get_subpath(self, *subpaths):
-        """
-        Returns an absolute path within the mod directory for the given subpath(s).
-        Example: loader.get_subpath('rules', 'items.toml')
-        """
-        return os.path.join(self.mod_path, *subpaths)
-
-    def get_file_path(self, filename):
-        """
-        Returns the absolute path to a file in the mod's root directory.
-        """
-        return os.path.join(self.mod_path, filename)
-
-    def get_data(self):
-        """Returns the loaded mod data as a multilevel dict."""
-        return self.data
-
-    def test_load_and_display_files(self):
-        """
-        Test method: Loads and prints all found TOML files in the mod folder.
-        """
-        print(f"Scanning mod folder: {self.mod_path}")
-        if not os.path.isdir(self.mod_path):
-            print(f"Mod folder not found: {self.mod_path}")
-            return
-        found_files = []
-        for root, _, files in os.walk(self.mod_path):
-            for file in files:
-                if file.lower().endswith('.toml'):
-                    file_path = os.path.join(root, file)
-                    found_files.append(file_path)
-        if not found_files:
-            print("No TOML files found.")
-        print(f"Total TOML files found: {len(found_files)}")
-
-    @staticmethod
-    def get_mods_list():
-        """
-        Loads mods.toml from the mods folder and returns a dict of mods info.
-        """
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        root_dir = os.path.abspath(os.path.join(current_dir, '../..'))
-        mods_toml_path = os.path.join(root_dir, 'mods', 'mods.toml')
-        if not os.path.isfile(mods_toml_path):
-            raise FileNotFoundError(f"mods.toml not found: {mods_toml_path}")
-        with open(mods_toml_path, 'rb') as f:
-            mods_data = tomli.load(f)
-        return mods_data
-
-    @classmethod
-    def from_mods_toml(cls, mod_key=None):
-        """
-        Loads mods.toml and instantiates TModLoader for the given mod_key (e.g. 'xcom').
-        If mod_key is None, loads the first mod found.
-        """
-        mods_data = cls.get_mods_list()
-        if not mods_data:
-            raise Exception("No mods found in mods.toml")
-        if mod_key is None:
-            mod_key = next(iter(mods_data))
-        mod_info = mods_data.get(mod_key)
-        if not mod_info:
-            raise Exception(f"Mod '{mod_key}' not found in mods.toml")
-        mod_name = mod_info.get('path', mod_key)
-        return cls(mod_name)
-
-    def create_mod(self):
-        """
-        Creates and returns a TMod object, initializing all objects from the loaded TOML data.
-        """
-        from engine.engine.mod import TMod
-        # Pass the merged data dict to TMod
-        return TMod(self.data)
+        for file_path in self.mod_path.rglob('*.toml'):
+            with open(file_path, 'rb') as f:
+                toml_data = tomli.load(f)
+                for top_key, value in toml_data.items():
+                    if top_key not in self.toml_data:
+                        self.toml_data[top_key] = {}
+                    # Properly merge nested dictionaries
+                    if isinstance(value, dict) and isinstance(self.toml_data[top_key], dict):
+                        self.toml_data[top_key].update(value)
+                    else:
+                        self.toml_data[top_key] = value
 
 
 # Example usage:
 if __name__ == "__main__":
-    loader = TModLoader.from_mods_toml('xcom')
-    loader.test_load_and_display_files()
-    loader.create_mod()
+
+    mod_name = 'xcom'
+
+    current_dir = Path(__file__).resolve().parent
+    root_dir = current_dir.parent.parent
+    mod_path = root_dir / 'mods' / mod_name
+
+    loader = TModLoader(mod_name, mod_path)
+    loader.load_all_toml_files()
+
+    from engine.engine.mod import TMod
+    mod = TMod(loader.toml_data, mod_path)
+
+    mod.load_objects_from_data()
+    mod.load_all_terrain_map_blocks()
+
+    aaa = TilesetLoader(mod_name, mod.tiles_path)
+    aaa.export_all_images()
 

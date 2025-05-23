@@ -1,3 +1,5 @@
+import os
+
 from engine.battle.tile.battle_tile import TBattleTile
 
 class TMapBlock:
@@ -13,13 +15,13 @@ class TMapBlock:
     def get_tile(self, x, y):
         return self.tiles[y][x]
 
-    # Additional logic for loading block data, items, units, etc. can be added here
 
     @classmethod
-    def from_tmx(cls, tmx, gid_map=None):
+    def from_tmx(cls, tmx):
         """
         Create a TMapBlock from a TMX map object and optional gid_map.
         """
+
         # Only process layers: floor, wall, roof
         layers = {l.name: l for l in tmx.visible_layers if hasattr(l, 'data') and l.name in ('floor', 'wall', 'roof')}
         floor_layer = layers.get('floor')
@@ -31,7 +33,7 @@ class TMapBlock:
         height = floor_layer.height
 
         def layer_to_2d(layer):
-            data = list(layer.data)
+            data = list(layer.toml_data)
             return [data[y*width:(y+1)*width] for y in range(height)]
 
         floor_data = layer_to_2d(floor_layer) if floor_layer else [[0]*width for _ in range(height)]
@@ -45,7 +47,7 @@ class TMapBlock:
                 floor_id = floor_data[y][x] if floor_layer else 0
                 wall_id = wall_data[y][x] if wall_layer else 0
                 roof_id = roof_data[y][x] if roof_layer else 0
-                tile = TBattleTile.from_layer_ids(floor_id, wall_id, roof_id, gid_map)
+                tile = TBattleTile.from_layer_ids(floor_id, wall_id, roof_id)
                 row.append(tile)
             tiles.append(row)
 

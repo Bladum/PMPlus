@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="2025.05.05" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
- <tileset firstgid="1" source="../../tiles/tiles/farm.tsx"/>
+ <tileset firstgid="1" source="../../tiles/battle/farm.tsx"/>
  <layer id="1" name="floor" width="15" height="15">
   <data encoding="csv">
 16,4,3,5,5,5,5,6,5,5,5,5,3,4,4,

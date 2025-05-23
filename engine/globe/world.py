@@ -1,6 +1,7 @@
 from economy.ttransfer import TTransfer
 from engine.globe.world_tile import TWorldTile
 from lore.faction import TFaction
+from pathlib import Path
 
 
 class TWorld:
@@ -70,7 +71,8 @@ class TWorld:
           - Each region's tile list (with overlap)
         """
         import pytmx
-        tmx = pytmx.TiledMap(tmx_path)
+        tmx_path = Path(tmx_path)
+        tmx = pytmx.TiledMap(str(tmx_path))
         width, height = tmx.width, tmx.height
         self.size = [width, height]
 

@@ -78,7 +78,7 @@ class TiledMap:
             Dictionary of tile properties or None if not found
         """
         if layer_name in self.layers:
-            gid = self.layers[layer_name].data[y][x]
+            gid = self.layers[layer_name].toml_data[y][x]
             if gid:
                 return self.tmx_data.get_tile_properties_by_gid(gid)
         return None
