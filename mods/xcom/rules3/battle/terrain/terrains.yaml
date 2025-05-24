@@ -123,43 +123,43 @@ terrains:
         group: 0
         chance: 5
       - map: "cultaact00"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultaact01"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultaact02"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultaact02B"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultabig01"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultabig02"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultabig03"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultabig04"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultafarm00"
-        size: 1
+        size: 2
         group: 0
         chance: 5
       - map: "cultafarm17"
-        size: 1
+        size: 2
         group: 0
         chance: 5
 

@@ -1,3 +1,7 @@
+# map_block.py
+# This module defines the TMapBlock class, which represents a block of the battle map (e.g., 15x15 or larger).
+# Each TMapBlock is a 2D array of TBattleTile objects, loaded from a TMX file, and can be rendered to PNG for debugging.
+
 import os
 from PIL import Image
 from pytmx import TiledMap, TiledTileLayer
@@ -5,38 +9,26 @@ import pathlib
 
 from engine.battle.tile.battle_tile import TBattleTile
 
-
 class TMapBlock:
     """
-    Represents a block of map, which is a 2D array of battle tiles (default 15x15, can be larger)
+    Represents a block of map, which is a 2D array of battle tiles (default 15x15, can be larger).
     Used to generate map for battle. Each block can be placed on the battle map grid.
     """
     def __init__(self, size=15):
-        from engine.engine.game import TGame  # Move import to module level
-        self.game = TGame()  # No need to import inside the method
+        from engine.engine.game import TGame  # Avoid circular import
+        self.game = TGame()
 
+        self.name = ''  # Name of the block (usually the TMX file name)
+        self.group = 0  # Group identifier for filtering blocks
         self.size = size  # Size of the block (e.g., 15 for 15x15)
+
         # 2D array of TBattleTile
         self.tiles = [[TBattleTile() for _ in range(size)] for _ in range(size)]
         self.used_tilesets = set()  # Set of tilesets used in the block
-        self.name = ''
 
     def get_tile(self, x, y):
+        """Return the TBattleTile at (x, y) in this block."""
         return self.tiles[y][x]
-
-    @staticmethod
-    def _get_used_tilesets(tmx):
-        """
-        Returns a set of tileset names used in the given TMX map.
-        """
-        # Create a more efficient data structure by using a list comprehension
-        return {
-            (tileset.name,
-             tileset.firstgid,
-             tileset.firstgid + (getattr(tileset, 'tilecount', 0) or getattr(tileset, 'tile_count', 0) or 0) - 1,
-             getattr(tileset, 'tilecount', 0) or getattr(tileset, 'tile_count', 0) or 0)
-            for tileset in tmx.tilesets
-        }
 
     @classmethod
     def from_tmx(cls, tmx : TiledMap):
@@ -56,9 +48,15 @@ class TMapBlock:
         height = floor_layer.height
 
         # Calculate used tilesets for this block
-        used_tilesets = cls._get_used_tilesets(tmx)
+        used_tilesets = {
+                (tileset.name,
+                 tileset.firstgid,
+                 tileset.firstgid + (getattr(tileset, 'tilecount', 0) or getattr(tileset, 'tile_count', 0) or 0) - 1,
+                 getattr(tileset, 'tilecount', 0) or getattr(tileset, 'tile_count', 0) or 0)
+                for tileset in tmx.tilesets
+            }
 
-        # Helper function to process layer data to avoid code duplication
+        # Helper function to process layer data
         def process_layer(layer):
             if layer is None:
                 return None
@@ -77,16 +75,14 @@ class TMapBlock:
 
             return data
 
-        # Process all layers using the helper function
         floor_layer_data = process_layer(floor_layer)
         wall_layer_data = process_layer(wall_layer)
         roof_layer_data = process_layer(roof_layer)
 
-        # Optimize tile creation by pre-allocating the 2D array
+        # Create TBattleTile objects for each tile
         tiles = [[None for _ in range(width)] for _ in range(height)]
         for y in range(height):
             for x in range(width):
-                # Access data directly since tile_gid is not available in your implementation
                 floor_gid = floor_layer_data[y][x] if floor_layer_data else 0
                 wall_gid = wall_layer_data[y][x] if wall_layer_data else 0
                 roof_gid = roof_layer_data[y][x] if roof_layer_data else 0
@@ -94,8 +90,10 @@ class TMapBlock:
 
         block = cls(size=width)
         block.tiles = tiles
+        block.name = tmx.name
+        block.group = tmx.properties.get('group', 0)  # Get group from TMX properties
+        block.size = width // 15  # Assuming square blocks, size is width but divided by 15
         block.used_tilesets = used_tilesets
-
         return block
 
     def render_to_png(self):
@@ -137,23 +135,23 @@ class TMapBlock:
                 pixel_x, pixel_y = x * tile_size, y * tile_size
                 out_img.paste(img, (pixel_x, pixel_y), mask)
 
-        # Use a more optimized loop structure
-        positions = [(x, y) for y in range(self.size) for x in range(self.size)]
-        for x, y in positions:
-            tile = self.tiles[y][x]
-            # Drawing layers in one go
-            if tile.floor_id:
-                draw_layer(tile.floor_id, x, y)
-            if tile.wall_id:
-                draw_layer(tile.wall_id, x, y)
-            # Commented out as per original code
-            # if tile.roof_id:
-            #     draw_layer(tile.roof_id, x, y)
+        # Draw all layers for each tile
+        for y in range(self.size):
+            for x in range(self.size):
+                tile = self.tiles[y][x]
+                if tile.floor_id:
+                    draw_layer(tile.floor_id, x, y)
+                if tile.wall_id:
+                    draw_layer(tile.wall_id, x, y)
+                # Optionally draw roof layer
+                # if tile.roof_id:
+                #     draw_layer(tile.roof_id, x, y)
 
-        # Create output path and save
+        # Save the image
         user_docs = pathlib.Path.home() / 'Documents' / 'export' / 'maps'
         user_docs.mkdir(parents=True, exist_ok=True)
         out_path = user_docs / f"{self.name}.png"
         out_img.save(out_path)
         print(f"Saved map block image to {out_path}")
+
 

@@ -2,6 +2,7 @@
 #   ITEMS for SOLDIERS
 #
 unit_armours:
+
     # XCOM ARMOURS
     suit:
         name: "Suit"

@@ -61,6 +61,9 @@ if __name__ == "__main__":
 
     ter = game.mod.terrains.get('farmland')
     script = game.mod.map_scripts.get('polar')
-    gg = TBattleGenerator(ter, script, blocks_x=4, blocks_y=4)
+    gg = TBattleGenerator(ter, script, blocks_x=6, blocks_y=6)
     gg.generate()
+    gg.print_used_map_blocks()
     gg.render_to_png('battle_map')
+    gg.render_to_csv('battle_map')
+

@@ -205,19 +205,19 @@ chance = 5
 
 [[terrains.farmland.map_blocks]]
 map = "cultabig02"
-size = 1
+size = 2
 group = 0
 chance = 5
 
 [[terrains.farmland.map_blocks]]
 map = "cultabig03"
-size = 1
+size = 2
 group = 0
 chance = 5
 
 [[terrains.farmland.map_blocks]]
 map = "cultabig04"
-size = 1
+size = 2
 group = 0
 chance = 5
 

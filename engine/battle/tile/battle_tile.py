@@ -1,46 +1,111 @@
-from engine.battle.tile.battle_floor import TBattleFloor
-from engine.battle.tile.battle_object import TBattleObject
-from engine.battle.tile.battle_wall import TBattleWall
-from engine.unit.unit import TUnit
-
+"""
+Battle tile module for representing individual tiles in a battle map.
+"""
+from typing import Optional, Dict, Any
 
 class TBattleTile:
     """
-    Represents a tile on battle map, it is 2D array of tiles
-    It contains FLOOR, WALL, ITEM, UNIT
+    Represents a single tile in the battle map.
+    Each tile contains information about its floor, wall, and roof.
     """
-    def __init__(self):
+    def __init__(self,
+                 floor_id: int = 0,
+                 wall_id: Optional[int] = None,
+                 roof_id: Optional[int] = None):
+        """
+        Initialize a battle tile with layer IDs.
+
+        Args:
+            floor_id: ID of the floor tile (mandatory)
+            wall_id: ID of the wall tile (optional)
+            roof_id: ID of the roof tile (optional)
+        """
+
         self.floor : TBattleFloor = TBattleFloor()
         self.wall : TBattleWall = None
+        self.roof : TBattleRoof = None
+
         self.objects : list[TBattleObject] = []
         self.unit : TUnit = None
+
         self.smoke = False
         self.fire = False
         self.gas = False
         self.light_level = 0
         self.fog_of_war = []
-        self.objective_marker: str = None  # Marker for objectives (e.g. 'extraction', 'poc', 'sabotage')
-        self.floor_id = None
-        self.wall_id = None
-        self.roof_id = None
 
-    def set_layer_ids(self, floor_id, wall_id, roof_id):
-        self.floor_id = floor_id
-        self.wall_id = wall_id
-        self.roof_id = roof_id
+        self.floor_id: int = floor_id
+        self.wall_id: Optional[int] = wall_id
+        self.roof_id: Optional[int] = roof_id
 
-    @classmethod
-    def from_layer_ids(cls, floor_id, wall_id, roof_id):
+        # Additional properties
+        self.passable: bool = True
+        self.blocks_fire: bool = False
+        self.blocks_sight: bool = False
+        self.blocks_light: bool = False
+        self.metadata: Dict[str, Any] = {}
+
+    def copy(self) -> 'TBattleTile':
         """
-        Create a TBattleTile from layer IDs and optional gid_map for properties.
-        """
-        tile = cls()
+        Create a deep copy of this tile.
 
-        tile.floor = TBattleFloor() if floor_id else None
-        tile.wall = TBattleWall() if wall_id else None
-        tile.roof_id = roof_id if roof_id else None
-        tile.set_layer_ids(floor_id, wall_id, roof_id)
-        return tile
+        Returns:
+            A new TBattleTile with the same properties
+        """
+        new_tile = TBattleTile(self.floor_id, self.wall_id, self.roof_id)
+        new_tile.passable = self.passable
+        new_tile.blocks_fire = self.blocks_fire
+        new_tile.blocks_sight = self.blocks_sight
+        new_tile.blocks_light = self.blocks_light
+        new_tile.metadata = self.metadata.copy()
+        return new_tile
+
+    def update_properties(self) -> None:
+        """
+        Update tile properties based on layer IDs.
+        For example, walls might make a tile impassable.
+        """
+        # Base assumption: floors are passable
+        self.passable = True
+        self.blocks_fire = False
+        self.blocks_sight = False
+
+        # Walls typically block movement and sight/fire
+        if self.wall_id is not None:
+            self.passable = False
+            self.blocks_fire = True
+            self.blocks_sight = True
+
+        # Roofs might block light
+        if self.roof_id is not None:
+            self.blocks_light = True
+
+    def has_floor(self) -> bool:
+        """
+        Check if this tile has a floor.
+
+        Returns:
+            True if the tile has a valid floor ID
+        """
+        return self.floor_id > 0
+
+    def has_wall(self) -> bool:
+        """
+        Check if this tile has a wall.
+
+        Returns:
+            True if the tile has a valid wall ID
+        """
+        return self.wall_id is not None and self.wall_id > 0
+
+    def has_roof(self) -> bool:
+        """
+        Check if this tile has a roof.
+
+        Returns:
+            True if the tile has a valid roof ID
+        """
+        return self.roof_id is not None and self.roof_id > 0
 
     def is_walkable(self):
         """Returns True if tile can be walked on (no wall)."""
@@ -192,4 +257,3 @@ class TBattleTile:
         hurt = damage * damage_model.get('hurt', 1.0)
         stun = damage * damage_model.get('stun', 0.0)
         return hurt, stun
-
