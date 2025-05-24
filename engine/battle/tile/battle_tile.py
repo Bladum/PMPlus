@@ -3,15 +3,22 @@ Battle tile module for representing individual tiles in a battle map.
 """
 from typing import Optional, Dict, Any
 
+from battle.tile.battle_floor import TBattleFloor
+from battle.tile.battle_object import TBattleObject
+from battle.tile.battle_roof import TBattleRoof
+from battle.tile.battle_wall import TBattleWall
+from unit.unit import TUnit
+
+
 class TBattleTile:
     """
     Represents a single tile in the battle map.
     Each tile contains information about its floor, wall, and roof.
     """
     def __init__(self,
-                 floor_id: int = 0,
-                 wall_id: Optional[int] = None,
-                 roof_id: Optional[int] = None):
+                 floor_id: str = '0',
+                 wall_id: Optional[str] = None,
+                 roof_id: Optional[str] = None):
         """
         Initialize a battle tile with layer IDs.
 
@@ -34,9 +41,9 @@ class TBattleTile:
         self.light_level = 0
         self.fog_of_war = []
 
-        self.floor_id: int = floor_id
-        self.wall_id: Optional[int] = wall_id
-        self.roof_id: Optional[int] = roof_id
+        self.floor_id: str = floor_id
+        self.wall_id: Optional[str] = wall_id
+        self.roof_id: Optional[str] = roof_id
 
         # Additional properties
         self.passable: bool = True
@@ -87,7 +94,7 @@ class TBattleTile:
         Returns:
             True if the tile has a valid floor ID
         """
-        return self.floor_id > 0
+        return self.floor_id > '0'
 
     def has_wall(self) -> bool:
         """
@@ -257,3 +264,34 @@ class TBattleTile:
         hurt = damage * damage_model.get('hurt', 1.0)
         stun = damage * damage_model.get('stun', 0.0)
         return hurt, stun
+
+    @staticmethod
+    def gid_to_tileset_name(gid, used_tilesets):
+        """
+        Convert a global tile ID (gid) to a string in the format 'XXX_YYY',
+        where XXX is the tileset name and YYY is the relative tile id.
+        Args:
+            gid: The global tile ID.
+            used_tilesets: List of dicts with keys: name, first_gid, last_gid, counttile
+        Returns:
+            str: 'XXX_YYY' or None if gid is 0 or not found.
+        """
+        if not gid or gid == 0:
+            return None
+        for tileset in used_tilesets:
+            if tileset[1] <= gid <= tileset[2] :
+                rel_id = gid - tileset[1] + 1
+                return f"{tileset[0]}_{int(rel_id):03d}"
+        return None
+
+    @staticmethod
+    def from_gids(floor_gid, wall_gid, roof_gid, used_tilesets):
+        """
+        Create a TBattleTile from GIDs and used_tilesets info.
+        Returns a TBattleTile with floor_id, wall_id, roof_id set to 'XXX_YYY' format.
+        """
+        floor_id = TBattleTile.gid_to_tileset_name(floor_gid, used_tilesets)
+        wall_id = TBattleTile.gid_to_tileset_name(wall_gid, used_tilesets)
+        roof_id = TBattleTile.gid_to_tileset_name(roof_gid, used_tilesets)
+        return TBattleTile(floor_id, wall_id, roof_id)
+

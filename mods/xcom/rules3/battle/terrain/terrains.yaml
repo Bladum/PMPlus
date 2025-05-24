@@ -22,26 +22,30 @@ terrains:
       - "farmer_02"
       - "farmer_03"
     map_blocks:
+      - map: "culta00"
+        size: 1
+        group: 0
+        chance: 10
       - map: "culta01"
         size: 1
         group: 0
-        chance: 5
+        chance: 10
       - map: "culta02"
         size: 1
         group: 0
-        chance: 5
+        chance: 10
       - map: "culta03"
         size: 1
         group: 0
-        chance: 5
+        chance: 10
       - map: "culta04"
         size: 1
         group: 0
-        chance: 5
+        chance: 10
       - map: "culta05"
         size: 1
         group: 0
-        chance: 5
+        chance: 10
       - map: "culta06"
         size: 1
         group: 0
@@ -74,7 +78,7 @@ terrains:
         size: 1
         group: 0
         chance: 5
-      - map: "culta1"
+      - map: "culta14"
         size: 1
         group: 0
         chance: 5
@@ -94,7 +98,7 @@ terrains:
         size: 1
         group: 0
         chance: 5
-      - map: "culta17B"
+      - map: "culta18B"
         size: 1
         group: 0
         chance: 5
@@ -123,19 +127,19 @@ terrains:
         group: 0
         chance: 5
       - map: "cultaact00"
-        size: 2
+        size: 1
         group: 0
         chance: 5
       - map: "cultaact01"
-        size: 2
+        size: 1
         group: 0
         chance: 5
       - map: "cultaact02"
-        size: 2
+        size: 1
         group: 0
         chance: 5
       - map: "cultaact02B"
-        size: 2
+        size: 1
         group: 0
         chance: 5
       - map: "cultabig01"

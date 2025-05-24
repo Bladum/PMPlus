@@ -86,14 +86,15 @@ class TMapBlock:
                 floor_gid = floor_layer_data[y][x] if floor_layer_data else 0
                 wall_gid = wall_layer_data[y][x] if wall_layer_data else 0
                 roof_gid = roof_layer_data[y][x] if roof_layer_data else 0
-                tiles[y][x] = TBattleTile.from_layer_ids(floor_gid, wall_gid, roof_gid)
+                tiles[y][x] = TBattleTile.from_gids(floor_gid, wall_gid, roof_gid, used_tilesets)
 
         block = cls(size=width)
         block.tiles = tiles
-        block.name = tmx.name
-        block.group = tmx.properties.get('group', 0)  # Get group from TMX properties
-        block.size = width // 15  # Assuming square blocks, size is width but divided by 15
+        block.name = ''
+        block.group = None          # Get group from TMX properties
+        block.size = width // 15    # Assuming square blocks, size is width but divided by 15
         block.used_tilesets = used_tilesets
+
         return block
 
     def render_to_png(self):
@@ -104,48 +105,30 @@ class TMapBlock:
         """
         tileset_manager = self.game.mod.tileset_manager
         tile_size = 16
-        width_px = self.size * tile_size
-        height_px = self.size * tile_size
+        width_px = self.size * tile_size * 15
+        height_px = self.size * tile_size * 15
         out_img = Image.new('RGBA', (width_px, height_px), (0, 0, 0, 0))
-
-        # Load all tileset images only once and cache processed images
-        tileset_images = {}
-        processed_images = {}  # Cache for processed images
-
-        # Load all images in one go
-        for name, firstid, lastid, countid in self.used_tilesets:
-            for x in range(countid):
-                gid = firstid + x
-                img = tileset_manager.get_tile_image('battle', name, x + 1)
-                if img:
-                    # Pre-process images once to avoid repeated conversions
-                    if img.mode != 'RGBA':
-                        img = img.convert('RGBA')
-                    mask = img.split()[3] if img.mode == 'RGBA' else None
-                    processed_images[gid] = (img, mask)
-                    tileset_images[gid] = img
 
         # Optimized draw_layer function
         def draw_layer(gid, x, y):
             if not gid:  # Combine None and 0 checks
                 return
 
-            if gid in processed_images:
-                img, mask = processed_images[gid]
+            img, mask = tileset_manager.all_tiles.get(gid)
+            if img:
                 pixel_x, pixel_y = x * tile_size, y * tile_size
                 out_img.paste(img, (pixel_x, pixel_y), mask)
 
         # Draw all layers for each tile
-        for y in range(self.size):
-            for x in range(self.size):
+        for y in range(self.size * 15):
+            for x in range(self.size * 15):
                 tile = self.tiles[y][x]
                 if tile.floor_id:
                     draw_layer(tile.floor_id, x, y)
                 if tile.wall_id:
                     draw_layer(tile.wall_id, x, y)
-                # Optionally draw roof layer
-                # if tile.roof_id:
-                #     draw_layer(tile.roof_id, x, y)
+                #if tile.roof_id:
+                #    draw_layer(tile.roof_id, x, y)
 
         # Save the image
         user_docs = pathlib.Path.home() / 'Documents' / 'export' / 'maps'
@@ -153,5 +136,4 @@ class TMapBlock:
         out_path = user_docs / f"{self.name}.png"
         out_img.save(out_path)
         print(f"Saved map block image to {out_path}")
-
 

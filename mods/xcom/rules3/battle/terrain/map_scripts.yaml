@@ -52,7 +52,9 @@ map_scripts:
               group: 0
               size: 1
             - type: add_ufo
+
             - type: add_craft
+
     # REPORTID BASE
     reptoid_surface_base:
         steps:

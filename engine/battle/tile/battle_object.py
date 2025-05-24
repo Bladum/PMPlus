@@ -5,10 +5,10 @@ class TBattleObject:
     It does not block movement or fire.
     It can be a light source, have armor, and be destroyed.
     """
-    def __init__(self, is_light_source=False, armor=5, destroyed_object_id=None):
-        self.is_light_source = is_light_source  # Emits light?
-        self.armor = armor  # How much damage it can take before being destroyed
-        self.destroyed_object_id = destroyed_object_id  # Object to replace with when destroyed
+    def __init__(self, **kwargs):
+        self.is_light_source = kwargs.get('is_light_source', False)  # Emits light?
+        self.armor = kwargs.get('armor', 5)  # How much damage it can take before being destroyed
+        self.destroyed_object_id = kwargs.get('destroyed_object_id', None)  # Object to replace with when destroyed
 
     def on_destroy(self):
         """

@@ -56,9 +56,9 @@ class TMod:
             self.tiles_path = None
 
         # here save all graphics tiles
-        from engine.engine.tiled.tileset_manager import TTileManager
-        self.tileset_manager: TTileManager = None
 
+        from battle.tile.tileset_manager import TTilesetManager
+        self.tileset_manager: TTilesetManager = None
 
         # base
         self.facilities: dict[str, TFacilityType] = {}
@@ -372,3 +372,10 @@ class TMod:
         """
         for terrain in self.terrains.values():
             terrain.load_maps_and_blocks(self.maps_path / terrain.maps_folder)
+
+    def render_all_map_blocks(self):
+        """
+        Render all map blocks to PNG for debugging/visualization.
+        """
+        for terrain in self.terrains.values():
+            terrain.render_map_blocks()

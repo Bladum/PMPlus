@@ -12,6 +12,10 @@ class TBattleScript:
     Each script consists of steps, each step describes how to fill part of the map grid.
     """
     def __init__(self, pid: Any, data: dict):
+
+        from engine.engine.game import TGame  # Avoid circular import
+        self.game = TGame()
+
         self.pid: Any = pid
         self.steps: List[TBattleScriptStep] = []
 
@@ -19,21 +23,15 @@ class TBattleScript:
             for step_data in data['steps']:
                 self.steps.append(TBattleScriptStep(step_data))
 
-    def apply_to(self, generator) -> None:
+    def apply_to(self, generator ) -> None:
         """
         Apply the script to the generator, filling the block grid according to the steps.
-
-        For every step:
-        1. Filter available map blocks based on step properties (size, group)
-        2. Apply the step based on its type (add_line, add_block, fill_block, etc.)
-
-        Args:
-            generator: The battle map generator to apply this script to
         """
         import random
         block_counts = {}
 
         for step in self.steps:
+
             # Check chance (probability of applying this step)
             chance = step.chance
             if random.random() > chance:
@@ -45,11 +43,11 @@ class TBattleScript:
             name = None
 
             if step.type == 'add_ufo':
-                name = step.ufo
+                name = 'small_scout' # step.ufo TODO fix me
             elif step.type == 'add_craft':
-                name = step.craft
+                name = 'interceptor' # step.craft TODO fix me
 
-            filtered_blocks = self._filter_blocks(generator, group, size, name)
+            filtered_blocks = self.filter_blocks(generator, group, size, name)
 
             # Skip if no valid blocks and not filling
             if not filtered_blocks and step.type != 'fill_block':
@@ -57,48 +55,34 @@ class TBattleScript:
 
             # Process step based on type
             if step.type == 'add_line':
-                self._process_add_line(generator, step, filtered_blocks)
+                self.process_add_line(generator, step, filtered_blocks)
             elif step.type == 'add_block':
-                self._process_add_block(generator, step, filtered_blocks, block_counts)
+                self.process_add_block(generator, step, filtered_blocks, block_counts)
             elif step.type == 'fill_block':
-                self._process_fill_block(generator, step, filtered_blocks)
+                self.process_fill_block(generator, step, filtered_blocks)
             elif step.type == 'add_ufo':
-                self._process_add_special(generator, step, filtered_blocks, 'ufo')
+                self.process_add_special(generator, step, filtered_blocks, 'ufo')
             elif step.type == 'add_craft':
-                self._process_add_special(generator, step, filtered_blocks, 'craft')
+                self.process_add_special(generator, step, filtered_blocks, 'craft')
 
-    def _filter_blocks(self, generator, group: Any = None, size: Any = None, name: str = None) -> list:
+    def filter_blocks(self, generator, group: Any = None, size: Any = None, name: str = None) -> list:
         """
         Filter available map block entries by group, size, and/or name.
-
-        Args:
-            generator: The battle map generator
-            group: Filter by group
-            size: Filter by size
-            name: Filter by name
-
-        Returns:
-            List of matching map block entries
         """
-        blocks = generator.terrain.map_blocks_entries
+        blocks = generator.terrain.map_blocks_entries.copy()  # Start with all available blocks
 
         if group is not None:
             blocks = [b for b in blocks if b.group == group]
         if size is not None:
             blocks = [b for b in blocks if b.size == size]
         if name is not None:
-            blocks = [b for b in blocks if b.name == name]
+            blocks = [b for b in blocks if b.map == name]
 
         return blocks
 
-    def _process_add_line(self, generator, step: TBattleScriptStep, blocks: list) -> None:
+    def process_add_line(self, generator, step: TBattleScriptStep, blocks: list) -> None:
         """
         Add blocks in a line according to direction (horizontal, vertical, or both).
-
-        Args:
-            generator: The battle map generator
-            step: The script step to process
-            blocks: The filtered blocks to choose from
         """
         import random
         direction = step.direction
@@ -109,87 +93,114 @@ class TBattleScript:
         for _ in range(runs):
             if direction == 'horizontal' or direction == 'both':
                 # Select row: use step.row if set, else random
-                y = row if row is not None else random.randint(0, generator.blocks_y - 1)
+                y = row if row is not None else random.randint(0, generator.map_height - 1)
 
                 # Place blocks along the row
-                for x in range(generator.blocks_x):
+                for x in range(generator.map_width):
                     if generator.block_grid[y][x] is None and blocks:
                         block_entry = random.choice(blocks)
-                        block = generator._find_map_block_by_entry(block_entry)
-                        if block:
-                            generator.block_grid[y][x] = block
+                        generator.block_grid[y][x] = block_entry.map
 
             if direction == 'vertical' or direction == 'both':
                 # Select column: use step.col if set, else random
-                x = col if col is not None else random.randint(0, generator.blocks_x - 1)
+                x = col if col is not None else random.randint(0, generator.map_width - 1)
 
                 # Place blocks along the column
-                for y in range(generator.blocks_y):
+                for y in range(generator.map_height):
                     if generator.block_grid[y][x] is None and blocks:
                         block_entry = random.choice(blocks)
-                        block = generator._find_map_block_by_entry(block_entry)
-                        if block:
-                            generator.block_grid[y][x] = block
+                        generator.block_grid[y][x] = block_entry.map
 
-    def _process_add_block(self, generator, step: TBattleScriptStep, blocks: list, block_counts: Dict) -> None:
+    def process_add_block(self, generator, step: TBattleScriptStep, blocks: list, block_counts: Dict) -> None:
         """
         Add a random block to the first available position.
         Take into account max count if specified.
-
-        Args:
-            generator: The battle map generator
-            step: The script step to process
-            blocks: The filtered blocks to choose from
-            block_counts: Dictionary tracking block placement counts
+        Handles large blocks by only assigning the top-left cell, and marking the rest with '-'.
         """
         import random
 
-        # Check max count
         max_count = step.runs if hasattr(step, 'runs') else 1
         group_key = f"block_{step.group}_{step.size}"
 
         current_count = block_counts.get(group_key, 0)
-        runs = min(max_count, generator.blocks_x * generator.blocks_y - current_count)
+        runs = min(max_count, generator.map_width * generator.map_height - current_count)
 
         placed = 0
         for _ in range(runs):
             if blocks:
                 block_entry = random.choice(blocks)
-                block = generator._find_map_block_by_entry(block_entry)
-                if block:
-                    for y in range(generator.blocks_y):
-                        for x in range(generator.blocks_x):
-                            if generator.block_grid[y][x] is None:
-                                generator.block_grid[y][x] = block
-                                placed += 1
+
+                width = block_entry.size
+                height = block_entry.size
+                found = False
+
+                for y in range(generator.map_height - height + 1):
+                    for x in range(generator.map_width - width + 1):
+                        # Check if all cells are empty
+                        can_place = True
+                        for dy in range(height):
+                            for dx in range(width):
+                                if generator.block_grid[y+dy][x+dx] is not None:
+                                    can_place = False
+                                    break
+                            if not can_place:
                                 break
-                        if placed > current_count:
+                        if can_place:
+                            # Place block only at top-left, mark others with '-'
+                            generator.block_grid[y][x] = block_entry.map
+                            for dy in range(height):
+                                for dx in range(width):
+                                    if dy != 0 or dx != 0:
+                                        generator.block_grid[y+dy][x+dx] = '-'
+                            placed += 1
+                            found = True
                             break
+                    if found:
+                        break
             block_counts[group_key] = block_counts.get(group_key, 0) + 1
             current_count = block_counts[group_key]
             if current_count >= max_count:
                 break
-    def _process_fill_block(self, generator, step: TBattleScriptStep, blocks: list) -> None:
+
+    def process_fill_block(self, generator, step: TBattleScriptStep, blocks: list) -> None:
         """
         Fill all remaining empty positions with random blocks.
-
-        Args:
-            generator: The battle map generator
-            step: The script step to process
-            blocks: The filtered blocks to choose from
+        Handles large blocks by only assigning the top-left cell, and marking the rest with '-'.
         """
         import random
+        if not blocks:
+            blocks = generator.terrain.map_blocks_entries
+        if not blocks:
+            return
+        for y in range(generator.map_height):
+            for x in range(generator.map_width):
+                if generator.block_grid[y][x] is None:
+                    for _ in range(len(blocks)):
+                        block_entry = random.choice(blocks)
 
-        # Fill all empty spaces with random blocks
-        for y in range(generator.blocks_y):
-            for x in range(generator.blocks_x):
-                if generator.block_grid[y][x] is None and blocks:
-                    block_entry = random.choice(blocks)
-                    block = generator._find_map_block_by_entry(block_entry)
-                    if block:
-                        generator.block_grid[y][x] = block
+                        width = block_entry.size
+                        height = block_entry.size
 
-    def _process_add_special(self, generator, step: TBattleScriptStep, blocks: list, special_type: str) -> None:
+                        # Check if block fits
+                        if y + height <= generator.map_height and x + width <= generator.map_width:
+                            can_place = True
+                            for dy in range(height):
+                                for dx in range(width):
+                                    if generator.block_grid[y+dy][x+dx] is not None:
+                                        can_place = False
+                                        break
+                                if not can_place:
+                                    break
+                            if can_place:
+                                generator.block_grid[y][x] = block_entry.map
+                                for dy in range(height):
+                                    for dx in range(width):
+                                        if dy != 0 or dx != 0:
+                                            generator.block_grid[y+dy][x+dx] = '-'
+                                break
+
+
+    def process_add_special(self, generator, step: TBattleScriptStep, blocks: list, special_type: str) -> None:
         """
         Add a special block (UFO or craft) to the first available position.
 
@@ -203,26 +214,25 @@ class TBattleScript:
 
         if blocks:
             block_entry = random.choice(blocks)
-            block = generator._find_map_block_by_entry(block_entry)
-            if block:
-                # Try to place in the center first, then anywhere available
-                center_y = generator.blocks_y // 2
-                center_x = generator.blocks_x // 2
 
-                # Check center and surrounding area first
-                for dy in range(-1, 2):
-                    for dx in range(-1, 2):
-                        y = center_y + dy
-                        x = center_x + dx
-                        if (0 <= y < generator.blocks_y and
-                            0 <= x < generator.blocks_x and
-                            generator.block_grid[y][x] is None):
-                            generator.block_grid[y][x] = block
-                            return
+            # Try to place in the center first, then anywhere available
+            center_y = generator.map_height // 2
+            center_x = generator.map_width // 2
 
-                # If center area is full, try anywhere
-                for y in range(generator.blocks_y):
-                    for x in range(generator.blocks_x):
-                        if generator.block_grid[y][x] is None:
-                            generator.block_grid[y][x] = block
-                            return
+            # Check center and surrounding area first
+            for dy in range(-1, 2):
+                for dx in range(-1, 2):
+                    y = center_y + dy
+                    x = center_x + dx
+                    if (0 <= y < generator.map_height and
+                        0 <= x < generator.map_width and
+                        generator.block_grid[y][x] is None):
+                        generator.block_grid[y][x] = block_entry.map
+                        return
+
+            # If center area is full, try anywhere
+            for y in range(generator.map_height):
+                for x in range(generator.map_width):
+                    if generator.block_grid[y][x] is None:
+                        generator.block_grid[y][x] = block_entry.map
+                        return

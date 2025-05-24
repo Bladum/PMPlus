@@ -70,30 +70,37 @@ class TTerrain:
         self.map_blocks.clear()
         for entry in self.map_blocks_entries:
             tmx_details = self.map_tmx_files.get(entry.map)
+
             if tmx_details is None:
                 continue
+
             map_block = TMapBlock.from_tmx(tmx_details)
             if map_block is None:
                 continue
+
+            # copy data from entry to map_block
             map_block.name = entry.map
+            map_block.group = entry.group
+            if entry.size != map_block.size:
+                print(f"Warning: Map block size mismatch for {entry.map}: expected {map_block.size}, got {entry.size}")
+            map_block.size = entry.size
+
             self.map_blocks.append(map_block)
             self.game.mod.map_blocks[entry.map] = map_block
 
+        print(f"Based on terrain map block entries, created {len(self.map_blocks)} map blocks")
+
+    def render_map_blocks(self):
+        """
+        Render all map blocks to PNG for debugging/visualization.
+        """
         # Step 4. Render all map blocks to PNG
         for map_block in self.map_blocks:
             map_block.render_to_png()
 
-        print(f"Based on terrain map block entries, created {len(self.map_blocks)} map blocks")
-
     def get_map_block(self, entry: TMapBlock):
         """
         Get a map block by entry.
-
-        Args:
-            entry: The map block entry to look up
-
-        Returns:
-            The corresponding map block, or None if not found
         """
         if entry in self.map_blocks_entries:
             return entry  # In our mock, entries are the blocks themselves

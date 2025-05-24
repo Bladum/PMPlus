@@ -2,7 +2,7 @@ from pathlib import Path
 import yaml  # Replacing tomli with yaml
 
 from battle.map.battle_generator import TBattleGenerator
-from engine.engine.tiled.tileset_manager import TTileManager
+from battle.tile.tileset_manager import TTilesetManager
 
 
 class TModLoader:
@@ -50,20 +50,24 @@ if __name__ == "__main__":
     loader = TModLoader(mod_name, mod_path)
     loader.load_all_yaml_files()  # Changed to load YAML files
 
+    # load mod data from yaml files
     from engine.engine.mod import TMod
     game.mod = TMod(loader.yaml_data, mod_path)  # Changed to use yaml_data
-
     game.mod.load_objects_from_data()
-    game.mod.tileset_manager = TTileManager(mod_name, game.mod.tiles_path)
-    game.mod.tileset_manager.export_all_images()
 
+    # load all graphics tilesets
+    game.mod.tileset_manager = TTilesetManager(game.mod.tiles_path)
+    game.mod.tileset_manager.load_all_tilesets_from_folder()
+
+    # load all map blocks
     game.mod.load_all_terrain_map_blocks()
+    game.mod.render_all_map_blocks()
 
     ter = game.mod.terrains.get('farmland')
     script = game.mod.map_scripts.get('polar')
     gg = TBattleGenerator(ter, script, blocks_x=6, blocks_y=6)
     gg.generate()
-    gg.print_used_map_blocks()
+    # gg.print_used_map_blocks()
     gg.render_to_png('battle_map')
-    gg.render_to_csv('battle_map')
-
+    # gg.render_to_csv('battle_map')
+    #
