@@ -1,0 +1,300 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\globe\countries.yaml
+#
+#  COUNTRIES
+#
+#   each world tile might have an owner = country, this is done with a flag
+#
+
+countries:
+  usa:
+    name: "USA"
+    description: "The United States of America, a powerful and influential nation located in North America."
+    id: 1
+    color: '#FF00FF'
+    funding: 50
+    funding_cap: 100
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  russia:
+    name: "Russia"
+    description: "A vast and powerful nation located in Eurasia, Russia is known for its rich history and culture."
+    id: 2
+    founding: 40
+    initial_relation: 5
+
+  canada:
+    name: "Canada"
+    description: "A large country in North America, known for its natural beauty and resources."
+    id: 3
+    color: '#00BFFF'
+    funding: 30
+    funding_cap: 60
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  mexico:
+    name: "Mexico"
+    description: "A country in southern North America, rich in culture and history."
+    id: 4
+    color: '#228B22'
+    funding: 20
+    funding_cap: 40
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  colombia:
+    name: "Colombia"
+    description: "A country in South America known for its coffee and diverse landscapes."
+    id: 5
+    color: '#FFD700'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  brazil:
+    name: "Brazil"
+    description: "The largest country in South America, famous for the Amazon rainforest."
+    id: 6
+    color: '#32CD32'
+    funding: 35
+    funding_cap: 70
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  peru:
+    name: "Peru"
+    description: "A country in western South America, home to part of the Amazon and Machu Picchu."
+    id: 7
+    color: '#8B4513'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  argentina:
+    name: "Argentina"
+    description: "A large country in South America, known for its diverse geography and culture."
+    id: 8
+    color: '#87CEEB'
+    funding: 20
+    funding_cap: 40
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  arabia:
+    name: "Arabia"
+    description: "A region in the Middle East, rich in oil and history."
+    id: 9
+    color: '#A0522D'
+    funding: 15
+    funding_cap: 30
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  iran:
+    name: "Iran"
+    description: "A country in Western Asia, known for its ancient history and culture."
+    id: 10
+    color: '#B22222'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  india:
+    name: "India"
+    description: "A populous country in South Asia, known for its diverse culture and history."
+    id: 11
+    color: '#FF8C00'
+    funding: 30
+    funding_cap: 60
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  china:
+    name: "China"
+    description: "A populous and influential country in East Asia."
+    id: 12
+    color: '#DC143C'
+    funding: 40
+    funding_cap: 80
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  japan:
+    name: "Japan"
+    description: "An island nation in East Asia, known for its technology and culture."
+    id: 13
+    color: '#F5DEB3'
+    funding: 25
+    funding_cap: 50
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  thailand:
+    name: "Thailand"
+    description: "A country in Southeast Asia, known for its tropical beaches and cuisine."
+    id: 14
+    color: '#00FA9A'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  indonesia:
+    name: "Indonesia"
+    description: "An archipelago in Southeast Asia, known for its islands and biodiversity."
+    id: 15
+    color: '#4682B4'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  egypt:
+    name: "Egypt"
+    description: "A country in North Africa, famous for its ancient civilization and pyramids."
+    id: 16
+    color: '#DAA520'
+    funding: 15
+    funding_cap: 30
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  rpa:
+    name: "South Africa"
+    description: "The southernmost country in Africa, known for its diverse cultures and landscapes."
+    id: 17
+    color: '#006400'
+    funding: 15
+    funding_cap: 30
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  ethiopia:
+    name: "Ethiopia"
+    description: "A country in the Horn of Africa, known for its ancient history."
+    id: 18
+    color: '#8B0000'
+    funding: 5
+    funding_cap: 10
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  nigeria:
+    name: "Nigeria"
+    description: "The most populous country in Africa, rich in oil and culture."
+    id: 19
+    color: '#228B22'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  algeria:
+    name: "Algeria"
+    description: "A large country in North Africa, mostly covered by the Sahara Desert."
+    id: 20
+    color: '#BDB76B'
+    funding: 10
+    funding_cap: 20
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  tanzania:
+    name: "Tanzania"
+    description: "A country in East Africa, known for its wilderness and Mount Kilimanjaro."
+    id: 21
+    color: '#D2691E'
+    funding: 5
+    funding_cap: 10
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  australia:
+    name: "Australia"
+    description: "A large island country and continent, known for its unique wildlife."
+    id: 22
+    color: '#1E90FF'
+    funding: 20
+    funding_cap: 40
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  oceania:
+    name: "Oceania"
+    description: "A region including Australasia, Melanesia, Micronesia, and Polynesia."
+    id: 23
+    color: '#00CED1'
+    funding: 5
+    funding_cap: 10
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  france:
+    name: "France"
+    description: "A country in Western Europe, known for its art, cuisine, and history."
+    id: 24
+    color: '#0000FF'
+    funding: 20
+    funding_cap: 40
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  spain:
+    name: "Spain"
+    description: "A country on Europe's Iberian Peninsula, known for its culture and history."
+    id: 25
+    color: '#FFD700'
+    funding: 15
+    funding_cap: 30
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  germany:
+    name: "Germany"
+    description: "A country in Central Europe, known for its engineering and history."
+    id: 26
+    color: '#000000'
+    funding: 20
+    funding_cap: 40
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []
+
+  italy:
+    name: "Italy"
+    description: "A country in Southern Europe, known for its art, architecture, and cuisine."
+    id: 27
+    color: '#008000'
+    funding: 15
+    funding_cap: 30
+    initial_relation: 5
+    service_provided: []
+    service_forbidden: []

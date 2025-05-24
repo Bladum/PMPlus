@@ -1,0 +1,77 @@
+#
+#    ITEM MODES
+#
+item_modes:
+    # SNAP is default
+    snap:
+        name: "Snap"
+        key: ""
+        ap_cost_modifier: 1.0
+        range_modifier: 1.0
+        accuracy_modifier: 1.0
+        shots: 1
+        damage_modifier: 1.0
+    # AIM is for sniper shot, better accuracy, but slower
+    aim:
+        name: "Aimed"
+        key: "Control"
+        ap_cost_modifier: 1.75
+        range_modifier: 1.0
+        accuracy_modifier: 1.50
+        shots: 1
+        damage_modifier: 1.0
+    # STUN is focus on overwhelming the target, not killing it
+    stun:
+        name: "Stun"
+        key: "Alt"
+        ap_cost_modifier: 1.0
+        range_modifier: 1.0
+        accuracy_modifier: 1.0
+        shots: 1
+        damage_modifier: 1.00
+    # CRITICAL is focus on critical hit, higher damage but lower accuracy
+    critical:
+        name: "Critical"
+        key: "Alt"
+        ap_cost_modifier: 1.50
+        range_modifier: 1.0
+        accuracy_modifier: 0.75
+        shots: 1
+        damage_modifier: 1.50
+    # BURST is for automatic weapons, a lot of shots, but lower accuracy
+    burst:
+        name: "Burst"
+        key: "Shift"
+        ap_cost_modifier: 1.25
+        range_modifier: 1.0
+        accuracy_modifier: 0.50
+        shots: 3
+        damage_modifier: 1.0
+    # AUTO is for full automatic weapons, it fires until end of ammo, but lower accuracy
+    auto:
+        name: "Automatic"
+        key: "Shift"
+        ap_cost_modifier: 2.0
+        range_modifier: 1.0
+        accuracy_modifier: 0.25
+        shots: 10
+        damage_modifier: 1.0
+    # FAST is for fast weapons, cheaper less accurate shot
+    fast:
+        name: "Fast"
+        key: "Alt"
+        ap_cost_modifier: 0.75
+        range_modifier: 1.0
+        accuracy_modifier: 0.75
+        shots: 1
+        damage_modifier: 1.0
+    # FAR is to fire in parabolic arc, higher range but lower accuracy and damage
+    far:
+        name: "Long range"
+        key: "Alt"
+        ap_cost_modifier: 1.25
+        range_modifier: 1.5
+        accuracy_modifier: 0.75
+        shots: 1
+        damage_modifier: 0.75
+

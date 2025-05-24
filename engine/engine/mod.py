@@ -1,4 +1,6 @@
 from pathlib import Path
+
+from PIL.Image import Image
 from pytmx import TiledTileset
 
 from base.facility_type import TFacilityType
@@ -52,6 +54,11 @@ class TMod:
             self.maps_path = None
             self.rules_path = None
             self.tiles_path = None
+
+        # here save all graphics tiles
+        from engine.engine.tiled.tileset_manager import TTileManager
+        self.tileset_manager: TTileManager = None
+
 
         # base
         self.facilities: dict[str, TFacilityType] = {}

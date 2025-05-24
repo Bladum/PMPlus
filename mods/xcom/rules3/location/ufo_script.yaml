@@ -1,0 +1,72 @@
+#
+#   UFO SCRIPTS
+#
+#       manage how UFO moves on world map
+#
+#    PATROL = do nothing, be in tile for N turns in air, then move to random location in region, disapear
+#    LAND = land for N turns, then move to random location in region, disparear
+#    CRASH = crash from start
+#    RESEARCH = move to random location in region, do not land, repeat N times, disapear
+#    HARVEST = move to random location in region, land for N turns, repeat K times, disapear
+#    ABDUCTION = move to random city in region, land for 1 turn, repeat K times, do not repeat same city twice, disapear
+#    SCOUT = move to random location in region, half speed, repeat K times, look for XCOM base, end
+#    TERROR = move to random city in region and stay there for N turns, wait to be resolved by XCOM
+#    SUPPLY = move to closest alien base and stay there for N turns, end
+#    RETALIATION = move to closest detected XCOM base and trigger base defense
+#    INFILTRATION = move to random location in region and not city, must be country, land and stay for N turns, then move to another random location in region, end
+#    HUNT = move to closest XCOM craft in region, if not found then go to closest XCOM base in region and land nearby, if not then do RESEARCH
+#    BASE = start from alien base, move to random location in region, far from xcom base, far from alien base, stay there for long time N turns, then disapear and create alien base instead
+#
+ufo_script:
+    patrol:
+        name: Patrol
+        desc: "Enemy will patrol in this location until its attacked and recovered by XCOM"
+    land:
+        name: Land
+        desc: "Enemy landed and can be attacked and recovered by XCOM"
+        steps:
+            random_place: 0
+            land: 6
+            move_random: 1
+            end: 0
+    crash:
+        name: Crash
+        desc: "Enemy crashed and can be recovered by XCOM"
+        steps:
+            start_random: 0
+            crash: 12
+            end: 0
+    research:
+        name: Research
+        desc: "Enemy will try to get score by scanning earth to find new valuable places"
+    harverst:
+        name: Harverst
+        desc: "Enemy will try to get score in rural areas by land and collect resources"
+    abduction:
+        name: Abduction
+        desc: "Enemy will try to get score in cities by land and collecting people"
+    scout:
+        name: Scout
+        desc: "Enemy will try to find x-com base"
+    terror:
+        name: Terror
+        desc: "Enemy will try to attack city and terror its citizens"
+    supply:
+        name: Supply
+        desc: "Enemy will try to upgrade / supply existing own base to next level"
+    retaliation:
+        name: Retaliation
+        desc: "Enemy will try to destroy x-com base"
+    infiltration:
+        name: Infiltration
+        desc: "Enemy will try to impact country that founds x-com budget"
+    hunt:
+        name: Hunt
+        desc: "Enemy will try to hunt xcom crafts"
+    base:
+        name: Base
+        desc: "Enemy will try to build alien base"
+    raid:
+        name: Raid
+        desc: "Enemy will try to raid / bomb and destroy our world"
+

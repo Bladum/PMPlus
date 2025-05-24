@@ -1,0 +1,28 @@
+#
+#   START BASE
+#
+
+---
+
+
+start_base:
+    soldiers: 4
+    facilities:
+        - general_stores
+        - access_lift
+        - hangar
+        - hangar
+        - HQ
+        - corridor
+        - living_quarters
+        - gym
+        - prison
+    items:
+        combat_knife: 2
+        small_shotgun: 2
+        small_pistol: 4
+        medipack: 2
+        flares: 6
+    crafts:
+        - car
+

@@ -1,0 +1,156 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\globe\regions.yaml
+#
+#   REGIONS
+#
+#   each tile MUST be assigned to region
+#   is either land or water
+#   region has a weight for mission selection
+
+regions:
+  europe:
+    name: "Europe"
+    is_land: true
+    description: "A continent known for its rich history and diverse cultures."
+    id: 1
+    color: '#FF00FF'
+    mission_weight: 18
+    base_cost: 800
+    service_provided: []
+    service_forbidden: []
+
+  north_africa:
+    name: "North Africa"
+    is_land: true
+    description: "A continent known for its rich history and diverse cultures."
+    id: 1
+    mission_weight: 12
+    base_cost: 600
+
+  south_africa:
+    name: "South Africa"
+    is_land: true
+    description: "The southernmost region of Africa, known for its diverse wildlife and landscapes."
+    id: 2
+    mission_weight: 10
+    base_cost: 500
+
+  north_america:
+    name: "North America"
+    is_land: true
+    description: "A continent comprising Canada, the United States, Mexico, and Central America."
+    id: 3
+    mission_weight: 20
+    base_cost: 900
+
+  central_america:
+    name: "Central America"
+    is_land: true
+    description: "The region connecting North and South America, known for its tropical climate."
+    id: 4
+    mission_weight: 8
+    base_cost: 400
+
+  south_america:
+    name: "South America"
+    is_land: true
+    description: "A continent rich in rainforests, mountains, and diverse cultures."
+    id: 5
+    mission_weight: 14
+    base_cost: 700
+
+  middle_east:
+    name: "Middle East"
+    is_land: true
+    description: "A region at the crossroads of Europe, Asia, and Africa, known for its history and resources."
+    id: 6
+    mission_weight: 10
+    base_cost: 600
+
+  russia:
+    name: "Russia"
+    is_land: true
+    description: "The largest country in the world, spanning Eastern Europe and northern Asia."
+    id: 7
+    mission_weight: 16
+    base_cost: 850
+
+  central_asia:
+    name: "Central Asia"
+    is_land: true
+    description: "A vast region of steppes and mountains, historically a crossroads of empires."
+    id: 8
+    mission_weight: 7
+    base_cost: 400
+
+  siberia:
+    name: "Siberia"
+    is_land: true
+    description: "A vast, cold region in northern Asia, mostly within Russia."
+    id: 9
+    mission_weight: 6
+    base_cost: 350
+
+  china:
+    name: "China"
+    is_land: true
+    description: "A populous and influential country in East Asia."
+    id: 10
+    mission_weight: 18
+    base_cost: 900
+
+  far_east:
+    name: "Far East"
+    is_land: true
+    description: "Easternmost Asia, including Japan and Korea."
+    id: 11
+    mission_weight: 12
+    base_cost: 700
+
+  australia:
+    name: "Australia"
+    is_land: true
+    description: "A large island continent known for its unique wildlife."
+    id: 12
+    mission_weight: 8
+    base_cost: 500
+
+  artctic:
+    name: "Arctic"
+    is_land: false
+    description: "The polar region at the northernmost part of Earth."
+    id: 13
+    mission_weight: 4
+    base_cost: 200
+
+  antarctic:
+    name: "Antarctic"
+    is_land: false
+    description: "The southernmost continent, covered in ice."
+    id: 14
+    mission_weight: 2
+    base_cost: 100
+
+  # seas
+  mediterean:
+    name: "Mediterranean Sea"
+    is_land: false
+    description: "A sea connected to the Atlantic Ocean, surrounded by the Mediterranean region."
+    id: 15
+    mission_weight: 5
+    base_cost: 2500
+
+  north_atlantic:
+    name: "North Atlantic"
+    is_land: false
+    description: "The northern part of the Atlantic Ocean."
+    id: 16
+    mission_weight: 6
+    base_cost: 3000
+
+  south_antantic:
+    name: "South Atlantic"
+    is_land: false
+    description: "The southern part of the Atlantic Ocean."
+    id: 17
+    mission_weight: 4
+    base_cost: 2000

@@ -1,0 +1,36 @@
+#
+#   RESEARCH
+#
+research:
+    laser_weapons:
+        name: "Laser weapons"
+        cost: 50
+        points: 10
+    psi_amp:
+        name: "Psi Amp"
+        cost: 500
+        points: 20
+        # must have all to unlock this
+        tech_needed:
+            - psi_lab
+        service_needed:
+            - service_name
+        item_needed:
+            psi_amp: 1
+        craft_needed: {}
+        unit_needed: {}
+        # give one free from list
+        tech_give:
+            - snakeman_autopsy
+            - sectoid_autopsy
+        tech_unlock:
+            - cydonia_or_bust
+        tech_disable: []
+        event_spawn: event_name
+        item_spawn:
+            psi_amp: 1
+        craft_spawn: {}
+        unit_spawn: {}
+        pedia: psi_amp
+        complete_game: false
+

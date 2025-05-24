@@ -103,6 +103,7 @@ class TBattleScript:
 
     def apply_to(self, generator):
         for step in self.steps:
+            print( step )
             if step.type == 'add_block':
                 self._add_line_blocks(generator, step, direction='horizontal')
             elif step.type == 'add_block_vertical':

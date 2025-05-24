@@ -1,0 +1,28 @@
+#
+#   EVENTS
+#
+events:
+    rat_attack:
+        name: "Rat Attack"
+        description: "A rat has attacked you!"
+        image: rat_attack.png
+        # preconditions
+        tech_needed: []
+        regions:
+            europe: 2
+            east_asia: 2
+            north_america: 2
+        is_city: true
+        # when it starts/end
+        day_start: 1
+        day_random: 120
+        day_end: 10000
+        # what it does
+        score: -50
+        funds: 100
+        items:
+            - item_rat
+        # how many and chance
+        chance: 0.2
+        qty_max: 1
+

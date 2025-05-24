@@ -1,0 +1,30 @@
+#
+#   TILES
+#
+tiles:
+    grass_dead:
+        imgage: 0
+        type: floor
+        armour: 999
+        sound_step: grass_step
+    grass:
+        imgage: 1
+        type: floor
+        armour: 8
+        dead_tile: grass_dead
+        sound_step: grass_step
+        move_cost: 1
+        view_cost: 0
+        shoot_cost: 0
+        fire_chance: 0.25
+    wood_wall:
+        imgage: 2
+        type: wall
+        armour: 8
+        dead_tile: wood_wall_dead
+        sound_step: grass_step
+        move_cost: 1
+        view_cost: 0
+        shoot_cost: 0
+        fire_chance: 0.25
+

@@ -1,0 +1,17 @@
+#
+#   ENVIROMENTAL EFFECT DURING BATTLE
+#
+effects:
+    insanity_small:
+        name: "Insanity Small"
+        morale_per_turn: -1
+        sanity_per_mission: -1
+    insanity_medium:
+        name: "Insanity Medium"
+        morale_per_turn: -2
+        sanity_per_mission: -2
+    insanity_large:
+        name: "Insanity Large"
+        morale_per_turn: -3
+        sanity_per_mission: -3
+

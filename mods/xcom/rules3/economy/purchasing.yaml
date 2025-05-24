@@ -1,0 +1,48 @@
+#
+#   PURCHASING
+#
+#       define what can be bought on market
+#
+purchasing:
+    pistol:
+        name: "Pistol"
+        category: unit_equipment
+        purchase_cost: 4
+        purchase_time: 2
+        items_buy:
+            pistol: 1
+        tech_needed: []
+        service_needed: []
+        supplier: name_of_faction
+    rifle:
+        name: "Rifle"
+        category: unit_equipment
+        purchase_cost: 10
+        purchase_time: 2
+        items_buy:
+            rifle: 1
+        tech_needed: []
+        service_needed: []
+    grenade:
+        name: "Grenade"
+        category: unit_equipment
+        purchase_cost: 3
+        purchase_time: 3
+        items_buy:
+            grenade: 1
+        tech_needed: []
+        service_needed: []
+    #
+    #   LAND SURVEY
+    #
+    land_survey:
+        name: "Land Survey"
+        category: general
+        purchase_cost: 50
+        purchase_time: 7
+        items_buy:
+            land_survey: 5
+        tech_needed:
+            - land_survey
+        service_needed: []
+

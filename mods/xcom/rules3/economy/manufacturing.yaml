@@ -1,0 +1,73 @@
+#
+#   MANUFACTURING
+#
+manufacturing:
+    #
+    #   CRAFT ITEMS
+    #
+    laser_cannon:
+        name: "Laser Cannon"
+        category: craft_weapon
+        tech_needed:
+            - laser_cannon
+        build_time: 300
+        build_cost: 180
+        items_build:
+            laser_cannon: 1
+    plasma_beam:
+        name: "Plasma Beam"
+        category: craft_weapon
+        tech_needed:
+            - plasma_cannon
+        build_time: 500
+        build_cost: 220
+        items_needed:
+            elerium_115: 15
+        service_needed:
+            - workshop
+        items_build:
+            plasma_beam: 1
+    heavy_plasma:
+        name: "Heavy Plasma"
+        category: unit_weapon
+        tech_needed:
+            - heavy_plasma
+        build_time: 1000
+        build_cost: 120
+        items_needed:
+            elerium_115: 2
+            alien_alloy: 5
+        items_build:
+            heavy_plasma: 1
+    #
+    #   CRAFTS
+    #
+    craft_avenger:
+        name: "Avenger"
+        category: craft
+        tech_needed:
+            - ultimate_craft
+        build_time: 34000
+        build_cost: 900
+        items_needed:
+            elerium_115: 2
+            alien_alloy: 120
+            ufo_power_source: 2
+            ufo_navigation: 1
+        craft_build:
+            craft_avenger: 1
+    #
+    #   ARMOURS
+    #
+    personal_armour:
+        name: "Personal Armour"
+        category: unit_armour
+        tech_needed:
+            - personal_armour
+        build_time: 800
+        build_cost: 120
+        items_needed:
+            alien_alloy: 4
+        items_build:
+            personal_armour: 1
+

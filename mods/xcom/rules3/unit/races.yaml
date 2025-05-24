@@ -1,0 +1,193 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\unit\races.yaml
+#
+#   RACES
+#
+
+races:
+  #
+  #   HUMANS
+  #
+  human:
+    name: 'Human'
+    description: 'Standard human species from Earth'
+    icon: 'human.png'
+    size: 1.0
+
+    speed: 6
+    health: 3
+    energy: 7
+    strength: 3
+    reaction: 4
+    melee: 3
+    aim: 4
+    psi: 2
+    will: 5
+    sanity: 7
+
+    sight: [20, 14]
+    sense: 6
+    cover: [0, 0]
+
+  orc:
+    name: 'Orc'
+    description: 'A robust and powerful humanoid species known for their strength and resilience'
+    icon: 'orc.png'
+    size: 1.2
+
+    speed: 5
+    health: 5
+    energy: 6
+    strength: 5
+    reaction: 4
+    melee: 4
+    aim: 4
+    psi: 1
+    will: 4
+    sanity: 6
+
+    sight: [18, 12]
+    sense: 5
+    cover: [0, 0]
+
+  spartan:
+    name: 'Spartan'
+    description: 'Enhanced human soldiers with superior combat training and physical attributes'
+    icon: 'spartan.png'
+    size: 1.1
+
+    speed: 7
+    health: 4
+    energy: 8
+    strength: 4
+    reaction: 5
+    melee: 4
+    aim: 6
+    psi: 2
+    will: 6
+    sanity: 8
+
+    sight: [22, 16]
+    sense: 7
+    cover: [0, 0]
+
+  olympian:
+    name: 'Olympian'
+    description: 'Genetically modified humans with enhanced abilities and reflexes'
+    icon: 'olympian.png'
+    size: 1.05
+
+    speed: 8
+    health: 3
+    energy: 9
+    strength: 4
+    reaction: 6
+    melee: 3
+    aim: 4
+    psi: 3
+    will: 5
+    sanity: 7
+
+    sight: [24, 18]
+    sense: 8
+    cover: [0, 0]
+
+  #
+  #   XCOM TANKS
+  #
+  xcom_tank:
+    name: 'Tank'
+    description: 'Human tank'
+    icon: 'tank.png'
+    size: 2
+    is_big: true
+    gain_experience: false
+    is_mechanical: true
+
+    speed: 7
+    health: 4
+    energy: 8
+    strength: 4
+    reaction: 5
+    melee: 3
+    aim: 5
+    psi: 4
+    will: 6
+    sanity: 8
+
+    sight: [22, 16]
+    sense: 8
+    cover: [0, 0]
+
+  #
+  #   HYBRID
+  #
+  hybrid:
+    name: 'Hybrid'
+    description: >-
+      A hybrid species, combining traits from both humans and sectoids.
+      They are known for their adaptability and unique abilities.
+    icon: 'hybrid.png'
+    size: 0.8
+
+    speed: 7
+    health: 4
+    energy: 8
+    strength: 4
+    reaction: 6
+    melee: 3
+    aim: 6
+    psi: 4
+    will: 6
+    sanity: 8
+
+    sight: [22, 16]
+    sense: 8
+    cover: [0, 0]
+
+  #
+  #   ALIENS
+  #
+  sectoid:
+    name: 'Sectoid'
+    description: 'A sectoid species.'
+    icon: 'sectoid.png'
+    sound_death: 'sectoid_death'
+    corpse_image: 'sectoid_corpse.png'
+    size: 0.8
+
+    speed: 7
+    health: 4
+    health_regen: 0
+    energy: 8
+    strength: 4
+    reaction: 5
+    melee: 3
+    aim: 6
+    psi: 4
+    will: 6
+    sanity: 8
+
+    cover: [0, 0]
+    sight: [22, 16]
+    sense: 8
+
+    agression: 0.5
+    inteligence: 0.9
+
+    immune_panic: false
+    immune_pain: false
+    immune_bleed: true
+    can_run: true
+    can_kneel: true
+    can_sneak: false
+    can_surrender: true
+    can_capture: true
+    spawn_on_death: null
+    avoids_fire: true
+
+    spotter: 0
+    sniper: 0
+
+  #
+  #   BEASTS
+  #

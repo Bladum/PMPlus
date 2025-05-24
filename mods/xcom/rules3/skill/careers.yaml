@@ -1,0 +1,20 @@
+#
+#   SKILLS FOR UNITS
+#
+#   TYPE
+#       2 is for random career path when soldier is hired for first time
+#
+careers:
+    career_ranger:
+        name: "Ranger career"
+        icon: career_ranger.png
+        races:
+            - human
+            - hybrid
+        type: 2
+        description: "A ranger in the past."
+        stats:
+            reacttions: 1
+            aim: 1
+            energy: 1
+

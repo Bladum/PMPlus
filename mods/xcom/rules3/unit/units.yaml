@@ -1,0 +1,137 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\unit\units.yaml
+#
+#   UNITS
+#
+
+units:
+  #
+  #   XCOM UNIT WHEN PURCHASED
+  #
+  xcom_soldier:
+    name: "XCOM Soldier"
+    race: 'human'
+    rank: 0
+    skills: []
+
+    armour: null
+    primary: null
+    secondary: null
+
+    score_dead: -50
+    score_alive: 0
+
+    items_dead:
+      - 'corpse_human'
+    items_alive:
+      - 'live_xcom_soldier'
+    ai_ignore: false
+    vip: false
+
+  #
+  #   ALIENS SECTOID
+  #
+  sectoid_soldier_1:
+    name: "Sectoid Soldier Junior"
+    race: 'sectoid'
+    rank: 1
+    skills:
+      - 'soldier'
+
+    armour: 'arm_sectoid_soldier'
+    primary: 'item_plasma_rifle'
+    secondary: null
+
+    score_dead: 5
+    score_alive: 20
+
+    items_dead:
+      - 'corpse_sectoid'
+    items_alive:
+      - 'live_sectoid_soldier'
+    ai_ignore: false
+    vip: false
+
+  sectoid_soldier_2:
+    name: "Sectoid Soldier"
+    race: 'sectoid'
+    rank: 2
+    skills:
+      - 'soldier'
+      - 'soldier'
+
+    armour: 'arm_sectoid_soldier'
+    primary: 'item_plasma_cannon'
+    secondary:
+      - 'item_alien_grenade'
+      - null
+      - null
+
+    score_dead: 5
+    score_alive: 20
+
+    items_dead:
+      - 'corpse_sectoid'
+    items_alive:
+      - 'live_sectoid_soldier'
+
+  sectoid_soldier_3:
+    name: "Sectoid Soldier Senior"
+    race: 'sectoid'
+    rank: 3
+    skills:
+      - 'soldier'
+      - 'soldier'
+      - 'soldier'
+
+    armour: 'arm_sectoid_soldier_2'
+    primary:
+      - 'item_plasma_rifle'
+      - 'item_plasma_rifle'
+      - 'item_plasma_cannon'
+    secondary:
+      - 'item_alien_grenade'
+      - null
+      - 'item_alien_grenade'
+
+    score_dead: 5
+    score_alive: 20
+
+    items_dead:
+      - 'corpse_sectoid'
+    items_alive:
+      - 'live_sectoid_soldier'
+
+  #
+  #   MAN IN BLACK
+  #
+
+
+  #
+  #   RED DAWN
+  #
+  red_dawn_trooper: {}
+  red_dawn_soldier: {}
+  red_dawn_ranger: {}
+  red_dawn_officer: {}
+  red_dawn_leader: {}
+  red_dawn_commando: {}
+
+  #
+  #   BLACK LOTUS
+  #
+
+  #
+  #   CHURCH OF DAGON
+  #
+
+  #
+  #   ZOMBIES
+  #
+  zombie: {}
+  zombie_fat: {}
+  zombie_red: {}
+  zombie_green: {}
+
+  #
+  #   EXALT
+  #

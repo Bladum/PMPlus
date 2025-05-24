@@ -1,0 +1,102 @@
+#
+#   CALENDAR
+#
+#   CAMPAIGN
+#   each month we do create number of random missions of specific arc
+#   missions can be blocked by research
+#
+calendar:
+    start_day: 1997-01-01
+    end_day: 2004-12-30
+    months:
+        - month_min: 0
+          weights:
+              event: 1
+          qty_min: 1
+          qty_max: 1
+          events: 3
+        - month_min: 3
+          weights:
+              event: 1
+              exalt: 1
+              dagoon: 1
+          qty_min: 1
+          qty_max: 2
+        - month_min: 6
+          weights:
+              event: 2
+              exalt: 1
+              dagoon: 1
+          qty_min: 1
+          qty_max: 2
+        - month_min: 9
+          weights:
+              event: 2
+              exalt: 2
+              dagoon: 1
+          qty_min: 1
+          qty_max: 2
+        - month_min: 12
+          weights:
+              event: 2
+              exalt: 3
+              dagoon: 1
+          qty_min: 2
+          qty_max: 3
+        - month_min: 15
+          weights:
+              event: 3
+              exalt: 3
+              dagoon: 1
+          qty_min: 2
+          qty_max: 3
+        - month_min: 18
+          weights:
+              event: 1
+              exalt: 1
+              dagoon: 1
+          qty_min: 2
+          qty_max: 4
+        - month_min: 21
+          weights:
+              event: 1
+              exalt: 1
+              aliens: 1
+          qty_min: 2
+          qty_max: 4
+        - month_min: 24
+          weights:
+              event: 1
+              exalt: 1
+              aliens: 1
+          qty_min: 2
+          qty_max: 4
+        - month_min: 27
+          weights:
+              event: 1
+              exalt: 1
+              aliens: 1
+          qty_min: 3
+          qty_max: 4
+        - month_min: 30
+          weights:
+              event: 1
+              exalt: 1
+              aliens: 1
+          qty_min: 3
+          qty_max: 4
+        - month_min: 33
+          weights:
+              event: 1
+              exalt: 1
+              aliens: 1
+          qty_min: 3
+          qty_max: 4
+        - month_min: 36
+          weights:
+              event: 1
+              exalt: 1
+              aliens: 1
+          qty_min: 3
+          qty_max: 5
+

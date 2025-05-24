@@ -16,11 +16,11 @@ tech_startrt = [ ]
 tech_end = [ ]
 regions = { 'north_america' = 10, 'south_america' = 5, 'europe' = 12 }
 
-[[missions]]
+[[campaigns.alien_research_early.missions]]
 ufo = 'alien_small_scout'
 count = 1
 timer = 9
-[[missions]]
+[[campaigns.alien_research_early.missions]]
 ufo = 'alien_medium_scout'
 count = 1
 timer = 7
@@ -35,23 +35,23 @@ tech_startrt = [ ]
 tech_end = [ ]
 regions = { 'north_america' = 10, 'south_america' = 5, 'europe' = 12 }
 
-[[missions]]
+[[campaigns.alien_research.missions]]
 ufo = 'alien_small_scout'
 count = 1
 timer = 9
-[[missions]]
+[[campaigns.alien_research.missions]]
 ufo = 'alien_medium_scout'
 count = 1
 timer = 7
-[[missions]]
+[[campaigns.alien_research.missions]]
 ufo = 'alien_excavator'
 count = 1
 timer = 2
-[[missions]]
+[[campaigns.alien_research.missions]]
 ufo = 'alien_large_scout'
 count = 2
 timer = 9
-[[missions]]
+[[campaigns.alien_research.missions]]
 ufo = 'alien_lab_ship'
 count = 1
 timer = 9
@@ -70,7 +70,7 @@ tech_startrt = [ ]
 tech_end = [ ]
 regions = { 'europe' = 12 }
 
-[[missions]]
+[[campaigns.mib_supply.missions]]
 ufo = 'mib_engineering_ship'
 count = 1
 timer = 6
@@ -85,7 +85,7 @@ tech_startrt = [ ]
 tech_end = [ ]
 regions = { 'europe' = 12 }
 
-[[missions]]
+[[campaigns.mib_outpost.missions]]
 ufo = 'mib_engineering_ship'
 count = 1
 timer = 2
@@ -104,7 +104,7 @@ tech_startrt = [ ]
 tech_end = [ ]
 regions = { 'north_america' = 12, 'south_america' = 9 }
 
-[[missions]]
+[[campaigns.exalt_supply.missions]]
 ufo = 'exalt_suppy_ship'
 count = 1
 timer = 6
@@ -121,22 +121,22 @@ tech_startrt = [ ]
 tech_end = [ ]
 regions = { 'north_america' = 12, 'south_america' = 9 }
 
-[[missions]]
+[[campaigns.zombie_attack.missions]]
 site = 'zombie_attack'
 count = 1
 timer = 20
 
-[[missions]]
+[[campaigns.zombie_attack.missions]]
 site = 'zombie_attack'
 count = 1
 timer = 20
 
-[[missions]]
+[[campaigns.zombie_attack.missions]]
 site = 'zombie_attack'
 count = 1
 timer = 20
 
-[[missions]]
+[[campaigns.zombie_attack.missions]]
 site = 'zombie_attack'
 count = 1
 timer = 20

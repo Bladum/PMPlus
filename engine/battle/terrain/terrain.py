@@ -14,6 +14,10 @@ class TTerrain:
     Terrain has list of map blocks and map script used to generate battle map
     """
     def __init__(self, pid, data):
+
+        from engine.engine.game import TGame
+        self.game = TGame()
+
         self.pid = pid
         self.name = data.get('name', pid)
 
@@ -44,16 +48,18 @@ class TTerrain:
         """
         maps_path = Path(maps_path)
         tmx_files = list(maps_path.glob('*.tmx'))
-        print("Scanning folder for tmx files", maps_path)
         self.map_tmx_files = {}
         for tmx_file in tmx_files:
             file_name = tmx_file.stem
             try:
                 tmx_data = pytmx.TiledMap(str(tmx_file))
                 self.map_tmx_files[file_name] = tmx_data
+
             except Exception as e:
                 print(f"Error loading TMX file {file_name}: {e}")
                 self.map_tmx_files[file_name] = None
+
+        print(f"Scanning folder for tmx files in {maps_path}, found {len(tmx_files)} files")
 
         # Step 2: MapBlockEntry creation is done in __init__
 
@@ -61,11 +67,22 @@ class TTerrain:
 
         self.map_blocks = []
         for entry in self.map_blocks_entries:
+
             tmx_details = self.map_tmx_files.get(entry.map)
             if tmx_details is None:
-                self.map_blocks.append(None)
+                # self.map_blocks.append(None)
                 continue
 
             map_block = TMapBlock.from_tmx(tmx_details)
+            if map_block is None:
+                continue
+            map_block.name = entry.map
             self.map_blocks.append(map_block)
 
+            self.game.mod.map_blocks[entry.map] = map_block
+
+        # Step 4. Render all map blocks to PNG
+        for map_block in self.map_blocks:
+            map_block.render_to_png()
+
+        print(f"Based on terrain map block entries, created {len(self.map_blocks)} map blocks")

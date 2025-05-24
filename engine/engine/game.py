@@ -12,6 +12,7 @@ class TGame:
     It is a singleton
     """
     _instance = None
+    _initialized = False
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
@@ -19,6 +20,8 @@ class TGame:
         return cls._instance
 
     def __init__(self):
+        if self.__class__._initialized:
+            return
         # World map: tiles, countries, regions, biomes, locations
         self.worldmap : TWorld = None
 
@@ -38,3 +41,6 @@ class TGame:
 
         # Loaded mod data (e.g., item stats)
         self.mod:TMod = None
+
+        self.__class__._initialized = True
+

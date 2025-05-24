@@ -1,7 +1,9 @@
-from engine.battle.terrain import TTerrain
-from engine.battle.terrain.map_block import TMapBlock
-from engine.battle.terrain.map_block_entry import TMapBlockEntry
+from battle.terrain.terrain import TTerrain
 from engine.battle.map.battle_script import TBattleScript
+from engine.battle.tile.battle_tile import TBattleTile
+from typing import List
+import pathlib
+from PIL import Image
 
 class TBattleGenerator:
     """
@@ -9,13 +11,16 @@ class TBattleGenerator:
     Mimics XCOM/OpenXcom map generation using map blocks and scripts.
     """
     def __init__(self, terrain: TTerrain, script: TBattleScript = None, blocks_x=4, blocks_y=4):
+        from engine.engine.game import TGame  # Import here to avoid circular references
+        self.game = TGame()
+
         self.terrain = terrain
         self.script = script if script else terrain.script
         self.blocks_x = blocks_x  # Number of map blocks horizontally
         self.blocks_y = blocks_y  # Number of map blocks vertically
         self.block_size = 15  # Default block size (can be overridden by block)
         self.block_grid = []  # 2D array of TMapBlock
-        self.battle_map = []  # 2D array of TBattleTile
+        self.battle_map: List[List[TBattleTile]] = []  # 2D array of TBattleTile objects
 
     def generate(self):
         """
@@ -55,3 +60,101 @@ class TBattleGenerator:
                 x_offset += block_width
             y_offset += block_height
 
+    def render_to_png(self, filename=None):
+        """
+        Render the battle map to a PNG file using Pillow.
+        Similar to how map blocks are rendered, but for the entire battle map.
+
+        Args:
+            filename (str, optional): Name for the output file. If None, a default name will be used.
+
+        Returns:
+            str: Path to the saved PNG file
+        """
+        if not self.battle_map:
+            return None
+
+        # Calculate dimensions
+        map_height = len(self.battle_map)
+        map_width = len(self.battle_map[0]) if map_height > 0 else 0
+
+        if map_width == 0 or map_height == 0:
+            return None
+
+        # Get tileset manager from game
+        tileset_manager = self.game.mod.tileset_manager
+        tile_size = 16  # Standard tile size in pixels
+
+        # Create output image
+        width_px = map_width * tile_size
+        height_px = map_height * tile_size
+        out_img = Image.new('RGBA', (width_px, height_px), (0, 0, 0, 0))
+
+        # Collect all used tilesets
+        used_tilesets = set()
+        for y in range(map_height):
+            for x in range(map_width):
+                tile = self.battle_map[y][x]
+                if tile.floor_id:
+                    # Extract tileset info (this would need to be implemented based on your system)
+                    # For now, we'll assume all tiles are from the same tileset
+                    pass
+                if tile.wall_id:
+                    pass
+                if tile.roof_id:
+                    pass
+
+        # Load all tileset images
+        processed_images = {}
+
+        # Find used tilesets from the terrain object if available
+        for block in getattr(self.terrain, 'blocks', []):
+            for tileset in getattr(block, 'used_tilesets', []):
+                used_tilesets.add(tileset)
+
+        # Load all images once
+        for name, firstid, lastid, countid in used_tilesets:
+            for x in range(countid):
+                gid = firstid + x
+                img = tileset_manager.get_tile_image('battle', name, x + 1)
+                if img:
+                    # Pre-process images to avoid repeated conversions
+                    if img.mode != 'RGBA':
+                        img = img.convert('RGBA')
+                    mask = img.split()[3] if img.mode == 'RGBA' else None
+                    processed_images[gid] = (img, mask)
+
+        # Helper function to draw a tile layer
+        def draw_layer(gid, x, y):
+            if not gid:
+                return
+
+            if gid in processed_images:
+                img, mask = processed_images[gid]
+                pixel_x, pixel_y = x * tile_size, y * tile_size
+                out_img.paste(img, (pixel_x, pixel_y), mask)
+
+        # Draw all tiles
+        for y in range(map_height):
+            for x in range(map_width):
+                tile = self.battle_map[y][x]
+
+                # Draw layers in order: floor, wall, (roof is typically hidden initially)
+                if tile.floor_id:
+                    draw_layer(tile.floor_id, x, y)
+                if tile.wall_id:
+                    draw_layer(tile.wall_id, x, y)
+                # Optional: draw the roof layer
+                # if tile.roof_id:
+                #     draw_layer(tile.roof_id, x, y)
+
+        # Create output path and save
+        user_docs = pathlib.Path.home() / 'Documents' / 'export' / 'battles'
+        user_docs.mkdir(parents=True, exist_ok=True)
+
+        map_name = filename or f"battle_map_{self.terrain.name}_{self.blocks_x}x{self.blocks_y}"
+        out_path = user_docs / f"{map_name}.png"
+        out_img.save(out_path)
+
+        print(f"Saved battle map image to {out_path}")
+        return str(out_path)

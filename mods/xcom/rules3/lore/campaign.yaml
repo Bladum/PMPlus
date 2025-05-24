@@ -1,0 +1,132 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\campaign.yaml
+#
+#   campaigns
+#
+
+campaigns:
+  #
+  #   ALIEN STANDARD
+  #
+  alien_research_early:
+    name: 'Resefaction H'
+    score: 0
+    faction: 'aliens'
+    tech_startrt: []
+    tech_end: []
+    regions:
+      north_america: 10
+      south_america: 5
+      europe: 12
+    missions:
+      - ufo: 'alien_small_scout'
+        count: 1
+        timer: 9
+      - ufo: 'alien_medium_scout'
+        count: 1
+        timer: 7
+
+  alien_research:
+    name: 'Resefaction H'
+    score: 0
+    faction: 'aliens'
+    tech_startrt: []
+    tech_end: []
+    regions:
+      north_america: 10
+      south_america: 5
+      europe: 12
+    missions:
+      - ufo: 'alien_small_scout'
+        count: 1
+        timer: 9
+      - ufo: 'alien_medium_scout'
+        count: 1
+        timer: 7
+      - ufo: 'alien_excavator'
+        count: 1
+        timer: 2
+      - ufo: 'alien_large_scout'
+        count: 2
+        timer: 9
+      - ufo: 'alien_lab_ship'
+        count: 1
+        timer: 9
+        deployments:
+          alien_lab_ship_sectoid: 5
+          alien_lab_ship_floater: 3
+          alien_lab_ship_muton: 3
+
+  #
+  #   MAN IN BLACK
+  #
+  mib_supply:
+    name: "MIB Supply"
+    score: 20
+    objective: 5
+    faction: 'mib'
+    tech_startrt: []
+    tech_end: []
+    regions:
+      europe: 12
+    missions:
+      - ufo: 'mib_engineering_ship'
+        count: 1
+        timer: 6
+
+  mib_outpost:
+    name: "MIB Outpost"
+    score: 20
+    objective: 2
+    faction: 'mib'
+    tech_startrt: []
+    tech_end: []
+    regions:
+      europe: 12
+    missions:
+      - ufo: 'mib_engineering_ship'
+        count: 1
+        timer: 2
+
+  #
+  #   EXALT
+  #
+  exalt_supply:
+    name: "EXALT Supply"
+    score: 20
+    objective: 5
+    faction: 'exalt'
+    tech_startrt: []
+    tech_end: []
+    regions:
+      north_america: 12
+      south_america: 9
+    missions:
+      - ufo: 'exalt_suppy_ship'
+        count: 1
+        timer: 6
+
+  #
+  #   ZOMBIE
+  #
+  zombie_attack:
+    name: "Zombie Attack"
+    score: 20
+    faction: 'zombie'
+    tech_startrt: []
+    tech_end: []
+    regions:
+      north_america: 12
+      south_america: 9
+    missions:
+      - site: 'zombie_attack'
+        count: 1
+        timer: 20
+      - site: 'zombie_attack'
+        count: 1
+        timer: 20
+      - site: 'zombie_attack'
+        count: 1
+        timer: 20
+      - site: 'zombie_attack'
+        count: 1
+        timer: 20

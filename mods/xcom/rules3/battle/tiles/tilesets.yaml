@@ -1,0 +1,146 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\battle\tiles\tilesets.yaml
+#
+#   TILESETS
+#
+
+tilesets:
+  #
+  #   crafts
+  #
+  xcraft:
+    name: "XCOM Craft"
+    file: "xcraft.png"
+
+  ufo:
+    name: "Alien ufo"
+    file: "ufo.png"
+
+  #
+  #   base
+  #
+  xbase:
+    name: "XCOM Base"
+    file: "xbase.png"
+
+  abase:
+    name: "Alien base"
+    file: "abase.png"
+
+  mibbase:
+    name: "Man in Black base"
+    file: "mibbase.png"
+
+  redbase:
+    name: "Red Dawn base"
+    file: "redbase.png"
+
+  cultbase:
+    name: "Cultist base"
+    file: "cultbase.png"
+
+  lotusbase:
+    name: "Lotus base"
+    file: "lotusbase.png"
+
+  #
+  #   biomes
+  #
+  farmland:
+    name: "Farmland"
+    file: "farmland.png"
+
+  polar:
+    name: "Polar"
+    file: "polar.png"
+
+  desert:
+    name: "Desert"
+    file: "desert.png"
+
+  mountain:
+    name: "Mountain"
+    file: "mountains.png"
+
+  mountain_snow:
+    name: "Mountain Snow"
+    file: "mountain_snow.png"
+
+  forest:
+    name: "Forest"
+    file: "forest.png"
+
+  forest_snow:
+    name: "Forest snow - tajga"
+    file: "forest_snow.png"
+
+  jungle:
+    name: "Jungle"
+    file: "jungle.png"
+
+  #
+  #   special biomes
+  #
+  piramids:
+    name: "Desert piramids"
+    file: "piramids.png"
+
+  undeground:
+    name: "Underground"
+    file: "underground.png"
+
+  #
+  #   special tilesets
+  #
+  island:           # map surounded by water
+    name: "Island"
+    file: "island.png"
+
+  ship_cargo:       # map 8x3
+    name: "Cargo ship"
+    file: "ship_cargo.png"
+
+  ship_cruise:      # map 8x3
+    name: "Cruise ship"
+    file: "ship_cruise.png"
+
+  #
+  #   other planets
+  #
+  mars:
+    name: "Mars"
+    file: "mars.png"
+
+  moon:
+    name: "Moon"
+    file: "moon.png"
+
+  #
+  #   human cities
+  #
+  urban_house:
+    name: "Urban house"
+    file: "urban_house.png"
+
+  urban_commercial:
+    name: "Urban commercial"
+    file: "urban_commercial.png"
+
+  urban_port:
+    name: "Urban port"
+    file: "urban_port.png"
+
+  urban_industrial:
+    name: "Urban industrial"
+    file: "urban_industrial.png"
+
+  urban_village:
+    name: "Urban village"
+    file: "urban_village.png"
+
+  urban_hotel:
+    name: "Urban hotel"
+    file: "urban_hotel.png"
+
+  urban_slums:
+    name: "Urban slums"
+    file: "urban_slums.png"

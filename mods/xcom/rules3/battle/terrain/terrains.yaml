@@ -1,0 +1,459 @@
+# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\battle\terrain\terrains.yaml
+#
+#   TERRAINS -> set of map blocks
+#
+#
+#   map blocks group
+#       0 - default
+#       1 - landing zone for xcom / ufo
+#       2 - road A
+#       3 - road B
+#       4 - road AB
+
+terrains:
+  farmland:
+    name: "Farmland"
+    description: "A fertile area of land used for agriculture, farmland is home to a variety of crops and livestock."
+    tileset: farmland
+    script: "farmland"
+    maps_folder: culta
+    units_civilian:
+      - "farmer_01"
+      - "farmer_02"
+      - "farmer_03"
+    map_blocks:
+      - map: "culta01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta02"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta03"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta04"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta05"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta06"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta07"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta08"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta09"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta10"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta11"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta12"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta13"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta1"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta15"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta16"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta16B"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta17"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta17B"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta18"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta30"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta31"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta32"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta33"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "culta34"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultaact00"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultaact01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultaact02"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultaact02B"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultabig01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultabig02"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultabig03"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultabig04"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultafarm00"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "cultafarm17"
+        size: 1
+        group: 0
+        chance: 5
+
+  # --------------------------------------------------------- FARMLAND WARM
+  farmland_warm:
+    name: "Farmland warm climate"
+    description: "Desc"
+    tileset: farmland
+    maps_folder: culta
+    script: "farmland_warm"
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- FOREST
+  forest:
+    name: "Forest"
+    description: "Desc"
+    tileset: forest
+    script: "forest"
+    maps_folder: forest
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+    map_blocks:
+      - map: "forest01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "forest02"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "forest03"
+        size: 1
+        group: 0
+        chance: 5
+
+  # --------------------------------------------------------- FOREST SNOW
+  forest_snow:
+    name: "Forest with snow"
+    description: "Desc"
+    tileset: forest
+    script: "forest"
+    maps_folder: forest
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+    map_blocks:
+      - map: "forest30"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "forest31"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "forest32"
+        size: 1
+        group: 0
+        chance: 5
+
+  # --------------------------------------------------------- DESERT
+  desert:
+    name: "Sand desert"
+    description: "Desc"
+    tileset: desert
+    script: "desert"
+    maps_folder: desert
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+    map_blocks:
+      - map: "desert01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "desert05"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "desert06"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "desert07"
+        size: 1
+        group: 0
+        chance: 5
+
+  # --------------------------------------------------------- MARS
+  mars:
+    name: "Mars planet"
+    description: "Desc"
+    tileset: mars
+    script: "mars"
+    maps_folder: mars
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- MOUNTAINS
+  mountains:
+    name: "Empty Mountains"
+    description: "Desc"
+    tileset: mountains
+    script: "mountains"
+    maps_folder: mountains
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- POLAR
+  polar:
+    name: "Poland / Tundra"
+    description: "Desc"
+    tileset: polar
+    script: "polar"
+    maps_folder: polar
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+    map_blocks:
+      - map: "polar01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "polar08"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "polar09"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "polar14"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "polar15"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "polar16"
+        size: 1
+        group: 0
+        chance: 5
+
+  # --------------------------------------------------------- JUNGLE
+  jungle:
+    name: "Jungle / Wetlands"
+    description: "Desc"
+    tileset: jungle
+    script: "jungle"
+    maps_folder: jungle
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- URBAM HOUSING
+  urban_house:
+    name: "Urbam housing"
+    description: "Desc"
+    tileset: urban_house
+    script: "urban_house"
+    maps_folder: urban
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- URBAM COMMERCIAL
+  urban_commercial:
+    name: "Urbam comercial"
+    description: "Desc"
+    tileset: urban_commercial
+    script: "urban_commercial"
+    maps_folder: urban
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- URBAM INDUSTRIAL
+  urban_industrial:
+    name: "Urbam industrial"
+    description: "Desc"
+    tileset: urban_industrial
+    script: "urban_industrial"
+    maps_folder: urban
+    units_civilian:
+      - "male_01"
+      - "male_02"
+      - "male_03"
+
+  # --------------------------------------------------------- XCOM BASE
+  xbase:
+    name: "XCOM Base"
+    description: "Desc"
+    tileset: xbase
+    script: "xbase"
+    maps_folder: xbase
+    map_blocks:
+      - map: "xbase00"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase02"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase03"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase04"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase05"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase06"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase07"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase08"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase09"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase10"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "xbase11"
+        size: 1
+        group: 0
+        chance: 5
+
+  # --------------------------------------------------------- ALIEN BASE
+  abase:
+    name: "Alien Base"
+    description: "Desc"
+    tileset: abase
+    script: "abase"
+    maps_folder: abase
+    map_blocks:
+      - map: "abase_01"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "abase_02"
+        size: 1
+        group: 0
+        chance: 5
+      - map: "abase_03"
+        size: 1
+        group: 0
+        chance: 5
+        items:
+          item_golden_x:
+            - 4
+            - 5
+        units:
+          unit_turret:
+            - 4
+            - 5
+        show: true
+
+  # --------------------------------------------------------- XCOM CRAFT
+  xcraft:
+    name: "XCOM craft"
+    description: "Desc"
+    tileset: xcraft
+    script: "xcraft"
+    maps_folder: xcraft

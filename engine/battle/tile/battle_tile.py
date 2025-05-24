@@ -20,6 +20,14 @@ class TBattleTile:
         self.light_level = 0
         self.fog_of_war = []
         self.objective_marker: str = None  # Marker for objectives (e.g. 'extraction', 'poc', 'sabotage')
+        self.floor_id = None
+        self.wall_id = None
+        self.roof_id = None
+
+    def set_layer_ids(self, floor_id, wall_id, roof_id):
+        self.floor_id = floor_id
+        self.wall_id = wall_id
+        self.roof_id = roof_id
 
     @classmethod
     def from_layer_ids(cls, floor_id, wall_id, roof_id):
@@ -27,10 +35,11 @@ class TBattleTile:
         Create a TBattleTile from layer IDs and optional gid_map for properties.
         """
         tile = cls()
+
         tile.floor = TBattleFloor() if floor_id else None
         tile.wall = TBattleWall() if wall_id else None
         tile.roof_id = roof_id if roof_id else None
-
+        tile.set_layer_ids(floor_id, wall_id, roof_id)
         return tile
 
     def is_walkable(self):
