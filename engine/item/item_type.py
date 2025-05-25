@@ -50,7 +50,6 @@ class TItemType:
 
         # available item modes
         unit_modes: List[str] = data.get('unit_modes', ['snap'])
-
         self.unit_modes: Dict[str, TWeaponMode] = {}
         for unit_mode in unit_modes:
             self.unit_modes[unit_mode] = self.game.mod.weapon_modes.get(unit_mode)

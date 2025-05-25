@@ -61,7 +61,7 @@ class TUnitType:
 
         # assign race
 
-        unit.race = game.mod.races.get(unit)
+        unit.race = game.mod.races.get(unit_type.race)
 
         # assign armour
 
