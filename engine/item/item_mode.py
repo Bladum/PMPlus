@@ -19,7 +19,7 @@ class TWeaponMode:
             'ap_cost': base_params.get('ap_cost', 1) * self.ap_cost_modifier,
             'range': base_params.get('range', 1) * self.range_modifier,
             'accuracy': base_params.get('accuracy', 1) * self.accuracy_modifier,
-            'shots': self.shots,
+            'shots': base_params.get('shots', 1) * self.shots,
             'damage': base_params.get('damage', 1) * self.damage_modifier
         }
 

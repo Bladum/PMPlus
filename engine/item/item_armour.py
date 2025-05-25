@@ -23,23 +23,36 @@ class TItemArmour:
             self.shield = min(self.max_shield, self.shield + self.shield_regen)
         return self.shield
 
-    def is_broken(self):
+    def is_shield_empty(self):
         return self.shield <= 0
 
     def reset_shield(self):
-        self.shield = 0
+        self.shield = self.max_shield
 
-    def calculate_damage(self, base_damage: float, damage_type: str) -> float:
+    def apply_damage(self, damage: int, damage_type: str) -> float:
         """
-        Calculate the final damage after applying armour resistance.
-        If the resistance for the damage type is not present, use 1.0 (no modification).
+        Applies incoming damage to the shield first (no resistance), then applies resistance to remaining damage.
+        Returns the final damage to be applied to the unit (after shield and resistance).
         """
-        # Ensure resistance is a dict of float
-        resistances = self.item_type.armour_resistance
-        if not resistances:
-            return base_damage
-        modifier = resistances.get(damage_type, 1.0)
-        return base_damage * float(modifier)
+        # Apply damage to shield first
+        shield_damage = min(self.shield, damage)
+        self.shield -= shield_damage
+        remaining_damage = damage - shield_damage
+
+        # there is no shield left, apply resistance to remaining damage
+        if remaining_damage > 0:
+
+            # Ensure resistance is a dict of float
+            resistances = self.item_type.armour_resistance
+            if not resistances:
+                return remaining_damage
+
+            # there is resistance, apply it
+            modifier = resistances.get(damage_type, 1.0)
+            final_damage = remaining_damage * float(modifier)
+            return final_damage
+
+        return 0.0
 
     def get_stat_modifiers(self):
         """

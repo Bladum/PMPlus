@@ -16,6 +16,10 @@ class TItemType:
     ITEM_UNIT_CAPTURE: int = 5
 
     def __init__(self, pid: str, data: Dict[str, Any], mode_defs: Optional[Dict[str, Any]] = None):
+
+        from engine.engine.game import TGame
+        self.game = TGame()
+
         self.pid: str = pid
         self.name: str = data.get('name', pid)
         self.category: int = data.get('category', 0)
@@ -38,13 +42,21 @@ class TItemType:
         self.unit_accuracy: int = data.get('unit_accuracy', 0)
         self.unit_range: int = data.get('unit_range', 0)
         self.unit_ammo: int = data.get('unit_ammo', 0)
+        self.unit_shots: int = data.get('unit_shots', 1)  # number of shots per action
         self.unit_action_point: int = data.get('unit_action_point', 2)
 
+        # unit stats modifiers
         self.unit_stats: TUnitStats = TUnitStats( data.get('unit_stats', {}) )
+
+        # available item modes
+        unit_modes: List[str] = data.get('unit_modes', ['snap'])
+
+        self.unit_modes: Dict[str, TWeaponMode] = {}
+        for unit_mode in unit_modes:
+            self.unit_modes[unit_mode] = self.game.mod.weapon_modes.get(unit_mode)
 
         # Ammo/reload details after battle / when move to base
         self.unit_rearm_cost: int = data.get('unit_rearm_cost', 0)       # after battle, as monthly report
-        self.unit_rearm_item: Optional[str] = data.get('unit_rearm_item', None)    # after battle
 
         # Armor stats
         self.armour_defense: int = data.get('armour', 0)
