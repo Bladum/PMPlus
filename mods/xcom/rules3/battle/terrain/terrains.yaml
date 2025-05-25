@@ -166,6 +166,14 @@ terrains:
         size: 2
         group: 0
         chance: 5
+      - map: "cultaroad01"
+        size: 1
+        group: 2
+        chance: 5
+      - map: "cultaroad02"
+        size: 1
+        group: 3
+        chance: 5
 
   # --------------------------------------------------------- FARMLAND WARM
   farmland_warm:

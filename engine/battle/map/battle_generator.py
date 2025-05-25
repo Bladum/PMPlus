@@ -65,6 +65,11 @@ class TBattleGenerator:
         Returns:
             The complete battle map as a 2D array of TBattleTile objects
         """
+
+        import random
+        import time
+        random.seed(time.time())
+
         # Apply script to fill the block grid
         self.script.apply_to(self)
 
@@ -163,7 +168,7 @@ class TBattleGenerator:
         Render the battle map to a PNG image.
 
         """
-        user_docs = pathlib.Path.home() / 'Documents' / 'export' / 'generator'
+        user_docs =  self.game.mod.mod_path / 'export' / 'generator'
         user_docs.mkdir(parents=True, exist_ok=True)
         out_path = user_docs / f"{filepath}.png"
 

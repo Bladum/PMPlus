@@ -131,7 +131,7 @@ class TMapBlock:
                 #    draw_layer(tile.roof_id, x, y)
 
         # Save the image
-        user_docs = pathlib.Path.home() / 'Documents' / 'export' / 'maps'
+        user_docs = self.game.mod.mod_path / 'export' / 'maps'
         user_docs.mkdir(parents=True, exist_ok=True)
         out_path = user_docs / f"{self.name}.png"
         out_img.save(out_path)

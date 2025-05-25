@@ -42,17 +42,39 @@ map_scripts:
     # POLARS
     polar:
         steps:
-            - type: add_block
-              size: 3
+            - type: add_line
+              group: 2
               chance: 0.50
+              label: 10
+              direction: vertical
+            - type: add_line
+              group: 3
+              #chance: 0.75
+              label: 11
+              direction: horizontal
+              condition:
+                - -10
+#            - type: add_line
+#              group: 3
+#              chance: 0.70
+#              label: 12
+#              direction: both
+#              condition:
+#                - -10
+#                - -11
+            - type: add_block
+              size: 2
+              chance: 0.75
             - type: add_block
               size: 2
               chance: 0.50
+            - type: add_block
+              size: 2
+              chance: 0.25
             - type: fill_block
               group: 0
               size: 1
             - type: add_ufo
-
             - type: add_craft
 
     # REPORTID BASE

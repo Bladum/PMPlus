@@ -1,0 +1,15 @@
+#
+# QUESTS
+#
+
+quests:
+  promotion_A:
+    name: "Promotion A"
+    description: "Achieve the first level of promotion within the organization, demonstrating your commitment and skills."
+    pedia: "quest_promotion_A"
+    value: 10
+
+    quests_needed:
+      - 'quest_promotion_B'
+    tech_needed:
+      - 'tech_promotion_A'

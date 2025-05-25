@@ -1,0 +1,40 @@
+#
+# LEVEL OF PLAYER ORGANIZATION
+#
+
+organizations:
+  CA:
+    name : "Covert Actions"
+    description : "A small, secretive startup of specialists investigating unexplained anomalies and global threats under the guise of private consultancy."
+    icon: "icons/organizations/ca.png"
+    pedia: "org_ca"
+    quests:
+      - "investigate_anomaly"
+  CB:
+    name : "Covert Bureau"
+    description : "Now a shadowy government-affiliated agency, the organization expands its reach to counter alien infiltration and internal subversion."
+    icon: "icons/organizations/cb.png"
+    pedia: "org_cb"
+    quests:
+      - "counter_alien_infiltration"
+  CC:
+    name : "Covert Command"
+    description : "Reorganized into a global strike force, it commands elite units and advanced technology to neutralize threats with precision and force."
+    icon: "icons/organizations/cc.png"
+    pedia: "org_cc"
+    quests:
+      - "global_strike_force"
+  CD:
+    name : "Covert Division"
+    description : "A fully militarized division with planetary authority, leading large-scale operations and defending Earth from open extraterrestrial conflict."
+    icon: "icons/organizations/cd.png"
+    pedia: "org_cd"
+    quests:
+      - "planetary_defense"
+  CE:
+    name : "Covert Enclave"
+    description : "Having transcended Earth’s borders, the organization becomes a dominant interplanetary power, forging a private empire among the stars."
+    icon: "icons/organizations/ce.png"
+    pedia: "org_ce"
+    quests:
+      - "interplanetary_empire"
