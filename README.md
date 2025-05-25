@@ -1,10 +1,11 @@
 
 # Welcome to AllienFall
 
+AlienFall is sandbox strategic simulator game. It cover rise and fall of Covert organization managed by player. It start as startup and ends as multiplanetary full scale military organization. It is open ended.
+
 ![banner](https://github.com/user-attachments/assets/c604e0ce-8e6d-42a4-89c4-6aca1c16a2fa)
 
-
-This is python based game using mainly agentic ai coding. 
+This is python based game using mainly agentic ai coding. It 
 
 # Difference vs XCOM
 
