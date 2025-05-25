@@ -7,9 +7,8 @@ class TItemWeapon:
         from engine.engine.game import TGame
         self.game = TGame()
 
-        self.item_type = self.game.mod.items.get(
-            item_type)  # Reference to item type (category=1), holds all static parameters
-        self.active = True
+        self.item_type = self.game.mod.items.get(item_type)
+        # Reference to item type (category=1), holds all static parameters
         self.active = True
         self.max_ammo = self.item_type.unit_ammo  # max ammo
         self.ammo = 0

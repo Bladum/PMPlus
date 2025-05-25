@@ -1,4 +1,4 @@
-from engine.lore.campaign_month import TCampaignMonth
+from engine.lore.campaign_step import TCampaignStep
 
 
 class TCalendar:
@@ -25,7 +25,7 @@ class TCalendar:
             # Parse month number from key (e.g., "m03" -> 3)
             try:
                 month_num = int(month_key[1:])
-                entry = TCampaignMonth(month_num, month_info)
+                entry = TCampaignStep(month_num, month_info)
                 self.campaign_months[month_num] = entry
             except (ValueError, IndexError):
                 # Skip invalid month keys

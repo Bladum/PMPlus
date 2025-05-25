@@ -2,14 +2,14 @@
 #   SKILLS FOR UNITS
 #
 #   TYPE
-#       6 is for temporary effects on battle like auras
+#       6 is for temporary effects on battle like effects
 
 
-[auras]
+[effects]
 
-# AURAS ?
+# effects ?
 
-[auras.berzerk]
+[effects.berzerk]
 name = "Battle frenzy"
 icon = 'berzerk.png'
 races = [ ]

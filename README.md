@@ -156,9 +156,9 @@ This is python based game using mainly agentic ai coding. It
 - same mechanism as classes for promotion of soldiers are used for:
     - build enemy unit templates
     - wounds (permanent damage after battle)
-    - background careers (before they joined xcom)
+    - background careers or origin (before they joined xcom)
     - medals (for doing particular mission)
-    - auras (temporary effect during battle like frenzy)
+    - effects (temporary effect during battle like frenzy)
     - perks (single trait selected per unit during game by player)
     - transformations (permanent change to unit, like mutant)
 

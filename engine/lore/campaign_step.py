@@ -1,4 +1,4 @@
-class TCampaignMonth:
+class TCampaignStep:
     """
     Represents mission generation rules for a specific game month
     """

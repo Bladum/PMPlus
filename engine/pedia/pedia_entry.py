@@ -12,11 +12,11 @@ class TPediaEntry:
 
     RACES = 6  # all non alien race
     CLASSES = 7  # classes type 0 only
-    CAREERS = 8  # classes type 2 only
+    ORIGINS = 8  # classes type 2 only
     TRANSFORMATIONS = 8  # classes type 3 only
     MEDALS = 9  # classes type 4 only
     WOUNDS = 10  # classes type 5 only
-    AURAS = 11  # classes type 6 only
+    EFFECTS = 11  # classes type 6 only
 
     FACTIONS = 20   # all factions on all worlds
     COUNTRIES = 21  # all countries on all worlds

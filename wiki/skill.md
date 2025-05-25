@@ -4,7 +4,7 @@
 - skill is addon to unit that boost stats in specific way
 - skill is generic mechanism used in many different ways:
   - as **promotion** of soldier for experience
-  - as special skill for soldier to simulate their **background career** before XCOM
+  - as special skill for soldier to simulate their **background origins** before XCOM
   - as way to build enemy units from **classes**
   - as way to **transform** soldiers other than promotion via experience (e.g. cyborg)
   - as way to simulate permanent **wounds** from battles e.g. lost leg
@@ -48,16 +48,16 @@ skill for xcom:
   - armour, primary weapon, secondary weapons
 - other than that it works for enemy same way like promotion for x-com
 
-#### [Background Careers]()
+#### [Background origins]()
 
 - Each xcom soldier might have a special one time skill 
 - this represents background of soldier 
-- careers are only used during creation of unit, they cannot be acquired by promotion
+- origins are only used during creation of unit, they cannot be acquired by promotion
 
-#### [Auras]()
+#### [effects]()
 
-- aura is temporary skill assigned to soldier to simulate special effect like bleeding, bloodlust, panic etc
-- auras are removed from solder after battle ends
+- effects is temporary skill assigned to soldier to simulate special effect like bleeding, bloodlust, panic etc
+- effects are removed from solder after battle ends
 
 #### [Medals]()
 

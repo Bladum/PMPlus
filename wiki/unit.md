@@ -60,7 +60,7 @@
 - all units on battlefield are units, thou they might be small (1x1) or large (2x2)
 - large units are usually vehicles or large aliens but its not a rule
 - large units are equipped same way like small one, thou usually its different race
-- due to race some units may get experience or not, which means they could get skills by promotion
+- due to race some units may get experience or not, which means they could get traits by promotion
 - a tank, large mechanical unit, may not get experience via battle, but may have transformation like new armour type
 - unit may have predefined items like armour or weapon, and cannot be changed
 - crafts have cargo space for small and large unit separately

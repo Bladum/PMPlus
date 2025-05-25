@@ -309,8 +309,8 @@ If unit decide to fire at this place then roll is made vs this value chance to h
 
 #### [What can impact action points ?]()
   - in general its all 4 AP
-  - some auras like BERZERK may increase AP +1
-  - some auras like PANIC may decrease AP -1
+  - some effects like BERZERK may increase AP +1
+  - some effects like PANIC may decrease AP -1
 
 #### [Example use cost:]()
   - pistol 1

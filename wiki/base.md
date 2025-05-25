@@ -16,7 +16,7 @@ Gym:
 - soldier gets 1 EXP per day
 - soldier gets additional 1-3 EXP per day when trained in GYM but up to max of level 2
 - advanced gym can train soldiers to level max 3
-- advanced gym can allow soldiers to be promoted to more skills via promotion
+- advanced gym can allow soldiers to be promoted to more traits via promotion
 
 Hospital:
 - wounds are healed based on what wounds definition e.g. 90 days
@@ -28,7 +28,7 @@ Hospital:
 - some wounds may require special type of hospital (e.g. cybernetic hospital)
 
 Psi Lab and magic:
-- there is no concept of PSI training to get skills
+- there is no concept of PSI training to get traits
 - psi lab can add some experience to soldiers under level OR with specific class OR race
 - but in general PSI LAB is to allow soldier to unlock new PROMOTION or TRANSFORMATION that will take like 20-40 days (psionic)
 - then each class may allow to use specific set of items like spells (facility church) or psi amp (psi lab)

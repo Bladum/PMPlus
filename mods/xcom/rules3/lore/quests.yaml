@@ -5,7 +5,7 @@
 quests:
   promotion_A:
     name: "Promotion A"
-    description: "Achieve the first level of promotion within the organization, demonstrating your commitment and skills."
+    description: "Achieve the first level of promotion within the organization, demonstrating your commitment and traits."
     pedia: "quest_promotion_A"
     value: 10
 

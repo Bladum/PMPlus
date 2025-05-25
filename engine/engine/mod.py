@@ -30,7 +30,7 @@ from lore.event import TEvent
 from lore.faction import TFaction
 from lore.mission import TMission
 from pedia.pedia_entry import TPediaEntry
-from skill.skill import TSkill
+from traits.trait import TTrait
 from unit.race import TRace
 from unit.unit_type import TUnitType
 
@@ -66,7 +66,7 @@ class TMod:
         # units
         self.races : dict[str, TRace] = {}
         self.units: dict[str, TUnitType] = {}
-        self.skills : dict[str, TSkill] = {}
+        self.traits : dict[str, TTrait] = {}
 
         # economy
         self.researches : dict[str, TResearchEntry] = {}
@@ -234,45 +234,45 @@ class TMod:
             self.objectives[pid] = obj
         print(f"Loaded {len(self.objectives)} battle objectives")
 
-        # SKILLS
+        # traits
 
-        datas = mod_data.get('auras', {})
+        datas = mod_data.get('effects', {})
         for pid, dat in datas.items():
-            dat['category'] = TSkill.SKILL_AURA
-            obj = TSkill(pid, dat)
-            self.skills[pid] = obj
+            dat['category'] = TTrait.TRAIT_EFFECT
+            obj = TTrait(pid, dat)
+            self.traits[pid] = obj
 
-        datas = mod_data.get('careers', {})
+        datas = mod_data.get('origins', {})
         for pid, dat in datas.items():
-            dat['category'] = TSkill.SKILL_CAREER
-            obj = TSkill(pid, dat)
-            self.skills[pid] = obj
+            dat['category'] = TTrait.TRAIT_ORIGIN
+            obj = TTrait(pid, dat)
+            self.traits[pid] = obj
 
         datas = mod_data.get('classes', {})
         for pid, dat in datas.items():
-            dat['category'] = TSkill.SKILL_ENEMY
-            obj = TSkill(pid, dat)
-            self.skills[pid] = obj
+            dat['category'] = TTrait.TRAIT_ENEMY
+            obj = TTrait(pid, dat)
+            self.traits[pid] = obj
 
         datas = mod_data.get('medals', {})
         for pid, dat in datas.items():
-            dat['category'] = TSkill.SKILL_MEDAL
-            obj = TSkill(pid, dat)
-            self.skills[pid] = obj
+            dat['category'] = TTrait.TRAIT_MEDAL
+            obj = TTrait(pid, dat)
+            self.traits[pid] = obj
 
         datas = mod_data.get('promotions', {})
         for pid, dat in datas.items():
-            dat['category'] = TSkill.SKILL_PROMOTION
-            obj = TSkill(pid, dat)
-            self.skills[pid] = obj
+            dat['category'] = TTrait.TRAIT_PROMOTION
+            obj = TTrait(pid, dat)
+            self.traits[pid] = obj
 
         datas = mod_data.get('transformations', {})
         for pid, dat in datas.items():
-            dat['category'] = TSkill.SKILL_TRANSFORMATION
-            obj = TSkill(pid, dat)
-            self.skills[pid] = obj
+            dat['category'] = TTrait.TRAIT_TRANSFORMATION
+            obj = TTrait(pid, dat)
+            self.traits[pid] = obj
 
-        print(f"Loaded {len(self.skills)} skills")
+        print(f"Loaded {len(self.traits)} traits")
 
         # UNITS
 

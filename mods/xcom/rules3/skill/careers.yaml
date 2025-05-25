@@ -1,10 +1,10 @@
 #
-#   SKILLS FOR UNITS
+#   traits FOR UNITS
 #
 #   TYPE
-#       2 is for random career path when soldier is hired for first time
+#       2 is for random origins path when soldier is hired for first time
 #
-careers:
+origins:
     career_ranger:
         name: "Ranger career"
         icon: career_ranger.png

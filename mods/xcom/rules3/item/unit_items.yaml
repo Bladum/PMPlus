@@ -2,7 +2,7 @@
 #   ITEMS for SOLDIERS
 #
 unit_items:
-    # XCOM ARMOURS
+    # XCOM SECONDARY WEAPONS
     old_pistol:
         name: "Old Pistol"
         category: unit_equipment

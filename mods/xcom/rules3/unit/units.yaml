@@ -11,11 +11,11 @@ units:
     name: "XCOM Soldier"
     race: 'human'
     rank: 0
-    skills: []
+    traits: []
 
-    armour: null
-    primary: null
-    secondary: null
+    armour: ''
+    primary: ''
+    secondary: []
 
     score_dead: -50
     score_alive: 0
@@ -34,12 +34,13 @@ units:
     name: "Sectoid Soldier Junior"
     race: 'sectoid'
     rank: 1
-    skills:
+    traits:
       - 'soldier'
 
     armour: 'arm_sectoid_soldier'
-    primary: 'item_plasma_rifle'
-    secondary: null
+    primary:
+      - 'item_plasma_rifle'
+    secondary: []
 
     score_dead: 5
     score_alive: 20
@@ -55,16 +56,19 @@ units:
     name: "Sectoid Soldier"
     race: 'sectoid'
     rank: 2
-    skills:
+    traits:
       - 'soldier'
       - 'soldier'
 
-    armour: 'arm_sectoid_soldier'
-    primary: 'item_plasma_cannon'
+    armour:
+       - 'arm_sectoid_soldier'
+    primary:
+       - 'item_plasma_cannon'
     secondary:
-      - 'item_alien_grenade'
-      - null
-      - null
+      -
+        - 'item_alien_grenade'
+        - null
+        - null
 
     score_dead: 5
     score_alive: 20
@@ -78,20 +82,22 @@ units:
     name: "Sectoid Soldier Senior"
     race: 'sectoid'
     rank: 3
-    skills:
+    traits:
       - 'soldier'
       - 'soldier'
       - 'soldier'
 
-    armour: 'arm_sectoid_soldier_2'
+    armour:
+      - 'arm_sectoid_soldier_2'
     primary:
       - 'item_plasma_rifle'
       - 'item_plasma_rifle'
       - 'item_plasma_cannon'
     secondary:
-      - 'item_alien_grenade'
-      - null
-      - 'item_alien_grenade'
+      -
+        - 'item_alien_grenade'
+        - null
+        - 'item_alien_grenade'
 
     score_dead: 5
     score_alive: 20

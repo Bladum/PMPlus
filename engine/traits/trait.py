@@ -1,20 +1,20 @@
 
 
-class TSkill:
+class TTrait:
 
     """
-    Represents a skill of unit, which adds some stats to unit
+    Represents a traits of unit, which adds some stats to unit
     This is virtual class, it is used to create other classes
     """
 
     # Class type constants
-    SKILL_PROMOTION = 0     # XCOM soldier promotion
-    SKILL_ENEMY = 1         # Enemy only class
-    SKILL_CAREER = 2        # Random career path when soldier is hired
-    SKILL_TRANSFORMATION = 3  # Soldier transformation during gameplay
-    SKILL_MEDAL = 4         # Special awards/medals
-    SKILL_WOUND = 5         # Permanent wounds from battle/events
-    SKILL_AURA = 6          # Temporary effects on battle like auras
+    TRAIT_PROMOTION = 0     # XCOM soldier promotion
+    TRAIT_ENEMY = 1         # Enemy only class
+    TRAIT_ORIGIN = 2        # Random career path when soldier is hired
+    TRAIT_TRANSFORMATION = 3  # Soldier transformation during gameplay
+    TRAIT_MEDAL = 4         # Special awards/medals
+    TRAIT_WOUND = 5         # Permanent wounds from battle/events
+    TRAIT_EFFECT = 6        # Temporary effects on battle like auras
 
     def __init__(self, pid, data):
         self.id = pid

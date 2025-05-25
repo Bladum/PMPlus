@@ -5,6 +5,7 @@ class TRace:
 
     def __init__(self, pid, data):
         self.pid = pid
+
         self.name = data.get('name', pid)
         self.description = data.get('description', '')
         self.icon = data.get('icon', '')

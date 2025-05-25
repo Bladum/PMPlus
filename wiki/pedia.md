@@ -12,11 +12,11 @@
 - facilities
 - races
 - classes
-- careers
+- origins
 - transformations
 - medals
 - wounds
-- auras
+- effects
 - factions
 - countries
 - regions

@@ -42,8 +42,8 @@ pedia = 1
 sites = 1
 
 # skills
-auras = 1
-careers = 1
+effects = 1
+origins = 1
 classes = 1
 medals = 1
 promotions = 1

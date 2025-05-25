@@ -12,7 +12,7 @@
 name = "XCOM Soldier"
 race = 'human'
 rank = 0
-skills = [  ]
+traits = [  ]
 
 armour = nan
 primary = nan

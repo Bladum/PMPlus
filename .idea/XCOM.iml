@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/engine" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/.venv1" />
+      <excludeFolder url="file://$MODULE_DIR$/mods/xcom/rules" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.13 virtualenv at C:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
