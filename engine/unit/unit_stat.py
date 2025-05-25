@@ -4,26 +4,40 @@ class TUnitStats:
     """
     def __init__(self, data=None):
         data = data or {}
+
         # Core stats
-        self.speed = data.get('speed', 0)
+
         self.health = data.get('health', 0)  # max health
+
+        # strength and speed
+        self.speed = data.get('speed', 0)
         self.strength = data.get('strength', 0)
         self.energy = data.get('energy', 0)
+
+        # agility and perception
         self.aim = data.get('aim', 0)
         self.melee = data.get('melee', 0)
         self.reflex = data.get('reflex', 0)
+
+        # mind
         self.psi = data.get('psi', 0)
         self.bravery = data.get('bravery', 0)
         self.sanity = data.get('sanity', 0)
-        self.sight = data.get('sight', (0, 0))  # (day, night)
-        self.sense = data.get('sense', 0)
-        self.cover = data.get('cover', 0)
-        self.size = data.get('size', 1)
 
-        self.morale = data.get('morale', 0)
-        self.action_points = data.get('action_points', 4)
+        # detection
+        self.sight = data.get('sight', (0, 0))  # (day, night)
+        self.sense = data.get('sense', (0, 0))  # (day, night)
+        self.cover = data.get('cover', (0, 0))  # (day, night)
 
         # Battle stats (only left values are tracked)
+
+        self.morale = data.get('morale', 10)
+        self.action_points = data.get('action_points', 4)
+
+        # small or large unit
+
+        self.size = data.get('size', 1)
+
         self.action_points_left = self.action_points
         self.energy_left = self.energy
         self.hurt = 0  # damage to health
@@ -140,6 +154,36 @@ class TUnitStats:
 
     def get_stun_left(self):
         return max(0, self.health - self.stun)
+
+    def __add__(self, other):
+        if not isinstance(other, TUnitStats):
+            return NotImplemented
+        data = {
+            'health': self.health + other.health,
+            'speed': self.speed + other.speed,
+            'strength': self.strength + other.strength,
+            'energy': self.energy + other.energy,
+            'aim': self.aim + other.aim,
+            'melee': self.melee + other.melee,
+            'reflex': self.reflex + other.reflex,
+            'psi': self.psi + other.psi,
+            'bravery': self.bravery + other.bravery,
+            'sanity': self.sanity + other.sanity,
+            'sight': tuple(a + b for a, b in zip(self.sight, other.sight)),
+            'sense': tuple(a + b for a, b in zip(self.sense, other.sense)),
+            'cover': tuple(a + b for a, b in zip(self.cover, other.cover)),
+            'morale': self.morale + other.morale,
+            'action_points': self.action_points + other.action_points,
+        }
+        return TUnitStats(data)
+
+    def sum_with(self, other):
+        """
+        Sums this object's stats with another TUnitStats and updates self.
+        """
+        summed = self + other
+        self.__dict__.update(summed.__dict__)
+        return self
 
     def __repr__(self):
         return f"<TUnitStats HP:{self.get_health_left()}/{self.health} Hurt:{self.hurt} Stun:{self.stun} AP:{self.action_points_left}/{self.action_points} Morale:{self.morale_left}/{self.morale}>"

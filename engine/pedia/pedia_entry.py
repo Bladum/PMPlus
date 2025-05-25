@@ -11,12 +11,12 @@ class TPediaEntry:
     FACILITIES = 5
 
     RACES = 6  # all non alien race
-    CLASSES = 7  # classes type 0 only
-    ORIGINS = 8  # classes type 2 only
-    TRANSFORMATIONS = 8  # classes type 3 only
-    MEDALS = 9  # classes type 4 only
-    WOUNDS = 10  # classes type 5 only
-    EFFECTS = 11  # classes type 6 only
+    PROMOTIONS = 7 # traits type 0
+    ORIGINS = 8  # traits type 2 only
+    TRANSFORMATIONS = 8  # traits type 3 only
+    MEDALS = 9  # traits type 4 only
+    WOUNDS = 10  # traits type 5 only
+    EFFECTS = 11  # traits type 6 only
 
     FACTIONS = 20   # all factions on all worlds
     COUNTRIES = 21  # all countries on all worlds
@@ -34,7 +34,7 @@ class TPediaEntry:
     ALIEN_UNITS = 32  # sectoid soldier corpse
     ALIEN_ITEMS = 33  # plasma weapons, grenades, alien weapons
     ALIEN_ARMOURS = 34  # sectoid armour, shields,
-    ALIEN_CLASSES = 35  # medic, navigator, engineer, psionic, type 1 only
+    ALIEN_RANKS = 35  # medic, navigator, engineer, psionic, type 1 only
     ALIEN_MISSIONS = 36  # research, base supply
     ALIEN_ARTEFACTS = 37  # alien alloys, zrbite, power navigation
 

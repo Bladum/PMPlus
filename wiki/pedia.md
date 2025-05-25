@@ -11,7 +11,7 @@
 - items
 - facilities
 - races
-- classes
+- promotions
 - origins
 - transformations
 - medals
@@ -29,6 +29,6 @@
 - alien_units
 - alien_items
 - alien_armours
-- alien_classes
+- alien_ranks
 - alien_missions
 - alien_artefacts

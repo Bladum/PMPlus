@@ -5,7 +5,7 @@
 - skill is generic mechanism used in many different ways:
   - as **promotion** of soldier for experience
   - as special skill for soldier to simulate their **background origins** before XCOM
-  - as way to build enemy units from **classes**
+  - as way to build enemy units from **ranks**
   - as way to **transform** soldiers other than promotion via experience (e.g. cyborg)
   - as way to simulate permanent **wounds** from battles e.g. lost leg
   - as way to simulate **temporary effects** during battle e.g. bloodlust
@@ -39,7 +39,7 @@ skill for xcom:
 - transformation are expensive, long term changes to unit stats
 - they usually require resources, money, time and facility in base
 
-#### [Classes]()
+#### [Ranks]()
 
 - Same mechanism is used to build unit templates for battles
 - typical enemy unit is build from: 

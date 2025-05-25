@@ -248,9 +248,9 @@ class TMod:
             obj = TTrait(pid, dat)
             self.traits[pid] = obj
 
-        datas = mod_data.get('classes', {})
+        datas = mod_data.get('ranks', {})
         for pid, dat in datas.items():
-            dat['category'] = TTrait.TRAIT_ENEMY
+            dat['category'] = TTrait.TRAIT_ENEMY_RANK
             obj = TTrait(pid, dat)
             self.traits[pid] = obj
 

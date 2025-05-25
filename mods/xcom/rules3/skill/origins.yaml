@@ -5,16 +5,16 @@
 #       2 is for random origins path when soldier is hired for first time
 #
 origins:
-    career_ranger:
+    origin_ranger:
         name: "Ranger career"
-        icon: career_ranger.png
+        icon: origin_ranger.png
         races:
             - human
             - hybrid
         type: 2
         description: "A ranger in the past."
         stats:
-            reacttions: 1
+            reactions: 1
             aim: 1
             energy: 1
 

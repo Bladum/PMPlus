@@ -7,13 +7,13 @@
 - in general purchasing and manufacturing projects can deliver unit
 - unit must have a race, and race in general may have fixed stats
 - but when unlocking new technology new race can be unlocked with better / other stats
-- new race will have different options for classes / item usage
+- new race will have different options for ranks / item usage
 
 ### [Race]()
 
 - Soldier basic information is race, e.g. human, sectoid, wolf, zombie
 - race defines basic stats (could be fixed or random) and stat max 
-- race may define some items usage or classes usage
+- race may define some items usage or ranks usage
 - race defines how unit looks like (sprite) on battlefield
 
 ### [Unit stats]()

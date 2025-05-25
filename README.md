@@ -147,13 +147,13 @@ This is python based game using mainly agentic ai coding. It
 
 - units gain basic experience points from mission or training at base
 - with enough experience points they will gain level up
-- on each level up they can be promoted to one of the classes, that provide boost to stats
+- on each level up they can be promoted to one of the traits, that provide boost to stats
 - stats are more less standardized to human in range 5-12 for most, so e.g. sniper has +2 to aim
-- in general human can be max 5 level, and most classes are 3 levels max
+- in general human can be max 5 level, and most traits are 3 levels max
 
-#### Soldiers perks and other
+#### Soldiers traits and other
 
-- same mechanism as classes for promotion of soldiers are used for:
+- same mechanism as trait for promotion of soldiers are used for:
     - build enemy unit templates
     - wounds (permanent damage after battle)
     - background careers or origin (before they joined xcom)

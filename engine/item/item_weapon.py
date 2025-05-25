@@ -34,3 +34,9 @@ class TItemWeapon:
             return True
         return False
 
+    def get_stat_modifiers(self):
+        """
+        Returns a dictionary of stat modifiers provided by this weapon.
+        Override in subclasses or extend item_type to provide modifiers.
+        """
+        return self.item_type.unit_stats

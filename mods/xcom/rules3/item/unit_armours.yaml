@@ -19,7 +19,6 @@ unit_armours:
             plasma: 0.9
         weight: 1
         size: 0.1
-        cover: [0, 0]
         sell_cost: 2
 
 
@@ -38,10 +37,9 @@ unit_armours:
             plasma: 0.9
         shield: 0
         shield_regen: 0
+        unit_stats_mod:
+            health: 1
         weight: 4
         size: 0.5
-        cover: [0, 0]
-        sight: [0, 0]
-        sense: 0
         sell_cost: 80
 

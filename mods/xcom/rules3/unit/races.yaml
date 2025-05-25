@@ -21,11 +21,11 @@ races:
     melee: 3
     aim: 4
     psi: 2
-    will: 5
+    bravery: 5
     sanity: 7
 
-    sight: [20, 14]
-    sense: 6
+    sight: [20, 10]
+    sense: [3, 2]
     cover: [0, 0]
 
   orc:
@@ -42,11 +42,11 @@ races:
     melee: 4
     aim: 4
     psi: 1
-    will: 4
+    bravery: 4
     sanity: 6
 
     sight: [18, 12]
-    sense: 5
+    sense: [0, 0]
     cover: [0, 0]
 
   spartan:
@@ -63,11 +63,11 @@ races:
     melee: 4
     aim: 6
     psi: 2
-    will: 6
+    bravery: 6
     sanity: 8
 
     sight: [22, 16]
-    sense: 7
+    sense: [0, 0]
     cover: [0, 0]
 
   olympian:
@@ -84,11 +84,11 @@ races:
     melee: 3
     aim: 4
     psi: 3
-    will: 5
+    bravery: 5
     sanity: 7
 
     sight: [24, 18]
-    sense: 8
+    sense: [0, 0]
     cover: [0, 0]
 
   #
@@ -111,11 +111,11 @@ races:
     melee: 3
     aim: 5
     psi: 4
-    will: 6
+    bravery: 6
     sanity: 8
 
     sight: [22, 16]
-    sense: 8
+    sense: [0, 0]
     cover: [0, 0]
 
   #
@@ -137,11 +137,11 @@ races:
     melee: 3
     aim: 6
     psi: 4
-    will: 6
+    bravery: 6
     sanity: 8
 
     sight: [22, 16]
-    sense: 8
+    sense: [0, 0]
     cover: [0, 0]
 
   #
@@ -164,12 +164,12 @@ races:
     melee: 3
     aim: 6
     psi: 4
-    will: 6
+    bravery: 6
     sanity: 8
 
     cover: [0, 0]
     sight: [22, 16]
-    sense: 8
+    sense: [0, 0]
 
     agression: 0.5
     inteligence: 0.9

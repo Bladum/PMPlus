@@ -15,19 +15,20 @@ promotions:
         tech_needed:
             - tech_class_sniper
         min_level: 0
+        max_level: 3
         type: 0
         stats:
             health: 1
             speed: 1
             aim: 2
             sanity: 2
-            will: 1
+            bravery: 1
             sight: [2, 1]
     scout: {}
     soldier: {}
     heavy: {}
     medic: {}
-    assult: {}
+    assault: {}
     ninja: {}
     leader: {}
     psychic: {}

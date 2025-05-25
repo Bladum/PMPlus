@@ -4,7 +4,7 @@
 #   TYPE
 #       1 is for enemy only
 #
-classes:
+ranks:
     alien_soldier:
         name: "Soldier (alien)"
         icon: soldier_alien.png
@@ -19,7 +19,7 @@ classes:
             speed: 1
             aim: 2
             sanity: 2
-            will: 1
+            bravery: 1
             sight: [2, 1]
     alien_navigator:
         name: "Navigator (alien)"
@@ -34,7 +34,7 @@ classes:
             speed: 1
             aim: 2
             sanity: 2
-            will: 1
+            bravery: 1
             sight: [2, 1]
     alien_leader:
         name: "Leader (alien)"
@@ -49,6 +49,6 @@ classes:
             speed: 1
             aim: 2
             sanity: 2
-            will: 1
+            bravery: 1
             sight: [2, 1]
 

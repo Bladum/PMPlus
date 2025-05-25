@@ -56,3 +56,28 @@ class TUnit:
         self.stunned = False             # is the unit stunned?
         self.kneeling = False            # is the unit kneeling?
         self.running = False             # is the unit running?
+
+    def calculate_stats(self):
+        # 1. Start with base stats from race
+        stats = self.race.stats.copy()
+
+        # 2. Apply traits modifiers
+        for trait in self.traits:
+            stats = stats + trait.stats
+
+        # 3. Apply armor modifiers
+        if self.armour:
+            stats = stats + self.armour.get_stat_modifiers()
+
+        # 4. Apply primary weapon modifiers
+        if self.primary_weapon:
+            stats = stats + self.primary_weapon.get_stat_modifiers()
+
+        # 5. Apply secondary weapon modifiers
+        for weapon in self.secondary_weapon:
+            stats = stats + weapon.get_stat_modifiers()
+
+        return stats
+
+
+

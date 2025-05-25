@@ -1,3 +1,6 @@
+from unit.unit_stat import TUnitStats
+
+
 class TRace:
     """
     Represents race = type of unit and its basic stats
@@ -9,29 +12,16 @@ class TRace:
         self.name = data.get('name', pid)
         self.description = data.get('description', '')
         self.icon = data.get('icon', '')
-        self.size = data.get('size', 1.0)
+
         self.is_big = data.get('is_big', False)
         self.is_mechanical = data.get('is_mechanical', False)
         self.gain_experience = data.get('gain_experience', True)
-
+        self.health_regen = data.get('health_regen', 0)
         self.sound_death = data.get('sound_death', None)
         self.corpse_image = data.get('corpse_image', None)
 
         # Stats
-        self.speed = data.get('speed', 0)
-        self.health = data.get('health', 0)
-        self.health_regen = data.get('health_regen', 0)
-        self.energy = data.get('energy', 0)
-        self.strength = data.get('strength', 0)
-        self.reaction = data.get('reaction', 0)
-        self.melee = data.get('melee', 0)
-        self.aim = data.get('aim', 0)
-        self.psi = data.get('psi', 0)
-        self.will = data.get('will', 0)
-        self.sanity = data.get('sanity', 0)
-        self.sight = data.get('sight', [0, 0])
-        self.sense = data.get('sense', [0, 0])
-        self.cover = data.get('cover', [0, 0])
+        self.stats = TUnitStats(data)
 
         # AI behavior
         self.aggression = data.get('aggression', 0.0)

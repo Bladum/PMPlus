@@ -231,7 +231,7 @@ Status on fire:
 
 - basic race sight or sense
 - armour type (e.g. heavy armour can limit sense at all to zero)
-- classes (e.g. scout class can increase sight by 3)
+- ranks (e.g. scout class can increase sight by 3)
 - items (e.g. motion scanner can increase sense by 10)
 
 #### [How flares works ?]()
@@ -343,7 +343,7 @@ If unit decide to fire at this place then roll is made vs this value chance to h
   - 75%-100% of base health = 75% chance of wound
 - of course if you hit for max damage unit dies :) 
 - stun damage does not count here, its only hurt damage
-- wounds are permanent and may cause unit to be crippled (check classes section)
+- wounds are permanent and may cause unit to be crippled (check ranks section)
 - unit can be healed via medikit during battle to MAX but still will get wound
 - it is assumed that wounds cannot be healed during battle, only after (thou health can be to max)
 - wound can be losing an eye, broken arm, lose leg etc...

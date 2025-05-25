@@ -1,4 +1,6 @@
 from typing import Any, Dict, List, Optional
+
+from unit.unit_stat import TUnitStats
 from .item_mode import TWeaponMode
 
 class TItemType:
@@ -37,6 +39,8 @@ class TItemType:
         self.unit_range: int = data.get('unit_range', 0)
         self.unit_ammo: int = data.get('unit_ammo', 0)
         self.unit_action_point: int = data.get('unit_action_point', 2)
+
+        self.unit_stats: TUnitStats = TUnitStats( data.get('unit_stats', {}) )
 
         # Ammo/reload details after battle / when move to base
         self.unit_rearm_cost: int = data.get('unit_rearm_cost', 0)       # after battle, as monthly report

@@ -1,4 +1,7 @@
-class TItemArmour():
+from item.item_type import TItemType
+
+
+class TItemArmour:
     """
     Represents an armour item assigned to a unit.
     Tracks current state (shield, regen, etc) and references static parameters from item type.
@@ -7,7 +10,7 @@ class TItemArmour():
         from engine.engine.game import TGame
         self.game = TGame()
 
-        self.item_type = self.game.mod.items.get(item_type)   # Reference to item type (holds static parameters)
+        self.item_type : TItemType = self.game.mod.items.get(item_type)   # Reference to item type (holds static parameters)
         self.shield = 0
         self.max_shield = self.item_type.armour_shield
         self.shield_regen =  self.item_type.armour_shield_regen
@@ -38,3 +41,9 @@ class TItemArmour():
         modifier = resistances.get(damage_type, 1.0)
         return base_damage * float(modifier)
 
+    def get_stat_modifiers(self):
+        """
+        Returns a dictionary of stat modifiers provided by this armour.
+        Override in subclasses or extend item_type to provide modifiers.
+        """
+        return self.item_type.unit_stats
