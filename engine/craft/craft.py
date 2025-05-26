@@ -1,5 +1,5 @@
 from engine.globe.location import TLocation
-from engine.globe.world_point import WorldPoint
+from engine.globe.world_point import TWorldPoint
 
 
 class TCraft(TLocation):
@@ -8,7 +8,7 @@ class TCraft(TLocation):
     """
 
     def __init__(self, position, items=None, units=None, pilots=None):
-        position = WorldPoint.from_iterable(position)
+        position = TWorldPoint.from_iterable(position)
         super().__init__(position)
 
         from engine.engine.game import TGame

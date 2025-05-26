@@ -6,8 +6,44 @@
 cities:
     london:
         name: "London"
-        location: [37, 7]
         size: 5
+        description: "The capital of the United Kingdom, London is a major financial and cultural center."
+        terrains:
+            urban_2: 2
+            urban_3: 1
+            urban_4: 1
+
+    moscow:
+        name: "Moscow"
+        size: 6
+        description: "The capital of Russia, Moscow is known for its rich history and significant political influence."
+        terrains:
+            urban_2: 2
+            urban_3: 1
+            urban_4: 1
+
+    warsaw:
+        name: "Warsaw"
+        size: 3
+        description: "The capital of Poland, Warsaw is a city with a complex history and vibrant culture."
+        terrains:
+            urban_2: 2
+            urban_3: 1
+            urban_4: 1
+
+    rome:
+        name: "Rome"
+        size: 3
+        description: "The capital of Italy, Rome is known for its ancient history and architectural wonders."
+        terrains:
+            urban_2: 2
+            urban_3: 1
+            urban_4: 1
+
+    paris:
+        name: "Paris"
+        size: 4
+        description: "The capital of France, Paris is renowned for its art, fashion, and culture."
         terrains:
             urban_2: 2
             urban_3: 1

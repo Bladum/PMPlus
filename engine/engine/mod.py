@@ -21,6 +21,7 @@ from globe.region import TRegion
 from globe.world import TWorld
 from item.item_type import TItemType
 from item.item_mode import TWeaponMode
+from location.city import TCity
 from location.site import TSite
 from location.site_type import TSiteType
 from location.ufo_script import TUfoScript
@@ -94,6 +95,7 @@ class TMod:
         self.biomes : dict[str, TBiome] = {}
         self.countries : dict[str, TCountry] = {}
         self.regions : dict[str, TRegion] = {}
+        self.cities : dict[str, TCity] = {}
 
         # lore
         self.factions : dict[str, TFaction] = {}
@@ -172,11 +174,11 @@ class TMod:
             self.biomes[pid] = obj
         print(f"Loaded {len(self.biomes)} biomes")
 
-        # datas = mod_data.get('cities', {})
-        # for pid, dat in datas.items():
-        #     obj = TCity(pid, dat)
-        #     self.cities[pid] = obj
-
+        datas = mod_data.get('cities', {})
+        for pid, dat in datas.items():
+            obj = TCity(pid, dat)
+            self.cities[pid] = obj
+        print(f"Loaded {len(self.cities)} cities")
 
         datas = mod_data.get('countries', {})
         for pid, dat in datas.items():

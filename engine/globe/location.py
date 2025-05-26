@@ -1,4 +1,4 @@
-from engine.globe.world_point import WorldPoint
+from engine.globe.world_point import TWorldPoint
 
 class TLocation:
     """
@@ -12,7 +12,7 @@ class TLocation:
         self.name = data.get("name", "")
         self.description = data.get("description", "")
         pos = data.get("position", [])
-        self.position = WorldPoint.from_iterable(pos)
+        self.position = TWorldPoint(pos[0], pos[1]) if pos else TWorldPoint(0, 0)
 
         # Radar detection fields
         self.initial_cover = data.get("initial_cover", 0)  # max cover value

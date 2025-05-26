@@ -59,14 +59,27 @@ if __name__ == "__main__":
     game.mod.tileset_manager = TTilesetManager(game.mod.tiles_path)
     game.mod.tileset_manager.load_all_tilesets_from_folder()
 
-    # load all map blocks
-    game.mod.load_all_terrain_map_blocks()
-    game.mod.render_all_map_blocks()
+    # # load all map blocks
+    # game.mod.load_all_terrain_map_blocks()
+    # game.mod.render_all_map_blocks()
 
-    ter = game.mod.terrains.get('farmland')
-    script = game.mod.map_scripts.get('polar')
+    # Load world from TMX file
+    from engine.globe.world import TWorld
+    world_tmx_path = mod_path / 'worlds' / 'earth.tmx'
+    if world_tmx_path.exists():
+        game.mod.world = TWorld.from_tmx(world_tmx_path)
+        print(f"Loaded world from {world_tmx_path}")
+    else:
+        print(f"World TMX file not found: {world_tmx_path}")
+    game.mod.world.render_tile_map_to_text(mod_path / 'export' / 'world_map.txt')
 
-    for x in range(9):
-        gg = TBattleGenerator(ter, script, blocks_x=6, blocks_y=6)
-        gg.generate()
-        gg.render_to_png(f'battle_map_{x}.png')
+
+
+    # ter = game.mod.terrains.get('farmland')
+    # script = game.mod.map_scripts.get('polar')
+    #
+    # for x in range(9):
+    #     gg = TBattleGenerator(ter, script, blocks_x=6, blocks_y=6)
+    #     gg.generate()
+    #     gg.render_to_png(f'battle_map_{x}.png')
+

@@ -1,4 +1,6 @@
 from engine.globe.location import TLocation
+import yaml
+from pathlib import Path
 
 
 # TODO if city is inside a country then it can contain country specific elements e.g. units or tiles
@@ -12,7 +14,9 @@ class TCity(TLocation):
     def __init__(self, loc_id, data : dict = {}):
         super().__init__(loc_id, data)
 
-        self.city_size = data.get("city_size", 4)
+        self.size = data.get("size", 4)
+        self.name = data.get("name", '')
+        self.description = data.get("description", '')
         self.terrains = data.get("terrains", {} )
 
     def get_random_terrain(self):
@@ -30,4 +34,3 @@ class TCity(TLocation):
         elif isinstance(self.terrains, list):
             return random.choice(self.terrains)
         return None
-

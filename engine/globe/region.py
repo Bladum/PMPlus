@@ -15,6 +15,7 @@ class TRegion:
         self.is_land = data.get("is_land", False)
 
         self.tiles : list[TWorldTile] = []  # 2D array of TWorldTile
+        self.neighbors : list[TRegion] = []
 
         # Optional fields with defaults
         self.description = data.get("description", "")
@@ -38,7 +39,7 @@ class TRegion:
         for y in range(height):
             for x in range(width):
                 tile = tiles[y][x]
-                if tile.region_id == self.id:
+                if tile.region_id == self.pid:
                     region_tiles.add((x, y))
         # Expand: add all neighboring tiles (8-way)
         expanded = set(region_tiles)
@@ -48,6 +49,6 @@ class TRegion:
                     nx, ny = x + dx, y + dy
                     if 0 <= nx < width and 0 <= ny < height:
                         expanded.add((nx, ny))
-        self.region_tiles = list(expanded)
-        self.neighbors = list(region_neighbors.get(self.id, []))
+        self.tiles = list(expanded)
+        self.neighbors = list(region_neighbors.get(self.pid, []))
 
