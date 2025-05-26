@@ -10,29 +10,6 @@
 - in general there are no big facilities
 - corridors are very cheap so its easier to construct complex base
 
-### [Gym & Hospital & Psi Lab]()
-
-Gym:
-- soldier gets 1 EXP per day
-- soldier gets additional 1-3 EXP per day when trained in GYM but up to max of level 2
-- advanced gym can train soldiers to level max 3
-- advanced gym can allow soldiers to be promoted to more traits via promotion
-
-Hospital:
-- wounds are healed based on what wounds definition e.g. 90 days
-- health of soldier is healed to max with speed 1 per day
-- typical soldier has 6-12 health, which means 12 - 24 days to heal, not taking wounds 
-- hospital double the speed of healing HEALTH and WOUNDS
-  - without it could be 0.25 per day and with sickbay it could be +0.75 per day so total 1 per day
-- some wounds may be permanent and cannot be healed
-- some wounds may require special type of hospital (e.g. cybernetic hospital)
-
-Psi Lab and magic:
-- there is no concept of PSI training to get traits
-- psi lab can add some experience to soldiers under level OR with specific class OR race
-- but in general PSI LAB is to allow soldier to unlock new PROMOTION or TRANSFORMATION that will take like 20-40 days (psionic)
-- then each class may allow to use specific set of items like spells (facility church) or psi amp (psi lab)
-
 ### [Base defence dogfight = base fight]()
 
 - ufo is trying to approach base or bombard it
@@ -114,26 +91,84 @@ Facilities may hold space for
   - prisoners
   - live alien
 
-### [Living quarters vs Barracks]()
+## [Facility space]()
 
 - game does not have scientists or engineers as people, facilities just generate capacity
+
+#### [Unit space]()
+
 - so living quarters is just a barracks for soldiers, assuming to perform some basic training
 - more advanced training is done in gym
 - more advanced training promotion transformation is done in other places
 
-### [Prisoner]()
+#### [Prisoner space]()
 
 - in general non alien live captures are here
 
-### [Live alien]()
+#### [Live alien space]()
 
 - in general alien live captures are here
 
-### [Storage]()
+#### [Storage space]()
 
 - in general this is just a storage for items
 
-### [Purchasing]()
+#### [Training space]()
+
+- soldier gets 1 EXP per day
+- soldier gets additional 1-3 EXP per day when trained in GYM but up to max of level 2
+- advanced gym can train soldiers to level max 3
+- advanced gym can allow soldiers to be promoted to more traits via promotion
+
+#### [Psi space]()
+ 
+- design psionic / magic experience 
+ 
+#### [Hospital space]()
+
+- wounds are healed based on what wounds definition e.g. 90 days
+- health of soldier is healed to max with speed 0.25 per day without any facility
+- typical soldier has 6-12 health, which means 24-48 days to heal, not taking wounds 
+- some wounds may be permanent and cannot be healed
+- some wounds may require special type of hospital (e.g. cybernetic hospital)
+- hospital space will speed this up based on number of units required to heal up to 1 HP per day
+
+#### [Repair space]()
+
+- mechanical units are repaired not healed
+- without any facility they are repaired by 0.25 HP per day
+- repair space will speed this up based on number of units required to repair up to 10 HP per day
+
+#### [Relax space]()
+
+- relax space is used to improve sanity of soldiers
+- by default sanity is improved by 0.25 per WEEK without any facility
+- relax space will speed this up based on number of units required to improve sanity up to 1 per WEEK
+
+#### [Craft space]()
+
+- space for crafts is limited by hangar size
+- garage may hold 1 space craft, while hangar may hold 4 space crafts
+- crafts are not linked to facility
+
+#### [Research space]()
+
+- space for research is limited by laboratory size
+- if not research is done, then laboratory is not used
+- still need to pay laboratory maintenance cost, but no research is done
+
+#### [Manufacturing space]()
+
+- space for manufacturing is limited by workshop size
+- if no manufacturing is done, then workshop is not used
+- still need to pay workshop maintenance cost, but no manufacturing is done
+
+
+
+
+
+
+## [Purchasing]()
 
 - on market screen you can order
   - units         kept in barracks / living quarters

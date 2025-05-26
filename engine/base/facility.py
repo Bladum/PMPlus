@@ -10,7 +10,7 @@ class TFacility:
         from engine.engine.game import TGame
         self.game = TGame()
 
-        self.facility_type = self.game.mod.facilities.get(facility_name)
+        self.facility_type : TFacilityType = self.game.mod.facilities.get(facility_name)
 
         self.position : tuple = position  # (x, y) or similar
         self.build_progress = 0  # days built so far

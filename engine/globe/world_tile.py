@@ -9,13 +9,13 @@ class TWorldTile:
         self.y = y
 
         self.region_id = None
-        self.owner_country_id = None  # country id or None
-        self.biome = None
+        self.country_id = None  # country id or None
+        self.biome_id = None
         self.locations = []
 
         if data:
             self.region_id = data.get('region_id', None)
-            self.owner_country_id = data.get('owner_country_id', None)
-            self.biome = data.get('biome', None)
+            self.country_id = data.get('country_id', None)
+            self.biome_id = data.get('biome_id', None)
             self.locations = data.get('locations', [])
 

@@ -1,0 +1,1 @@
+add images for pedia related to trait system like promotions, wounds, transformations, etc

@@ -1,3 +1,5 @@
+from pytmx import TiledTileLayer
+
 from economy.ttransfer import TTransfer
 from engine.globe.world_tile import TWorldTile
 from lore.faction import TFaction
@@ -31,6 +33,8 @@ class TWorld:
         # Global transfer list
         self.transfer_list = list[TTransfer]
 
+        self.tiles : list[list[TWorldTile]] = []
+
         # Factions and diplomacy/relations
         self.factions : list[TFaction] = []
         self.diplomacy : dict[str, int] = {}
@@ -59,67 +63,103 @@ class TWorld:
 
         return day_night_map
 
-    def load_from_tmx(self, tmx_path, countries, regions, biomes):
+    @classmethod
+    def from_tmx(cls, tmx_path):
         """
-        Load world map from TMX file. Assigns each tile a biome, country, and region.
-        - countries: dict of country_id -> TCountry
-        - regions: dict of region_id -> TRegion
-        - biomes: dict of biome_id -> biome info
-        Populates:
-          - self.tiles: 2D array of TWorldTile
-          - Each country's owned_tiles
-          - Each region's tile list (with overlap)
+        Load a world TMX file and create a TWorld instance with all tiles, using GID mapping for biomes, countries, and regions.
+        Uses process_layer logic similar to TMapBlock.from_tmx for GID matching.
         """
         import pytmx
+        from engine.globe.world_tile import TWorldTile
         tmx_path = Path(tmx_path)
         tmx = pytmx.TiledMap(str(tmx_path))
         width, height = tmx.width, tmx.height
-        self.size = [width, height]
 
-        # Prepare 2D array of tiles
-        self.tiles = [[None for _ in range(width)] for _ in range(height)]
+        from engine.engine.game import TGame
+        game = TGame()
 
-        # Get layer indices
-        biome_layer = tmx.get_layer_by_name('biome')
-        country_layer = tmx.get_layer_by_name('country')
-        region_layer = tmx.get_layer_by_name('region')
+        # Calculate used tilesets for this block
+        used_tilesets = {
+                (tileset.name,
+                 tileset.firstgid,
+                 tileset.firstgid + (getattr(tileset, 'tilecount', 0) or getattr(tileset, 'tile_count', 0) or 0) - 1,
+                 getattr(tileset, 'tilecount', 0) or getattr(tileset, 'tile_count', 0) or 0)
+                for tileset in tmx.tilesets
+            }
 
-        # Pass 1: assign tile data, country, biome, region
+        # Helper function to process layer data
+        def process_layer(layer):
+            if layer is None:
+                return None
+
+            data = [[0 for _ in range(width)] for _ in range(height)]
+            # Pre-compute the division factor (1/18) for better performance
+            div_factor = 1.0 / 18
+
+            for x, y, image in layer.tiles():
+                ix, iy, _, __ = image[1]
+                # Use multiplication instead of division for better performance
+                dx = (ix - 1) * div_factor
+                dy = (iy - 1) * div_factor
+                dn = dy * 10 + dx + 1
+                data[y][x] = dn
+
+            return data
+
+        layers = {l.name: l for l in tmx.visible_layers if hasattr(l, 'data') and l.name in ('floor', 'wall', 'roof')}
+        biome_layer: TiledTileLayer = layers.get('biome')
+        country_layer: TiledTileLayer = layers.get('country')
+        region_layer: TiledTileLayer = layers.get('region')
+
+        biome_layer_data = process_layer(biome_layer)
+        country_layer_data = process_layer(country_layer)
+        region_layer_data = process_layer(region_layer)
+
+        # Create world instance
+        world = cls(pid="from_tmx", data={"size": [width, height]})
+        world.tiles = [[None for _ in range(width)] for _ in range(height)]
+        world.used_tilesets = used_tilesets
+
         for y in range(height):
             for x in range(width):
-                biome_id = biome_layer.data[y][x]
-                country_id = country_layer.data[y][x]
-                region_id = region_layer.data[y][x]
+                biome_gid = biome_layer_data[y][x] if biome_layer_data else 0
+                country_gid = country_layer_data[y][x] if country_layer_data else 0
+                region_gid = region_layer_data[y][x] if region_layer_data else 0
                 tile = TWorldTile(x, y, {
-                    'biome': biomes.get(biome_id),
-                    'owner_country_id': country_id,
-                    'region_id': region_id
+                    'biome': biome_gid,
+                    'owner_country_id': country_gid,
+                    'region_id': region_gid
                 })
-                self.tiles[y][x] = tile
+                world.tiles[y][x] = tile
 
-        # Assign owned tiles to each country using TCountry method
-        for country in countries.values():
-            country.calculate_owned_tiles(self.tiles, width, height)
+        countries_dict = game.mod.countries
+        regions_dict = game.mod.regions
+        biomes_dict = game.mod.biomes
 
-        # Pass 2: assign region tiles (with overlap)
-        # Build region_tile_map for neighbor calculation
-        region_tile_map = {region.id: set() for region in regions.values()}
+        # Assign owned tiles to each country
+        for country in countries_dict.values():
+            country.calculate_owned_tiles(world.tiles)
+
+        # Assign region tiles
         for y in range(height):
             for x in range(width):
-                tile = self.tiles[y][x]
-                if tile.region_id in region_tile_map:
-                    region_tile_map[tile.region_id].add((x, y))
+                tile = world.tiles[y][x]
+                if tile.region_id in regions_dict.keys():
+                    regions_dict[tile.region_id].tiles.append(tile)
 
-        # Find neighbours: two regions are neighbours if they share at least 2 tiles
-        region_neighbors = {region.id: set() for region in regions.values()}
-        region_ids = list(region_tile_map.keys())
+        # Find region neighbors
+        region_neighbors = {region.pid: set() for region in regions_dict.values()}
+        region_ids = list(regions_dict.keys())
         for i, id1 in enumerate(region_ids):
             for id2 in region_ids[i+1:]:
-                common = region_tile_map[id1] & region_tile_map[id2]
+                common = regions_dict[id1].tiles & regions_dict[id2].tiles
                 if len(common) >= 2:
                     region_neighbors[id1].add(id2)
                     region_neighbors[id2].add(id1)
 
-        # Assign region_tiles and neighbors using TRegion method
-        for region in regions.values():
-            region.calculate_region_tiles(self.tiles, width, height, region_neighbors)
+        for region in regions_dict.values():
+            region.calculate_region_tiles(world.tiles, width, height, region_neighbors)
+
+
+        return world
+

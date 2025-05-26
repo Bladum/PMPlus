@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="2025.05.05" orientation="orthogonal" renderorder="right-down" width="90" height="45" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1">
- <tileset firstgid="1" source="biomes.tsx"/>
- <tileset firstgid="21" source="countries.tsx"/>
- <tileset firstgid="61" source="regions.tsx"/>
+ <tileset firstgid="1" source="../tiles/world/biomes.tsx"/>
+ <tileset firstgid="21" source="../tiles/world/countries.tsx"/>
+ <tileset firstgid="61" source="../tiles/world/regions.tsx"/>
  <layer id="1" name="biome" width="90" height="45">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,

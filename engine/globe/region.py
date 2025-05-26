@@ -1,3 +1,6 @@
+from globe.world_tile import TWorldTile
+
+
 class TRegion:
     """
     Each tile on worls map is assigned to a region
@@ -10,6 +13,8 @@ class TRegion:
         self.pid = pid
         self.name = data.get("name", "")
         self.is_land = data.get("is_land", False)
+
+        self.tiles : list[TWorldTile] = []  # 2D array of TWorldTile
 
         # Optional fields with defaults
         self.description = data.get("description", "")

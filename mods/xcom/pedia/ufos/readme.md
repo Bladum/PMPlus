@@ -1,0 +1,1 @@
+add images for pedia related to ufos, which are moving locations on world map e.g. small alien scout

@@ -1,3 +1,6 @@
+from globe.world_tile import TWorldTile
+
+
 class TCountry:
     """
     Most tiles are owned by a country
@@ -69,15 +72,14 @@ class TCountry:
         if tile_pos in self.owned_tiles:
             self.owned_tiles.remove(tile_pos)
 
-    def calculate_owned_tiles(self, tiles, width, height):
+    def calculate_owned_tiles(self, tiles = []):
         """
         Calculate and assign this country's owned tiles based on the world tile grid.
         tiles: 2D array of TWorldTile
-        width, height: dimensions of the world
         """
         self.owned_tiles = []
-        for y in range(height):
-            for x in range(width):
-                tile = tiles[y][x]
-                if tile.owner_country_id == self.id:
-                    self.owned_tiles.append((x, y))
+        for row in tiles:
+            for tile in row:
+                tile : TWorldTile
+                if tile.country_id == self.pid:
+                    self.owned_tiles.append((tile.x, tile.y))

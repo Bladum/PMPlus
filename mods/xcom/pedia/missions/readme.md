@@ -1,0 +1,1 @@
+add images for pedia related to enemy missions and campaigns like terror, raid

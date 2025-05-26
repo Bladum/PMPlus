@@ -1,0 +1,1 @@
+add images for pedia related to game factions like Exalt, Advent, XCOM, Chosen, etc.

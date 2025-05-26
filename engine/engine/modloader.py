@@ -17,9 +17,9 @@ class TModLoader:
 
     def load_all_yaml_files(self):  # Renamed from load_all_toml_files
         """Load all YAML files from the rules3 directory in the mod folder"""
-        rules3_path = self.mod_path / 'rules3'
+        rules3_path = self.mod_path / 'rules'
         if not rules3_path.is_dir():
-            raise FileNotFoundError(f"Rules3 folder not found: {rules3_path}")
+            raise FileNotFoundError(f"Rules folder not found: {rules3_path}")
 
         for file_path in rules3_path.rglob('*.yaml'):
             with open(file_path, 'r', encoding='utf-8') as f:

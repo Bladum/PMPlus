@@ -1,0 +1,1 @@
+add images for pedia related to units which are templates of soldiers used by enemy, x-com is not using it

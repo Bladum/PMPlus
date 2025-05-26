@@ -62,3 +62,11 @@ class TTrait:
         if self.stats:
             return self.stats.__dict__.copy()
         return {}
+
+    # TODO create method to check if unit may get this trait
+
+    # TODO get a list of origins traits when new unit is created
+
+    # TODO get a list of promotions traits when unit is promoted, and which one is available
+
+    # TODO get list of transformation traits when unit is transformed, which one are available

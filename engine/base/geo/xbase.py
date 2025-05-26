@@ -19,7 +19,7 @@ class TBaseXCom(TLocation):
         self.units  : list[TUnit] = []       # List of units in base
         self.items : dict[str, float] = {}      # Dict of item_id -> quantity
         self.captures : dict[str, float] = {}   # List of captured units (prisoners)
-        self.crafts = list[TCraft] = []     # List of crafts in hangar/garage
+        self.crafts : list[TCraft] = []     # List of crafts in hangar/garage
 
     def add_facility(self, facility_type: TFacilityType, position=None):
         # Check if facility can be built
@@ -40,27 +40,41 @@ class TBaseXCom(TLocation):
             del self.facilities[pos_to_remove]
 
     def can_build_facility(self, facility_type: TFacilityType):
+
         # Check max per base
-        count = sum(1 for f in self.facilities.values() if f.type.id == facility_type.id)
+        count = sum(1 for f in self.facilities.values() if f.facility_type.pid == facility_type.pid)
         if count >= facility_type.max_per_base:
             return False
+
         # Check required facilities
         for req in facility_type.facility_needed:
-            if not any(f.type.id == req and f.is_active() for f in self.facilities.values()):
+            if not any(f.facility_type.pid == req and f.is_active() for f in self.facilities.values()):
                 return False
+
         # Check required services
         for req in facility_type.service_needed:
             if req not in self.get_services_provided():
                 return False
+
         # Check required tech (stub, should check against base/player techs)
-        # for req in facility_type.tech_start:
-        #     if req not in self.get_techs():
-        #         return False
+        for req in facility_type.tech_needed:
+            if req not in self.game.mod.researches.keys():
+                return False
+                # TODO improve this tech check
+
         # Check resources (stub, should check against base/player resources)
-        # for item, qty in facility_type.build_items.items():
-        #     if self.items.get(item, 0) < qty:
-        #         return False
+        for item, qty in facility_type.build_items.items():
+            if self.items.get(item, 0) < qty:
+                return False
+
         return True
+
+    def can_place_facility_at(self, position):
+        """
+        Returns True if the given position is free for a new facility, False if already occupied.
+        Extend this method for more complex placement rules if needed.
+        """
+        return position not in self.facilities.keys()
 
     def build_day(self):
         for facility in self.facilities.values():
@@ -73,22 +87,26 @@ class TBaseXCom(TLocation):
     def get_services_provided(self):
         services = set()
         for f in self.get_active_facilities():
-            for s in getattr(f.type, 'service_provided', []):
+            for s in f.facility_type.service_provided:
                 services.add(s)
         return services
 
+
     def get_total_capacity(self, attr):
         # Sum a given stat (e.g. storage_space, agent_space) from all active facilities
-        return sum(getattr(f.type, attr, 0) for f in self.get_active_facilities())
+        return sum(getattr(f.facility_type, attr, 0) for f in self.get_active_facilities())
 
     def get_storage_space(self):
         return self.get_total_capacity('storage_space')
 
-    def get_agent_space(self):
-        return self.get_total_capacity('agent_space')
+    def get_unit_space(self):
+        return self.get_total_capacity('unit_space')
 
     def get_prison_space(self):
         return self.get_total_capacity('prison_space')
+
+    def get_alien_space(self):
+        return self.get_total_capacity('alien_space')
 
     def get_craft_space(self):
         return self.get_total_capacity('craft_space')
@@ -108,11 +126,11 @@ class TBaseXCom(TLocation):
     def get_psi_space(self):
         return self.get_total_capacity('psi_space')
 
-    def get_sanity_recovery(self):
-        return self.get_total_capacity('sanity_recovery')
+    def get_relax_space(self):
+        return self.get_total_capacity('relax_space')
 
-    def get_health_recovery(self):
-        return self.get_total_capacity('health_recovery')
+    def get_repair_space(self):
+        return self.get_total_capacity('repair_space')
 
     def get_radar_facilities(self):
         """
@@ -131,3 +149,24 @@ class TBaseXCom(TLocation):
                 radar = type('Radar', (), {'range': radar_range, 'power': radar_power})()
                 radars.append(radar)
         return radars
+
+    def get_defense_facilities(self):
+        """
+        Returns a list of dicts with defense attributes for all active facilities that have defense capability.
+        Each dict contains: power, hit, ammo, and a reference to the facility.
+        """
+        defense_list = []
+        for facility in self.get_active_facilities():
+            ftype = facility.facility_type
+            defense_power = ftype.defense_power
+            defense_hit = ftype.defense_hit
+            defense_ammo = ftype.defense_ammo
+
+            if defense_power is not None:
+                defense_list.append({
+                    'facility': facility,
+                    'power': defense_power,
+                    'hit': defense_hit,
+                    'ammo': defense_ammo
+                })
+        return defense_list
