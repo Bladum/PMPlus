@@ -46,8 +46,8 @@ class TWorld:
         Returns a 2D array (size: [height][width]) with True for day, False for night for each tile.
         The day/night band moves westward, completing a full cycle in 30 days.
         """
-        width = self.size[0] if self.size and self.size[0] else 90
-        height = self.size[1] if self.size and self.size[1] else 45
+        width = self.size[0] if self.size and self.size[0] else 240
+        height = self.size[1] if self.size and self.size[1] else 120
         day_night_map = [[False for _ in range(width)] for _ in range(height)]
 
         # The sun's center longitude (tile_x) moves by 3 tiles per day
@@ -102,6 +102,54 @@ class TWorld:
             for y in range(height):
                 row = [('X' if (x, y) in city_positions else '_') for x in range(width)]
                 f.write(' '.join(row) + '\n')
+
+    def render_world_layers_to_png(self, output_path):
+        """
+        Renders all world layers (biome, region, country, city) to a PNG file in the correct stacking order.
+        Uses the tileset from game.mod.tileset_manager.
+        """
+        from engine.engine.game import TGame
+        game = TGame()
+
+        from PIL import Image, ImageDraw
+        width, height = self.size
+        tile_size = 16  # Assuming 16x16 tiles
+        img = Image.new('RGBA', (width * tile_size, height * tile_size))
+        tileset_manager = game.mod.tileset_manager
+
+        # Helper to draw a layer
+
+        for y in range(height):
+            for x in range(width):
+                tile = self.tiles[y][x]
+
+                # Biome layer
+                gid = tile.biome_id
+                tile_img, mask = tileset_manager.all_tiles.get(f'biomes_{gid:03d}', (None, None))
+                if tile_img is not None:
+                    img.paste(tile_img, (x * tile_size, y * tile_size), mask)
+
+                # Region layer
+                gid = tile.region_id
+                tile_img, mask = tileset_manager.all_tiles.get(f'regions_{gid:03d}', (None, None))
+                if tile_img is not None:
+                    img.paste(tile_img, (x * tile_size, y * tile_size), mask)
+
+                # Country layer
+                gid = tile.country_id
+                tile_img, mask = tileset_manager.all_tiles.get(f'countries_{gid:03d}', (None, None))
+                if tile_img is not None:
+                    img.paste(tile_img, (x * tile_size, y * tile_size), mask)
+        # Draw cities
+
+        for city in self.cities:
+            x, y = city.position
+            gid = 9
+            tile_img, mask = tileset_manager.all_tiles.get(f'locations_{gid:03d}', (None, None))
+            if tile_img is not None:
+                img.paste(tile_img, (x * tile_size, y * tile_size), mask)
+
+        img.save(output_path)
 
     @classmethod
     def from_tmx(cls, tmx_path):

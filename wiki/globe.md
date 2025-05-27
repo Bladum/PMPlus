@@ -5,7 +5,7 @@
 
 ### [World]() 
 
-- world is based on tiles, earth is 90x45 tiles, each is aprox 500km
+- world is based on tiles, earth is 240x120 tiles, each is aprox 160 km, earth is 40k km in diameter
 - game may have multiple worlds, each with its own size, biomes etc but only on earth xcom can build bases
 - each tile of world map has a biome
 - each tile of world might be owned by country (24 of them) that funds xcom activities

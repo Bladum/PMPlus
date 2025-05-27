@@ -72,7 +72,7 @@ if __name__ == "__main__":
     else:
         print(f"World TMX file not found: {world_tmx_path}")
     game.mod.world.render_tile_map_to_text(mod_path / 'export' / 'world_map.txt')
-
+    game.mod.world.render_world_layers_to_png(mod_path / 'export' / 'world_map.png')
 
 
     # ter = game.mod.terrains.get('farmland')

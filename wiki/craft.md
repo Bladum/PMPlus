@@ -81,7 +81,7 @@ Typical craft weapons:
 | SPY PLANE           | 8     | 50    |
 
 Example:
-- global coverage with power 2 but range 80 
+- global coverage with power 2 but range 300 (global coverage)
 - global mission with cover 2 will be detected automatically around world after a day
 
 Example:
