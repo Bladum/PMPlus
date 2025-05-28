@@ -20,7 +20,9 @@ Discord https://discord.gg/7wGAUDUd
   - open-ended with no fixed lose or win conditions
   - some sandbox and simulation elements 
 
-# Core design principles and assumption 
+# Design principles 
+
+## Core
 
 - It's not a OXC clone. 
 - Made for fun and to have practical working experience with AI Agentic Codding.
@@ -28,7 +30,7 @@ Discord https://discord.gg/7wGAUDUd
 - Supports rather larger mods (total conversion) than many smaller ones (or sub-mods).
 - Documentation in wiki is mainly for AI Agent in human-readable format, so it can be used to generate mods and engine and integrate them. 
 
-## Game mechanics design principles
+## Game mechanics 
 
 - In general game have set of generic mechanics that should cover most cases, and customization of these mechanics is fine. 
 - Adding completely new mechanics is not preferred, unless it is generic and can be used in other cases.
@@ -47,7 +49,7 @@ Discord https://discord.gg/7wGAUDUd
 - for content that IS NOT visible to player, by design it should be used
 - at some point i would allow other users to use AI to generate content (private AI server) for mods, but not now
 
-## User interface design principles
+## User interface 
 
 - Graphics and visual effect are not priority, thou UI might be modern. 
 - Graphics all is pixel art and symbolic, to be upscaled to 32x32.
@@ -56,7 +58,7 @@ Discord https://discord.gg/7wGAUDUd
 - Minimize number of popups, and apply notification system instead.
 - Player is informed about game data if research / lore is completed (e.g. damage done to unit during battle).
 
-## Financial design principles
+## Financial system
 
 - There is additional layer in game like FinOps to control costs and income.
 - Most costs comes from usage / time & material and are not fixed.
@@ -71,7 +73,7 @@ Discord https://discord.gg/7wGAUDUd
 
 - XCOM has mostly fixed costs, which was simple to manage and difficult to optimize. 
 
-## Geoscape design principles
+## Geoscape 
 
 - Crafts have units loaded into them, not unit items. 
 - Strategic game is turn based, with 1 turn = 1 day. 
@@ -82,7 +84,7 @@ Discord https://discord.gg/7wGAUDUd
 - Game has support for multiple worlds, like Mars or Moon, with different tiles and biomes or sizes. 
 - Countries only exists on Earth (for funding purposes), and regions are used for mission generation on all worlds. 
 
-## Basescape design principles
+## Basescape 
 
 - Bases are smaller (5x5) but with larger number on map. 
 - Facilities do provide generic capacity feature for engineering, science, living, storage, prison, recovery, training, etc.
@@ -90,7 +92,7 @@ Discord https://discord.gg/7wGAUDUd
 - There is no concept of engineers or scientists, instead there is generic capacity for work in base.
 - If lab is not working you pay for maintenance of facility, but not for work / salary.
 
-## Battlescape design principles
+## Battlescape 
 
 - Line of sight is used and is more important than level of lighting (like in RTS game with fog of war).
 - Units for player has same data / mechanics as for enemy (with armour, items, stats), it just have script to simulate different behavior.
@@ -100,7 +102,7 @@ Discord https://discord.gg/7wGAUDUd
 - Items do not have clips per item, rather they have limited ammo per battle with some generic ammo types (like laser batter for all laser weapons).
 - Limit micromanagement e.g. in inventory, ammo, etc. Remove mechanics that are not fun to use.
 
-## Lore specific design principles
+## Lore specific 
 
 - There is no assumption that player organization is good or bad like defending Earth from aliens or evil organization.
 - There is just assumption that player organization is covert, and it is not known to public at least to some extent.
@@ -114,6 +116,24 @@ Discord https://discord.gg/7wGAUDUd
   - soldiers gain experience and level up only in specific area, so no superheroes at the end of game
   - soldiers gain heavy wounds and traits, that may impact their performance for long time
 
+## Score and funding
+
+- Score in game is used only for public funding.  
+- If action does not improve relation with country OR somthing is not visible publicly, then it will not improve score.
+- Research does not improve score, but it is used to unlock new features and items. 
+- Private funding is not based on score, but on player actions and missions or events. 
+- Bad score means you are bad organization and will be less funded by countries, but you can still play.
+- Factions that will perform mission on country level may or may not improve score. This depends on their relation with country / player. 
+  - so if aliens will raid city and you will not save them you will lose score
+  - if cult will secretly raid farm and no one will know about it, then it will not impact score
+- player may use Quests to track progress of game OR use financial results to track results of game per month
+
+## Good vs Evil
+
+- Game stars very small, 4 units, 1 craft, 1 base, minimal funding, no research, no manufacturing.
+- Player may decide to focus on saving "countries" and get more score to get more public funding and going good way. 
+- Player may decide to focus on making alternative funding, like raiding, selling loot, making illegal items, etc. It will lose score and funding, but it will be more fun to play.
+- There is no assumption that player organization is good or bad, it is just covert and not known to public.
 
 # FAQ 
 
