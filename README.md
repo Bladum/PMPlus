@@ -183,6 +183,19 @@ Who is doing like this ?
   - no resources are included in the loop, It's only about text and code (at least for now)
   - AI Agent can support in all 3 elements, but it is not required, people can do it too
 
+### Who is player ?
+
+Player is leader of covert organization, which is not known to public. It starts as a small private company, and ends as a large interplanetary military organization.
+
+- **Covert Actions**: A small, secretive startup of specialists investigating unexplained anomalies and global threats under the guise of private consultancy.
+- **Covert Bureau**: Now a shadowy government-affiliated agency, the organization expands its reach to counter alien infiltration and internal subversion.
+- **Covert Command**: Reorganized into a global strike force, it commands elite units and advanced technology to neutralize threats with precision and force.
+- **Covert Division**: A fully militarized division with planetary authority, leading large-scale operations and defending Earth from open extraterrestrial conflict.
+- **Covert Enclave**: Having transcended Earth’s borders, the organization becomes a dominant interplanetary power, forging a private empire among the stars.
+
+They only goal is to survive, which means they can do anything to survive, even if it is not good for others. 
+They can save people, but they can also raid them. They can be good or bad, it is up to player.
+
 ### Why Python ? 
 
 - Python is easy to read and write, and has good support for AI.
