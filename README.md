@@ -59,15 +59,21 @@ Discord https://discord.gg/7wGAUDUd
 ## Geoscape design principles
 
 - Crafts have units loaded into them, not unit items. 
+- Strategic game is turn based, with 1 turn = 1 day. 
+- Crafts move on world map similar way like during battle, but with different speed and range.
 - Both geo, base and battle scape are turn based, top down views and flat 2D map.
 - Craft for player has same data / mechanics  (with craft items), it just have script to simulate different behavior.
-- Detection is based on detection range and power, and cover capacity. If cover is zero or less, then mission is detected. 
+- Detection is based on detection range and power, and cover capacity. If cover is zero or less, then mission is detected.
+- Game has support for multiple worlds, like Mars or Moon, with different tiles and biomes or sizes. 
+- Countries only exists on Earth (for funding purposes), and regions are used for mission generation on all worlds. 
 
 ## Basescape design principles
 
 - Bases are smaller (5x5) but with larger number on map. 
 - Facilities do provide generic capacity feature for engineering, science, living, storage, prison, recovery, training, etc.
 - Crafts are not assigned to hangar, it just take craft space in base. 
+- There is no concept of engineers or scientists, instead there is generic capacity for work in base.
+- If lab is not working you pay for maintenance of facility, but not for work / salary.
 
 ## Battlescape design principles
 
