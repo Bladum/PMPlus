@@ -10,7 +10,7 @@ Discord https://discord.gg/7wGAUDUd
 
 ![banner](https://github.com/user-attachments/assets/c604e0ce-8e6d-42a4-89c4-6aca1c16a2fa)
 
-# Long Story Short
+# TL;DR
 
 - AlienFall is a turn based strategy game with
   - strategic layer with geoscape and missions
@@ -81,6 +81,10 @@ Discord https://discord.gg/7wGAUDUd
 
 ## Lore specific design principles
 
+- There is no assumption that player organization is good or bad like defending Earth from aliens or evil organization.
+- There is just assumption that player organization is covert, and it is not known to public at least to some extent.
+- Score and funding mechanics is based on player score only, which is one of ways to make money. This like official good way to get money. 
+- If you want to play as evil organization, you can do it, but will have to find alternative way to get funding.
 - Fully support all lore elements and features from mod X-Com Files, one way or another.
 - Player organization is growing in time, both in size and complexity (in build organization upgrade mechanics).
 - Lore specific elements have separate mechanics (quests), so research don't have to be used. 
@@ -95,9 +99,19 @@ Discord https://discord.gg/7wGAUDUd
 
 ### What is AlienFall?
 
-- It's a game with its own in build mod to play it. Made in python (at least for now).
-- I would not call it game engine, just configurable game. 
+- It's a game with its own in vanilla mod to play it. Made in python (at least for now).
+- I would not call it a game engine, just configurable game.
+- It is designed for very specific use -> 
 - All is done via mods, which are just text files. 
+
+## Why this name or logo ? What it means ?
+
+- Alien in this case means any one who is not us. Alien can be a person from another country or religion. 
+- Fall means that we want to survive and make other (aliens) fall.
+- Logo is a symbol of tick (kleszcz). 
+- The tick symbolizes covert infiltration, persistence, and survival—core themes of AlienFall. 
+- In Polish culture, the tick is both a symbol of something alien and a metaphor for causing a "fall." 
+- The icon reflects the player’s journey: starting small, operating in the shadows, and ultimately bringing down much larger adversaries.
 
 ### Is it clone of XCOM?
 
@@ -124,11 +138,20 @@ Discord https://discord.gg/7wGAUDUd
   - no resources are included in the loop, It's only about text and code (at least for now)
   - AI Agent can support in all 3 elements, but it is not required, people can do it too
 
+## Why Python ? 
+
+- Python is easy to read and write, and has good support for AI.
+- Pyside6 ( Qt ) is great media library for GUI, and it is cross platform, have great documentation and examples.
+- Python is not the fastest language, but it is fast enough for this game.
+- In case ultra performance is needed, it can be done in module that is in C++ and wrapped in python.
+- Python is one of most popular languages for AI, so it is easy to find help and resources.
+- Entire game is as code, which is designed to be cocreated with AI Agent. 
+
 ### Why its different to make game with AI Agent?
 
 - AI Agent can work on all 3 elements at once and integrate them
 - Usually it starts with docs, then mods element and then engine it self (which is reversed for classical approach)
-- 
+- This allows people to focus on game mechanics and fun, rather than implementation details
 
 ### How mods are supported ?
 
@@ -140,13 +163,16 @@ Discord https://discord.gg/7wGAUDUd
 - It's not a matter if its according to design, but if it works (AI), is doable (dev) and is fun to use (modder).
 - Game architecture have some basic generic mechanics, and in most cases new feature would be extension of existing mechanics rather than new one.
 
+## What it means its open-ended game?
+
+- Specific technology or quest or mission may trigger a cinematic event, which will display to player, but it does not end the game.
+- 
+
 ### Why this is strategic game?
 
-- Geoscape and handling missions
-- Base management
+- Geoscape and handling missions on world map
+- Base and resource management
 - Technology research
-
-### Why 
 
 ### Why this is tactical game?
 
@@ -156,7 +182,7 @@ Discord https://discord.gg/7wGAUDUd
 ### Why this is sandbox game?
 
 - There is no fixed end, no strict win or lose conditions, and player can start missions on empty tiles.
-- 
+
 ### Why this is simulator game ?
 
 - Battle scape has destructible terrain, neutral units have more complex behavior.
