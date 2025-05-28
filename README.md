@@ -170,7 +170,8 @@ Who is doing like this ?
 ## What it means its open-ended game?
 
 - Specific technology or quest or mission may trigger a cinematic event, which will display to player, but it does not end the game.
-- 
+- Quest mechanics are used to track progress of game, and to trigger events but it does not have end the game. 
+- Every game would be different based on types of campaigns generated every month, which means total number of quests might be different per game.
 
 ### Why this is strategic game?
 
