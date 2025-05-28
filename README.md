@@ -26,32 +26,72 @@ Discord https://discord.gg/7wGAUDUd
 - Made for fun and to have practical working experience with AI Agentic Codding.
 - Open source, non-commercial, free to play. Probably MIT or something.
 - Supports rather larger mods (total conversion) than many smaller ones (or sub-mods).
+- Documentation in wiki is mainly for AI Agent in human-readable format, so it can be used to generate mods and engine and integrate them. 
+
+## Game mechanics design principles
+
+- In general game have set of generic mechanics that should cover most cases, and customization of these mechanics is fine. 
+- Adding completely new mechanics is not preferred, unless it is generic and can be used in other cases.
+- Reliability over functionality, so it should be easy to use and understand (by AI Agent)
+- Balance between details of mechanics in different areas (inventory vs unit development vs LOFT system).
+- No external scripting language (at least for now).
+- Common use of mechanics for several cases to reduce complexity
+  - Traits system for ranks, medals, mutations, origins, effects,  perks, wounds, etc
+  - Quests system for research, lore, events, missions, etc
+  - Ammo system for items, crafts (like in Arcanum)
+  - Salary system for all rearm, repairs, maintenance, research, manufacturing, man hours work
+
+## Use of Generative AI
+
+- for content that is visible to player, could be used but preferable not
+- for content that IS NOT visible to player, by design it should be used
+- at some point i would allow other users to use AI to generate content (private AI server) for mods, but not now
+
+## User interface design principles
+
 - Graphics and visual effect are not priority, thou UI might be modern. 
 - Graphics all is pixel art and symbolic, to be upscaled to 32x32.
-- Night and day cycle is simplified. There is either day or night during battle.
-- Line of sight is used and is more important than level of lighting (like in RTS game with fog of war).
+- Minimize clutter with UI, lack of nested UI screens. 
+- Remove screens that can be automated or simplified or just FYI to player. 
+- Minimize number of popups, and apply notification system instead.
+- Player is informed about game data if research / lore is completed (e.g. damage done to unit during battle).
+
+## Geoscape design principles
+
+- Crafts have units loaded into them, not unit items. 
 - Both geo, base and battle scape are turn based, top down views and flat 2D map.
-- Fully support all lore elements and features from mod X-Com Files, one way or another.
-- Reliability over functionality, so it should be easy to use and understand.
-- Rather more generic and configurable mechanics (sometimes with limits) than complex custom based scripts for each mechanics.
-- No external scripting language (at least for now).
+- Craft for player has same data / mechanics  (with craft items), it just have script to simulate different behavior.
+- Detection is based on detection range and power, and cover capacity. If cover is zero or less, then mission is detected. 
+
+## Basescape design principles
+
+- Bases are smaller (5x5) but with larger number on map. 
+- Facilities do provide generic capacity feature for engineering, science, living, storage, prison, recovery, training, etc.
+- Crafts are not assigned to hangar, it just take craft space in base. 
+
+## Battlescape design principles
+
+- Line of sight is used and is more important than level of lighting (like in RTS game with fog of war).
+- Units for player has same data / mechanics as for enemy (with armour, items, stats), it just have script to simulate different behavior.
+- Night and day cycle is simplified. There is either day or night during battle.
 - Units have items loaded into them, with inventory slots: armour | primary weapon | up to 3 secondary weapons.
 - Units gain experience but are manually level up (promotion system) with specific stats only to be improved. 
 - Items do not have clips per item, rather they have limited ammo per battle with some generic ammo types (like laser batter for all laser weapons).
-- Crafts have units loaded into them, not items. 
+- Limit micromanagement e.g. in inventory, ammo, etc. Remove mechanics that are not fun to use.
+
+## Lore specific design principles
+
+- Fully support all lore elements and features from mod X-Com Files, one way or another.
 - Player organization is growing in time, both in size and complexity (in build organization upgrade mechanics).
 - Lore specific elements have separate mechanics (quests), so research don't have to be used. 
-- Documentation in wiki is mainly for AI Agent in human-readable format, so it can be used to generate mods and engine and integrate them. 
-- Balance between mechanics details in different areas, 
-- Limit micromanagement e.g. in inventory, ammo, etc. Remove mechanics that are not fun to use.
-- Minimize clutter with UI, lack of nested UI screens. Remove screens that can be automated or simplified.
-- In general player should be informed about game analytics / stats if research / lore is completed.
 - In general player should feel increase level of difficulty:
   - campaigns generate more and more mission every month, unless research locks them (like in tower defense game)
   - soldiers gain experience and level up only in specific area, so no superheroes at the end of game
   - soldiers gain heavy wounds and traits, that may impact their performance for long time
 
+
 # FAQ 
+
 
 ### What is AlienFall?
 
