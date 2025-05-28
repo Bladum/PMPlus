@@ -56,6 +56,21 @@ Discord https://discord.gg/7wGAUDUd
 - Minimize number of popups, and apply notification system instead.
 - Player is informed about game data if research / lore is completed (e.g. damage done to unit during battle).
 
+## Financial design principles
+
+- There is additional layer in game like FinOps to control costs and income.
+- Most costs comes from usage / time & material and are not fixed.
+- Every month player gets invoice for all costs, and then funding from countries is just one way to get money.
+- There are much more ways to make and spend money in variable ways.
+  - Engineers and scientists are paid only when work
+  - Reload of weapons after battle instead of making / buying clips
+  - Repair / rearm / refuel of crafts after interception
+  - Training and recovery of soldiers
+  - Sending soldiers to battle is not free, and they are paid per mission
+- So sending craft to city and start mission would be like raid. You will get loot but lose score -> funding. 
+
+- XCOM has mostly fixed costs, which was simple to manage and difficult to optimize. 
+
 ## Geoscape design principles
 
 - Crafts have units loaded into them, not unit items. 
