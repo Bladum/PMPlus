@@ -108,10 +108,14 @@ Discord https://discord.gg/7wGAUDUd
 
 - Alien in this case means any one who is not us. Alien can be a person from another country or religion. 
 - Fall means that we want to survive and make other (aliens) fall.
-- Logo is a symbol of tick (kleszcz). 
+- So in other words we want to perform covert infiltration, and make other fall, so we can survive. 
+
+Who is doing like this ? 
+- Logo is a symbol of tick (kleszcz) :)  
 - The tick symbolizes covert infiltration, persistence, and survival—core themes of AlienFall. 
 - In Polish culture, the tick is both a symbol of something alien and a metaphor for causing a "fall." 
 - The icon reflects the player’s journey: starting small, operating in the shadows, and ultimately bringing down much larger adversaries.
+- It does not mean we are good :) it means we want to survive and make others fall (or we will fall)
 
 ### Is it clone of XCOM?
 
