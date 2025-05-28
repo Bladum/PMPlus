@@ -1,13 +1,127 @@
 
-# Welcome to AllienFall
+# Welcome to AlienFall
 
-AlienFall is sandbox strategic simulator game. It cover rise and fall of Covert organization managed by player. It start as startup and ends as multiplanetary full scale military organization. It is open ended.
+AlienFall is strategic game with tactical layer and some sandbox / simulation elements. 
+It covers rise and fall of Covert organization managed by player.
+It starts as startup and ends as multiplanetary full scale military organization. 
+It is open-ended, it does not have to be war against aliens. 
 
 Discord https://discord.gg/7wGAUDUd
 
 ![banner](https://github.com/user-attachments/assets/c604e0ce-8e6d-42a4-89c4-6aca1c16a2fa)
 
-This is python based game using mainly agentic ai coding. It 
+# Long Story Short
+
+- AlienFall is a turn based strategy game with
+  - strategic layer with geoscape and missions
+  - battle scape with tactical combat
+  - base management to prepare for next missions
+  - research tree to unlock new options
+  - open-ended with no fixed lose or win conditions
+  - some sandbox and simulation elements 
+
+# Core design principles and assumption 
+
+- It's not a OXC clone. 
+- Made for fun and to have practical working experience with AI Agentic Codding.
+- Open source, non-commercial, free to play. Probably MIT or something.
+- Supports rather larger mods (total conversion) than many smaller ones (or sub-mods).
+- Graphics and visual effect are not priority, thou UI might be modern. 
+- Graphics all is pixel art and symbolic, to be upscaled to 32x32.
+- Night and day cycle is simplified. There is either day or night during battle.
+- Line of sight is used and is more important than level of lighting (like in RTS game with fog of war).
+- Both geo, base and battle scape are turn based, top down views and flat 2D map.
+- Fully support all lore elements and features from mod X-Com Files, one way or another.
+- Reliability over functionality, so it should be easy to use and understand.
+- Rather more generic and configurable mechanics (sometimes with limits) than complex custom based scripts for each mechanics.
+- No external scripting language (at least for now).
+- Units have items loaded into them, with inventory slots: armour | primary weapon | up to 3 secondary weapons.
+- Units gain experience but are manually level up (promotion system) with specific stats only to be improved. 
+- Items do not have clips per item, rather they have limited ammo per battle with some generic ammo types (like laser batter for all laser weapons).
+- Crafts have units loaded into them, not items. 
+- Player organization is growing in time, both in size and complexity (in build organization upgrade mechanics).
+- Lore specific elements have separate mechanics (quests), so research don't have to be used. 
+- Documentation in wiki is mainly for AI Agent in human-readable format, so it can be used to generate mods and engine and integrate them. 
+- Balance between mechanics details in different areas, 
+- Limit micromanagement e.g. in inventory, ammo, etc. Remove mechanics that are not fun to use.
+- Minimize clutter with UI, lack of nested UI screens. Remove screens that can be automated or simplified.
+- In general player should be informed about game analytics / stats if research / lore is completed.
+- In general player should feel increase level of difficulty:
+  - campaigns generate more and more mission every month, unless research locks them (like in tower defense game)
+  - soldiers gain experience and level up only in specific area, so no superheroes at the end of game
+  - soldiers gain heavy wounds and traits, that may impact their performance for long time
+
+# FAQ 
+
+### What is AlienFall?
+
+- It's a game with its own in build mod to play it. Made in python (at least for now).
+- I would not call it game engine, just configurable game. 
+- All is done via mods, which are just text files. 
+
+### Is it clone of XCOM?
+
+- Yes, it is inspired by XCOM, but it is not a clone. 
+- It has elements of many other games, if it fun to use and easy to implement by AI Agent.
+- There is no assumption that is must be here because it was in XCOM.
+
+### How this is related to OXC mod called X-Com Files ?
+
+- AlienFall should fully support all features required by this mod, one way or another. 
+- It does not mean it has to be exactly same like in OXC, but it should be similar experience for player.
+
+### Why make another game like XCOM ?
+
+- It's not about a game itself, but how its build. With agentic codding.  
+- 3 main elements:
+  - docs = human-readable documentation about game mechanics and everything else in markdown format
+  - mods = yaml based configuration files for game configuration aka mod
+  - engine = game engine is written in python, to execute both above
+  
+- Agentic codding:
+  - autonomous agentic AI is to manage all 3 elements, to make it integrated and reliable
+  - people focus on if game mechanics are fun and free of issues, provide feedback and ideas
+  - no resources are included in the loop, It's only about text and code (at least for now)
+  - AI Agent can support in all 3 elements, but it is not required, people can do it too
+
+### Why its different to make game with AI Agent?
+
+- AI Agent can work on all 3 elements at once and integrate them
+- Usually it starts with docs, then mods element and then engine it self (which is reversed for classical approach)
+- 
+
+### How mods are supported ?
+
+- Mods is set of configuration files in folder like in OXC
+- It is more designed for total conversions (bigger larger mod) rather than smaller mini mods
+
+### Who make decision to include or not include?
+
+- It's not a matter if its according to design, but if it works (AI), is doable (dev) and is fun to use (modder).
+- Game architecture have some basic generic mechanics, and in most cases new feature would be extension of existing mechanics rather than new one.
+
+### Why this is strategic game?
+
+- Geoscape and handling missions
+- Base management
+- Technology research
+
+### Why 
+
+### Why this is tactical game?
+
+- Interception of enemy crafts is mini tactical game
+- Land battlescape with tactical combat on single unit level
+
+### Why this is sandbox game?
+
+- There is no fixed end, no strict win or lose conditions, and player can start missions on empty tiles.
+- 
+### Why this is simulator game ?
+
+- Battle scape has destructible terrain, neutral units have more complex behavior.
+- More RPG elements on units: traits and stats system. 
+- Geoscape:
 
 # Difference vs XCOM
 
