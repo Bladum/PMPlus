@@ -19,7 +19,7 @@
 - multiply faction may have single race (each cult faction has race as human, but with some special ranks)
 - factions cannot be removed but their campaigns can be activated / deactivated either by research or by calendar
 
-### [Factions = Organizations]()
+### [Factions]()
 
 - factions defined who is who on mission / craft / base level
 - faction can be either allied, neutral or enemy to xcom

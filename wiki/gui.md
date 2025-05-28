@@ -1,5 +1,12 @@
 # Game GUI
 
+- game has 4 main screens:
+  - battlescape, 
+  - basescape 
+  - geoscape
+  - main menu
+- each screen has a section on top to switch to sub screen
+
 ## Battlescape
 
 ![img.png](gui/battle.png)

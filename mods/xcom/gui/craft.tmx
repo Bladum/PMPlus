@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="2025.05.05" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="3">
+ <objectgroup id="2" name="ui">
+  <object id="2" name="Panel" x="0" y="0" width="640" height="16"/>
+ </objectgroup>
+</map>
