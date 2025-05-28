@@ -145,7 +145,7 @@ Discord https://discord.gg/7wGAUDUd
 - It is designed for very specific use -> 
 - All is done via mods, which are just text files. 
 
-## Why this name or logo ? What it means ?
+### Why this name or logo ? What it means ?
 
 - Alien in this case means any one who is not us. Alien can be a person from another country or religion. 
 - Fall means that we want to survive and make other (aliens) fall.
@@ -183,7 +183,7 @@ Who is doing like this ?
   - no resources are included in the loop, It's only about text and code (at least for now)
   - AI Agent can support in all 3 elements, but it is not required, people can do it too
 
-## Why Python ? 
+### Why Python ? 
 
 - Python is easy to read and write, and has good support for AI.
 - Pyside6 ( Qt ) is great media library for GUI, and it is cross platform, have great documentation and examples.
@@ -208,7 +208,7 @@ Who is doing like this ?
 - It's not a matter if its according to design, but if it works (AI), is doable (dev) and is fun to use (modder).
 - Game architecture have some basic generic mechanics, and in most cases new feature would be extension of existing mechanics rather than new one.
 
-## What it means its open-ended game?
+### What it means its open-ended game?
 
 - Specific technology or quest or mission may trigger a cinematic event, which will display to player, but it does not end the game.
 - Quest mechanics are used to track progress of game, and to trigger events but it does not have end the game. 
