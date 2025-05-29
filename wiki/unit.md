@@ -1,5 +1,5 @@
 
-# [Soldiers]() 
+# [Units]() 
 
 
 ### [Recruitment]()
@@ -11,7 +11,7 @@
 
 ### [Race]()
 
-- Soldier basic information is race, e.g. human, sectoid, wolf, zombie
+- unit basic information is race, e.g. human, sectoid, wolf, zombie
 - race defines basic stats (could be fixed or random) and stat max 
 - race may define some items usage or ranks usage
 - race defines how unit looks like (sprite) on battlefield
@@ -39,21 +39,21 @@
 - size                small / large (1 or 4 tiles)
 
 
-### [Soldier inventory]()
+### [Unit inventory]()
 
-- game does not have inventory other than
+- Unit has fixed inventory:
   - armour, cannot be changed during battle
-  - primary weapon, has ammo in build, no separate clip
-  - 2 x secondary weapons, has ammo in build, no separate clip
+  - 1 x primary weapon, has ammo in build, no separate clip
+  - up to 4x secondary weapons, has ammo in build, no separate clip
   - due to some specific armours, unit might have different combination of weapons / equipment but total 4
 
-### [Soldier faces]()
+### [Unit faces]()
 
 - White, Black, Asian 
 - Female vs Male
 - 8 per combination
-- soldier has gender male or female (maybe be a class to simulate it)
-- soldier may be one from 8 faces for male / female but only as visual representation, not on battle its too small
+- unit has gender male or female (maybe be a class to simulate it)
+- unit may be one from 8 faces for male / female but only as visual representation, not on battle its too small
 
 ### [Unit size]()
 
@@ -76,7 +76,7 @@ Ways to get experience:
 - kills or stuns (EXP gained = score value of this unit)
 
 Faster experience ?
-- intelligence of soldier may impact how fast he gets experience
+- intelligence of unit may impact how fast he gets experience
 
 #### [Levels of experience levels]()
 

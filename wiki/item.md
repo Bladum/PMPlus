@@ -52,6 +52,8 @@ Secondary weapons:
 - after battle ammo is replenished to max value for free
 - cost of ammo is included in weapon cost, so you do not need to pay for it
 
+
+
 ### [Ammo before battle]()
 
 - before battle inventory screen, player can change which ammo type is used in weapon
