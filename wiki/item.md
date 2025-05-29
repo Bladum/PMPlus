@@ -53,6 +53,22 @@ Secondary weapons:
 - cost of ammo is included in weapon cost, so you do not need to pay for it
 
 
+### [Ammo clips]()
+
+- in general there is no ammo clips like xcom 
+- weapons have ammo capacity, that is used during battle and that is 
+- its replenished after battle and player must pay for it 
+- this may give interesting meachincs e.g.
+  - use alien heavy plasma with 20 shots but very expensive to replenish
+  - or convert weapon to human plasma with 30 shots but cheaper to replenish
+- game has special type of ammo called ammo box that provide generic way to replenish ammo during battle
+  - all laser weapons can be replenished with "laser battery" ammo box
+  - all conventional light weapon can be replenished with "ammo" ammo box
+  - all heavy weapons can be replenished with "heavy ammo" ammo box
+  - alien weapon cannot be replenished, but can be converted to human weapon with
+  - rocket launcher can be replenished with "rockets" ammo box
+- usually ammo box is heavy
+- it replenishes weapon to its full capacity and is consumed in the process
 
 ### [Ammo before battle]()
 

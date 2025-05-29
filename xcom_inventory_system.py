@@ -3,7 +3,7 @@ from PySide6.QtCore import Qt, QTimer, QPoint, QMimeData, QByteArray, QRect
 from PySide6.QtGui import QFont, QIcon, QPixmap, QColor, QPainter, QDrag, QCursor, QDragEnterEvent, QDropEvent, \
     QMouseEvent, QPen, QBrush
 from PySide6.QtWidgets import QVBoxLayout, QToolTip, QListWidget, QListWidgetItem, QAbstractItemView, QLabel, QGroupBox, \
-    QMessageBox, QWidget
+    QMessageBox, QWidget, QApplication
 import json
 from dataclasses import dataclass
 from enum import Enum
@@ -50,13 +50,11 @@ class XcomTheme:
     FONT_SIZE_LARGE = 14
 
 
-# Enhanced enums for item system
+# Updated item categories
 class ItemType(Enum):
+    ARMOUR = "armour"
     WEAPON = "weapon"
-    ARMOR = "armor"
-    HELMET = "helmet"
     EQUIPMENT = "equipment"
-    AMMO = "ammo"
     OTHER = "other"
 
 
@@ -73,10 +71,116 @@ def px(x):
     return x * SCALE
 
 
+# External data structures for easier management
+class GameData:
+    @staticmethod
+    def get_unit_types():
+        return [
+            {"name": "All", "icon": "icon_a.png"},
+            {"name": "Soldiers", "icon": "icon_b.png"},
+            {"name": "Vehicles", "icon": "icon_c.png"},
+            {"name": "Robots", "icon": "icon_d.png"},
+        ]
+
+    @staticmethod
+    def get_item_categories():
+        return [
+            {"name": "All", "icon": "other/item2.png"},
+            {"name": "Armour", "icon": "other/item2.png"},
+            {"name": "Weapon", "icon": "other/item2.png"},
+            {"name": "Equipment", "icon": "other/item.png"},
+            {"name": "Other", "icon": "other/item.png"},
+        ]
+
+    @staticmethod
+    def get_units():
+        return [
+            ("Tom Bladko", "icon_a.png",
+             {"type": "Soldier", "class": "Sniper", "level": 5, "desc": "Veteran marksman."}),
+            ("Jak Kowalski", "icon_b.png",
+             {"type": "Soldier", "class": "Heavy", "level": 3, "desc": "Explosives expert."}),
+            ("Megan Fox", "icon_c.png", {"type": "Soldier", "class": "Scout", "level": 2, "desc": "Fast and agile."}),
+            ("John Smith", "icon_d.png", {"type": "Soldier", "class": "Medic", "level": 4, "desc": "Field medic."}),
+            ("Sarah Connor", "icon_a.png",
+             {"type": "Soldier", "class": "Leader", "level": 6, "desc": "Squad commander."}),
+            ("RoboCop", "icon_b.png",
+             {"type": "Robot", "class": "Enforcer", "level": 7, "desc": "Law enforcement droid."}),
+            ("Tank", "icon_c.png",
+             {"type": "Vehicle", "class": "Support", "level": 2, "desc": "Armored support vehicle."}),
+            ("Drone", "icon_d.png", {"type": "Robot", "class": "Recon", "level": 1, "desc": "Aerial recon drone."}),
+        ]
+
+    @staticmethod
+    def get_items():
+        return [
+            # Weapons
+            ("Laser Rifle", "other/item2.png",
+             {"type": "Weapon", "class": "Rifle", "level": 3, "desc": "High-energy laser weapon.",
+              "item_type": "weapon", "rarity": "rare", "weight": 4}, 2),
+            ("Plasma Pistol", "other/item2.png",
+             {"type": "Weapon", "class": "Pistol", "level": 2, "desc": "Compact plasma sidearm.", "item_type": "weapon",
+              "rarity": "uncommon", "weight": 2}, 3),
+            ("Heavy Cannon", "other/item2.png",
+             {"type": "Weapon", "class": "Heavy", "level": 4, "desc": "Devastating heavy weapon.",
+              "item_type": "weapon", "rarity": "epic", "weight": 8}, 1),
+
+            # Armours with equipment slots
+            ("Light Armour", "other/item2.png",
+             {"type": "Armour", "class": "Light", "level": 2, "desc": "Basic protection armor.", "item_type": "armour",
+              "rarity": "common", "weight": 5, "equipment_slots": 2}, 1),
+            ("Nano Armour", "other/item2.png",
+             {"type": "Armour", "class": "Nano", "level": 4, "desc": "Lightweight, strong armor.",
+              "item_type": "armour", "rarity": "epic", "weight": 3, "equipment_slots": 4}, 1),
+            ("Power Armour", "other/item2.png",
+             {"type": "Armour", "class": "Power", "level": 5, "desc": "Heavy powered armor.", "item_type": "armour",
+              "rarity": "legendary", "weight": 10, "equipment_slots": 3}, 1),
+            ("Stealth Suit", "other/item2.png",
+             {"type": "Armour", "class": "Stealth", "level": 3, "desc": "Cloaking technology armor.",
+              "item_type": "armour", "rarity": "rare", "weight": 4, "equipment_slots": 1}, 1),
+
+            # Equipment
+            ("Grenade", "other/item.png",
+             {"type": "Equipment", "class": "Explosive", "level": 1, "desc": "Standard frag grenade.",
+              "item_type": "equipment", "rarity": "common", "weight": 1}, 8),
+            ("Medikit", "other/item.png",
+             {"type": "Equipment", "class": "Medical", "level": 1, "desc": "Heals wounds in battle.",
+              "item_type": "equipment", "rarity": "common", "weight": 2}, 5),
+            ("Shield Generator", "other/item.png",
+             {"type": "Equipment", "class": "Defensive", "level": 5, "desc": "Projects a protective shield.",
+              "item_type": "equipment", "rarity": "legendary", "weight": 6}, 1),
+            ("Scanner", "other/item.png",
+             {"type": "Equipment", "class": "Tech", "level": 2, "desc": "Motion detection device.",
+              "item_type": "equipment", "rarity": "uncommon", "weight": 1}, 3),
+
+            # Other
+            ("Alien Artifact", "other/item.png",
+             {"type": "Other", "class": "Misc", "level": 1, "desc": "Unknown alien technology.", "item_type": "other",
+              "rarity": "rare", "weight": 3}, 2),
+            ("Data Chip", "other/item.png",
+             {"type": "Other", "class": "Data", "level": 1, "desc": "Contains encrypted data.", "item_type": "other",
+              "rarity": "common", "weight": 1}, 15),
+        ]
+
+    @staticmethod
+    def get_equipment_slots():
+        return [
+            {"name": "Armour", "type": ItemType.ARMOUR, "position": (20, 7), "color_adjust": (0, 0, 0.05)},  # Blue tint
+            {"name": "Weapon", "type": ItemType.WEAPON, "position": (28, 7), "color_adjust": (0.05, 0, 0)},  # Red tint
+            {"name": "Equipment 1", "type": ItemType.EQUIPMENT, "position": (21, 13), "color_adjust": (0, 0.05, 0)},
+            # Green tint
+            {"name": "Equipment 2", "type": ItemType.EQUIPMENT, "position": (21, 18), "color_adjust": (0, 0.05, 0)},
+            # Green tint
+            {"name": "Equipment 3", "type": ItemType.EQUIPMENT, "position": (27, 13), "color_adjust": (0, 0.05, 0)},
+            # Green tint
+            {"name": "Equipment 4", "type": ItemType.EQUIPMENT, "position": (27, 18), "color_adjust": (0, 0.05, 0)},
+            # Green tint
+        ]
+
+
 # Enhanced Item class with proper attributes and drag/drop support
 class InventoryItem:
     def __init__(self, name, icon_path, properties=None, item_type=ItemType.OTHER, rarity=ItemRarity.COMMON,
-                 stackable=False, max_stack=1, item_id=None):
+                 stackable=False, max_stack=1, item_id=None, weight=1):
         self.name = name
         self.icon_path = icon_path or 'other/item.png'
         self.properties = properties or {}
@@ -85,12 +189,14 @@ class InventoryItem:
         self.stackable = stackable
         self.max_stack = max_stack
         self.id = item_id or f"{name}_{hash(name) % 10000}"
+        self.weight = weight
 
         # Extract description from properties if available
         self.description = self.properties.get('desc', f"A {self.item_type.value}")
 
     def get_pixmap(self, size=64):
-        return QPixmap(self.icon_path).scaled(size, size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        # Use Qt.FastTransformation for crisp scaling without blurring
+        return QPixmap(self.icon_path).scaled(size, size, Qt.KeepAspectRatio, Qt.FastTransformation)
 
     def get_icon(self, size=32):
         return QIcon(self.get_pixmap(size))
@@ -105,7 +211,8 @@ class InventoryItem:
             'rarity': self.rarity.value,
             'stackable': self.stackable,
             'max_stack': self.max_stack,
-            'description': self.description
+            'description': self.description,
+            'weight': self.weight
         }
 
     @classmethod
@@ -118,12 +225,9 @@ class InventoryItem:
             rarity=ItemRarity(data.get('rarity', 'common')),
             stackable=data.get('stackable', False),
             max_stack=data.get('max_stack', 1),
-            item_id=data.get('id')
+            item_id=data.get('id'),
+            weight=data.get('weight', 1)
         )
-
-    def can_stack_with(self, other: 'InventoryItem') -> bool:
-        return (self.stackable and other.stackable and
-                self.id == other.id and self.name == other.name)
 
 
 # Centralized style helpers
@@ -274,12 +378,34 @@ class XcomStyle:
         """
 
 
+# Global references
+item_list_widget_global = None
+equipment_slots_global = []
+weight_label_global = None
+
+
+def update_weight_display():
+    """Update the weight display label"""
+    global equipment_slots_global, weight_label_global
+
+    if not weight_label_global or not equipment_slots_global:
+        return
+
+    total_weight = 0
+    for slot in equipment_slots_global:
+        if slot.item:
+            total_weight += slot.item.weight
+
+    weight_label_global.setText(f"Weight: {total_weight}")
+
+
 # Top panel with grid-aligned buttons
 def create_top_panel():
     from PySide6.QtWidgets import QWidget, QGridLayout, QPushButton, QFrame, QLabel, QHBoxLayout, QVBoxLayout, \
         QButtonGroup
     from PySide6.QtGui import QFont
     from PySide6.QtCore import Qt
+    global item_list_widget_global, equipment_slots_global, weight_label_global
 
     panel = QWidget()
     panel.setFixedHeight(px(GRID * 2))
@@ -381,47 +507,53 @@ def create_top_panel():
         c = QColor(min(255, c.red() + r), min(255, c.green() + g), min(255, c.blue() + b))
         return c.name()
 
-    # Use centralized styles for all groupboxes and widgets
-    # Head (24x1), black tint (5% darker)
-    head_bg = adjust_color(XcomTheme.BG_LIGHT, -int(0.05 * 255), -int(0.05 * 255), -int(0.05 * 255))
-    head_slot = EquipmentSlotWidget('Head', bottom_panel, label_text='Head', slot_type=ItemType.HELMET)
-    head_slot.set_background_color(head_bg)
-    head_slot.set_border_color(XcomTheme.BORDER_COLOR)
-    head_slot.setFixedSize(px(GRID * 4), px(GRID * 4))
-    head_slot.move(px(GRID * 24), px(GRID * 1))
-    head_slot.show()
+    # Create equipment slots from data structure
+    equipment_slots = []
+    for slot_data in GameData.get_equipment_slots():
+        gx, gy = slot_data["position"]
+        r_adj, g_adj, b_adj = slot_data["color_adjust"]
 
-    # Armour (20x7), blue tint (5% more blue)
-    armour_bg = adjust_color(XcomTheme.BG_LIGHT, 0, 0, int(0.05 * 255))
-    armour_slot = EquipmentSlotWidget('Armour', bottom_panel, label_text='Armour', slot_type=ItemType.ARMOR)
-    armour_slot.set_background_color(armour_bg)
-    armour_slot.set_border_color(XcomTheme.BORDER_COLOR)
-    armour_slot.setFixedSize(px(GRID * 4), px(GRID * 4))
-    armour_slot.move(px(GRID * 20), px(GRID * 7))
-    armour_slot.show()
+        slot_bg = adjust_color(XcomTheme.BG_LIGHT,
+                               int(r_adj * 255),
+                               int(g_adj * 255),
+                               int(b_adj * 255))
 
-    # Primary Weapon (28x7), red tint (5% more red)
-    weapon_bg = adjust_color(XcomTheme.BG_LIGHT, int(0.05 * 255), 0, 0)
-    weapon_slot = EquipmentSlotWidget('Weapon', bottom_panel, label_text='Weapon', slot_type=ItemType.WEAPON)
-    weapon_slot.set_background_color(weapon_bg)
-    weapon_slot.set_border_color(XcomTheme.BORDER_COLOR)
-    weapon_slot.setFixedSize(px(GRID * 4), px(GRID * 4))
-    weapon_slot.move(px(GRID * 28), px(GRID * 7))
-    weapon_slot.show()
-
-    # Equipment slots (green tint - 5% more green)
-    equip_bg = adjust_color(XcomTheme.BG_LIGHT, 0, int(0.05 * 255), 0)
-    equip_positions = [(21, 13), (21, 18), (27, 13), (27, 18)]
-    equip_slots = []
-    for idx, (gx, gy) in enumerate(equip_positions):
-        slot = EquipmentSlotWidget(f'Equipment{idx + 1}', bottom_panel, label_text=f'Equipment {idx + 1}',
-                                   slot_type=ItemType.EQUIPMENT)
-        slot.set_background_color(equip_bg)
+        slot = EquipmentSlotWidget(slot_data["name"], bottom_panel,
+                                   label_text=slot_data["name"],
+                                   slot_type=slot_data["type"])
+        slot.set_background_color(slot_bg)
         slot.set_border_color(XcomTheme.BORDER_COLOR)
         slot.setFixedSize(px(GRID * 4), px(GRID * 4))
         slot.move(px(GRID * gx), px(GRID * gy))
         slot.show()
-        equip_slots.append(slot)
+        equipment_slots.append(slot)
+
+    equipment_slots_global = equipment_slots  # Store global reference
+
+    # Weight display label between Armour and Weapon slots
+    weight_label_global = QLabel("Weight: 0", bottom_panel)
+    weight_label_global.setFixedSize(px(GRID * 4), px(GRID // 2))
+    weight_label_global.move(px(GRID * 24), px(GRID * 6))  # Between armour (20) and weapon (28)
+    weight_label_global.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    weight_label_global.setFont(QFont(XcomTheme.FONT_FAMILY, XcomTheme.FONT_SIZE_NORMAL, QFont.Bold))
+    weight_label_global.setStyleSheet(f"color: {XcomTheme.ACCENT_YELLOW}; background: transparent;")
+    weight_label_global.show()
+
+    # Soldier head image (non-interactive, just for display)
+    head_display = QLabel(bottom_panel)
+    head_display.setFixedSize(px(GRID * 4), px(GRID * 4))
+    head_display.move(px(GRID * 24), px(GRID * 1))
+    head_display.setStyleSheet(f"""
+        QLabel {{
+            background: {adjust_color(XcomTheme.BG_LIGHT, -int(0.05 * 255), -int(0.05 * 255), -int(0.05 * 255))};
+            border: 3px solid {XcomTheme.BORDER_COLOR};
+            border-radius: 4px;
+        }}
+    """)
+    head_display.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    head_display.setText("HEAD")
+    head_display.setFont(QFont(XcomTheme.FONT_FAMILY, XcomTheme.FONT_SIZE_SMALL))
+    head_display.show()
 
     # Place screen_summary at absolute position (2*GRID, 4*GRID)
     summary_groupbox = QGroupBox("Summary", bottom_panel)
@@ -447,25 +579,13 @@ def create_top_panel():
 
     filter_combo = QComboBox(unit_list_groupbox)
     filter_combo.clear()
-    filter_combo.addItem(QIcon(QPixmap('icon_a.png').scaled(32, 32)), "All")
-    filter_combo.addItem(QIcon(QPixmap('icon_b.png').scaled(32, 32)), "Soldiers")
-    filter_combo.addItem(QIcon(QPixmap('icon_c.png').scaled(32, 32)), "Vehicles")
-    filter_combo.addItem(QIcon(QPixmap('icon_d.png').scaled(32, 32)), "Robots")
+    for unit_type in GameData.get_unit_types():
+        filter_combo.addItem(QIcon(QPixmap(unit_type["icon"]).scaled(32, 32)), unit_type["name"])
     filter_combo.setStyleSheet(XcomStyle.combobox())
     unit_list_layout.addWidget(filter_combo)
 
     unit_list_widget = ItemListWidget(unit_list_groupbox)
-    items_with_icons = [
-        ("Tom Bladko", "icon_a.png", {"type": "Soldier", "class": "Sniper", "level": 5, "desc": "Veteran marksman."}),
-        ("Jak Kowalski", "icon_b.png", {"type": "Soldier", "class": "Heavy", "level": 3, "desc": "Explosives expert."}),
-        ("Megan Fox", "icon_c.png", {"type": "Soldier", "class": "Scout", "level": 2, "desc": "Fast and agile."}),
-        ("John Smith", "icon_d.png", {"type": "Soldier", "class": "Medic", "level": 4, "desc": "Field medic."}),
-        ("Sarah Connor", "icon_a.png", {"type": "Soldier", "class": "Leader", "level": 6, "desc": "Squad commander."}),
-        ("RoboCop", "icon_b.png", {"type": "Robot", "class": "Enforcer", "level": 7, "desc": "Law enforcement droid."}),
-        ("Tank", "icon_c.png", {"type": "Vehicle", "class": "Support", "level": 2, "desc": "Armored support vehicle."}),
-        ("Drone", "icon_d.png", {"type": "Robot", "class": "Recon", "level": 1, "desc": "Aerial recon drone."}),
-    ]
-    for name, icon_path, info in items_with_icons:
+    for name, icon_path, info in GameData.get_units():
         item = QListWidgetItem(QIcon(QPixmap(icon_path).scaled(32, 32)), name)
         unit_list_widget.addItemWithInfo(item, info)
     unit_list_widget.setStyleSheet(XcomStyle.listwidget())
@@ -488,46 +608,25 @@ def create_top_panel():
 
     item_filter_combo = QComboBox(item_list)
     item_filter_combo.clear()
-    item_filter_combo.addItem(QIcon(QPixmap('other/item2.png').scaled(32, 32)), "All")
-    item_filter_combo.addItem(QIcon(QPixmap('other/item2.png').scaled(32, 32)), "Armours")
-    item_filter_combo.addItem(QIcon(QPixmap('other/item2.png').scaled(32, 32)), "Weapons")
-    item_filter_combo.addItem(QIcon(QPixmap('other/item.png').scaled(32, 32)), "Equipment")
-    item_filter_combo.addItem(QIcon(QPixmap('other/item.png').scaled(32, 32)), "Ammo")
-    item_filter_combo.addItem(QIcon(QPixmap('other/item.png').scaled(32, 32)), "Other")
+    for category in GameData.get_item_categories():
+        item_filter_combo.addItem(QIcon(QPixmap(category["icon"]).scaled(32, 32)), category["name"])
     item_filter_combo.setStyleSheet(XcomStyle.combobox())
     item_list_layout.addWidget(item_filter_combo)
 
     item_list_widget = ItemListWidget(item_list)
-    items_with_icons = [
-        ("Laser Rifle", "other/item2.png",
-         {"type": "Weapon", "class": "Rifle", "level": 3, "desc": "High-energy laser weapon.", "item_type": "weapon",
-          "rarity": "rare"}),
-        ("Plasma Pistol", "other/item2.png",
-         {"type": "Weapon", "class": "Pistol", "level": 2, "desc": "Compact plasma sidearm.", "item_type": "weapon",
-          "rarity": "uncommon"}),
-        ("Nano Armour", "other/item2.png",
-         {"type": "Armour", "class": "Nano", "level": 4, "desc": "Lightweight, strong armor.", "item_type": "armor",
-          "rarity": "epic"}),
-        ("Combat Helmet", "other/item2.png",
-         {"type": "Helmet", "class": "Combat", "level": 2, "desc": "Standard issue helmet.", "item_type": "helmet",
-          "rarity": "common"}),
-        ("Grenade", "other/item.png",
-         {"type": "Equipment", "class": "Explosive", "level": 1, "desc": "Standard frag grenade.",
-          "item_type": "equipment", "rarity": "common", "stackable": True, "max_stack": 5}),
-        ("Medikit", "other/item.png",
-         {"type": "Equipment", "class": "Medical", "level": 1, "desc": "Heals wounds in battle.",
-          "item_type": "equipment", "rarity": "common", "stackable": True, "max_stack": 3}),
-        ("Ammo Pack", "other/item.png",
-         {"type": "Ammo", "class": "Universal", "level": 1, "desc": "Ammunition for various weapons.",
-          "item_type": "ammo", "rarity": "common", "stackable": True, "max_stack": 10}),
-        ("Shield Generator", "other/item.png",
-         {"type": "Equipment", "class": "Defensive", "level": 5, "desc": "Projects a protective shield.",
-          "item_type": "equipment", "rarity": "legendary"}),
-    ]
-    for name, icon_path, info in items_with_icons:
-        item = QListWidgetItem(QIcon(QPixmap(icon_path).scaled(32, 32)), name)
-        item_list_widget.addItemWithInfo(item, info)
+    item_list_widget_global = item_list_widget  # Store global reference
+
+    # Initialize with item counts
+    for name, icon_path, info, count in GameData.get_items():
+        # Use the same icon scaling as the list widget
+        item = QListWidgetItem(QIcon(QPixmap(icon_path).scaled(32, 32, Qt.KeepAspectRatio, Qt.FastTransformation)),
+                               f"{name} ({count})")
+        item_list_widget.addItemWithInfo(item, info, count)
     item_list_widget.setStyleSheet(XcomStyle.listwidget())
+
+    # Connect filter combo to filtering function
+    item_filter_combo.currentTextChanged.connect(item_list_widget.filter_items)
+
     item_list_layout.addWidget(item_list_widget)
 
     item_list.show()
@@ -566,6 +665,9 @@ def create_top_panel():
     summary4.setContentsMargins(px(0.5), px(0.5), 0, 0)
     summary4.show()
 
+    # Initialize equipment slot states (default 2 equipment slots enabled)
+    update_equipment_slot_states(2)
+
     # No layout, just absolute positioning
     # Add bottom_panel to a main vertical layout with the top panel
     from PySide6.QtWidgets import QVBoxLayout
@@ -581,13 +683,46 @@ def create_top_panel():
     return container
 
 
+def update_equipment_slot_states(enabled_count):
+    """Enable/disable equipment slots based on armor"""
+    global equipment_slots_global, item_list_widget_global
+
+    if not equipment_slots_global:
+        return
+
+    equipment_slots = [slot for slot in equipment_slots_global if slot.slot_type == ItemType.EQUIPMENT]
+
+    for i, slot in enumerate(equipment_slots):
+        if i < enabled_count:
+            # Enable slot
+            slot.enabled = True
+            slot.setAcceptDrops(True)
+            slot.set_border_color(XcomTheme.BORDER_COLOR)
+            slot._original_border_color = XcomTheme.BORDER_COLOR
+        else:
+            # Disable slot
+            slot.enabled = False
+            slot.setAcceptDrops(False)
+
+            # Move item to inventory if slot has item
+            if slot.item and item_list_widget_global:
+                item = slot.remove_item()
+                item_list_widget_global.add_item_to_inventory(item, 1)
+
+            # Set gray appearance
+            slot.set_border_color(XcomTheme.TEXT_DIM)
+            slot._original_border_color = XcomTheme.TEXT_DIM
+
+        slot.update()
+
+
 class EquipmentSlotWidget(QWidget):
     def __init__(self, slot_name, parent=None, label_text=None, slot_type=None):
         super().__init__(parent)
         self.slot_name = slot_name
         self.slot_type = slot_type  # ItemType enum value
         self.item = None  # InventoryItem or None
-        self.stack_size = 0
+        self.enabled = True  # For equipment slots that can be disabled
         self.setAcceptDrops(True)
 
         # Make the widget perfectly square and grid-aligned
@@ -597,13 +732,26 @@ class EquipmentSlotWidget(QWidget):
         self._border_radius = 4
         self._border_width = 3
         self._border_color = XcomTheme.BORDER_COLOR
+        self._original_border_color = XcomTheme.BORDER_COLOR
         self._bg_color = XcomTheme.BG_LIGHT
         self._icon_size = px(3 * GRID)
-        self.setToolTip(label_text if label_text else slot_name)
+
+        # Create label above the slot
+        self.label = QLabel(label_text or slot_name, parent)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setFont(QFont(XcomTheme.FONT_FAMILY, XcomTheme.FONT_SIZE_SMALL))
+        self.label.setStyleSheet(f"color: {XcomTheme.TEXT_MID}; background: transparent;")
+        self.label.setFixedSize(px(4 * GRID), px(GRID // 2))
 
         # Make widget transparent so our custom painting works properly
         self.setAttribute(Qt.WA_StyledBackground, False)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
+
+    def move(self, x, y):
+        super().move(x, y)
+        # Position label above the slot
+        if hasattr(self, 'label'):
+            self.label.move(x, y - px(GRID // 2) - 2)
 
     def set_background_color(self, color):
         self._bg_color = color
@@ -611,65 +759,54 @@ class EquipmentSlotWidget(QWidget):
 
     def set_border_color(self, color):
         self._border_color = color
+        self._original_border_color = color
         self.update()
 
     def can_accept_item(self, item: InventoryItem) -> bool:
         """Check if this slot can accept the given item"""
+        if not self.enabled:
+            return False
+
         if self.slot_type and item.item_type != self.slot_type:
             return False
 
-        if self.item is None:
-            return True
+        # Only allow one item per slot - no stacking
+        return self.item is None
 
-        # Check if items can stack
-        if (self.item.can_stack_with(item) and
-                self.stack_size < self.item.max_stack):
-            return True
-
-        return False
-
-    def add_item(self, item: InventoryItem, quantity: int = 1) -> bool:
+    def add_item(self, item: InventoryItem) -> bool:
         """Add an item to this slot"""
         if not self.can_accept_item(item):
             return False
 
-        if self.item is None:
-            self.item = item
-            self.stack_size = quantity
-        elif self.item.can_stack_with(item):
-            self.stack_size += quantity
-            if self.stack_size > self.item.max_stack:
-                self.stack_size = self.item.max_stack
-        else:
-            return False
-
+        self.item = item
         self.update()
+
+        # Update equipment slots if this is armor
+        if self.slot_type == ItemType.ARMOUR:
+            equipment_slots = item.properties.get('equipment_slots', 2)
+            update_equipment_slot_states(equipment_slots)
+
+        # Update weight display
+        update_weight_display()
         return True
 
-    def remove_item(self, quantity: int = None) -> Optional[InventoryItem]:
-        """Remove item(s) from this slot"""
+    def remove_item(self) -> Optional[InventoryItem]:
+        """Remove item from this slot"""
         if self.item is None:
             return None
 
-        if quantity is None or quantity >= self.stack_size:
-            # Remove all
-            item = self.item
-            self.item = None
-            self.stack_size = 0
-            self.update()
-            return item
-        else:
-            # Remove partial stack
-            self.stack_size -= quantity
-            if self.stack_size <= 0:
-                item = self.item
-                self.item = None
-                self.stack_size = 0
-                self.update()
-                return item
-            else:
-                self.update()
-                return self.item
+        item = self.item
+        was_armor = (self.slot_type == ItemType.ARMOUR)
+        self.item = None
+        self.update()
+
+        # Reset equipment slots if armor was removed
+        if was_armor:
+            update_equipment_slot_states(2)  # Default 2 slots
+
+        # Update weight display
+        update_weight_display()
+        return item
 
     def set_item(self, item):
         """Legacy method for compatibility"""
@@ -680,9 +817,7 @@ class EquipmentSlotWidget(QWidget):
 
     def clear_item(self):
         """Clear the item from this slot"""
-        self.item = None
-        self.stack_size = 0
-        self.update()
+        self.remove_item()
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -696,7 +831,7 @@ class EquipmentSlotWidget(QWidget):
                                 w - self._border_width, h - self._border_width,
                                 self._border_radius, self._border_radius)
 
-        # Draw icon (centered in slot area)
+        # Draw icon (centered in slot area) - maintain size during drag
         slot_rect = QRect(self._border_width * 2, self._border_width * 2,
                           w - 4 * self._border_width,
                           h - 4 * self._border_width)
@@ -706,13 +841,6 @@ class EquipmentSlotWidget(QWidget):
             icon_x = slot_rect.x() + (slot_rect.width() - pixmap.width()) // 2
             icon_y = slot_rect.y() + (slot_rect.height() - pixmap.height()) // 2
             painter.drawPixmap(icon_x, icon_y, pixmap)
-
-            # Draw stack size if applicable
-            if self.item.stackable and self.stack_size > 1:
-                painter.setPen(QPen(QColor(XcomTheme.TEXT_BRIGHT), 2))
-                painter.setFont(QFont(XcomTheme.FONT_FAMILY, 10, QFont.Bold))
-                painter.drawText(slot_rect.adjusted(2, 2, -2, -2),
-                                 Qt.AlignBottom | Qt.AlignRight, str(self.stack_size))
         else:
             # Draw a subtle placeholder (dashed line square)
             pen = QPen(QColor(self._border_color))
@@ -722,6 +850,10 @@ class EquipmentSlotWidget(QWidget):
             painter.drawRect(slot_rect.adjusted(px(4), px(4), -px(4), -px(4)))
 
     def dragEnterEvent(self, event: QDragEnterEvent):
+        if not self.enabled:
+            event.ignore()
+            return
+
         if event.mimeData().hasText():
             try:
                 data = json.loads(event.mimeData().text())
@@ -735,12 +867,12 @@ class EquipmentSlotWidget(QWidget):
 
                 if self.can_accept_item(item):
                     event.acceptProposedAction()
-                    # Visual feedback - green border for valid drop
+                    # Visual feedback - keep same border width, just change color
                     self._border_color = XcomTheme.ACCENT_GREEN
                     self.update()
                 else:
                     event.ignore()
-                    # Visual feedback - red border for invalid drop
+                    # Visual feedback - keep same border width, just change color
                     self._border_color = XcomTheme.ACCENT_RED
                     self.update()
             except Exception as e:
@@ -751,22 +883,27 @@ class EquipmentSlotWidget(QWidget):
 
     def dragLeaveEvent(self, event):
         # Restore original border color
-        self._border_color = XcomTheme.BORDER_COLOR
+        self._border_color = self._original_border_color
         self.update()
 
     def dropEvent(self, event: QDropEvent):
+        if not self.enabled:
+            event.ignore()
+            return
+
         try:
             data = json.loads(event.mimeData().text())
             item = InventoryItem.from_dict(data['item'])
-            stack_size = data.get('stack_size', 1)
 
             if self.can_accept_item(item):
-                # Handle item swapping or stacking
-                if self.item and not self.item.can_stack_with(item):
-                    # TODO: Implement item swapping
-                    pass
+                # Check for item replacement (same category, different item)
+                if self.item and self.item.item_type == item.item_type:
+                    # Replace items - move current item to inventory
+                    old_item = self.remove_item()
+                    if old_item and item_list_widget_global:
+                        item_list_widget_global.add_item_to_inventory(old_item, 1)
 
-                self.add_item(item, stack_size)
+                self.add_item(item)
                 event.acceptProposedAction()
             else:
                 event.ignore()
@@ -775,18 +912,28 @@ class EquipmentSlotWidget(QWidget):
             event.ignore()
 
         # Restore original border color
-        self._border_color = XcomTheme.BORDER_COLOR
+        self._border_color = self._original_border_color
         self.update()
 
     def mousePressEvent(self, event: QMouseEvent):
-        if self.item and event.button() == Qt.MouseButton.LeftButton:
-            self.start_drag()
+        if self.item and self.enabled:
+            if event.button() == Qt.MouseButton.LeftButton:
+                self.start_drag()
+            elif event.button() == Qt.MouseButton.RightButton:
+                # Right click - move item back to inventory
+                self.move_to_inventory()
         else:
             super().mousePressEvent(event)
 
+    def move_to_inventory(self):
+        """Move item from slot to inventory (right-click functionality)"""
+        if self.item and item_list_widget_global:
+            item = self.remove_item()
+            item_list_widget_global.add_item_to_inventory(item, 1)
+
     def start_drag(self):
         """Start dragging this slot's item"""
-        if not self.item:
+        if not self.item or not self.enabled:
             return
 
         # Create drag object
@@ -796,72 +943,215 @@ class EquipmentSlotWidget(QWidget):
         # Store item data as JSON
         item_data = {
             'item': self.item.to_dict(),
-            'stack_size': self.stack_size,
+            'stack_size': 1,
             'source_slot': id(self)
         }
         mime_data.setText(json.dumps(item_data))
         drag.setMimeData(mime_data)
 
-        # Create drag pixmap
-        pixmap = self.item.get_pixmap(64)
+        # Create drag pixmap using the item's icon - scale by 2x
+        pixmap = self.item.get_pixmap(128)  # 2x larger (64 -> 128)
 
-        # Add visual effects to drag pixmap
+        # Add semi-transparent effect to show it's being dragged
         painter = QPainter(pixmap)
         painter.setCompositionMode(QPainter.CompositionMode_SourceAtop)
-        painter.fillRect(pixmap.rect(), QColor(255, 255, 255, 100))  # Semi-transparent overlay
+        painter.fillRect(pixmap.rect(), QColor(255, 255, 255, 150))  # Semi-transparent overlay
         painter.end()
 
         drag.setPixmap(pixmap)
-        drag.setHotSpot(QPoint(32, 32))
+        drag.setHotSpot(QPoint(64, 64))  # Adjusted for 2x size
+
+        # Hide system cursor during drag
+        QApplication.setOverrideCursor(Qt.BlankCursor)
 
         # Execute drag
         result = drag.exec(Qt.MoveAction)
+
+        # Restore cursor
+        QApplication.restoreOverrideCursor()
+
         if result == Qt.MoveAction:
             # Item was moved, remove from this slot
             self.remove_item()
-
-    def enterEvent(self, event):
-        """Show tooltip with item information"""
-        if self.item:
-            tooltip_text = f"<b>{self.item.name}</b><br>"
-            tooltip_text += f"<i>{self.item.rarity.value.title()}</i><br>"
-            tooltip_text += f"Type: {self.item.item_type.value.title()}<br>"
-            tooltip_text += f"{self.item.description}"
-            if self.item.stackable and self.stack_size > 1:
-                tooltip_text += f"<br>Stack: {self.stack_size}/{self.item.max_stack}"
-
-            QToolTip.showText(self.mapToGlobal(QPoint(0, 0)), tooltip_text)
 
 
 class ItemListWidget(QListWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        QToolTip.setFont(QFont(XcomTheme.FONT_FAMILY, XcomTheme.FONT_SIZE_LARGE))
         self.item_info = {}
+        self.item_counts = {}  # Track item quantities
+        self.all_items = []  # Store all items for filtering
+        self.current_filter = "All"
         self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.setMouseTracking(True)
-        self.setDragDropMode(QAbstractItemView.DragOnly)
-        self.tooltip_bg = XcomTheme.BG_LIGHT
-        self.tooltip_border = XcomTheme.ACCENT_BLUE
+        self.setDragDropMode(QAbstractItemView.DragDrop)  # Allow both drag and drop
 
-    def addItemWithInfo(self, item, info_dict):
-        """Add an item with associated information to the list"""
-        # Normalize the info dictionary
+    def addItemWithInfo(self, item, info_dict, count=1):
+        """Add an item with associated information and count to the list"""
+        # Normalize the info dictionary and ensure weight is included
         if 'icon_path' not in info_dict and hasattr(item, 'icon'):
             icon = item.icon()
             if not icon.isNull():
                 info_dict['icon_path'] = 'other/item.png'
 
+        # Ensure weight is set
+        if 'weight' not in info_dict:
+            info_dict['weight'] = 1
+
+        # Extract base name (remove count if present)
+        base_name = item.text().split(' (')[0]
+
+        # Store in all_items for filtering
+        self.all_items.append({
+            'name': base_name,
+            'icon': item.icon(),
+            'info': info_dict,
+            'count': count
+        })
+
         self.addItem(item)
-        self.item_info[item.text()] = info_dict
+        self.item_info[base_name] = info_dict
+        self.item_counts[base_name] = count
+
+        # Sort items after adding
+        self.sort_items()
+
+    def sort_items(self):
+        """Sort items by category then by name"""
+        category_order = {"armour": 0, "weapon": 1, "equipment": 2, "other": 3}
+
+        # Sort all_items
+        self.all_items.sort(key=lambda x: (
+            category_order.get(x['info'].get('item_type', 'other'), 3),
+            x['name']
+        ))
+
+        # Reapply current filter to refresh display
+        self.filter_items(self.current_filter)
+
+    def filter_items(self, category):
+        """Filter items based on selected category"""
+        self.current_filter = category
+        self.clear()
+        self.item_info.clear()
+        self.item_counts.clear()
+
+        for item_data in self.all_items:
+            base_name = item_data['name']
+            info = item_data['info']
+            count = item_data['count']
+
+            # Check if item should be shown based on filter
+            should_show = False
+            if category == "All":
+                should_show = True
+            else:
+                item_type = info.get('item_type', 'other')
+                if category.lower() == item_type:
+                    should_show = True
+
+            if should_show:
+                # Create new list item with proper icon
+                new_item = QListWidgetItem(item_data['icon'], f"{base_name} ({count})")
+                self.addItem(new_item)
+                self.item_info[base_name] = info
+                self.item_counts[base_name] = count
+
+    def add_item_to_inventory(self, item: InventoryItem, count: int = 1):
+        """Add an item back to the inventory list"""
+        base_name = item.name
+
+        # Update all_items list
+        found_in_all = False
+        for item_data in self.all_items:
+            if item_data['name'] == base_name:
+                item_data['count'] += count
+                found_in_all = True
+                break
+
+        if not found_in_all:
+            # Add to all_items
+            self.all_items.append({
+                'name': base_name,
+                'icon': QIcon(QPixmap(item.icon_path).scaled(32, 32, Qt.KeepAspectRatio, Qt.FastTransformation)),
+                'info': item.properties,
+                'count': count
+            })
+
+        # Check if item already exists in current filtered view
+        if base_name in self.item_counts:
+            # Update existing item count
+            self.item_counts[base_name] += count
+            self.update_item_display(base_name)
+        else:
+            # Check if item should be visible with current filter
+            should_show = False
+            if self.current_filter == "All":
+                should_show = True
+            else:
+                item_type = item.item_type.value
+                if self.current_filter.lower() == item_type:
+                    should_show = True
+
+            if should_show:
+                # Create new inventory entry
+                self.item_counts[base_name] = count
+                self.item_info[base_name] = item.properties
+
+                # Create new list item with proper icon scaling
+                new_item = QListWidgetItem(
+                    QIcon(QPixmap(item.icon_path).scaled(32, 32, Qt.KeepAspectRatio, Qt.FastTransformation)),
+                    f"{base_name} ({count})"
+                )
+                self.addItem(new_item)
+
+        # Sort items after adding
+        self.sort_items()
+
+    def update_item_display(self, base_name):
+        """Update the display text for an item with its current count"""
+        for i in range(self.count()):
+            item = self.item(i)
+            if item.text().split(' (')[0] == base_name:
+                count = self.item_counts[base_name]
+                item.setText(f"{base_name} ({count})")
+                break
+
+    def remove_item_from_inventory(self, base_name, count=1):
+        """Remove count from inventory, remove item if count reaches 0"""
+        # Update all_items list
+        for item_data in self.all_items:
+            if item_data['name'] == base_name:
+                item_data['count'] -= count
+                if item_data['count'] <= 0:
+                    self.all_items.remove(item_data)
+                break
+
+        if base_name in self.item_counts:
+            self.item_counts[base_name] -= count
+
+            if self.item_counts[base_name] <= 0:
+                # Remove item completely
+                del self.item_counts[base_name]
+                del self.item_info[base_name]
+
+                # Remove from list widget
+                for i in range(self.count()):
+                    item = self.item(i)
+                    if item.text().split(' (')[0] == base_name:
+                        self.takeItem(i)
+                        break
+            else:
+                # Update display
+                self.update_item_display(base_name)
 
     def getItemData(self, item):
         """Get the complete data for an item as an InventoryItem object"""
         if not item:
             return None
 
-        name = item.text()
-        info = self.item_info.get(name, {})
+        base_name = item.text().split(' (')[0]  # Remove count from name
+        info = self.item_info.get(base_name, {})
         icon_path = info.get('icon_path', 'other/item.png')
 
         # Convert string values to enums
@@ -880,14 +1170,69 @@ class ItemListWidget(QListWidget):
                 pass
 
         return InventoryItem(
-            name=name,
+            name=base_name,  # Use base name without count
             icon_path=icon_path,
             properties=info,
             item_type=item_type,
             rarity=rarity,
             stackable=info.get('stackable', False),
-            max_stack=info.get('max_stack', 1)
+            max_stack=info.get('max_stack', 1),
+            weight=info.get('weight', 1)
         )
+
+    def auto_equip_item(self, item: InventoryItem):
+        """Automatically equip item to appropriate slot (RMB functionality)"""
+        global equipment_slots_global
+
+        if not equipment_slots_global:
+            return False
+
+        # Find appropriate slot
+        target_slot = None
+
+        if item.item_type == ItemType.ARMOUR:
+            # Find armour slot
+            for slot in equipment_slots_global:
+                if slot.slot_type == ItemType.ARMOUR and slot.item is None:
+                    target_slot = slot
+                    break
+        elif item.item_type == ItemType.WEAPON:
+            # Find weapon slot
+            for slot in equipment_slots_global:
+                if slot.slot_type == ItemType.WEAPON and slot.item is None:
+                    target_slot = slot
+                    break
+        elif item.item_type == ItemType.EQUIPMENT:
+            # Find first available equipment slot
+            for slot in equipment_slots_global:
+                if slot.slot_type == ItemType.EQUIPMENT and slot.item is None and slot.enabled:
+                    target_slot = slot
+                    break
+
+        if target_slot:
+            target_slot.add_item(item)
+            return True
+
+        return False
+
+    def dragEnterEvent(self, event: QDragEnterEvent):
+        """Accept drops from equipment slots"""
+        if event.mimeData().hasText():
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event: QDropEvent):
+        """Handle items dropped back to inventory"""
+        try:
+            data = json.loads(event.mimeData().text())
+            item = InventoryItem.from_dict(data['item'])
+
+            self.add_item_to_inventory(item, 1)
+            event.acceptProposedAction()
+        except Exception as e:
+            print(f"Drop to inventory error: {e}")
+            event.ignore()
 
     def startDrag(self, supportedActions):
         """Override to implement custom drag behavior"""
@@ -897,6 +1242,12 @@ class ItemListWidget(QListWidget):
 
         item_data = self.getItemData(current_item)
         if not item_data:
+            return
+
+        base_name = item_data.name
+
+        # Check if we have items in stock
+        if self.item_counts.get(base_name, 0) <= 0:
             return
 
         # Create drag object
@@ -912,20 +1263,39 @@ class ItemListWidget(QListWidget):
         mime_data.setText(json.dumps(drag_data))
         drag.setMimeData(mime_data)
 
-        # Set drag pixmap
+        # Set drag pixmap without system cursor using the same icon as the list
         if current_item.icon() and not current_item.icon().isNull():
-            drag.setPixmap(current_item.icon().pixmap(64, 64))
+            pixmap = current_item.icon().pixmap(64, 64)
+            drag.setPixmap(pixmap)
+
+        # Hide system cursor during drag
+        QApplication.setOverrideCursor(Qt.BlankCursor)
 
         # Execute drag (using Copy action since we're not removing from list)
-        drag.exec(Qt.CopyAction)
+        result = drag.exec(Qt.CopyAction)
+
+        # Restore cursor
+        QApplication.restoreOverrideCursor()
+
+        if result == Qt.CopyAction:
+            # Item was successfully dropped, reduce count
+            self.remove_item_from_inventory(base_name, 1)
 
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.LeftButton:  # Only LMB for drag
             self.drag_start_position = event.position().toPoint()
+        elif event.button() == Qt.RightButton:  # RMB for auto-equip
+            current_item = self.currentItem()
+            if current_item:
+                item_data = self.getItemData(current_item)
+                if item_data and self.item_counts.get(item_data.name, 0) > 0:
+                    if self.auto_equip_item(item_data):
+                        # Successfully equipped, remove from inventory
+                        self.remove_item_from_inventory(item_data.name, 1)
         super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        if not (event.buttons() & Qt.LeftButton):
+        if not (event.buttons() & Qt.LeftButton):  # Only LMB for drag
             return
 
         if not hasattr(self, 'drag_start_position'):
@@ -948,7 +1318,7 @@ if __name__ == "__main__":
     app.setStyleSheet(XcomStyle.get_global_stylesheet())
 
     win = QMainWindow()
-    win.setWindowTitle("XCOM UI Theme Demo - Enhanced Inventory System")
+    win.setWindowTitle("XCOM UI Theme Demo - Enhanced Inventory System v2")
     win.setFixedSize(SCALED_WIDTH, SCALED_HEIGHT)
     top_panel = create_top_panel()
     win.setCentralWidget(top_panel)
