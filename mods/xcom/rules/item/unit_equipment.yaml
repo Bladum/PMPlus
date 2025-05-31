@@ -1,0 +1,114 @@
+unit_equipment:
+
+  # XCOM SECONDARY WEAPONS
+  old_pistol:
+    name: "Old Pistol"
+    category: 3
+    description: "A basic pistol, providing minimal damage"
+    sprite: old_pistol.png
+    weight: 1
+    size: 0.1
+    unit_damage: 4
+    unit_damage_type: piercing
+    unit_range: 15
+    unit_accuracy: 0.6
+    unit_ammo: 25
+    unit_action_points: 1
+    sell_cost: 2
+
+  medipack:
+    name: "Medipack"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Basic medical kit to treat wounds in the field."
+    weight: 3
+    size: 3
+    sprite: "medikit.png"
+    unit_stats:
+      energy: 1
+
+  motion_scanner:
+    name: "Motion Scanner"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Detects movement within a limited range."
+    weight: 2
+    size: 2
+    sprite: "motionScanner.png"
+    unit_stats:
+      sight: [0, 3]  # +3 night sight
+
+  stim_pack:
+    name: "Stim Pack"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Advanced healing compound."
+    weight: 1
+    size: 1
+    sprite: "stimPack.png"
+    unit_stats:
+      energy: 2
+      health: 3
+
+  scanner:
+    name: "Scanner"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Motion detection device."
+    weight: 1
+    size: 1
+    sprite: "scanner.png"
+    unit_stats:
+
+
+  combat_knife:
+    name: "Combat Knife"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Basic combat knife for close-quarters combat."
+    weight: 1
+    size: 1
+    sprite: "combat_knife.png"
+    unit_damage: 3
+    unit_damage_type: "melee"
+    unit_accuracy: 80
+    unit_range: 1
+    unit_action_point: 2
+    unit_modes: ["snap"]
+
+  small_pistol:
+    name: "Small Pistol"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Standard issue sidearm with decent accuracy."
+    weight: 2
+    size: 2
+    sprite: "autoPistol.png"
+    unit_damage: 4
+    unit_damage_type: "ballistic"
+    unit_accuracy: 70
+    unit_range: 8
+    unit_ammo: 8
+    unit_shots: 1
+    unit_action_point: 3
+    unit_modes: ["snap", "aim"]
+    unit_rearm_cost: 10
+
+  grenade:
+    name: "Grenade"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Standard frag grenade."
+    weight: 1
+    size: 1
+    sprite: "grenade.png"
+    unit_damage: 6
+    unit_damage_type: "explosive"
+    unit_accuracy: 70
+    unit_range: 8
+    unit_action_point: 3
+    unit_modes: ["snap"]
+
+  smoke_grenade:
+    name: "Smoke Grenade"
+    category: 3  # ITEM_UNIT_EQUIPMENT
+    description: "Provides concealment."
+    weight: 1
+    size: 1
+    sprite: "smokeGrenade.png"
+    unit_range: 8
+    unit_action_point: 3
+    unit_modes: ["snap"]

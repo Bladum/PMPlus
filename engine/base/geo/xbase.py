@@ -2,6 +2,7 @@ from craft.craft import TCraft
 from engine.base.facility import TFacility, TFacilityType
 from engine.globe.location import TLocation
 from unit.unit import TUnit
+from engine.base.geo.base_inventory import TBaseInventory
 
 
 class TBaseXCom(TLocation):
@@ -16,10 +17,11 @@ class TBaseXCom(TLocation):
         self.game = TGame()
 
         self.facilities : dict[ tuple, TFacility] = {}  # Dict of (x, y) -> TFacility
-        self.units  : list[TUnit] = []       # List of units in base
-        self.items : dict[str, float] = {}      # Dict of item_id -> quantity
-        self.captures : dict[str, float] = {}   # List of captured units (prisoners)
-        self.crafts : list[TCraft] = []     # List of crafts in hangar/garage
+
+        # Initialize the inventory system for this base
+        storage_capacity = self.get_storage_space()
+        craft_capacity = self.get_craft_space()
+        self.inventory = TBaseInventory(storage_capacity=storage_capacity, craft_capacity=craft_capacity)
 
     def add_facility(self, facility_type: TFacilityType, position=None):
         # Check if facility can be built
@@ -27,6 +29,9 @@ class TBaseXCom(TLocation):
             raise Exception("Cannot build facility: requirements not met.")
         facility = TFacility(facility_type, position)
         self.facilities[position] = facility
+
+        # Update inventory capacities when a new facility is built
+        self.update_inventory_capacities()
         return facility
 
     def remove_facility(self, facility: TFacility):
@@ -39,8 +44,15 @@ class TBaseXCom(TLocation):
         if pos_to_remove is not None:
             del self.facilities[pos_to_remove]
 
-    def can_build_facility(self, facility_type: TFacilityType):
+            # Update inventory capacities when a facility is removed
+            self.update_inventory_capacities()
 
+    def update_inventory_capacities(self):
+        """Update the inventory capacities based on current facilities"""
+        self.inventory.storage_capacity = self.get_storage_space()
+        self.inventory.craft_capacity = self.get_craft_space()
+
+    def can_build_facility(self, facility_type: TFacilityType):
         # Check max per base
         count = sum(1 for f in self.facilities.values() if f.facility_type.pid == facility_type.pid)
         if count >= facility_type.max_per_base:
@@ -62,9 +74,9 @@ class TBaseXCom(TLocation):
                 return False
                 # TODO improve this tech check
 
-        # Check resources (stub, should check against base/player resources)
+        # Check resources using inventory system
         for item, qty in facility_type.build_items.items():
-            if self.items.get(item, 0) < qty:
+            if self.inventory.get_item_quantity(item) < qty:
                 return False
 
         return True
@@ -90,7 +102,6 @@ class TBaseXCom(TLocation):
             for s in f.facility_type.service_provided:
                 services.add(s)
         return services
-
 
     def get_total_capacity(self, attr):
         # Sum a given stat (e.g. storage_space, agent_space) from all active facilities
@@ -170,3 +181,114 @@ class TBaseXCom(TLocation):
                     'ammo': defense_ammo
                 })
         return defense_list
+
+    # Inventory delegation methods for convenient access
+
+    # Item-related methods
+    def add_item(self, item_id: str, quantity: float = 1.0, category=None) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.add_item(item_id, quantity, category)
+
+    def remove_item(self, item_id: str, quantity: float = 1.0) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.remove_item(item_id, quantity)
+
+    def get_item_quantity(self, item_id: str) -> float:
+        """Delegate to inventory system"""
+        return self.inventory.get_item_quantity(item_id)
+
+    def consume_items(self, items_to_consume: dict) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.consume_items(items_to_consume)
+
+    # Unit-related methods
+    def add_unit(self, unit: TUnit) -> None:
+        """Delegate to inventory system"""
+        # TODO: Check if there's sufficient unit space before adding
+        self.inventory.add_unit(unit)
+
+    def remove_unit(self, unit: TUnit) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.remove_unit(unit)
+
+    def get_units_count(self) -> int:
+        """Delegate to inventory system"""
+        return self.inventory.get_units_count()
+
+    def get_units_by_type(self, unit_type: str) -> list:
+        """Delegate to inventory system"""
+        return self.inventory.get_units_by_type(unit_type)
+
+    # Craft-related methods
+    def add_craft(self, craft: TCraft) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.add_craft(craft)
+
+    def remove_craft(self, craft: TCraft) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.remove_craft(craft)
+
+    def get_crafts_count(self) -> int:
+        """Delegate to inventory system"""
+        return self.inventory.get_crafts_count()
+
+    def get_crafts_by_type(self, craft_type: str) -> list:
+        """Delegate to inventory system"""
+        return self.inventory.get_crafts_by_type(craft_type)
+
+    # Capture-related methods
+    def add_capture(self, capture_id: str, quantity: float = 1.0) -> None:
+        """Delegate to inventory system"""
+        # TODO: Check if there's sufficient prison space before adding
+        self.inventory.add_capture(capture_id, quantity)
+
+    def remove_capture(self, capture_id: str, quantity: float = 1.0) -> bool:
+        """Delegate to inventory system"""
+        return self.inventory.remove_capture(capture_id, quantity)
+
+    def get_capture_quantity(self, capture_id: str) -> float:
+        """Delegate to inventory system"""
+        return self.inventory.get_capture_quantity(capture_id)
+
+    def to_dict(self) -> dict:
+        """
+        Convert the base to a dictionary for serialization.
+        """
+        facilities_dict = {str(pos): facility.to_dict() for pos, facility in self.facilities.items()}
+
+        return {
+            "location": {
+                "lat": self.lat,
+                "lon": self.lon,
+                "name": self.name
+            },
+            "facilities": facilities_dict,
+            "inventory": self.inventory.to_dict()
+        }
+
+    def from_dict(self, data: dict) -> None:
+        """
+        Load the base from a dictionary.
+        """
+        # Load location data
+        location_data = data.get("location", {})
+        self.lat = location_data.get("lat", 0)
+        self.lon = location_data.get("lon", 0)
+        self.name = location_data.get("name", "")
+
+        # Load facilities
+        facilities_data = data.get("facilities", {})
+        self.facilities = {}
+        for pos_str, facility_data in facilities_data.items():
+            # Convert string position back to tuple
+            pos = eval(pos_str)
+            facility = TFacility(None, pos)
+            facility.from_dict(facility_data)
+            self.facilities[pos] = facility
+
+        # Load inventory
+        inventory_data = data.get("inventory", {})
+        self.inventory.from_dict(inventory_data)
+
+        # Update capacities based on loaded facilities
+        self.update_inventory_capacities()

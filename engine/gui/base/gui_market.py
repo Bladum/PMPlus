@@ -1,5 +1,7 @@
+from gui.gui_base import TGuiBaseScreen
 
-class TGuiMarket(TGui):
+
+class TGuiMarket(TGuiBaseScreen):
     """
     Represents a GUI for purchase
     """

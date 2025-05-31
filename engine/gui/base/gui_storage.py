@@ -1,5 +1,7 @@
+from gui.gui_base import TGuiBaseScreen
 
-class TGuiStorage(TGui):
+
+class TGuiStorage(TGuiBaseScreen):
     """
     Represents a GUI for stage in base
     """

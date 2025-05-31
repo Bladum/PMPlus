@@ -1,5 +1,7 @@
+from gui.gui_base import TGuiBaseScreen
 
-class TGuiHangar(TGui):
+
+class TGuiHangar(TGuiBaseScreen):
     """
     Represents a GUI for crafts
     """

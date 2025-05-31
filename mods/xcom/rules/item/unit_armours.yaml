@@ -1,45 +1,149 @@
-#
-#   ITEMS for SOLDIERS
-#
 unit_armours:
+  basic_armor:
+    name: "Basic Armor"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Standard protective gear for XCOM operatives."
+    weight: 10
+    size: 5
+    sprite: "lightArmour.png"
+    armour: 10
+    resistance:
+      ballistic: 0.7
+      energy: 1.0
+      explosive: 0.8
+      melee: 0.9
+      fire: 1.0
+    unit_stats:
+      speed: -1
+      health: 2
 
-    # XCOM ARMOURS
-    suit:
-        name: "Suit"
-        category: unit_armour
-        description: "A basic suit of armour, providing minimal protection."
-        sprite: suit.png
-        tech_needed: []
-        armour: 1
-        resistance:
-            melee: 1.2
-            kinetic: 1.3
-            explosive: 1.1
-            laser: 0
-            plasma: 0.9
-        weight: 1
-        size: 0.1
-        sell_cost: 2
+  tactical_armor:
+    name: "Tactical Armor"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Enhanced armor with better protection against various threats."
+    weight: 15
+    size: 7
+    sprite: "tacticalArmour.png"
+    armour: 15
+    resistance:
+      ballistic: 0.5
+      energy: 0.8
+      explosive: 0.6
+      melee: 0.8
+      fire: 0.9
+    unit_stats:
+      speed: -2
+      health: 4
 
+  combat_vest:
+    name: "Combat Vest"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Basic combat protection."
+    weight: 3
+    size: 3
+    sprite: "combatVest.png"
+    armour: 5
+    resistance:
+      ballistic: 0.8
+      energy: 1.0
+      explosive: 0.9
+      melee: 0.9
+      fire: 1.0
+    unit_stats:
+      speed: 0
+      health: 1
 
-    personal_armour:
-        name: "Personal armour"
-        category: unit_armour
-        description: "A basic suit of armour, providing minimal protection."
-        sprite: personal_armour.png
-        tech_needed: []
-        armour: 8
-        resistance:
-            melee: 1.2
-            kinetic: 1.3
-            explosive: 1.1
-            laser: 0
-            plasma: 0.9
-        shield: 0
-        shield_regen: 0
-        unit_stats_mod:
-            health: 1
-        weight: 4
-        size: 0.5
-        sell_cost: 80
+  nano_armour:
+    name: "Nano Armour"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Lightweight, strong armor."
+    weight: 3
+    size: 3
+    sprite: "nanoArmour.png"
+    armour: 20
+    resistance:
+      ballistic: 0.4
+      energy: 0.7
+      explosive: 0.5
+      melee: 0.7
+      fire: 0.8
+    unit_stats:
+      speed: 0
+      health: 5
+    equipment_slots: 4
 
+  tactical_armour:
+    name: "Tactical Armour"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Military-grade protection."
+    weight: 6
+    size: 6
+    sprite: "tacticalArmour.png"
+    armour: 15
+    resistance:
+      ballistic: 0.5
+      energy: 0.8
+      explosive: 0.6
+      melee: 0.8
+      fire: 0.9
+    unit_stats:
+      speed: -2
+      health: 4
+    equipment_slots: 3
+
+  power_armour:
+    name: "Power Armour"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Heavy powered armor."
+    weight: 10
+    size: 10
+    sprite: "powerArmour.png"
+    armour: 30
+    resistance:
+      ballistic: 0.2
+      energy: 0.5
+      explosive: 0.3
+      melee: 0.5
+      fire: 0.6
+    unit_stats:
+      speed: -3
+      health: 10
+    equipment_slots: 3
+
+  stealth_suit:
+    name: "Stealth Suit"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Cloaking technology armor."
+    weight: 4
+    size: 4
+    sprite: "stealthSuit.png"
+    armour: 10
+    resistance:
+      ballistic: 0.6
+      energy: 0.9
+      explosive: 0.7
+      melee: 0.9
+      fire: 1.0
+    unit_stats:
+      speed: 2
+      health: 2
+    equipment_slots: 1
+
+  heavy_armour:
+    name: "Heavy Armour"
+    category: 4  # ITEM_UNIT_ARMOUR
+    description: "Maximum protection armor."
+    weight: 8
+    size: 8
+    sprite: "heavyArmour.png"
+    armour: 25
+    resistance:
+      ballistic: 0.3
+      energy: 0.6
+      explosive: 0.4
+      melee: 0.6
+      fire: 0.7
+    unit_stats:
+      speed: -4
+      health: 8
+    equipment_slots: 2

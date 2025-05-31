@@ -1,62 +1,161 @@
-from PySide6.QtWidgets import (
-    QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy
-)
+"""
+Base GUI Module
+
+This module contains the base GUI class for XCOM inventory system.
+It handles the common top panel and manages screen switching.
+"""
+
+from typing import Dict, Type, Optional
 from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QWidget, QVBoxLayout
 
-class BaseScreen(QWidget):
-    def __init__(self, switch_screen_callback):
-        super().__init__()
-        self.switch_screen_callback = switch_screen_callback
-        self.init_ui()
+import sys
+import os
 
-    def init_ui(self):
-        main_layout = QHBoxLayout(self)
+from gui.gui_base_top_panel import TGuiBaseTopPanel
+from gui.other.theme_manager import XcomTheme
 
-        # Left: Base grid (6x6 for demo, adjust as needed)
-        grid_widget = QWidget()
-        grid_layout = QGridLayout(grid_widget)
-        grid_layout.setSpacing(2)
-        for row in range(6):
-            for col in range(6):
-                cell = QLabel()
-                cell.setFixedSize(64, 64)
-                cell.setStyleSheet("background-color: #7a6a3a; border: 1px solid #c2b97b;")
-                grid_layout.addWidget(cell, row, col)
-        main_layout.addWidget(grid_widget, stretch=3)
+# Add parent directory to path for imports to work
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-        # Right: Info and buttons
-        right_panel = QVBoxLayout()
-        # Title
-        title = QLabel("Bundy Base")
-        title.setObjectName("title")
-        title.setAlignment(Qt.AlignLeft)
-        right_panel.addWidget(title)
-        # Subtitle/info
-        subtitle = QLabel("North America\nFUNDS $2574039")
-        subtitle.setObjectName("subtitle")
-        subtitle.setAlignment(Qt.AlignLeft)
-        right_panel.addWidget(subtitle)
-        # Small icon row (3 icons, rest empty)
-        icon_row = QHBoxLayout()
-        for i in range(3):
-            icon = QLabel()
-            icon.setFixedSize(32, 32)
-            icon.setStyleSheet("background-color: #c2b97b; border: 1px solid #7a6a3a;")
-            icon_row.addWidget(icon)
-        for i in range(5):
-            spacer = QLabel()
-            spacer.setFixedSize(32, 32)
-            icon_row.addWidget(spacer)
-        right_panel.addLayout(icon_row)
-        # Action buttons
-        actions = [
-            "BUILD NEW BASE", "BASE INFORMATION", "SOLDIERS", "EQUIP CRAFT",
-            "BUILD FACILITIES", "RESEARCH", "MANUFACTURE", "TRANSFER",
-            "PURCHASE/RECRUIT", "SELL/SACK", "GEOSCAPE"
-        ]
-        for action in actions:
-            btn = QPushButton(action)
-            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-            right_panel.addWidget(btn)
-        right_panel.addStretch()
-        main_layout.addLayout(right_panel, stretch=1)
+
+class TGuiBaseScreen(QWidget):
+    """Base class for all screen widgets that can be displayed in the BaseGUI."""
+
+    def __init__(self, parent=None):
+        """Initialize the base screen widget."""
+        super().__init__(parent)
+        self.setStyleSheet(f"background: {XcomTheme.BG_MID};")
+
+    def screen_activated(self):
+        """Called when this screen becomes active."""
+        pass
+
+    def screen_deactivated(self):
+        """Called when another screen becomes active."""
+        pass
+
+    def refresh_base_data(self):
+        """Refresh data when base changes."""
+        pass
+
+    def update_summary_display(self):
+        """Update summary data displays."""
+        pass
+
+
+class TGuiBase(QWidget):
+    """
+    Main base GUI class that contains the top panel and manages different screens.
+    """
+
+    def __init__(self, parent=None):
+        """Initialize the base GUI with top panel and screen container."""
+        super().__init__(parent)
+
+        # Set up the layout
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
+
+        # Create top panel
+        self.top_panel = TGuiBaseTopPanel()
+        self.top_panel.screen_changed.connect(self._handle_screen_change)
+        self.top_panel.base_changed.connect(self._handle_base_change)
+
+        # Create screen container
+        self.screen_container = QWidget()
+        self.screen_container.setStyleSheet(f"background: {XcomTheme.BG_MID};")
+        self.screen_layout = QVBoxLayout(self.screen_container)
+        self.screen_layout.setContentsMargins(0, 0, 0, 0)
+        self.screen_layout.setSpacing(0)
+
+        # Add widgets to layout
+        self.layout.addWidget(self.top_panel)
+        self.layout.addWidget(self.screen_container)
+
+        # Screen management
+        self.screens: Dict[str, TGuiBaseScreen] = {}
+        self.current_screen: Optional[TGuiBaseScreen] = None
+        self.current_screen_name: str = ""
+
+    def register_screen(self, screen_name: str, screen_widget: TGuiBaseScreen):
+        """
+        Register a screen widget with a name.
+
+        Args:
+            screen_name: The name of the screen (must match one from TopPanelWidget screens)
+            screen_widget: The widget to show for this screen
+        """
+        self.screens[screen_name] = screen_widget
+        screen_widget.setParent(self.screen_container)
+        screen_widget.hide()  # Initially hidden
+
+    def _handle_screen_change(self, screen_name: str):
+        """
+        Handle screen change when user clicks on a screen button.
+
+        Args:
+            screen_name: The name of the new screen to display
+        """
+        if screen_name not in self.screens:
+            print(f"Screen '{screen_name}' not registered")
+            return
+
+        # Deactivate current screen
+        if self.current_screen:
+            self.current_screen.screen_deactivated()
+            self.current_screen.hide()
+
+        # Activate new screen
+        self.current_screen = self.screens[screen_name]
+        self.current_screen_name = screen_name
+        self.current_screen.screen_activated()
+        self.current_screen.show()
+
+        # Make sure it fills the container
+        self.screen_layout.addWidget(self.current_screen)
+
+        print(f"Switched to screen: {screen_name}")
+
+    def _handle_base_change(self, base_index: int):
+        """
+        Handle base change when user switches to a different base.
+
+        Args:
+            base_index: The index of the new base
+        """
+        # Refresh data in all screens
+        for screen in self.screens.values():
+            screen.refresh_base_data()
+
+        # Update summary display in current screen
+        if self.current_screen:
+            self.current_screen.update_summary_display()
+
+        print(f"Base changed to index: {base_index}")
+
+    def set_initial_screen(self, screen_name: str):
+        """
+        Set the initial screen to display.
+
+        Args:
+            screen_name: The name of the screen to display initially
+        """
+        if screen_name in self.screens:
+            self._handle_screen_change(screen_name)
+            self.top_panel.set_screen(screen_name)
+        else:
+            print(f"Cannot set initial screen: '{screen_name}' not registered")
+
+
+def create_base_gui() -> TGuiBase:
+    """
+    Create and initialize the base GUI.
+
+    Returns:
+        TGuiBase: The initialized base GUI instance
+    """
+    base_gui = TGuiBase()
+    # Register available screens here (will be done by specific implementation)
+    return base_gui
