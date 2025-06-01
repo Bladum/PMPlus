@@ -431,4 +431,129 @@ class ItemList(QListWidget):
             return
 
         # Check if minimum drag distance is reached
-        if ((event.position().toPoint() - self.drag
+        if ((event.position().toPoint() - self.drag_start_position).manhattanLength() <
+                QApplication.startDragDistance()):
+            return
+
+        # Get the current item
+        current_item = self.currentItem()
+        if not current_item:
+            return
+
+        # Create drag object
+        drag = QDrag(self)
+        mime_data = QMimeData()
+
+        # Create a TItem from the QListWidgetItem
+        item = self._create_inventory_item(current_item)
+        if not item:
+            return
+
+        # Serialize item data for drag and drop
+        item_data = {
+            'name': item.name,
+            'type': item.item_type.name,
+            'rarity': item.rarity.name,
+            'properties': item.properties
+        }
+        mime_data.setText(json.dumps(item_data))
+        drag.setMimeData(mime_data)
+
+        # Create a pixmap for the drag icon
+        icon_size = 32
+        pixmap = QPixmap(icon_size, icon_size)
+        pixmap.fill(Qt.transparent)
+
+        # Draw item icon and count badge
+        painter = QPainter(pixmap)
+        name = current_item.text().split(' (')[0]
+        count = self.item_counts.get(name, 1)
+
+        # Draw the icon
+        icon = current_item.icon()
+        icon.paint(painter, 0, 0, icon_size, icon_size)
+
+        # Draw count badge if more than 1
+        if count > 1:
+            badge_size = 16
+            painter.setPen(Qt.NoPen)
+            painter.setBrush(QColor(0, 120, 215))
+            painter.drawEllipse(icon_size - badge_size, icon_size - badge_size, badge_size, badge_size)
+            painter.setPen(Qt.white)
+            painter.drawText(icon_size - badge_size, icon_size - badge_size,
+                            badge_size, badge_size, Qt.AlignCenter, str(count))
+        painter.end()
+
+        # Set the pixmap and hotspot
+        drag.setPixmap(pixmap)
+        drag.setHotSpot(QPoint(pixmap.width() // 2, pixmap.height() // 2))
+
+        # Execute the drag operation
+        if drag.exec(Qt.CopyAction) == Qt.CopyAction:
+            # Call drag callback if set
+            if self.drag_callback and item:
+                self.drag_callback(item)
+
+    def dragEnterEvent(self, event):
+        """Handle when a drag enters the widget area."""
+        if event.mimeData().hasText():
+            try:
+                item_data = json.loads(event.mimeData().text())
+                if isinstance(item_data, dict) and 'name' in item_data:
+                    event.accept()
+                    return
+            except json.JSONDecodeError:
+                pass
+        event.ignore()
+
+    def dragMoveEvent(self, event):
+        """Handle when a drag moves over the widget area."""
+        if event.mimeData().hasText():
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        """Handle when an item is dropped on the widget."""
+        if event.mimeData().hasText():
+            try:
+                # Parse the dropped item data
+                item_data = json.loads(event.mimeData().text())
+
+                if isinstance(item_data, dict) and 'name' in item_data:
+                    name = item_data['name']
+                    item_type_str = item_data.get('type', 'ITEM_GENERAL')
+
+                    # Convert string to TItemType enum
+                    try:
+                        item_type = TItemType(item_type_str)
+                    except ValueError:
+                        item_type = TItemType.ITEM_GENERAL
+
+                    # Convert string to TItemRarity enum if present
+                    rarity_str = item_data.get('rarity', 'COMMON')
+                    try:
+                        rarity = TItemRarity(rarity_str)
+                    except ValueError:
+                        rarity = TItemRarity.COMMON
+
+                    # Create a TItem instance
+                    item = TItem(
+                        name=name,
+                        icon_path=item_data.get('properties', {}).get('icon_path'),
+                        item_type=item_type,
+                        properties=item_data.get('properties', {}),
+                        rarity=rarity,
+                        weight=item_data.get('properties', {}).get('weight', 1)
+                    )
+
+                    # Call drop callback if set
+                    if self.drop_callback and item:
+                        self.drop_callback(item)
+
+                    event.accept()
+                    return
+            except (json.JSONDecodeError, ValueError) as e:
+                print(f"Error processing dropped item: {e}")
+
+        event.ignore()

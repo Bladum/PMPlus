@@ -1,5 +1,8 @@
-class TGuiMissionBrief(TGui):
+from gui.gui_core import TGuiCoreScreen
+
+
+class TGuiBattleBrief(TGuiCoreScreen):
     """
-    Represents a GUI for staring mission
+    Represents a GUI for manufacturing
     """
     pass

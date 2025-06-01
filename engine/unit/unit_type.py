@@ -18,6 +18,7 @@ class TUnitType:
 
         self.name = data.get('name', '')
         self.race = data.get('race', '')
+        self.sprite = data.get('sprite', '')
         self.rank = data.get('rank', 0)
         self.traits = data.get('traits', [])
 

@@ -1,5 +1,8 @@
-class TGuiDodgeFight(TGui):
+from gui.gui_core import TGuiCoreScreen
+
+
+class TGuiGlobeDodgefight(TGuiCoreScreen):
     """
-    Represents a GUI for dodge fight interception vs UFO or base defense with craft
+    Represents a GUI for manufacturing
     """
     pass

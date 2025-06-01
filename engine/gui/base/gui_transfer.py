@@ -1,7 +1,7 @@
-from gui.gui_base import TGuiBaseScreen
+from gui.gui_core import TGuiCoreScreen
 
 
-class TGuiTransfer(TGuiBaseScreen):
+class TGuiTransfer(TGuiCoreScreen):
     """
     Represents a GUI for transfer between bases
     """

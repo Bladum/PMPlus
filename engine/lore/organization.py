@@ -9,7 +9,7 @@ class TOrganization:
         self.key = key
         self.name = data.get('name', '')
         self.description = data.get('description', '')
-        self.icon = data.get('icon', '')
+        self.sprite = data.get('sprite', '')
         self.pedia = data.get('pedia', '')
         self.quests = data.get('quests', [])
         self.quests_needed = data.get('quests_needed', [])

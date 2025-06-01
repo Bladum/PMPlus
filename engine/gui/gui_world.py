@@ -1,24 +1,23 @@
 """
-Main base GUI class that manages screens and navigation for the XCOM game.
+Main globe GUI class that manages screens and navigation for the XCOM globe view.
 
-This class serves as the foundational container for the game's interface,
+This class serves as the container for the globe interface,
 managing screen transitions and maintaining the top panel navigation system.
-It acts as a coordinator between different specialized screen interfaces
-like Barracks, Hangar, Research Lab, etc.
+It acts as a coordinator between different specialized globe screen interfaces
+like Map, Intercept, Research, Production, etc.
 
 Interactions:
-- Contains and manages TGuiBaseTopPanel for navigation
-- Registers and displays various TGuiBaseScreen implementations
+- Contains and manages TGuiGlobeTopPanel for navigation
+- Registers and displays various TGuiGlobeScreen implementations
 - Handles screen transitions and maintains screen state
-- Propagates base change events to active screens
 - Provides interface for programmatic screen switching
 
 Key Features:
 - Screen registration and management system
-- Smooth transitions between different game screens
+- Smooth transitions between different globe screens
 - Event propagation from navigation panel to screen widgets
 - Consistent theming and visual layout across all screens
-- Centralized container for all game interface screens
+- Centralized container for all globe interface screens
 """
 
 from typing import Dict, Type, Optional
@@ -28,21 +27,21 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout
 import sys
 import os
 
-from gui.gui_base_top_panel import TGuiBaseTopPanel
-from gui.other.theme_manager import XcomTheme
-
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
+from gui.other.theme_manager import XcomTheme
 
 
 
 
-class TGuiBase(QWidget):
 
+
+class TGuiGlobe(QWidget):
+    """Main globe GUI container that manages screens and navigation."""
 
     def __init__(self, parent=None):
-        """Initialize the base GUI with top panel and screen container."""
+        """Initialize the globe GUI with top panel and screen container."""
         super().__init__(parent)
 
         # Set up the layout
@@ -51,9 +50,8 @@ class TGuiBase(QWidget):
         self.layout.setSpacing(0)
 
         # Create top panel
-        self.top_panel = TGuiBaseTopPanel()
+        self.top_panel = TGuiGlobeTopPanel()
         self.top_panel.screen_changed.connect(self._handle_screen_change)
-        self.top_panel.base_changed.connect(self._handle_base_change)
 
         # Create screen container
         self.screen_container = QWidget()
@@ -67,11 +65,11 @@ class TGuiBase(QWidget):
         self.layout.addWidget(self.screen_container)
 
         # Screen management
-        self.screens: Dict[str, TGuiCoreScreen] = {}
-        self.current_screen: Optional[TGuiCoreScreen] = None
+        self.screens: Dict[str, TGuiGlobeScreen] = {}
+        self.current_screen: Optional[TGuiGlobeScreen] = None
         self.current_screen_name: str = ""
 
-    def register_screen(self, screen_name: str, screen_widget: TGuiCoreScreen):
+    def register_screen(self, screen_name: str, screen_widget: TGuiGlobeScreen):
         """
         Register a screen widget with a name.
 
@@ -108,24 +106,7 @@ class TGuiBase(QWidget):
         # Make sure it fills the container
         self.screen_layout.addWidget(self.current_screen)
 
-        print(f"Switched to screen: {screen_name}")
-
-    def _handle_base_change(self, base_index: int):
-        """
-        Handle base change when user switches to a different base.
-
-        Args:
-            base_index: The index of the new base
-        """
-        # Refresh data in all screens
-        for screen in self.screens.values():
-            screen.refresh_base_data()
-
-        # Update summary display in current screen
-        if self.current_screen:
-            self.current_screen.update_summary_display()
-
-        print(f"Base changed to index: {base_index}")
+        print(f"Switched to globe screen: {screen_name}")
 
     def set_initial_screen(self, screen_name: str):
         """
@@ -141,13 +122,12 @@ class TGuiBase(QWidget):
             print(f"Cannot set initial screen: '{screen_name}' not registered")
 
 
-def create_base_gui() -> TGuiBase:
+def create_globe_gui() -> TGuiGlobe:
     """
-    Create and initialize the base GUI.
+    Create and initialize the globe GUI.
 
     Returns:
-        TGuiBase: The initialized base GUI instance
+        TGuiGlobe: The initialized globe GUI instance
     """
-    base_gui = TGuiBase()
-    # Register available screens here (will be done by specific implementation)
-    return base_gui
+    globe_gui = TGuiGlobe()
+    return globe_gui

@@ -22,7 +22,7 @@ class TTrait:
         self.id = pid
 
         self.name = data.get('name', pid)
-        self.icon = data.get('icon', '')
+        self.sprite = data.get('sprite', '')
         self.description = data.get('description', '')
         self.type = data.get('type', 0)  # Default to promotion type
 

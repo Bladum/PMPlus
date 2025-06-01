@@ -1,7 +1,7 @@
-from gui.gui_base import TGuiBaseScreen
+from gui.gui_core import TGuiCoreScreen
 
 
-class TGuiLab(TGuiBaseScreen):
+class TGuiLab(TGuiCoreScreen):
     """
     Represents a GUI for science
     """

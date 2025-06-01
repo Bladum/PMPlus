@@ -44,7 +44,7 @@ class TPediaEntry:
         self.name = data.get('name', pid)
         self.section = data.get('section', '')
         self.description = data.get('description', '')
-        self.image = data.get('image', '')
+        self.sprite = data.get('sprite', '')
         self.tech_needed = data.get('tech_needed', [])
         self.order = data.get('order', 0)
 

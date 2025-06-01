@@ -990,7 +990,7 @@ class ItemListWidget(QListWidget):
         """Add an item with associated information and count to the list"""
         # Normalize the info dictionary and ensure weight is included
         if 'icon_path' not in info_dict and hasattr(item, 'icon'):
-            icon = item.icon()
+            icon = item.sprite()
             if not icon.isNull():
                 info_dict['icon_path'] = 'other/item.png'
 
@@ -1004,7 +1004,7 @@ class ItemListWidget(QListWidget):
         # Store in all_items for filtering
         self.all_items.append({
             'name': base_name,
-            'icon': item.icon(),
+            'icon': item.sprite(),
             'info': info_dict,
             'count': count
         })

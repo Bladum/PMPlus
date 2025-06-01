@@ -1,5 +1,8 @@
-class TGuiReports(TGui):
+from gui.gui_core import TGuiCoreScreen
+
+
+class TGuiGlobeReports(TGuiCoreScreen):
     """
-    Represents a GUI for Visual reports of XCOM
+    Represents a GUI for manufacturing
     """
     pass

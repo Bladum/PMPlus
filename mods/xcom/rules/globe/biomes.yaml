@@ -16,7 +16,7 @@ biomes:
         map_id: 2
         type: water
         name: "Sea"
-        sprite: 'biomes_001.png'
+        sprite: 'biomes_002.png'
         description: "Shallow water"
         terrains: {}
     # EARTH LAND
@@ -24,7 +24,7 @@ biomes:
         map_id: 3
         type: land
         name: "Farmland"
-        sprite: 'farmland.png'
+        sprite: 'biomes_003.png'
         description: "Grasslands and farmlands"
         terrains:
             farmland: 20
@@ -34,7 +34,7 @@ biomes:
         map_id: 4
         type: land
         name: "Forest"
-        sprite: 'biomes_001.png'
+        sprite: 'biomes_004.png'
         description: "Different types of forest"
         terrains:
             forest: 20
@@ -45,7 +45,7 @@ biomes:
         map_id: 21
         type: land
         name: "Mars"
-        sprite: 'biomes_001.png'
+        sprite: 'biomes_010.png'
         description: "Mars is a barren and desolate world with a harsh environment."
         terrains:
             mars_surface: 20

@@ -1,6 +1,8 @@
+from gui.gui_core import TGuiCoreScreen
 
-class TGuiInventory(TGui):
+
+class TGuiBattleInventory(TGuiCoreScreen):
     """
-    Represents a GUI for soldier inventory during battle
+    Represents a GUI for manufacturing
     """
     pass

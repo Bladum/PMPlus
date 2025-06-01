@@ -8,7 +8,7 @@ It handles unit management, equipment, and inventory interfaces.
 import sys
 import os
 
-from gui.gui_base import TGuiBaseScreen
+from gui.gui_core import TGuiCoreScreen
 
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -23,7 +23,7 @@ from syf.theme_styles import XcomTheme, XcomStyle, GRID, px
 from syf.game_data import GameData, ItemType
 from syf.inventory_system import (InventoryItem, InventoryTemplate, UnitInventoryManager)
 
-class TGuiBarracks(TGuiBaseScreen):
+class TGuiBarracks(TGuiCoreScreen):
     """
     BarracksGUI implements the barracks screen with unit management,
     equipment loadouts, and inventory functionality.

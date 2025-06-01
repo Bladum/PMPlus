@@ -4,14 +4,14 @@ class TQuest:
     This is used to manage progress in game instead of using research (optional).
     This is usually used to manage progress in game in %.
     """
-    def __init__(self, key, name, description, pedia, value=0, quests_needed=None, tech_needed=None):
+    def __init__(self, key, data):
         self.key = key
-        self.name = name
-        self.description = description
-        self.pedia = pedia
-        self.value = value
-        self.quests_needed = quests_needed or []
-        self.tech_needed = tech_needed or []
+        self.name = data.get('name', '')
+        self.description = data.get('description', '')
+        self.pedia = data.get('pedia', '')
+        self.value = data.get('value', 0)
+        self.quests_needed = data.get('quests_needed', [])
+        self.tech_needed = data.get('tech_needed', [])
         self.completed = False
 
     def can_be_completed(self, completed_quests, completed_techs):

@@ -8,7 +8,7 @@ class TEvent:
         self.pid = pid
         self.name = data.get('name', pid)
         self.description = data.get('description', '')
-        self.image = data.get('image', '')
+        self.sprite = data.get('sprite', '')
 
         # Preconditions
         self.tech_needed = data.get('tech_needed', [])

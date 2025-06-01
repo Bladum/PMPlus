@@ -1,7 +1,7 @@
 from gui.gui_core import TGuiCoreScreen
 
 
-class TGuiGlobeIntercept(TGuiCoreScreen):
+class TGuiFacility(TGuiCoreScreen):
     """
     Represents a GUI for manufacturing
     """

@@ -14,6 +14,7 @@ class TFaction:
 
         self.aggression = data.get("aggression", 0)
         self.pedia = data.get("pedia", '')
+        self.sprite = data.get("sprite", '')
 
         self.tech_start = data.get("tech_start", [])
         self.tech_end = data.get("tech_end", [])

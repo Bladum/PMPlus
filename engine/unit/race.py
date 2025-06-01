@@ -11,7 +11,7 @@ class TRace:
 
         self.name = data.get('name', pid)
         self.description = data.get('description', '')
-        self.icon = data.get('icon', '')
+        self.sprite = data.get('sprite', '')
 
         self.is_big = data.get('is_big', False)
         self.is_mechanical = data.get('is_mechanical', False)

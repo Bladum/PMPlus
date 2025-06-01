@@ -1,7 +1,7 @@
 from gui.gui_core import TGuiCoreScreen
 
 
-class TGuiMarket(TGuiCoreScreen):
+class TGuiPrison(TGuiCoreScreen):
     """
     Represents a GUI for purchase
     """

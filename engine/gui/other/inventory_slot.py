@@ -38,36 +38,13 @@ from PySide6.QtGui import (
 )
 
 # Import the item types from the game's inventory system
-try:
-    from engine.gui.widgets import ItemType
-except ImportError:
-    # Fallback to enum classes if the imports fail
-    class ItemType(Enum):
-        """Fallback enum for item types if imports fail"""
-        ARMOUR = "armour"
-        WEAPON = "weapon"
-        EQUIPMENT = "equipment"
-        OTHER = "other"
+from engine.gui.widgets import ItemType
 
-# Try to import global inventory slot registry
-try:
-    from engine.gui.widgets import equipment_slots_global
-except ImportError:
-    # Fallback empty list if import fails
-    equipment_slots_global = []
+# Import global inventory slot registry
+from engine.gui.widgets import equipment_slots_global
 
-# Import functions for armor-dependent slots if available
-try:
-    from engine.gui.widgets import validate_and_update_equipment_slots, update_weight_display
-except ImportError:
-    # Fallback functions if imports fail
-    def validate_and_update_equipment_slots():
-        """Validate equipment slots based on current armor."""
-        print("Equipment slot validation not implemented.")
-
-    def update_weight_display():
-        """Update weight display after item equip/unequip."""
-        print("Weight display update not implemented.")
+# Import functions for armor-dependent slots
+from engine.gui.widgets import validate_and_update_equipment_slots, update_weight_display
 
 
 class TInventorySlot(QFrame):

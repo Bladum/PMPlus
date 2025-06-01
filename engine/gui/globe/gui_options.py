@@ -1,7 +1,8 @@
+from gui.gui_core import TGuiCoreScreen
 
 
-class TGuiOptions:
+class TGuiGlobeMenu(TGuiCoreScreen):
     """
-    Interface for game settings and configuration options
+    Represents a GUI for manufacturing
     """
     pass

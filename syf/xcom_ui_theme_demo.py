@@ -664,7 +664,7 @@ class ItemListWidget(QListWidget):
         """Add an item with associated information to the list"""
         # Normalize the info dictionary
         if 'icon_path' not in info_dict and hasattr(item, 'icon'):
-            icon = item.icon()
+            icon = item.sprite()
             if not icon.isNull():
                 info_dict['icon_path'] = 'other/item.png'
 

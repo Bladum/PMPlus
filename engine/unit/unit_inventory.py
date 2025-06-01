@@ -14,19 +14,7 @@ Key Features:
 
 from typing import Optional, Dict, List, Any, Tuple, Union, Set
 from dataclasses import dataclass, field
-
-# Import existing item class if available, otherwise define a minimal version
-try:
-    from engine.item.item import Item
-except ImportError:
-    @dataclass
-    class Item:
-        """Simplified Item class to use if the real one isn't available"""
-        id: str
-        name: str
-        item_type: str  # "armor", "weapon", "equipment"
-        weight: int = 1
-        properties: Dict[str, Any] = field(default_factory=dict)
+from engine.item.item import Item
 
 
 class TUnitInventory:

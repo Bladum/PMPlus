@@ -994,7 +994,7 @@ class UnitListWidget(QListWidget):
         # Store in all_units for filtering
         self.all_units.append({
             'name': unit_name,
-            'icon': item.icon(),
+            'icon': item.sprite(),
             'info': info_dict
         })
 

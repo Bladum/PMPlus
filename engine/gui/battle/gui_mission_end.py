@@ -1,6 +1,8 @@
+from gui.gui_core import TGuiCoreScreen
 
-class TGuiMissionEnd(TGui):
+
+class TGuiBattleEnd(TGuiCoreScreen):
     """
-    Represents a GUI for ending mission
+    Represents a GUI for manufacturing
     """
     pass

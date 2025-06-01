@@ -1,5 +1,9 @@
-class TGuiFunding(TGui):
+from gui.gui_core import TGuiCoreScreen
+
+
+
+class TGuiGlobeFunding(TGuiCoreScreen):
     """
-    Represents a GUI for score and xcom funding
+    Represents a GUI for manufacturing
     """
     pass
