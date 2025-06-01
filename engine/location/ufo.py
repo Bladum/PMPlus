@@ -180,3 +180,5 @@ class TUfo(TLocation):
             return random.random() < crash_chance
         # If destroyed, always crashed
         return self.is_destroyed()
+
+

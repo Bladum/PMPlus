@@ -49,3 +49,4 @@ class TRace:
         self.level_max = data.get('level_max', 0)
         self.level_train = data.get('level_train', 0)
         self.level_start = data.get('level_start', 0)
+

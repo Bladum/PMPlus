@@ -11,7 +11,7 @@ class TBiome:
 
         # Optional fields with defaults
         self.description = data.get("description", "")
-        self.image = data.get("image", None)
+        self.image = data.get("sprite", None)
         self.type = data.get("type", 'land')
         self.terrains = data.get("terrains", {})
 

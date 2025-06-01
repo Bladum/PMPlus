@@ -1,21 +1,26 @@
 """
-Inventory Slot Widget for XCOM Inventory System
+A customizable slot component that can hold and display game items.
 
-This module provides the InventorySlot widget, a customizable slot component
-that can hold game items with full drag and drop support. It handles item
-type validation, display customization, and seamless integration with the
-existing inventory management systems.
+This class provides an interactive slot for equipment items with support for
+drag and drop operations, item type restrictions, and visual customization.
+It forms the foundation of equipment screens, loadout interfaces, and inventory
+grids throughout the game UI.
 
-Features:
-- Item type restriction (armor, weapon, equipment, etc.)
-- Visual customization based on item type
-- Drag and drop functionality for item movement
-- Stack handling for stackable items
-- Tooltip display with item details
-- Optional capacity for special slot types
-- Lock/unlock functionality to prevent item removal
-- Armor-dependent equipment slot validation
-- Direct inventory return on right-click
+Interactions:
+- Communicates with TItemTransferManager for drag and drop operations
+- Validates item type compatibility with defined slot restrictions
+- Connects with inventory systems for item movement
+- Emits signals when items are added, removed, or interacted with
+- Responds to armor changes by updating slot availability
+
+Key Features:
+- Type-restricted slots (armor, weapon, equipment, etc.)
+- Visual customization through colors and borders
+- Drag and drop with validation
+- Stack management for stackable items
+- Detailed tooltip display with item information
+- Lock functionality to prevent item removal
+- Right-click return to inventory functionality
 """
 
 import json
@@ -66,21 +71,7 @@ except ImportError:
 
 
 class TInventorySlot(QFrame):
-    """
-    A customizable slot component that can hold and display game items.
 
-    Supports drag and drop operations, item type restrictions, and visual
-    customization based on item properties. Used for equipment slots,
-    inventory grids, and anywhere items need to be displayed and manipulated.
-
-    Signals:
-        itemChanged(item): Emitted when the item in the slot changes.
-            Provides the new item or None if the slot was cleared.
-        itemDropped(item, quantity): Emitted when an item is dropped
-            from another source. Provides the dropped item and quantity.
-        rightClicked(item): Emitted when the slot is right-clicked.
-            Provides the item in the slot or None if empty.
-    """
 
     # Signals for slot events
     itemChanged = Signal(object)  # Emits item or None when changed

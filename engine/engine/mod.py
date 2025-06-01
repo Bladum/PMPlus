@@ -1,4 +1,22 @@
+"""
+Module Overview: mod.py
+-----------------------
+This module provides core enumeration types and the main mod management class that serves
+as a central repository for all game data loaded from mod files and directories.
+
+Class Relationships:
+- TItemCategory: Used by TUnitInventory for slot validation and by TMod for UI elements
+- TItemRarity: Used by TItemType to determine item properties and availability
+- TUnitCategory: Used by TMod and TGame for unit filtering and organization
+- TMod: Central data manager that loads, stores, and provides access to all game entities
+  * Interfaces with TModLoader to load data from files
+  * Accessed by TGame to provide data to the game systems
+  * Contains collections of all game object types for global access
+"""
+
 from pathlib import Path
+from enum import Enum
+from typing import List, Dict, Any, Tuple
 
 from PIL.Image import Image
 from pytmx import TiledTileset
@@ -34,6 +52,43 @@ from pedia.pedia_entry import TPediaEntry
 from traits.trait import TTrait
 from unit.race import TRace
 from unit.unit_type import TUnitType
+
+
+class TItemCategory(Enum):
+    """
+    Enumeration for different types of equipment items.
+
+    Used for categorizing items and determining valid equipment slots.
+    """
+    ARMOUR = "armour"
+    WEAPON = "weapon"
+    EQUIPMENT = "equipment"
+    OTHER = "other"
+
+
+class TItemRarity(Enum):
+    """
+    Enumeration for item rarity levels affecting gameplay balance.
+
+    Determines item availability, power level, and visual presentation.
+    """
+    COMMON = "common"
+    UNCOMMON = "uncommon"
+    RARE = "rare"
+    EPIC = "epic"
+    LEGENDARY = "legendary"
+
+
+class TUnitCategory(Enum):
+    """
+    Enumeration for different unit types in the game.
+
+    Used for filtering, organization, and applying category-specific logic.
+    """
+    SOLDIER = "soldier"
+    TANK = "tank"
+    DOG = "dog"
+    ALIEN = "alien"
 
 
 class TMod:
@@ -108,6 +163,7 @@ class TMod:
         self.ufo_types : dict[str, TUfoType] = {}
         self.craft_types: dict[str, TCraftType] = {}
         self.ufo_scripts : dict[str, TUfoScript] = {}
+        self.starting_base: dict = {}
 
         # pedia
         self.pedia_entries : dict[str, TPediaEntry] = {}
@@ -125,6 +181,11 @@ class TMod:
             obj = TFacilityType(pid, dat)
             self.facilities[pid] = obj
         print(f"Loaded {len(self.facilities)} facilities")
+
+        datas = mod_data.get('start_bases', {})
+        for pid, dat in datas.items():
+            self.starting_base[pid] = dat
+        print(f"Loaded {len(self.starting_base)} starting bases")
 
         # ECONOMY
 
@@ -381,3 +442,65 @@ class TMod:
         """
         for terrain in self.terrains.values():
             terrain.render_map_blocks()
+
+    @staticmethod
+    def get_equipment_slots() -> List[Dict[str, Any]]:
+        """
+        Get equipment slot configuration data.
+
+        Returns:
+            List of slot dictionaries containing position, type, and styling info
+
+        Each slot dictionary contains:
+        - name: Display name for the slot
+        - type: ItemType enum value for slot validation
+        - position: (x, y) grid coordinates for UI positioning
+        - color_adjust: (r, g, b) color adjustment values for visual variety
+        """
+        return [
+            {"name": "Armour", "type": TItemCategory.ARMOUR, "position": (20, 7), "color_adjust": (0, 0, 0.05)},  # Blue tint
+            {"name": "Weapon", "type": TItemCategory.WEAPON, "position": (28, 7), "color_adjust": (0.05, 0, 0)},  # Red tint
+            {"name": "Equipment 1", "type": TItemCategory.EQUIPMENT, "position": (21, 13), "color_adjust": (0, 0.05, 0)},  # Green tint
+            {"name": "Equipment 2", "type": TItemCategory.EQUIPMENT, "position": (21, 18), "color_adjust": (0, 0.05, 0)},  # Green tint
+            {"name": "Equipment 3", "type": TItemCategory.EQUIPMENT, "position": (27, 13), "color_adjust": (0, 0.05, 0)},  # Green tint
+            {"name": "Equipment 4", "type": TItemCategory.EQUIPMENT, "position": (27, 18), "color_adjust": (0, 0.05, 0)},  # Green tint
+        ]
+
+    @staticmethod
+    def get_unit_categories() -> List[Dict[str, str]]:
+        """
+        Get list of unit categories for filtering UI.
+
+        Returns:
+            List of dictionaries containing category names and icon paths
+
+        Used by UI components to populate filter dropdowns and organize
+        unit displays by type.
+        """
+        return [
+            {"name": "All", "icon": "units/icon_a.png"},
+            {"name": "Soldier", "icon": "units/icon_a.png"},
+            {"name": "Tank", "icon": "units/icon_b.png"},
+            {"name": "Dog", "icon": "units/icon_c.png"},
+            {"name": "Alien", "icon": "units/icon_d.png"},
+        ]
+
+    @staticmethod
+    def get_item_categories() -> List[Dict[str, str]]:
+        """
+        Get list of item categories for filtering UI.
+
+        Returns:
+            List of dictionaries containing category names and icon paths
+
+        Used by UI components to populate filter dropdowns and organize
+        item displays by type.
+        """
+        return [
+            {"name": "All", "icon": "other/item2.png"},
+            {"name": "Armour", "icon": "other/item2.png"},
+            {"name": "Weapon", "icon": "other/item2.png"},
+            {"name": "Equipment", "icon": "other/item.png"},
+            {"name": "Other", "icon": "other/item.png"},
+        ]
+

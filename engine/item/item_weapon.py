@@ -1,8 +1,28 @@
+"""
+Represents a weapon item assigned to a unit (soldier, alien, etc).
+
+This class manages the operational state and capabilities of a weapon
+equipped by a unit. It maintains the current state of the weapon (ammo,
+active mode) and provides methods to calculate effective parameters
+based on the selected firing mode.
+
+Interactions:
+- References TItemType for static weapon parameters
+- Uses TWeaponMode to calculate effective parameters for each mode
+- Used by combat systems for hit chance and damage calculations
+- Provides stat modifiers that may affect unit stats
+- Interacts with UI systems for mode selection and ammo display
+
+Key Features:
+- Current state tracking (ammo, selected mode)
+- Multiple firing modes with parameter adjustments
+- Action point cost calculations
+- Range, accuracy and damage parameter access
+- Fire capability and ammo consumption
+"""
+
 class TItemWeapon:
-    """
-    Represents a weapon item assigned to a unit (soldier, alien, etc).
-    Tracks current state (ammo, reload, etc) and references static parameters from item type.
-    """
+
     def __init__(self, item_type=None):
         from engine.engine.game import TGame
         self.game = TGame()

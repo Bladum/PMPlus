@@ -7,7 +7,7 @@
 medals:
     medal_night_ops:
         name: "Medal for nigh operations"
-        icon: nightops.png
+        sprite: 'trait_nightops.png'
         races:
             - human
             - hybrid

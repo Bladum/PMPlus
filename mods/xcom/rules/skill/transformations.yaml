@@ -7,7 +7,7 @@
 transformations:
     transform_bio_enhanced:
         name: "Bio - Transformation"
-        icon: bio_transformation.png
+        sprite: 'trait_bio_transformation.png'
         races:
             - human
             - hybrid

@@ -1,7 +1,21 @@
+"""
+Defines the specifications and capabilities of a specific UFO class.
+
+UFO Types represent the various alien craft that can appear in the game, from small scouts
+to large battleships. Each type has unique stats affecting its movement, combat capabilities,
+detection properties, and the mission site it generates when landing or crashing.
+
+Relationships:
+- Referenced by TUfo instances to determine their appearance and capabilities
+- Balanced against player's TCraftType vehicles for interception gameplay
+- Contains deployment information for alien units appearing in the UFO
+- Linked to tactical combat map generation when the UFO becomes a mission site
+- Affects scoring calculations for player achievements
+- Stored in TMod's ufo_types collection for global access
+"""
+
 class TUfoType:
-    """
-    Represents a type of UFO with all its parameters and stats.
-    """
+
     def __init__(self, pid, data):
         self.pid = pid
 

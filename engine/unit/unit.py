@@ -1,3 +1,19 @@
+"""
+TUnit Class
+==========
+
+Purpose:
+    Represents an individual unit in the game with all its attributes and capabilities.
+
+Interactions:
+    - Uses TUnitType for type information
+    - Belongs to a faction (TSide)
+    - Uses TUnitStats for attributes
+    - Has racial template (TRace)
+    - Can have traits (TTrait)
+    - Equipped with armor and weapons
+"""
+
 from item.item_armour import TItemArmour
 from item.item_weapon import TItemWeapon
 from traits.trait import TTrait
@@ -78,6 +94,8 @@ class TUnit:
             stats = stats + weapon.get_stat_modifiers()
 
         return stats
+
+
 
 
 

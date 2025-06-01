@@ -5,7 +5,7 @@ item_modes:
     # SNAP is default
     snap:
         name: "Snap"
-        key: ""
+        sprite: 'mode_snap.png'
         ap_cost_modifier: 1.0
         range_modifier: 1.0
         accuracy_modifier: 1.0
@@ -14,7 +14,7 @@ item_modes:
     # AIM is for sniper shot, better accuracy, but slower
     aim:
         name: "Aimed"
-        key: "Control"
+        sprite: 'mode_aim.png'
         ap_cost_modifier: 1.75
         range_modifier: 1.0
         accuracy_modifier: 1.50
@@ -23,7 +23,7 @@ item_modes:
     # STUN is focus on overwhelming the target, not killing it
     stun:
         name: "Stun"
-        key: "Alt"
+        sprite: 'mode_stun.png'
         ap_cost_modifier: 1.0
         range_modifier: 1.0
         accuracy_modifier: 1.0
@@ -32,7 +32,7 @@ item_modes:
     # CRITICAL is focus on critical hit, higher damage but lower accuracy
     critical:
         name: "Critical"
-        key: "Alt"
+        sprite: 'mode_critical.png'
         ap_cost_modifier: 1.50
         range_modifier: 1.0
         accuracy_modifier: 0.75
@@ -41,7 +41,7 @@ item_modes:
     # BURST is for automatic weapons, a lot of shots, but lower accuracy
     burst:
         name: "Burst"
-        key: "Shift"
+        sprite: 'mode_burst.png'
         ap_cost_modifier: 1.25
         range_modifier: 1.0
         accuracy_modifier: 0.50
@@ -50,7 +50,7 @@ item_modes:
     # AUTO is for full automatic weapons, it fires until end of ammo, but lower accuracy
     auto:
         name: "Automatic"
-        key: "Shift"
+        sprite: 'mode_auto.png'
         ap_cost_modifier: 2.0
         range_modifier: 1.0
         accuracy_modifier: 0.25
@@ -59,7 +59,7 @@ item_modes:
     # FAST is for fast weapons, cheaper less accurate shot
     fast:
         name: "Fast"
-        key: "Alt"
+        sprite: 'mode_fast.png'
         ap_cost_modifier: 0.75
         range_modifier: 1.0
         accuracy_modifier: 0.75
@@ -68,7 +68,7 @@ item_modes:
     # FAR is to fire in parabolic arc, higher range but lower accuracy and damage
     far:
         name: "Long range"
-        key: "Alt"
+        sprite: 'mode_far.png'
         ap_cost_modifier: 1.25
         range_modifier: 1.5
         accuracy_modifier: 0.75

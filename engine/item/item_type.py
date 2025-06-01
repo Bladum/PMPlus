@@ -1,12 +1,35 @@
+"""
+Base item type definition that stores static parameters for all types of items.
+
+This class serves as the central reference for all item characteristics and parameters.
+It defines the static/unchanging properties of items that individual instances refer to,
+acting as a template or definition for creating actual game items.
+
+Interactions:
+- Referenced by TItemArmour, TItemWeapon and other item classes for base parameters
+- Used by manufacturing and research systems to determine requirements
+- Used by inventory systems to determine slot compatibility
+- Referenced for purchase/sell costs in economy systems
+- Accesses TWeaponMode for weapon firing modes
+
+Key Features:
+- Complete item classification system with categories
+- Static combat parameters (damage, accuracy, etc.)
+- Technology/research requirements
+- Economic parameters (costs, manufacturing)
+- Armor properties (resistance, shield, slots)
+- Weapon properties with multiple firing modes
+- Craft/vehicle equipment parameters
+- Support for special effects and bonuses
+"""
+
 from typing import Any, Dict, List, Optional
 
 from unit.unit_stat import TUnitStats
 from .item_mode import TWeaponMode
 
 class TItemType:
-    """
-    Basic type of item used by soldiers
-    """
+
 
     ITEM_GENERAL: int = 0
     ITEM_CRAFT_ITEM: int = 1

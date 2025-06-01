@@ -1,9 +1,23 @@
 """
-Craft Inventory Widget for XCOM Inventory System
+A specialized inventory widget for displaying and managing craft equipment.
 
-This module provides the CraftInventoryWidget component which is specialized for
-displaying and managing craft items, weapons, and equipment.
-It extends the base InventoryWidget with craft-specific item categories and filtering.
+This class customizes the base inventory widget for XCOM aircraft and vehicles,
+handling specialized equipment categories and functionality for craft loadouts.
+It manages weapons, engines, defensive systems and other components that can
+be installed on aircraft and vehicles.
+
+Interactions:
+- Extends TInventoryWidget with craft-specific categories and methods
+- Connects with craft data structures to display available equipment
+- Used by hangar and craft loadout screens
+- Provides drag sources for equipping items onto craft equipment slots
+- Receives items unequipped from craft equipment slots
+
+Key Features:
+- Specialized categories for craft equipment (weapons, engines, defenses)
+- Helper methods for adding different craft component types
+- Craft-specific filtering and sorting logic
+- Direct connection to currently selected craft's loadout
 """
 
 from typing import Dict, Any, Optional, Callable
@@ -15,15 +29,7 @@ from inventory_system import InventoryItem
 
 
 class TCraftInventoryWidget(TInventoryWidget):
-    """
-    A specialized inventory widget for displaying and managing craft equipment.
 
-    Features:
-    - Specific categories for craft items (weapons, engines, defenses, etc)
-    - Sorted item list with counts
-    - Drag and drop support for equipping/unequipping craft components
-    - Item filtering by craft component type
-    """
 
     def __init__(self, parent=None):
         """Initialize a craft inventory widget with appropriate categories."""

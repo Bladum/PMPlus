@@ -37,6 +37,16 @@ class TUnitInventory:
     and up to 4 equipment slots. The availability of equipment slots is
     determined by the equipped armor.
 
+    Purpose:
+        Provides a complete inventory management system for unit equipment.
+
+    Interactions:
+        - Owned by TUnit to manage its equipment
+        - Holds Item objects (armor, weapons, equipment)
+        - Affects TUnitStats through equipment bonuses
+        - Interacts with combat systems through equipped items' capabilities
+        - Provides weight calculations that may affect unit movement
+
     Attributes:
         armor_slot: Current armor item (or None if empty)
         weapon_slot: Current weapon item (or None if empty)

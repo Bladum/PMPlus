@@ -1,11 +1,17 @@
+#
+# UNIT ITEM ARMOURS
+#
+
+---
+
 unit_armours:
   basic_armor:
     name: "Basic Armor"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Standard protective gear for XCOM operatives."
     weight: 10
     size: 5
-    sprite: "lightArmour.png"
+    sprite: "armour_light_vest.png"
     armour: 10
     resistance:
       ballistic: 0.7
@@ -19,11 +25,11 @@ unit_armours:
 
   tactical_armor:
     name: "Tactical Armor"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Enhanced armor with better protection against various threats."
     weight: 15
     size: 7
-    sprite: "tacticalArmour.png"
+    sprite: "armour_tactical_suit.png"
     armour: 15
     resistance:
       ballistic: 0.5
@@ -37,11 +43,11 @@ unit_armours:
 
   combat_vest:
     name: "Combat Vest"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Basic combat protection."
     weight: 3
     size: 3
-    sprite: "combatVest.png"
+    sprite: "armour_combat_vest.png"
     armour: 5
     resistance:
       ballistic: 0.8
@@ -55,11 +61,11 @@ unit_armours:
 
   nano_armour:
     name: "Nano Armour"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Lightweight, strong armor."
     weight: 3
     size: 3
-    sprite: "nanoArmour.png"
+    sprite: "armour_nano_vest.png"
     armour: 20
     resistance:
       ballistic: 0.4
@@ -72,32 +78,13 @@ unit_armours:
       health: 5
     equipment_slots: 4
 
-  tactical_armour:
-    name: "Tactical Armour"
-    category: 4  # ITEM_UNIT_ARMOUR
-    description: "Military-grade protection."
-    weight: 6
-    size: 6
-    sprite: "tacticalArmour.png"
-    armour: 15
-    resistance:
-      ballistic: 0.5
-      energy: 0.8
-      explosive: 0.6
-      melee: 0.8
-      fire: 0.9
-    unit_stats:
-      speed: -2
-      health: 4
-    equipment_slots: 3
-
   power_armour:
     name: "Power Armour"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Heavy powered armor."
     weight: 10
     size: 10
-    sprite: "powerArmour.png"
+    sprite: "armour_power_suit.png"
     armour: 30
     resistance:
       ballistic: 0.2
@@ -112,11 +99,11 @@ unit_armours:
 
   stealth_suit:
     name: "Stealth Suit"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Cloaking technology armor."
     weight: 4
     size: 4
-    sprite: "stealthSuit.png"
+    sprite: "armour_stealth_suit.png"
     armour: 10
     resistance:
       ballistic: 0.6
@@ -131,11 +118,11 @@ unit_armours:
 
   heavy_armour:
     name: "Heavy Armour"
-    category: 4  # ITEM_UNIT_ARMOUR
+    category: 4
     description: "Maximum protection armor."
     weight: 8
     size: 8
-    sprite: "heavyArmour.png"
+    sprite: "armour_heavy_vest.png"
     armour: 25
     resistance:
       ballistic: 0.3

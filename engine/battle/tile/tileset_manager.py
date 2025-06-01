@@ -7,7 +7,6 @@ class TTilesetManager:
     def __init__(self, folder_path):
         self.folder_path = str(folder_path)
         self.all_tiles = {}  # flat dict: key -> (tile_img, mask)
-        self.tilesets = {}   # dict: tileset_name -> {key -> (tile_img, mask)}
 
     def load_tileset(self, tsx_path):
         tree = ET.parse(tsx_path)
@@ -22,7 +21,7 @@ class TTilesetManager:
         columns = int(root.get('columns', 10))
         tilecount = int(root.get('tilecount', 100))
         tileset_name = os.path.splitext(os.path.basename(tsx_path))[0]
-        tiles = {}
+
         for i in range(min(tilecount, 100)):
             row = i // columns
             col = i % columns
@@ -37,24 +36,79 @@ class TTilesetManager:
                 tile_img = tile_img.convert('RGBA')
             mask = tile_img.split()[3] if tile_img.mode == 'RGBA' else None
 
+            # Store directly in all_tiles with the key format tileset_name_XXX
             key = f"{tileset_name}_{i+1:03d}"
-            tiles[key] = (tile_img, mask)
-        return tiles
+            self.all_tiles[key] = (tile_img, mask)
 
-    def load_all_tilesets_from_folder(self, ):
-        self.tilesets = {}
+    def load_all_tilesets_from_folder(self):
         self.all_tiles = {}
 
         tsx_files = glob.glob(os.path.join(self.folder_path, '**', '*.tsx'), recursive=True)
         print(f"Found {len(tsx_files)} TSX files in {self.folder_path} (recursive)")
         for tsx_file in tsx_files:
-            tileset_name = os.path.splitext(os.path.basename(tsx_file))[0]
-            tiles = self.load_tileset(tsx_file)
-            self.tilesets[tileset_name] = {}
-            for i, (key, tile_tuple) in enumerate(tiles.items(), 1):
-                tile_key = f"{tileset_name}_{i:03d}"
-                self.all_tiles[tile_key] = tile_tuple
-                self.tilesets[tileset_name][tile_key] = tile_tuple
+            self.load_tileset(tsx_file)
+
+    def load_individual_images_from_folder(self, images_folder, recursive=True):
+        """
+        Load individual PNG files from a folder and its subfolders.
+        Each PNG is loaded as a separate tile and added to all_tiles.
+
+        Args:
+            images_folder (str): Path to the folder containing PNG files
+            recursive (bool): Whether to search recursively in subfolders
+        """
+        images_folder = str(images_folder)
+        search_pattern = os.path.join(images_folder, '**', '*.png') if recursive else os.path.join(images_folder, '*.png')
+        png_files = glob.glob(search_pattern, recursive=recursive)
+        print(f"Found {len(png_files)} PNG files in {images_folder} ({'recursive' if recursive else 'non-recursive'})")
+
+        for png_file in png_files:
+            try:
+                # Get relative path to create a sensible key
+                rel_path = os.path.relpath(png_file, images_folder)
+
+                # Replace path separators and extension for key creation
+                key = rel_path.replace(os.sep, '_').replace('/', '_').replace('.png', '')
+
+                # Load image
+                img = Image.open(png_file)
+                if img.mode != 'RGBA':
+                    img = img.convert('RGBA')
+
+                # Extract mask from alpha channel
+                mask = img.split()[3] if img.mode == 'RGBA' else None
+
+                # Store the image in all_tiles
+                self.all_tiles[key] = (img, mask)
+
+            except Exception as e:
+                print(f"Error loading image {png_file}: {e}")
+
+    def load_all_images(self, tilesets_folder, individual_images_folder=None):
+        """
+        Comprehensive method to load all image resources at once.
+
+        Args:
+            tilesets_folder (str): Path to folder containing tileset files
+            individual_images_folder (str, optional): Path to folder containing individual PNG files
+        """
+        self.folder_path = str(tilesets_folder)
+        self.load_all_tilesets_from_folder()
+
+        if individual_images_folder:
+            self.load_individual_images_from_folder(individual_images_folder)
+
+    def get_tile(self, key):
+        """
+        Get a tile by its key from all available tiles.
+
+        Args:
+            key (str): The key for the tile
+
+        Returns:
+            tuple: (image, mask) or None if not found
+        """
+        return self.all_tiles.get(key)
 
     def save_tiles_to_folders(self, output_root):
         for key, tile_tuple in self.all_tiles.items():
@@ -67,9 +121,23 @@ class TTilesetManager:
                 file_path = os.path.join(folder_path, f"{tileset}_{int(num):03d}.png")
                 img.save(file_path)
 
+#
 # Example usage:
 # mgr = TTilesetManager()
-# mgr.load_all_tilesets_from_folder('../../../mods/xcom/tiles')
-# mgr.save_tiles_to_folders('output_tiles')
+# mgr.load_all_images('../../../mods/xcom/tiles', '../../../mods/xcom/images')
 # tile_img = mgr.all_tiles.get('desert_07')
-# print(mgr.tilesets['desert'].keys())
+# individual_img = mgr.all_tiles.get('ui_buttons_confirm')
+#
+# manager = TTilesetManager(tileset_folder_path)
+#
+# # Load both tilesets and individual images
+#
+# manager.load_all_tilesets_from_folder()  # Loads tile-based images
+# manager.load_individual_images_from_folder('mods/xcom/images')  # Loads individual PNGs
+#
+# # Now all images are accessible through the same all_tiles dictionary
+#
+# confirm_button = manager.all_tiles['ui_buttons_confirm']  # From individual PNG
+# wounded_icon = manager.all_tiles['icons_wounded']         # From individual PNG
+# terrain_tile = manager.all_tiles['desert_001']            # From tileset
+#

@@ -1,9 +1,22 @@
 """
-Unit Inventory Widget for XCOM Inventory System
+A specialized inventory widget for displaying and managing unit equipment.
 
-This module provides the UnitInventoryWidget component which is specialized for
-displaying and managing unit equipment and inventory items (armor, weapons, equipment, etc).
-It extends the base InventoryWidget with unit-specific item categories and filtering.
+This class customizes the base inventory widget with soldier/unit-specific
+categorization and functionality. It handles the display and management of
+weapons, armor, and equipment that can be equipped by soldiers and other units.
+
+Interactions:
+- Extends TInventoryWidget with unit-specific categories and methods
+- Connects with unit data structures to display available equipment
+- Used by barracks and squad management screens
+- Provides drag sources for equipping items onto unit equipment slots
+- Receives items unequipped from unit equipment slots
+
+Key Features:
+- Specialized categories for unit equipment (armor, weapons, equipment)
+- Helper methods for adding different equipment types
+- Unit-specific filtering and sorting logic
+- Direct connection to currently selected unit's inventory
 """
 
 from typing import Dict, Any, Optional, Callable
@@ -15,15 +28,7 @@ from inventory_system import InventoryItem
 
 
 class TUnitInventoryWidget(TInventoryWidget):
-    """
-    A specialized inventory widget for displaying and managing unit equipment.
 
-    Features:
-    - Specific categories for unit items (armor, weapons, equipment, others)
-    - Sorted item list with counts
-    - Drag and drop support for equipping/unequipping
-    - Item filtering by type
-    """
 
     def __init__(self, parent=None):
         """Initialize a unit inventory widget with appropriate categories."""

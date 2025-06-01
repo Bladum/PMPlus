@@ -1,4 +1,25 @@
+"""
+Represents a specific firing/usage mode for weapons.
+
+This class defines different operational modes for weapons (like snap shot,
+aimed shot, auto fire) with distinct modifiers for accuracy, damage, etc.
+Each mode provides a different balance of action point cost, accuracy,
+and damage potential.
+
+Interactions:
+- Used by TItemWeapon to calculate effective weapon parameters for each mode
+- Referenced by TItemType to define available modes for weapon types
+- Combat systems use these parameters to calculate hit chances and damage
+- UI systems display these modes as options for players during combat
+
+Key Features:
+- Modifiers for accuracy, damage, range and AP cost
+- Shot count per action (for burst fire modes)
+- Application of modifiers to base weapon parameters
+"""
+
 class TWeaponMode:
+
     def __init__(self, pid, data):
         self.pid = pid
 

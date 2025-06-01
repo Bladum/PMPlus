@@ -1,28 +1,88 @@
 #
-#   START BASE
+#   STARTING BASES CONFIGURATION
+#
+# This file defines the initial setup of all potential bases
+# Each base includes its location, facilities, inventory items, units, and crafts
 #
 
 ---
 
+# Base configurations - each key is the base name (OMEGA, ALPHA, etc.)
+# This is loaded by the mod system and used by TGame to create initial bases
 
-start_base:
-    soldiers: 4
+start_bases:
+  OMEGA:  # Main starting base (first base)
+    latitude: 51.5  # London, UK
+    longitude: -0.1
     facilities:
-        - general_stores
-        - access_lift
-        - hangar
-        - hangar
-        - HQ
-        - corridor
-        - living_quarters
-        - gym
-        - prison
+      - type: "fac_storage"
+        position: [0, 0]
+      - type: "fac_hq"
+        position: [1, 0]
+      - type: "fac_workshop"
+        position: [0, 2]
+      - type: "fac_small_radar"
+        position: [1, 2]
     items:
-        combat_knife: 2
-        small_shotgun: 2
-        small_pistol: 4
-        medipack: 2
-        flares: 6
+      - id: "assault_rifle"
+        quantity: 10
+      - id: "auto_pistol"
+        quantity: 20
+      - id: "basic_armor"
+        quantity: 10
+      - id: "medipack"
+        quantity: 5
+      - id: "grenade"
+        quantity: 15
+      - id: "small_shotgun"
+        quantity: 5
+      - id: "combat_knife"
+        quantity: 8
+      - id: "flares"
+        quantity: 10
+    units:
+      - type: "xcom_soldier"
+        name: "John Smith"
+      - type: "xcom_soldier"
+        name: "Sarah Johnson"
+      - type: "xcom_soldier"
+        name: "Miguel Rodriguez"
+      - type: "xcom_soldier"
+        name: "Emma Wilson"
+      - type: "xcom_soldier"
+        name: "Hiroshi Tanaka"
+      - type: "xcom_soldier"
+        name: "Olga Petrov"
+      - type: "xcom_soldier"
+        name: "Kwame Nkrumah"
+      - type: "xcom_soldier"
+        name: "Fatima Al-Farsi"
+      - type: "xcom_soldier"
+        name: "Chen Wei"
+      - type: "xcom_soldier"
+        name: "Lucas Da Silva"
     crafts:
-        - car
+      - type: "craft_interceptor"
+        name: "Interceptor-1"
+        crew: 1
+      - type: "craft_interceptor"
+        name: "Interceptor-2"
+        crew: 1
 
+  ALPHA:  # Second base (not built initially, but defined for future expansion)
+    latitude: 37.7749  # San Francisco, USA
+    longitude: -122.4194
+    facilities: []  # Empty initially
+    items: []       # Empty initially
+    units: []       # Empty initially
+    crafts: []      # Empty initially
+
+  BETA:   # Third base (not built initially, but defined for future expansion)
+    latitude: 35.6762  # Tokyo, Japan
+    longitude: 139.6503
+    facilities: []  # Empty initially
+    items: []       # Empty initially
+    units: []       # Empty initially
+    crafts: []      # Empty initially
+
+  # Additional bases can be defined here following the same pattern

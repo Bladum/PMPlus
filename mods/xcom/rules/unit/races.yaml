@@ -10,7 +10,7 @@ races:
   human:
     name: 'Human'
     description: 'Standard human species from Earth'
-    icon: 'human.png'
+    sprite: 'race_human.png'
     size: 1.0
 
     speed: 6
@@ -31,7 +31,7 @@ races:
   orc:
     name: 'Orc'
     description: 'A robust and powerful humanoid species known for their strength and resilience'
-    icon: 'orc.png'
+    sprite: 'race_orc.png'
     size: 1.2
 
     speed: 5
@@ -52,7 +52,7 @@ races:
   spartan:
     name: 'Spartan'
     description: 'Enhanced human soldiers with superior combat training and physical attributes'
-    icon: 'spartan.png'
+    sprite: 'sprite_spartan.png'
     size: 1.1
 
     speed: 7
@@ -73,7 +73,7 @@ races:
   olympian:
     name: 'Olympian'
     description: 'Genetically modified humans with enhanced abilities and reflexes'
-    icon: 'olympian.png'
+    sprite: 'race_olympian.png'
     size: 1.05
 
     speed: 8
@@ -97,7 +97,7 @@ races:
   xcom_tank:
     name: 'Tank'
     description: 'Human tank'
-    icon: 'tank.png'
+    sprite: 'race_tank.png'
     size: 2
     is_big: true
     gain_experience: false
@@ -126,7 +126,7 @@ races:
     description: >-
       A hybrid species, combining traits from both humans and sectoids.
       They are known for their adaptability and unique abilities.
-    icon: 'hybrid.png'
+    sprite: 'race_hybrid.png'
     size: 0.8
 
     speed: 7
@@ -150,7 +150,7 @@ races:
   sectoid:
     name: 'Sectoid'
     description: 'A sectoid species.'
-    icon: 'sectoid.png'
+    sprite: 'race_sectoid.png'
     sound_death: 'sectoid_death'
     corpse_image: 'sectoid_corpse.png'
     size: 0.8
@@ -171,8 +171,8 @@ races:
     sight: [22, 16]
     sense: [0, 0]
 
-    agression: 0.5
-    inteligence: 0.9
+    aggression: 0.5
+    intelligence: 0.9
 
     immune_panic: false
     immune_pain: false

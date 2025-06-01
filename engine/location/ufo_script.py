@@ -1,3 +1,19 @@
+"""
+Defines a scripted trajectory and behavior sequence for UFOs on the world map.
+
+UFO scripts control how alien ships move around the globe, what actions they take,
+and how they interact with the game world. Scripts consist of ordered steps that
+define movement patterns, targets, and special actions like landing or base construction.
+
+Relationships:
+- Used by TUfo instances to determine movement and behavior
+- References TRegion for geographic targeting
+- Interacts with various world entities (cities, bases, craft)
+- Loaded and managed by TMod
+- Creates mission sites through landing, crashing, or base construction
+- Affects player scoring through completion of missions
+"""
+
 from engine.globe.region import TRegion
 from engine.lore.faction import TFaction
 from engine.location.city import TCity
@@ -5,11 +21,7 @@ from engine.base.geo.abase import TBaseAlien
 from engine.craft.craft import TCraft
 
 class TUfoScript:
-    """
-    Represents a trajectory of UFO, consisting of ordered steps.
-    Each step is a dict {type, duration, ...kwargs}.
-    Handles all step logic internally (no TUfoScriptStep).
-    """
+
     # Step type constants
     STEP_START_RANDOM = 'Starts in random tile in region'
     STEP_START_CITY = 'Starts in random city in region'

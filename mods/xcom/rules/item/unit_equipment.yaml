@@ -1,3 +1,9 @@
+#
+# UNIT ITEM EQUIPMENT
+#
+
+---
+
 unit_equipment:
 
   # XCOM SECONDARY WEAPONS
@@ -5,7 +11,7 @@ unit_equipment:
     name: "Old Pistol"
     category: 3
     description: "A basic pistol, providing minimal damage"
-    sprite: old_pistol.png
+    sprite: 'item_old_pistol.png'
     weight: 1
     size: 0.1
     unit_damage: 4
@@ -18,52 +24,52 @@ unit_equipment:
 
   medipack:
     name: "Medipack"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Basic medical kit to treat wounds in the field."
     weight: 3
     size: 3
-    sprite: "medikit.png"
+    sprite: "item_medikit.png"
     unit_stats:
       energy: 1
 
   motion_scanner:
     name: "Motion Scanner"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Detects movement within a limited range."
     weight: 2
     size: 2
-    sprite: "motionScanner.png"
+    sprite: "item_motion_scanner.png"
     unit_stats:
       sight: [0, 3]  # +3 night sight
 
   stim_pack:
     name: "Stim Pack"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Advanced healing compound."
     weight: 1
     size: 1
-    sprite: "stimPack.png"
+    sprite: "item_stim_pack.png"
     unit_stats:
       energy: 2
       health: 3
 
   scanner:
     name: "Scanner"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Motion detection device."
     weight: 1
     size: 1
-    sprite: "scanner.png"
+    sprite: "item_scanner.png"
     unit_stats:
 
 
   combat_knife:
     name: "Combat Knife"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Basic combat knife for close-quarters combat."
     weight: 1
     size: 1
-    sprite: "combat_knife.png"
+    sprite: "item_combat_knife.png"
     unit_damage: 3
     unit_damage_type: "melee"
     unit_accuracy: 80
@@ -73,11 +79,11 @@ unit_equipment:
 
   small_pistol:
     name: "Small Pistol"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Standard issue sidearm with decent accuracy."
     weight: 2
     size: 2
-    sprite: "autoPistol.png"
+    sprite: "item_auto_pistol.png"
     unit_damage: 4
     unit_damage_type: "ballistic"
     unit_accuracy: 70
@@ -90,11 +96,11 @@ unit_equipment:
 
   grenade:
     name: "Grenade"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Standard frag grenade."
     weight: 1
     size: 1
-    sprite: "grenade.png"
+    sprite: "item_grenade.png"
     unit_damage: 6
     unit_damage_type: "explosive"
     unit_accuracy: 70
@@ -104,11 +110,100 @@ unit_equipment:
 
   smoke_grenade:
     name: "Smoke Grenade"
-    category: 3  # ITEM_UNIT_EQUIPMENT
+    category: 3
     description: "Provides concealment."
     weight: 1
     size: 1
-    sprite: "smokeGrenade.png"
+    sprite: "item_smoke_grenade.png"
     unit_range: 8
     unit_action_point: 3
     unit_modes: ["snap"]
+
+  flares:
+    name: "Flares"
+    category: 3
+    description: "Lighting device for dark environments."
+    weight: 1
+    size: 1
+    sprite: "item_flares.png"
+
+  emp_grenade:
+    name: "EMP Grenade"
+    category: 3
+    description: "Disables electronics."
+    weight: 1
+    size: 1
+    sprite: "item_emp_grenade.png"
+    unit_damage: 4
+    unit_damage_type: "emp"
+    unit_accuracy: 70
+    unit_range: 8
+    unit_action_point: 3
+    unit_modes: ["snap"]
+
+  laser_sight:
+    name: "Laser Sight"
+    category: 3
+    description: "Improves accuracy."
+    weight: 1
+    size: 1
+    sprite: "item_laser_sight.png"
+    unit_stats:
+      accuracy: 10
+
+  night_vision:
+    name: "Night Vision"
+    category: 3
+    description: "See in darkness."
+    weight: 1
+    size: 1
+    sprite: "item_night_vision.png"
+    unit_stats:
+      sight: [0, 5]
+
+  plasma_grenade:
+    name: "Plasma Grenade"
+    category: 3
+    description: "High-energy explosive."
+    weight: 2
+    size: 1
+    sprite: "item_plasma_grenade.png"
+    unit_damage: 9
+    unit_damage_type: "plasma"
+    unit_accuracy: 65
+    unit_range: 8
+    unit_action_point: 3
+    unit_modes: ["snap"]
+
+  shield_generator:
+    name: "Shield Generator"
+    category: 3
+    description: "Projects a protective shield."
+    weight: 6
+    size: 4
+    sprite: "item_shield_generator.png"
+    unit_stats:
+      shield: 20
+      shield_regen: 2
+
+  psi_amp:
+    name: "Psi Amp"
+    category: 3
+    description: "Enhances psychic abilities."
+    weight: 2
+    size: 2
+    sprite: "item_psi_amp.png"
+    unit_stats:
+      psi_strength: 20
+      psi_skill: 15
+
+  combat_stim:
+    name: "Combat Stim"
+    category: 3
+    description: "Battle enhancement drug."
+    weight: 1
+    size: 1
+    sprite: "item_combat_stim.png"
+    unit_stats:
+      reaction: 10
+      strength: 5

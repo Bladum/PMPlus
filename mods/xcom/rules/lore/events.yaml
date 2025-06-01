@@ -5,7 +5,7 @@ events:
     rat_attack:
         name: "Rat Attack"
         description: "A rat has attacked you!"
-        image: rat_attack.png
+        sprite: 'event_rat_attack.png'
         # preconditions
         tech_needed: []
         regions:

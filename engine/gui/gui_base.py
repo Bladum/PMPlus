@@ -1,8 +1,24 @@
 """
-Base GUI Module
+Main base GUI class that manages screens and navigation for the XCOM game.
 
-This module contains the base GUI class for XCOM inventory system.
-It handles the common top panel and manages screen switching.
+This class serves as the foundational container for the game's interface,
+managing screen transitions and maintaining the top panel navigation system.
+It acts as a coordinator between different specialized screen interfaces
+like Barracks, Hangar, Research Lab, etc.
+
+Interactions:
+- Contains and manages TGuiBaseTopPanel for navigation
+- Registers and displays various TGuiBaseScreen implementations
+- Handles screen transitions and maintains screen state
+- Propagates base change events to active screens
+- Provides interface for programmatic screen switching
+
+Key Features:
+- Screen registration and management system
+- Smooth transitions between different game screens
+- Event propagation from navigation panel to screen widgets
+- Consistent theming and visual layout across all screens
+- Centralized container for all game interface screens
 """
 
 from typing import Dict, Type, Optional
@@ -45,9 +61,7 @@ class TGuiBaseScreen(QWidget):
 
 
 class TGuiBase(QWidget):
-    """
-    Main base GUI class that contains the top panel and manages different screens.
-    """
+
 
     def __init__(self, parent=None):
         """Initialize the base GUI with top panel and screen container."""

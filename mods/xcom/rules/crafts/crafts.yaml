@@ -7,7 +7,8 @@ crafts:
     craft_car:
         name: "Car"
         description: "A basic vehicle for transportation, the car is fast and agile, but lacks firepower."
-        pedia_image: pedia_craft_car
+        pedia_image: 'pedia_craft_car.png'
+        sprite: 'craft_car.png'
         sell_cost: 20
         upkeep_cost: 2
         score_lost: 10
@@ -39,7 +40,8 @@ crafts:
     craft_van:
         name: "Van"
         description: "A basic vehicle for transportation, the car is fast and agile, but lacks firepower."
-        pedia_image: pedia_craft_van
+        pedia: pedia_craft_van
+        sprite: 'craft_van.png'
         sell_cost: 30
         upkeep_cost: 3
         score_lost: 5
@@ -61,7 +63,8 @@ crafts:
     craft_interceptor:
         name: "Interceptor"
         description: "A basic vehicle for transportation, the car is fast and agile, but lacks firepower."
-        pedia_image: pedia_craft_interceptor
+        pedia: pedia_craft_interceptor
+        sprite: 'craft_interceptor.png'
         sell_cost: 250
         upkeep_cost: 250
         map_block: map_interceptor

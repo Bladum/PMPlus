@@ -1,4 +1,3 @@
-# filepath: c:\Users\TomaszBłądkowski\Videos\MOJE\XCOM\mods\xcom\rules3\location\ufos.yaml
 #
 #   ENEMY UFOs
 #
@@ -12,8 +11,8 @@ ufos:
   #
   cultist_car:
     name: "Car"
-    pedia: "pedia_cultist_car"
-    vessel: "vessel_cultist_car.png"
+    pedia: pedia_cultist_car
+    sprite: "craft_cultist_car.png"
     marker: 'cultist'
     
     size: 1
@@ -53,8 +52,8 @@ ufos:
   #
   mib_scout:
     name: "MIB Scout"
-    pedia: "pedia_mib_scout"
-    vessel: "vessel_mib_scout.png"
+    pedia: pedia_mib_scout
+    sprite: "craft_mib_scout.png"
     marker: 'mib'
     
     size: 2
@@ -96,8 +95,8 @@ ufos:
   #
   alien_small_scout:
     name: "Alien Small Scout"
-    pedia: "pedia_small_scout"
-    vessel_image: "vessel_small_scout.png"
+    pedia: pedia_small_scout
+    sprite: "craft_small_scout.png"
     
     size: 1
     health: 25
@@ -128,8 +127,8 @@ ufos:
 
   alien_medium_scout:
     name: "Alien Medium Scout"
-    pedia: "pedia_medium_scout"
-    vessel_image: "vessel_medium_scout.png"
+    pedia: pedia_medium_scout
+    sprite: "craft_medium_scout.png"
     
     size: 2
     health: 50

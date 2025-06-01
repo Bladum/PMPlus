@@ -1,11 +1,29 @@
+"""
+Represents an armour item assigned to a unit.
+
+This class manages armor items equipped by units (soldiers, aliens, etc.) with
+features like shields, regeneration, and damage resistance. It maintains
+current state (shield points, regeneration) and references static parameters
+from the underlying item type.
+
+Interactions:
+- References TItemType for static armor parameters
+- Used by unit systems to calculate damage reduction
+- Provides stat modifiers that affect unit stats
+- Shield system provides additional protection layer before damage affects unit HP
+
+Key Features:
+- Shield management with regeneration per turn
+- Damage application with shield absorption first, then resistance
+- Resistance by damage type (different effectiveness vs different attacks)
+- Unit stat modifications
+"""
+
 from item.item_type import TItemType
 
 
 class TItemArmour:
-    """
-    Represents an armour item assigned to a unit.
-    Tracks current state (shield, regen, etc) and references static parameters from item type.
-    """
+
     def __init__(self, item_type=None):
         from engine.engine.game import TGame
         self.game = TGame()

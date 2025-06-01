@@ -7,7 +7,7 @@
 wounds:
     broken_arm:
         name: "Medal for nigh operations"
-        icon: injury_broken.png
+        sprite: 'trait_injury_broken.png'
         races:
             - human
             - hybrid
@@ -17,9 +17,10 @@ wounds:
             aim: -3
             reaction: -3
         recovery_time: 30
+
     broken_engine:
         name: "Medal for nigh operations"
-        icon: injury_broken.png
+        sprite: 'trait_engine_broken.png'
         races:
             - tank
         type: 5

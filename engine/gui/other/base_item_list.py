@@ -1,9 +1,23 @@
 """
-Base Inventory Widget for XCOM Inventory System
+A generic widget that displays an inventory with filtering capabilities.
 
-This module provides the InventoryWidget base class which combines
-a filtering combo box with a list of items from the inventory.
-It handles item filtering, sorting, and drag-and-drop functionality.
+This class provides a reusable inventory widget with category filtering and
+drag-and-drop support. It serves as the base component for various inventory
+displays throughout the game (base storage, unit equipment, craft loadouts).
+
+Interactions:
+- Used by specialized inventory classes (TUnitInventoryWidget, TCraftInventoryWidget)
+- Interfaces with TItemTransferManager for drag and drop operations
+- Displays items from game's inventory systems
+- Communicates with equipment slots for item transfers
+- Responds to inventory changes from game systems
+
+Key Features:
+- Category filtering via dropdown
+- Sorted item display with quantities
+- Item icon rendering with counts
+- Drag and drop support for moving items
+- Consistent styling across the application
 """
 
 import json
@@ -15,25 +29,13 @@ from PySide6.QtWidgets import (
     QAbstractItemView, QApplication
 )
 
-from theme_styles import XcomTheme, XcomStyle, px
-from game_data import ItemType
-from inventory_system import InventoryItem
-from item_path_lookup import get_canonical_path
+from gui.other.theme_manager import px, XcomStyle
+from item.item import TItem, TItemRarity  # Import TItem and TItemRarity
+from item.item_type import TItemType
+from syf.item_path_lookup import get_canonical_path  # Still need this function
 
 
 class TInventoryWidget(QWidget):
-    """
-    A generic widget that displays an inventory with filtering capabilities.
-
-    Features:
-    - Category filter dropdown
-    - Sorted item list with counts
-    - Drag and drop support
-    - Automatic icon lookup via canonical paths
-
-    The widget maintains the state of all items and handles filtering internally,
-    so the external code only needs to add/remove items from the inventory.
-    """
 
     def __init__(self, parent=None, categories=None):
         """Initialize the inventory widget with combo box and list."""
@@ -128,11 +130,11 @@ class TInventoryWidget(QWidget):
         """Get dictionary of all items and their information."""
         return self.item_list.get_all_items_info()
 
-    def set_drag_callback(self, callback: Callable[[InventoryItem], None]):
+    def set_drag_callback(self, callback: Callable[[TItem], None]):
         """Set a callback function called when an item is dragged out."""
         self.item_list.set_drag_callback(callback)
 
-    def set_drop_callback(self, callback: Callable[[InventoryItem], None]):
+    def set_drop_callback(self, callback: Callable[[TItem], None]):
         """Set a callback function called when an item is dropped to the list."""
         self.item_list.set_drop_callback(callback)
 
@@ -348,11 +350,11 @@ class ItemList(QListWidget):
             }
         return result
 
-    def set_drag_callback(self, callback: Callable[[InventoryItem], None]):
+    def set_drag_callback(self, callback: Callable[[TItem], None]):
         """Set a callback function called when an item is dragged out."""
         self.drag_callback = callback
 
-    def set_drop_callback(self, callback: Callable[[InventoryItem], None]):
+    def set_drop_callback(self, callback: Callable[[TItem], None]):
         """Set a callback function called when an item is dropped to the list."""
         self.drop_callback = callback
 
@@ -380,8 +382,8 @@ class ItemList(QListWidget):
 
         return item_type == filter_category.lower()
 
-    def _create_inventory_item(self, list_item: QListWidgetItem) -> Optional[InventoryItem]:
-        """Create an InventoryItem object from a QListWidgetItem."""
+    def _create_inventory_item(self, list_item: QListWidgetItem) -> Optional[TItem]:
+        """Create a TItem object from a QListWidgetItem."""
         if not list_item:
             return None
 
@@ -391,31 +393,26 @@ class ItemList(QListWidget):
         # Extract item properties from info dictionary
         item_type_str = info.get('item_type', 'other')
 
-        # Import necessary types
-        from inventory_system import ItemType, ItemRarity
-
-        # Convert string to ItemType enum
+        # Convert string to TItemType enum
         try:
-            item_type = ItemType(item_type_str)
+            item_type = TItemType(item_type_str)
         except ValueError:
-            item_type = ItemType.OTHER
+            item_type = TItemType.ITEM_GENERAL
 
-        # Convert string to rarity enum if present
+        # Convert string to TItemRarity enum if present
         rarity_str = info.get('rarity', 'common')
         try:
-            rarity = ItemRarity(rarity_str)
+            rarity = TItemRarity(rarity_str)
         except ValueError:
-            rarity = ItemRarity.COMMON
+            rarity = TItemRarity.COMMON
 
-        # Create InventoryItem instance
-        return InventoryItem(
+        # Create TItem instance
+        return TItem(
             name=name,
             icon_path=info.get('icon_path'),
-            properties=info,
             item_type=item_type,
+            properties=info,
             rarity=rarity,
-            stackable=info.get('stackable', False),
-            max_stack=info.get('max_stack', 1),
             weight=info.get('weight', 1)
         )
 

@@ -7,7 +7,7 @@
 effects:
     berzerk:
         name: "Battle frenzy"
-        icon: berzerk.png
+        sprite: 'trait_berzerk.png'
         races: []
         type: 6
         description: "Berzerk rage"

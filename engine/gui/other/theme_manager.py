@@ -49,9 +49,9 @@ except ImportError:
     WIDGET_MARGIN = 1
     WIDGET_PADDING = 1
 
-    def px(x: int) -> int:
+    def px(x: float) -> int:
         """Scale pixel values according to the display scaling factor."""
-        return x * SCALE
+        return int(x * SCALE)
 
     class XcomTheme:
         """Fallback implementation of XcomTheme"""
@@ -220,8 +220,24 @@ class TThemeManager(QObject):
     """
     Centralized manager for application theming and styling.
 
-    Provides dynamic theme switching, centralized styling application,
-    and consistent visual appearance across the entire application.
+    This class provides the foundation for consistent visual styling across the
+    entire XCOM game interface. It manages theme switching, centralized styling
+    application, and customizable appearance options through a standardized API.
+
+    Interactions:
+    - Used by all UI components to get consistent styling
+    - Provides scale-aware styling for different display resolutions
+    - Offers theme switching capability (dark vs light themes)
+    - Emits signals when theme changes that UI can respond to
+    - Maintains a centralized cache of styles for performance
+
+    Key Features:
+    - Complete application-wide styling through unified API
+    - Theme switching between dark and light variants
+    - Custom theme creation and saving
+    - Dynamic scaling for different display resolutions
+    - Style caching for performance optimization
+    - Widget-specific styling through specialized methods
     """
 
     # Signal emitted when theme changes
@@ -695,54 +711,3 @@ def get_style(style_name: str, **kwargs) -> str:
         A stylesheet string for the specified style
     """
     return theme_manager.get_style(style_name, **kwargs)
-
-
-# Example usage
-if __name__ == "__main__":
-    # This code runs when the module is executed directly
-    app = QApplication(sys.argv)
-
-    # Apply the theme to the application
-    theme_manager.apply_theme(app)
-
-    # Create and show a sample widget
-    from PySide6.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QLabel, QComboBox
-
-    window = QMainWindow()
-    window.setWindowTitle("Theme Manager Demo")
-
-    central_widget = QWidget()
-    layout = QVBoxLayout()
-
-    # Create some widgets with different styles
-    label = QLabel("Theme Manager Demo")
-    label.setStyleSheet(theme_manager.get_style("label"))
-    layout.addWidget(label)
-
-    button1 = QPushButton("Standard Button")
-    button1.setStyleSheet(theme_manager.get_style("pushbutton"))
-    layout.addWidget(button1)
-
-    button2 = QPushButton("Active Screen Button")
-    button2.setStyleSheet(theme_manager.get_style("pushbutton_screen_active"))
-    layout.addWidget(button2)
-
-    combo = QComboBox()
-    combo.addItems(["XCOM Dark", "XCOM Light", "Custom"])
-    combo.setStyleSheet(theme_manager.get_style("combobox"))
-    layout.addWidget(combo)
-
-    # Connect combo box to theme switching
-    def switch_theme(index):
-        theme_types = [ThemeType.XCOM_DARK, ThemeType.XCOM_LIGHT, ThemeType.CUSTOM]
-        theme_manager.switch_theme(theme_types[index])
-        theme_manager.apply_theme(app)
-
-    combo.currentIndexChanged.connect(switch_theme)
-
-    central_widget.setLayout(layout)
-    window.setCentralWidget(central_widget)
-    window.resize(400, 300)
-    window.show()
-
-    sys.exit(app.exec())

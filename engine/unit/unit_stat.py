@@ -187,3 +187,5 @@ class TUnitStats:
 
     def __repr__(self):
         return f"<TUnitStats HP:{self.get_health_left()}/{self.health} Hurt:{self.hurt} Stun:{self.stun} AP:{self.action_points_left}/{self.action_points} Morale:{self.morale_left}/{self.morale}>"
+
+

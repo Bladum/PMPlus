@@ -7,7 +7,7 @@
 origins:
     origin_ranger:
         name: "Ranger career"
-        icon: origin_ranger.png
+        sprite: 'trait_origin_ranger.png'
         races:
             - human
             - hybrid
