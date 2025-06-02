@@ -6,15 +6,19 @@ class TCraft(TLocation):
     """
     Represents a craft on the world map as location, it can move and attack
     """
+    def __init__(self, pid, data : dict = {}):
+        super().__init__( pid, data )
 
-    def __init__(self, position, items=None, units=None, pilots=None):
-        position = TWorldPoint.from_iterable(position)
-        super().__init__(position)
+        position = data.get('position', [0, 0])
+        units = data.get('units', [])
+        pilots = data.get('pilots', [])
+        items = data.get('items', {})
+        craft_type = data.get('type', 'default')
 
         from engine.engine.game import TGame
         self.game = TGame()
 
-        self.craft_type = self.game.mod.craft_types.get('craft_type', 'default')  # Default craft type
+        self.craft_type = self.game.mod.craft_types.get(craft_type, 'default')  # Default craft type
 
         self.position = position  # Position on world map (redundant if TLocation handles it)
         self.max_fuel = self.craft_type.range

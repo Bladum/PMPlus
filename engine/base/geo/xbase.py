@@ -10,8 +10,8 @@ class TBaseXCom(TLocation):
     Represents a base on the world map as location (xcom or alien)
     Holds facilities, units, items, captures, crafts, and provides methods for base management.
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, pid, data : dict = {}):
+        super().__init__( pid, data )
 
         from engine.engine.game import TGame
         self.game = TGame()
@@ -23,9 +23,9 @@ class TBaseXCom(TLocation):
         craft_capacity = self.get_craft_space()
         self.inventory = TBaseInventory(storage_capacity=storage_capacity, craft_capacity=craft_capacity)
 
-    def add_facility(self, facility_type: TFacilityType, position=None):
-        # Check if facility can be built
-        if not self.can_build_facility(facility_type):
+    def add_facility(self, facility_type: TFacilityType, position=None, force_add=False):
+        # Check if facility can be built (skip check if force_add is True)
+        if not force_add and not self.can_build_facility(facility_type):
             raise Exception("Cannot build facility: requirements not met.")
         facility = TFacility(facility_type, position)
         self.facilities[position] = facility
@@ -54,29 +54,44 @@ class TBaseXCom(TLocation):
 
     def can_build_facility(self, facility_type: TFacilityType):
         # Check max per base
-        count = sum(1 for f in self.facilities.values() if f.facility_type.pid == facility_type.pid)
-        if count >= facility_type.max_per_base:
-            return False
+        if facility_type.max_per_base > 0:
+            # Safely handle potential None facility_type values
+            count = 0
+            for f in self.facilities.values():
+                if f.facility_type is not None and f.facility_type.pid == facility_type.pid:
+                    count += 1
+            if count > facility_type.max_per_base:
+                print(f"Cannot build {facility_type.name}: Maximum limit of {facility_type.max_per_base} reached.")
+                return False
 
         # Check required facilities
         for req in facility_type.facility_needed:
-            if not any(f.facility_type.pid == req and f.is_active() for f in self.facilities.values()):
+            # Safely handle potential None facility_type values
+            if not any(f.facility_type is not None and f.facility_type.pid == req and f.is_active() for f in self.facilities.values()):
+                from engine.engine.game import TGame
+                game = TGame()
+                req_name = game.mod.facilities.get(req).name if req in game.mod.facilities else req
+                print(f"Cannot build {facility_type.name}: Required facility '{req_name}' not found or not active.")
                 return False
 
         # Check required services
         for req in facility_type.service_needed:
             if req not in self.get_services_provided():
+                print(f"Cannot build {facility_type.name}: Required service '{req}' not available.")
                 return False
 
         # Check required tech (stub, should check against base/player techs)
         for req in facility_type.tech_needed:
             if req not in self.game.mod.researches.keys():
+                print(f"Cannot build {facility_type.name}: Required research '{req}' not completed.")
                 return False
                 # TODO improve this tech check
 
         # Check resources using inventory system
         for item, qty in facility_type.build_items.items():
-            if self.inventory.get_item_quantity(item) < qty:
+            current_qty = self.inventory.get_item_quantity(item)
+            if current_qty < qty:
+                print(f"Cannot build {facility_type.name}: Not enough '{item}' resources. Have {current_qty}, need {qty}.")
                 return False
 
         return True
@@ -250,25 +265,44 @@ class TBaseXCom(TLocation):
         """Delegate to inventory system"""
         return self.inventory.get_capture_quantity(capture_id)
 
-    def to_dict(self) -> dict:
+    # Replace serialization methods with save_data and load_data
+    def save_data(self) -> dict:
         """
-        Convert the base to a dictionary for serialization.
+        Save the base data to a dictionary for serialization.
         """
-        facilities_dict = {str(pos): facility.to_dict() for pos, facility in self.facilities.items()}
+        # Create dictionary for facilities with position as string keys
+        facilities_list = []
+        for pos, facility in self.facilities.items():
+            # For each facility, save essential data
+            if facility.facility_type:
+                facility_data = {
+                    "facility_type_id": facility.facility_type.pid,
+                    "position": pos,
+                    "build_progress": facility.build_progress,
+                    "completed": facility.completed,
+                    "hp": facility.hp
+                }
+                facilities_list.append(facility_data)
 
-        return {
+        # Create the main data dictionary
+        base_data = {
             "location": {
                 "lat": self.lat,
                 "lon": self.lon,
                 "name": self.name
             },
-            "facilities": facilities_dict,
-            "inventory": self.inventory.to_dict()
+            "facilities": facilities_list
         }
 
-    def from_dict(self, data: dict) -> None:
+        # Add inventory data if the inventory has a save_data method
+        if hasattr(self.inventory, 'save_data'):
+            base_data["inventory"] = self.inventory.save_data()
+
+        return base_data
+
+    def load_data(self, data: dict) -> None:
         """
-        Load the base from a dictionary.
+        Load the base data from a dictionary.
         """
         # Load location data
         location_data = data.get("location", {})
@@ -277,18 +311,36 @@ class TBaseXCom(TLocation):
         self.name = location_data.get("name", "")
 
         # Load facilities
-        facilities_data = data.get("facilities", {})
+        facilities_data = data.get("facilities", [])
         self.facilities = {}
-        for pos_str, facility_data in facilities_data.items():
-            # Convert string position back to tuple
-            pos = eval(pos_str)
-            facility = TFacility(None, pos)
-            facility.from_dict(facility_data)
-            self.facilities[pos] = facility
+
+        for facility_data in facilities_data:
+            pos = facility_data.get("position")
+            facility_type_id = facility_data.get("facility_type_id")
+
+            # Only create facility if we have valid position and type
+            if pos and facility_type_id:
+                # Create facility using the type ID directly
+                from engine.engine.game import TGame
+                game = TGame()
+
+                # Create the facility with the proper facility type
+                facility_type = game.mod.facilities.get(facility_type_id)
+                if facility_type:
+                    facility = TFacility(facility_type_id, pos)
+
+                    # Set other facility properties
+                    facility.build_progress = facility_data.get("build_progress", 0)
+                    facility.completed = facility_data.get("completed", False)
+                    facility.hp = facility_data.get("hp", 10)
+
+                    # Add to facilities dictionary
+                    self.facilities[pos] = facility
 
         # Load inventory
         inventory_data = data.get("inventory", {})
-        self.inventory.from_dict(inventory_data)
+        if hasattr(self.inventory, 'load_data'):
+            self.inventory.load_data(inventory_data)
 
         # Update capacities based on loaded facilities
         self.update_inventory_capacities()

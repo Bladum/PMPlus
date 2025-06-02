@@ -5,7 +5,7 @@ item_modes:
     # SNAP is default
     snap:
         name: "Snap"
-        sprite: 'mode_snap.png'
+        sprite: 'mode_snap'
         ap_cost_modifier: 1.0
         range_modifier: 1.0
         accuracy_modifier: 1.0
@@ -14,7 +14,7 @@ item_modes:
     # AIM is for sniper shot, better accuracy, but slower
     aim:
         name: "Aimed"
-        sprite: 'mode_aim.png'
+        sprite: 'mode_aim'
         ap_cost_modifier: 1.75
         range_modifier: 1.0
         accuracy_modifier: 1.50
@@ -23,7 +23,7 @@ item_modes:
     # STUN is focus on overwhelming the target, not killing it
     stun:
         name: "Stun"
-        sprite: 'mode_stun.png'
+        sprite: 'mode_stun'
         ap_cost_modifier: 1.0
         range_modifier: 1.0
         accuracy_modifier: 1.0
@@ -32,7 +32,7 @@ item_modes:
     # CRITICAL is focus on critical hit, higher damage but lower accuracy
     critical:
         name: "Critical"
-        sprite: 'mode_critical.png'
+        sprite: 'mode_critical'
         ap_cost_modifier: 1.50
         range_modifier: 1.0
         accuracy_modifier: 0.75
@@ -41,7 +41,7 @@ item_modes:
     # BURST is for automatic weapons, a lot of shots, but lower accuracy
     burst:
         name: "Burst"
-        sprite: 'mode_burst.png'
+        sprite: 'mode_burst'
         ap_cost_modifier: 1.25
         range_modifier: 1.0
         accuracy_modifier: 0.50
@@ -50,7 +50,7 @@ item_modes:
     # AUTO is for full automatic weapons, it fires until end of ammo, but lower accuracy
     auto:
         name: "Automatic"
-        sprite: 'mode_auto.png'
+        sprite: 'mode_auto'
         ap_cost_modifier: 2.0
         range_modifier: 1.0
         accuracy_modifier: 0.25
@@ -59,7 +59,7 @@ item_modes:
     # FAST is for fast weapons, cheaper less accurate shot
     fast:
         name: "Fast"
-        sprite: 'mode_fast.png'
+        sprite: 'mode_fast'
         ap_cost_modifier: 0.75
         range_modifier: 1.0
         accuracy_modifier: 0.75
@@ -68,7 +68,7 @@ item_modes:
     # FAR is to fire in parabolic arc, higher range but lower accuracy and damage
     far:
         name: "Long range"
-        sprite: 'mode_far.png'
+        sprite: 'mode_far'
         ap_cost_modifier: 1.25
         range_modifier: 1.5
         accuracy_modifier: 0.75

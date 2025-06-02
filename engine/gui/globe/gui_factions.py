@@ -1,7 +1,7 @@
 from gui.gui_core import TGuiCoreScreen
 
 
-class TGuiGlobeFactions(TGuiBaseScreen):
+class TGuiGlobeFactions(TGuiCoreScreen):
     """
     Represents a GUI for manufacturing
     """

@@ -1,3 +1,5 @@
+
+
 class TCraftItem:
     """
     Represents a item used by craft by XCOM, with specific item type but current usage

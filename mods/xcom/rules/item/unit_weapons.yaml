@@ -12,7 +12,7 @@ unit_weapons:
     description: "Compact shotgun effective at close range."
     weight: 3
     size: 3
-    sprite: "item_shotgun.png"
+    sprite: "item_shotgun"
     unit_damage: 6
     unit_damage_type: "ballistic"
     unit_accuracy: 60
@@ -29,7 +29,7 @@ unit_weapons:
     description: "Standard automatic rifle with good all-around performance."
     weight: 5
     size: 4
-    sprite: "item_assault_rifle.png"
+    sprite: "item_assault_rifle"
     unit_damage: 5
     unit_damage_type: "ballistic"
     unit_accuracy: 65
@@ -46,7 +46,7 @@ unit_weapons:
     description: "Long-range precision weapon."
     weight: 5
     size: 5
-    sprite: "item_sniper_rifle.png"
+    sprite: "item_sniper_rifle"
     unit_damage: 7
     unit_damage_type: "ballistic"
     unit_accuracy: 80
@@ -63,7 +63,7 @@ unit_weapons:
     description: "High-energy laser weapon."
     weight: 4
     size: 4
-    sprite: "item_laser_rifle.png"
+    sprite: "item_laser_rifle"
     unit_damage: 6
     unit_damage_type: "energy"
     unit_accuracy: 70
@@ -80,7 +80,7 @@ unit_weapons:
     description: "Compact plasma sidearm."
     weight: 2
     size: 2
-    sprite: "item_plasma_pistol.png"
+    sprite: "item_plasma_pistol"
     unit_damage: 5
     unit_damage_type: "plasma"
     unit_accuracy: 65
@@ -97,7 +97,7 @@ unit_weapons:
     description: "Heavy plasma weapon."
     weight: 6
     size: 6
-    sprite: "item_plasma_cannon.png"
+    sprite: "item_plasma_cannon"
     unit_damage: 9
     unit_damage_type: "plasma"
     unit_accuracy: 60
@@ -114,7 +114,7 @@ unit_weapons:
     description: "Devastating heavy weapon."
     weight: 8
     size: 8
-    sprite: "item_heavy_cannon.png"
+    sprite: "item_heavy_cannon"
     unit_damage: 10
     unit_damage_type: "explosive"
     unit_accuracy: 50
@@ -131,7 +131,7 @@ unit_weapons:
     description: "Experimental fusion weapon."
     weight: 7
     size: 7
-    sprite: "item_fusion_lance.png"
+    sprite: "item_fusion_lance"
     unit_damage: 12
     unit_damage_type: "energy"
     unit_accuracy: 65
@@ -148,7 +148,7 @@ unit_weapons:
     description: "Standard sidearm."
     weight: 1
     size: 1
-    sprite: "item_auto_pistol.png"
+    sprite: "item_auto_pistol"
     unit_damage: 4
     unit_damage_type: "ballistic"
     unit_accuracy: 70
@@ -165,7 +165,7 @@ unit_weapons:
     description: "Close-range devastation."
     weight: 4
     size: 3
-    sprite: "item_shotgun.png"
+    sprite: "item_shotgun"
     unit_damage: 6
     unit_damage_type: "ballistic"
     unit_accuracy: 60

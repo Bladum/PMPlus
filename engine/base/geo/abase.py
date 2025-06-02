@@ -9,8 +9,8 @@ class TBaseAlien(TLocation):
     number of levels depends on size of alien base
     Implements growth, mission generation, and scoring logic.
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, pid, data : dict = {}):
+        super().__init__( pid, data )
 
         from engine.engine.game import TGame
         self.game = TGame()

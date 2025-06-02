@@ -11,7 +11,7 @@ pedia:
         name: "Laser Pistol"
         section: "Weapons"
         description: "A basic laser pistol, providing minimal protection."
-        sprite: 'pedia_laser_pistol.png'
+        sprite: 'pedia_laser_pistol'
         tech_needed:
             - laser_tech
         order: 2500
@@ -23,8 +23,7 @@ pedia:
         section: "Armours"
         description: |
             A basic armour suit, providing minimal protection.
-        sprite: 'pedia_personal_armour.png'
+        sprite: 'pedia_personal_armour'
         tech_needed:
             - laser_tech
         order: 1500
-

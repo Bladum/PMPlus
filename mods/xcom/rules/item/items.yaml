@@ -12,7 +12,7 @@ items:
     description: "Contains encrypted data."
     weight: 1
     size: 1
-    sprite: "item_data_chip.png"
+    sprite: "item_data_chip"
 
   alien_alloy:
     name: "Alien Alloy"
@@ -20,7 +20,7 @@ items:
     description: "Exotic alien material."
     weight: 2
     size: 2
-    sprite: "item_alien_alloy.png"
+    sprite: "item_alien_alloy"
 
   alien_artifact:
     name: "Alien Artifact"
@@ -28,7 +28,7 @@ items:
     description: "Unknown alien technology."
     weight: 3
     size: 3
-    sprite: "item_alien_artifact.png"
+    sprite: "item_alien_artifact"
 
   energy_cell:
     name: "Energy Cell"
@@ -36,7 +36,7 @@ items:
     description: "High-capacity power source."
     weight: 1
     size: 1
-    sprite: "item_energy_cell.png"
+    sprite: "item_energy_cell"
 
   alien_core:
     name: "Alien Core"
@@ -44,7 +44,7 @@ items:
     description: "Alien power core."
     weight: 4
     size: 4
-    sprite: "item_alien_core.png"
+    sprite: "item_alien_core"
 
   elerium:
     name: "Elerium"
@@ -52,4 +52,4 @@ items:
     description: "Rare alien element."
     weight: 1
     size: 1
-    sprite: "item_elerium.png"
+    sprite: "item_elerium"

@@ -9,7 +9,7 @@ craft_items:
         description: "A basic cannon for use on vehicles, the cannon is powerful and accurate."
         pedia: pedia_craft_item_cannon
         category: 1
-        sprite: 'craft_cannon.png'
+        sprite: 'craft_cannon'
         sound: cannon_fire
         tech_needed: []
         sell_cost: 10
@@ -27,7 +27,7 @@ craft_items:
         name: "Stingray"
         description: "A basic missile for use on vehicles, the stingray is fast and agile."
         pedia: pedia_craft_item_stingray
-        sprite: 'craft_stingray.png'
+        sprite: 'craft_stingray'
         tech_needed: []
         category: 1
         sell_cost: 40
@@ -44,7 +44,7 @@ craft_items:
         description: "A complex missile for use on vehicles, the stingray is fast and agile."
         pedia: pedia_craft_item_avalanche
         tech_needed: []
-        sprite: 'craft_avalanche.png'
+        sprite: 'craft_avalanche'
         category: 1
         sell_cost: 80
         reload_cost: 15

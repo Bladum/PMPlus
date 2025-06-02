@@ -4,8 +4,8 @@ import os
 import glob
 
 class TTilesetManager:
-    def __init__(self, folder_path):
-        self.folder_path = str(folder_path)
+    def __init__(self):
+        self.folder_path = '' #str(folder_path)
         self.all_tiles = {}  # flat dict: key -> (tile_img, mask)
 
     def load_tileset(self, tsx_path):
@@ -64,11 +64,9 @@ class TTilesetManager:
 
         for png_file in png_files:
             try:
-                # Get relative path to create a sensible key
-                rel_path = os.path.relpath(png_file, images_folder)
-
-                # Replace path separators and extension for key creation
-                key = rel_path.replace(os.sep, '_').replace('/', '_').replace('.png', '')
+                # Get just the file name without extension for the key
+                file_name = os.path.basename(png_file)
+                key = os.path.splitext(file_name)[0]
 
                 # Load image
                 img = Image.open(png_file)
@@ -120,6 +118,11 @@ class TTilesetManager:
                 os.makedirs(folder_path, exist_ok=True)
                 file_path = os.path.join(folder_path, f"{tileset}_{int(num):03d}.png")
                 img.save(file_path)
+
+    def print_tileset_info(self):
+        print("Tileset contains the following tile keys:")
+        for key in self.all_tiles.keys():
+            print("   ", key)
 
 #
 # Example usage:

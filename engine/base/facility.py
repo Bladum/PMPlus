@@ -30,4 +30,3 @@ class TFacility:
         if self.completed:
             return self.facility_type
         return None
-

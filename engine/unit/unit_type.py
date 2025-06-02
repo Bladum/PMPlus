@@ -78,18 +78,18 @@ class TUnitType:
         primary_selected = random.choice(primary_name)
         prim_weapon = game.mod.items.get(primary_selected)
         if prim_weapon:
-            unit.primary_weapon = TItemWeapon(prim_weapon.name)
+            unit.weapon = TItemWeapon(prim_weapon.name)
 
         # assign secondary weapons
         # this supposed to be list of lists to choose from
 
-        unit.secondary_weapon.clear()
+        unit.equipment.clear()
         secondary_names_list = unit_type.secondary
         for secondary_name in secondary_names_list:
             secondary_selected = random.choice(secondary_name)
             second_weapon = game.mod.items.get(secondary_selected)
             if second_weapon:
-                unit.secondary_weapon.append(TItemWeapon(second_weapon.name))
+                unit.equipment.append(TItemWeapon(second_weapon.name))
 
         # assign traits
 

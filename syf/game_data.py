@@ -15,7 +15,6 @@ Key Features:
 
 Classes:
 - ItemType: Enumeration for different item categories
-- ItemRarity: Enumeration for item rarity levels  
 - UnitCategory: Enumeration for unit types
 - BaseInfo: Data class for base information storage
 - GameData: Main static class containing all game data and operations
@@ -36,18 +35,6 @@ class ItemType(Enum):
     WEAPON = "weapon"
     EQUIPMENT = "equipment"
     OTHER = "other"
-
-class ItemRarity(Enum):
-    """
-    Enumeration for item rarity levels affecting gameplay balance.
-    
-    Determines item availability, power level, and visual presentation.
-    """
-    COMMON = "common"
-    UNCOMMON = "uncommon"
-    RARE = "rare"
-    EPIC = "epic"
-    LEGENDARY = "legendary"
 
 class UnitCategory(Enum):
     """

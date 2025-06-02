@@ -1,5 +1,7 @@
 from PySide6.QtWidgets import QWidget
 
+from gui.theme_manager import XcomTheme
+
 
 class TGuiCoreScreen(QWidget):
     """Base class for all screen widgets that can be displayed in the BaseGUI."""

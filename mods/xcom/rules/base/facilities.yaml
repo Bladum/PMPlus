@@ -12,10 +12,8 @@ facilities:
         description: "The main base of operations for the organization, the headquarters is where all research and development takes place."
         build_time: 30
         build_cost: 1000
-        build_items:
-            fuel: 10
         upkeep_cost: 4
-        sprite: 'facility_hq.png'
+        sprite: 'facility_hq'
         max_per_base: 1
         map_block: xbase_hq
         facility_needed: []
@@ -53,7 +51,7 @@ facilities:
         build_cost: 200
         upkeep_cost: 2
         facility_needed: []
-        sprite: 'facility_storage.png'
+        sprite: 'facility_storage'
         tech_needed: []
         service_needed: []
         max_per_base: 99
@@ -68,7 +66,7 @@ facilities:
         upkeep_cost: 4
         facility_needed: []
         tech_needed: []
-        sprite: 'facility_small_radar.png'
+        sprite: 'facility_small_radar'
         service_needed: []
         max_per_base: 3
         radar_power: 7
@@ -81,7 +79,7 @@ facilities:
         build_time: 20
         build_cost: 500
         upkeep_cost: 8
-        sprite: 'facility_workshop.png'
+        sprite: 'facility_workshop'
         facility_needed: []
         tech_needed: []
         service_needed: []

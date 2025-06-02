@@ -27,7 +27,7 @@ import os
 from typing import Optional, Dict, Any, List, Union
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap, QIcon
-from game_data import ItemType, ItemRarity
+
 from item_path_lookup import get_canonical_path
 
 class InventoryItem:
@@ -36,14 +36,13 @@ class InventoryItem:
     
     This class encapsulates all item properties including visual representation,
     game mechanics data, and serialization capabilities. Items can be weapons,
-    armor, equipment, or miscellaneous objects with varying rarities and properties.
-    
+    armor, equipment, or miscellaneous objects with varying properties.
+
     Attributes:
         name: Human-readable item name
         icon_path: Path to item's visual icon
         properties: Dictionary of item-specific properties and stats
         item_type: ItemType enumeration (WEAPON, ARMOUR, EQUIPMENT, OTHER)
-        rarity: ItemRarity enumeration (COMMON through LEGENDARY)
         stackable: Whether multiple items can stack in inventory
         max_stack: Maximum number that can stack together
         id: Unique identifier for the item instance
@@ -52,8 +51,8 @@ class InventoryItem:
     """
     
     def __init__(self, name: str, icon_path: Optional[str], properties: Optional[Dict[str, Any]] = None, 
-                 item_type: ItemType = ItemType.OTHER, rarity: ItemRarity = ItemRarity.COMMON,
-                 stackable: bool = False, max_stack: int = 1, item_id: Optional[str] = None, 
+                 item_type: ItemType = ItemType.OTHER,
+                 stackable: bool = False, max_stack: int = 1, item_id: Optional[str] = None,
                  weight: int = 1) -> None:
         """
         Initialize a new inventory item.
@@ -63,7 +62,6 @@ class InventoryItem:
             icon_path: Path to icon file, defaults to 'other/item.png' if None
             properties: Dictionary of custom properties and stats
             item_type: Type classification for the item
-            rarity: Rarity level affecting gameplay and visuals
             stackable: Whether item can stack with identical items
             max_stack: Maximum stack size if stackable
             item_id: Unique ID, auto-generated from name if None
@@ -83,7 +81,6 @@ class InventoryItem:
             
         self.properties = properties or {}
         self.item_type = item_type
-        self.rarity = rarity
         self.stackable = stackable
         self.max_stack = max_stack
         self.id = item_id or f"{name}_{hash(name) % 10000}"
@@ -138,7 +135,6 @@ class InventoryItem:
             'icon_path': self.icon_path,
             'properties': self.properties,
             'item_type': self.item_type.value,
-            'rarity': self.rarity.value,
             'stackable': self.stackable,
             'max_stack': self.max_stack,
             'description': self.description,
@@ -170,66 +166,13 @@ class InventoryItem:
             icon_path=None,  # icon_path will be set in __init__ using canonical path
             properties=data.get('properties', {}),
             item_type=ItemType(data.get('item_type', 'other')),
-            rarity=ItemRarity(data.get('rarity', 'common')),
             stackable=data.get('stackable', False),
             max_stack=data.get('max_stack', 1),
             item_id=data.get('id'),
             weight=data.get('weight', 1)
         )
 
-# TEMPLATE SYSTEM START - Equipment configuration templates
-class InventoryTemplate:
-    """
-    Container for saved equipment configurations.
-    
-    Templates allow players to save and quickly restore equipment setups
-    for different scenarios or unit types. They store a mapping of equipment
-    slot names to item data dictionaries.
-    
-    Attributes:
-        name: Human-readable template name
-        equipment_data: Dictionary mapping slot names to item dictionaries
-    """
-    
-    def __init__(self, name: str, equipment_data: Dict[str, Optional[Dict[str, Any]]]) -> None:
-        """
-        Initialize a new equipment template.
-        
-        Args:
-            name: Display name for the template
-            equipment_data: Dictionary mapping slot names to item data
-                          (None values represent empty slots)
-        """
-        self.name = name
-        self.equipment_data = equipment_data  # Dict mapping slot names to item data
 
-    def to_dict(self) -> Dict[str, Any]:
-        """
-        Serialize template to dictionary for storage.
-        
-        Returns:
-            Dictionary containing template name and equipment data
-        """
-        return {
-            'name': self.name,
-            'equipment_data': self.equipment_data
-        }
-
-    @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'InventoryTemplate':
-        """
-        Create template from dictionary representation.
-        
-        Args:
-            data: Dictionary containing template data
-            
-        Returns:
-            New InventoryTemplate instance
-        """
-        return cls(
-            name=data['name'],
-            equipment_data=data['equipment_data']
-        )
 
 class TemplateManager:
     """

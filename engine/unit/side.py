@@ -14,5 +14,11 @@ Interactions:
 """
 
 class TSide:
+
+    XCOM = 0
+    ALIEN = 1
+    CIVILIAN = 2
+    ALLIED = 3
+
     pass
 

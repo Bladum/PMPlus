@@ -12,8 +12,7 @@
 
 start_bases:
   OMEGA:  # Main starting base (first base)
-    latitude: 51.5  # London, UK
-    longitude: -0.1
+    position: [ 50, 40 ]
     facilities:
       - type: "fac_storage"
         position: [0, 0]
@@ -23,23 +22,16 @@ start_bases:
         position: [0, 2]
       - type: "fac_small_radar"
         position: [1, 2]
+
     items:
-      - id: "assault_rifle"
-        quantity: 10
-      - id: "auto_pistol"
-        quantity: 20
-      - id: "basic_armor"
-        quantity: 10
-      - id: "medipack"
-        quantity: 5
-      - id: "grenade"
-        quantity: 15
-      - id: "small_shotgun"
-        quantity: 5
-      - id: "combat_knife"
-        quantity: 8
-      - id: "flares"
-        quantity: 10
+      assault_rifle: 10
+      auto_pistol: 20
+      basic_armor: 10
+      medipack: 5
+      grenade: 15
+      small_shotgun: 5
+      combat_knife: 8
+      flares: 10
     units:
       - type: "xcom_soldier"
         name: "John Smith"
@@ -62,26 +54,21 @@ start_bases:
       - type: "xcom_soldier"
         name: "Lucas Da Silva"
     crafts:
-      - type: "craft_interceptor"
+      - type: "craft_car"
         name: "Interceptor-1"
-        crew: 1
-      - type: "craft_interceptor"
-        name: "Interceptor-2"
         crew: 1
 
   ALPHA:  # Second base (not built initially, but defined for future expansion)
-    latitude: 37.7749  # San Francisco, USA
-    longitude: -122.4194
+    position: [ 40, 50 ]
     facilities: []  # Empty initially
-    items: []       # Empty initially
+    items: {}       # Empty initially
     units: []       # Empty initially
     crafts: []      # Empty initially
 
   BETA:   # Third base (not built initially, but defined for future expansion)
-    latitude: 35.6762  # Tokyo, Japan
-    longitude: 139.6503
+    position: [ 20, 30 ]
     facilities: []  # Empty initially
-    items: []       # Empty initially
+    items: {}       # Empty initially
     units: []       # Empty initially
     crafts: []      # Empty initially
 

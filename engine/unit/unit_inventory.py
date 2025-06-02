@@ -401,3 +401,58 @@ class TUnitInventory:
                 inventory.equipment_slots[i] = item_factory(item_data)
 
         return inventory
+
+
+# TEMPLATE SYSTEM START - Equipment configuration templates
+class InventoryTemplate:
+    """
+    Container for saved equipment configurations.
+
+    Templates allow players to save and quickly restore equipment setups
+    for different scenarios or unit types. They store a mapping of equipment
+    slot names to item data dictionaries.
+
+    Attributes:
+        name: Human-readable template name
+        equipment_data: Dictionary mapping slot names to item dictionaries
+    """
+
+    def __init__(self, name: str, equipment_data: Dict[str, Optional[Dict[str, Any]]]) -> None:
+        """
+        Initialize a new equipment template.
+
+        Args:
+            name: Display name for the template
+            equipment_data: Dictionary mapping slot names to item data
+                          (None values represent empty slots)
+        """
+        self.name = name
+        self.equipment_data = equipment_data  # Dict mapping slot names to item data
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Serialize template to dictionary for storage.
+
+        Returns:
+            Dictionary containing template name and equipment data
+        """
+        return {
+            'name': self.name,
+            'equipment_data': self.equipment_data
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'InventoryTemplate':
+        """
+        Create template from dictionary representation.
+
+        Args:
+            data: Dictionary containing template data
+
+        Returns:
+            New InventoryTemplate instance
+        """
+        return cls(
+            name=data['name'],
+            equipment_data=data['equipment_data']
+        )

@@ -6,7 +6,6 @@ as a central repository for all game data loaded from mod files and directories.
 
 Class Relationships:
 - TItemCategory: Used by TUnitInventory for slot validation and by TMod for UI elements
-- TItemRarity: Used by TItemType to determine item properties and availability
 - TUnitCategory: Used by TMod and TGame for unit filtering and organization
 - TMod: Central data manager that loads, stores, and provides access to all game entities
   * Interfaces with TModLoader to load data from files
@@ -29,6 +28,7 @@ from battle.support.battle_effect import TBattleEffect
 from battle.support.damage_model import TDamageModel
 from battle.terrain.map_block import TMapBlock
 from battle.terrain.terrain import TTerrain
+from craft.craft_item import TCraftItem
 from craft.craft_type import TCraftType
 from economy.manufacture_entry import TManufactureEntry
 from economy.purchase_entry import TPurchaseEntry
@@ -37,8 +37,10 @@ from globe.biome import TBiome
 from globe.country import TCountry
 from globe.region import TRegion
 from globe.world import TWorld
+from item.item_armour import TItemArmour
 from item.item_type import TItemType
 from item.item_mode import TWeaponMode
+from item.item_weapon import TItemWeapon
 from location.city import TCity
 from location.site import TSite
 from location.site_type import TSiteType
@@ -64,19 +66,6 @@ class TItemCategory(Enum):
     WEAPON = "weapon"
     EQUIPMENT = "equipment"
     OTHER = "other"
-
-
-class TItemRarity(Enum):
-    """
-    Enumeration for item rarity levels affecting gameplay balance.
-
-    Determines item availability, power level, and visual presentation.
-    """
-    COMMON = "common"
-    UNCOMMON = "uncommon"
-    RARE = "rare"
-    EPIC = "epic"
-    LEGENDARY = "legendary"
 
 
 class TUnitCategory(Enum):
@@ -106,10 +95,12 @@ class TMod:
             self.maps_path = self.mod_path / 'maps'
             self.rules_path = self.mod_path / 'rules'
             self.tiles_path = self.mod_path / 'tiles'
+            self.gfx_path = self.mod_path / 'gfx'
         else:
             self.maps_path = None
             self.rules_path = None
             self.tiles_path = None
+            self.gfx_path = None
 
         # here save all graphics tiles
 
@@ -397,37 +388,188 @@ class TMod:
             obj = TItemType(pid, dat)
             self.items[pid] = obj
 
-        datas = mod_data.get('unit_items', {})
+        datas = mod_data.get('unit_equipment', {})
+        for pid, dat in datas.items():
+            dat['category'] = TItemType.ITEM_UNIT_EQUIPMENT
+            obj = TItemType(pid, dat)
+            self.items[pid] = obj
+
+        datas = mod_data.get('unit_weapons', {})
         for pid, dat in datas.items():
             dat['category'] = TItemType.ITEM_UNIT_ITEM
             obj = TItemType(pid, dat)
             self.items[pid] = obj
+
+        datas = mod_data.get('items', {})
+        for pid, dat in datas.items():
+            dat['category'] = TItemType.ITEM_GENERAL
+            obj = TItemType(pid, dat)
+            self.items[pid] = obj
         print(f"Loaded {len(self.items)} items")
 
-        # here iterate over the mod_data and create objects
-        #
+    def load_initial_base_data(self):
+        """
+        Create the initial player base(s) using data from the starting_base configuration.
+        Sets up facilities, inventory, and other base components.
+        """
+        from engine.base.geo.xbase import TBaseXCom
+        from item.item import TItem
+        import uuid
 
-            # # battle
+        player_bases = {}
 
-            # map_blocks = TMapBlock
-            # tiles =
-            # tilesets = TTiledTileset
-            #
-            # # globe
-            # cities = TCity
-            #
-            #
+        for base_id, base_data in self.starting_base.items():
+            print(f"Creating initial base: {base_id}")
+            base_data['name'] = base_id
 
-            # # story
-            # calendar = TCalendar
-            #
-            # # vars
-            # item_types = 1
-            # start_base = 1
-            # battlemap_sizes = 1
-            # terrain_resistance = TArmourResistance
-            # armour_resistance = TArmourResistance
-            # salaries = 1
+            # Create the base at specified location
+            base = TBaseXCom( base_id, base_data )
+
+            # Add facilities
+            if 'facilities' in base_data:
+                for facility_data in base_data['facilities']:
+                    facility_id = facility_data.get('type')
+                    position = facility_data.get('position', (0, 0))
+                    position = tuple(position)  # Ensure position is a tuple
+                    # Force parameter to bypass facility requirements (except position)
+                    force_add = facility_data.get('force_add', True)  # Default to True for initial base
+
+                    if facility_id in self.facilities:
+                        facility_type = self.facilities.get(facility_id)
+                        if facility_type is None:
+                            print(f"  Facility type {facility_id} not found in mod data")
+                      #  try:
+                        # Check if we can place at this position
+                        if base.can_place_facility_at(position):
+                            # If force_add is True, bypass additional requirements checks
+                            facility = base.add_facility(facility_type, position, force_add=force_add)
+
+                            # Mark facilities as instantly completed for starting base
+                            facility.completed = True
+                            print(f"  Added facility: {facility_id} at position {position}" + (" (forced)" if force_add else ""))
+                        else:
+                            print(f"  Cannot place facility {facility_id} at position {position} - already occupied")
+                        #except Exception as e:
+                        #    print(f"  Failed to add facility {facility_id}: {str(e)}")
+                    else:
+                        print(f"  Unknown facility type: {facility_id}")
+
+            # Add starting inventory items
+            if 'items' in base_data:
+                for item_id, quantity in base_data['items'].items():
+                    if item_id in self.items.keys():
+                        base.add_item(item_id, quantity)
+                        print(f"  Added {quantity} of {item_id} to base inventory")
+                    else:
+                        print(f"  Unknown item: {item_id}")
+
+            # Add starting crafts
+            if 'crafts' in base_data:
+                from craft.craft import TCraft
+
+                for craft_data in base_data['crafts']:
+                    craft_type_id = craft_data.get('type')
+                    if craft_type_id in self.craft_types:
+                        name = craft_data.get('name', "Unnamed Craft")
+                        craft = TCraft(name, craft_data)
+                        craft.base = base
+                        base.add_craft(craft)
+
+                        # Add weapons and items to craft if specified
+                        if 'weapons' in craft_data:
+                            for slot, weapon_id in craft_data['weapons'].items():
+                                if weapon_id in self.items:
+                                    weapon_item = TCraftItem( weapon_id )
+                                    # Add logic to assign weapon to craft slot
+                                    # craft.equip_weapon(slot, weapon_item)  # Implement this method in TCraft
+                                    # TODO: Implement weapon assignment logic in TCraft
+                                else:
+                                    print(f"  Unknown weapon type: {weapon_id}")
+
+                        print(f"  Added craft: {craft.name} ({craft_type_id})")
+                    else:
+                        print(f"  Unknown craft type: {craft_type_id}")
+
+            # Add starting units to the base
+            if 'units' in base_data:
+                from unit.unit import TUnit
+                from unit.side import TSide
+
+                # Get player side
+                player_side = TSide.XCOM  # Default to XCOM side for player bases
+
+                for unit_data in base_data['units']:
+                    unit_type_id = unit_data.get('type')
+                    if unit_type_id in self.units.keys():
+                        unit_type = self.units[unit_type_id]
+                        unit = TUnit(unit_type, player_side)
+
+                        # Set unit name if provided
+                        if 'name' in unit_data:
+                            unit.name = unit_data.get('name')
+
+                        # Set unit nationality if provided
+                        if 'nationality' in unit_data:
+                            unit.nationality = unit_data.get('nationality')
+
+                        # Set unit gender if provided
+                        if 'female' in unit_data:
+                            unit.female = unit_data.get('female', False)
+
+                        # Set unit traits if provided
+                        if 'traits' in unit_data:
+                            unit.traits = []
+                            for trait_id in unit_data['traits']:
+                                if trait_id in self.traits:
+                                    unit.traits.append(self.traits[trait_id])
+                                else:
+                                    print(f"  Unknown trait: {trait_id}")
+
+                        # Equip armor if provided
+                        if 'armour' in unit_data:
+                            armor_id = unit_data.get('armour')
+                            if armor_id in self.items.keys():
+                                armor_item = TItemArmour(  armor_id )
+                                unit.armour = armor_item
+                                print(f"  Equipped {armor_id} armor to {unit.name}")
+                            else:
+                                print(f"  Unknown armor: {armor_id}")
+
+                        # Equip primary weapon if provided
+                        if 'weapon' in unit_data:
+                            weapon_id = unit_data.get('weapon')
+                            if weapon_id in self.items.keys():
+                                weapon_item = TItemWeapon(weapon_id )
+                                unit.weapon = weapon_item
+                                print(f"  Equipped {weapon_id} weapon to {unit.name}")
+                            else:
+                                print(f"  Unknown weapon : {weapon_id}")
+
+                        # Equip secondary weapons if provided
+                        if 'equipment' in unit_data:
+                            unit.equipment = []
+                            for weapon_id in unit_data['equipment']:
+                                if weapon_id in self.items.keys():
+                                    weapon_item = TItemWeapon(weapon_id)
+                                    unit.equipment.append(weapon_item)
+                                    print(f"  Equipped {weapon_id} item to {unit.name}")
+                                else:
+                                    print(f"  Unknown item: {weapon_id}")
+
+                        # Add unit to base personnel
+                        base.add_unit(unit)
+                        print(f"  Added unit: {unit.name} ({unit_type_id})")
+                    else:
+                        print(f"  Unknown unit type: {unit_type_id}")
+
+            # Store the base
+            player_bases[base_id] = base
+            print(f"Base {base_id} created with {len(base.facilities)} facilities")
+
+        if not player_bases:
+            print("Warning: No starting bases were created")
+
+        return player_bases
 
     def load_all_terrain_map_blocks(self):
         """
@@ -478,11 +620,11 @@ class TMod:
         unit displays by type.
         """
         return [
-            {"name": "All", "icon": "units/icon_a.png"},
-            {"name": "Soldier", "icon": "units/icon_a.png"},
-            {"name": "Tank", "icon": "units/icon_b.png"},
-            {"name": "Dog", "icon": "units/icon_c.png"},
-            {"name": "Alien", "icon": "units/icon_d.png"},
+            {"name": "All", "icon": "category_all.png"},
+            {"name": "Soldier", "icon": "category_soldier.png"},
+            {"name": "Tank", "icon": "category_vehicle.png"},
+            {"name": "Dog", "icon": "category_pet.png"},
+            {"name": "Alien", "icon": "category_alien.png"},
         ]
 
     @staticmethod
@@ -497,10 +639,9 @@ class TMod:
         item displays by type.
         """
         return [
-            {"name": "All", "icon": "other/item2.png"},
-            {"name": "Armour", "icon": "other/item2.png"},
-            {"name": "Weapon", "icon": "other/item2.png"},
-            {"name": "Equipment", "icon": "other/item.png"},
-            {"name": "Other", "icon": "other/item.png"},
+            {"name": "All", "icon": "category_all.png"},
+            {"name": "Armour", "icon": "category_armour.png"},
+            {"name": "Weapon", "icon": "category_weapon.png"},
+            {"name": "Equipment", "icon": "category_equipment.png"},
+            {"name": "Other", "icon": "category_item.png"},
         ]
-

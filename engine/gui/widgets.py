@@ -11,6 +11,7 @@ All widgets follow the XCOM theme and support the global state management system
 
 import json
 import sys
+from enum import Enum
 from typing import Optional, Dict, Any, List
 from PySide6.QtCore import Qt, QPoint, QRect, QMimeData
 from PySide6.QtGui import (QFont, QPixmap, QColor, QPainter, QDrag, QCursor, 
@@ -20,8 +21,40 @@ from PySide6.QtWidgets import (QListWidget, QListWidgetItem, QAbstractItemView,
                               QLabel, QWidget, QApplication)
 
 from theme_styles import XcomTheme, XcomStyle, GRID, px, WIDGET_MARGIN, WIDGET_PADDING
-from game_data import ItemType, UnitCategory
-from inventory_system import InventoryItem, ItemRarity
+from item.item_type import TItemType
+from traits.trait import TUnitTrait
+
+# Define simplified enums for the widgets module
+class ItemType(Enum):
+    """Simplified item type enumeration for UI widgets"""
+    ARMOUR = "armour"
+    WEAPON = "weapon"
+    EQUIPMENT = "equipment"
+    OTHER = "other"
+
+class UnitCategory(Enum):
+    """Simplified unit category enumeration for UI widgets"""
+    SOLDIER = "soldier"
+    SCIENTIST = "scientist"
+    ENGINEER = "engineer"
+    HYBRID = "hybrid"
+    SPECIAL = "special"
+
+# Function to convert between TItemType and simplified ItemType
+def convert_to_item_type(t_item_type: TItemType) -> ItemType:
+    """Convert from engine TItemType to widget-friendly ItemType"""
+    # Map based on item type properties
+    # This will need to be adjusted based on your actual TItemType implementation
+    if hasattr(t_item_type, 'is_armour') and t_item_type.is_armour:
+        return ItemType.ARMOUR
+    elif hasattr(t_item_type, 'is_weapon') and t_item_type.is_weapon:
+        return ItemType.WEAPON
+    elif hasattr(t_item_type, 'is_equipment') and t_item_type.is_equipment:
+        return ItemType.EQUIPMENT
+    else:
+        return ItemType.OTHER
+
+from inventory_system import InventoryItem
 
 # Global references for cross-widget communication
 # These are set by main_interface.py and used for coordinating state changes

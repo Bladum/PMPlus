@@ -9,7 +9,7 @@ class TUfo(TLocation):
     ufo must be first shot down by interception
     """
     def __init__(self, ufo_id, data):
-        super().__init__(data)
+        super().__init__(ufo_id, data)
 
         from engine.engine.game import TGame
         self.game : TGame = TGame()  # Reference to the game instance

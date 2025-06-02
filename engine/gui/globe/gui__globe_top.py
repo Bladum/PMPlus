@@ -27,7 +27,7 @@ from PySide6.QtGui import QFont, QIcon, QPixmap
 from PySide6.QtWidgets import (QWidget, QHBoxLayout, QVBoxLayout, QPushButton,
                               QButtonGroup, QGridLayout, QLabel)
 
-from gui.other.theme_manager import px, XcomTheme, GRID, XcomStyle
+from gui.theme_manager import XcomTheme, GRID, px, XcomStyle
 
 
 class TGuiGlobeTopPanel(QWidget):

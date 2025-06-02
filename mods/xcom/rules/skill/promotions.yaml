@@ -7,7 +7,7 @@
 promotions:
     sniper:
         name: "Sniper"
-        sprite: 'trait_promotion_sniper.png'
+        sprite: 'trait_promotion_sniper'
         races:
             - human
             - orc

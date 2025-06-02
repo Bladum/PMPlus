@@ -7,7 +7,7 @@
 ranks:
     alien_soldier:
         name: "Soldier (alien)"
-        sprite: 'trait_alien_soldier.png'
+        sprite: 'trait_alien_soldier'
         races:
             - sectoid
         description: "A grunt."
@@ -23,7 +23,7 @@ ranks:
             sight: [2, 1]
     alien_navigator:
         name: "Navigator (alien)"
-        sprite: 'trait_alien_navigator.png'
+        sprite: 'trait_alien_navigator'
         races:
             - sectoid
         description: "A grunt."
@@ -38,7 +38,7 @@ ranks:
             sight: [2, 1]
     alien_leader:
         name: "Leader (alien)"
-        sprite: 'trait_alien_leader.png'
+        sprite: 'trait_alien_leader'
         races:
             - sectoid
         description: "A grunt."
@@ -51,4 +51,3 @@ ranks:
             sanity: 2
             bravery: 1
             sight: [2, 1]
-

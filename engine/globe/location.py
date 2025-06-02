@@ -11,8 +11,8 @@ class TLocation:
 
         self.name = data.get("name", "")
         self.description = data.get("description", "")
-        pos = data.get("position", [])
-        self.position = TWorldPoint(pos[0], pos[1]) if pos else TWorldPoint(0, 0)
+        pos = data.get("position", (0, 0))  # Default position (0, 0) if not provided
+        self.position = TWorldPoint.from_tuple(pos)
 
         # Radar detection fields
         self.initial_cover = data.get("initial_cover", 0)  # max cover value

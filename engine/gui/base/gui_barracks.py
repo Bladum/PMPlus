@@ -8,7 +8,10 @@ It handles unit management, equipment, and inventory interfaces.
 import sys
 import os
 
+from engine.mod import TMod
 from gui.gui_core import TGuiCoreScreen
+from gui.theme_manager import XcomTheme, GRID, px, XcomStyle
+from unit.unit_inventory import TUnitInventory, InventoryTemplate
 
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -19,9 +22,6 @@ from PySide6.QtGui import QFont, QIcon, QPixmap
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout, QLabel,
                              QGroupBox, QPushButton, QComboBox, QListWidgetItem)
 
-from syf.theme_styles import XcomTheme, XcomStyle, GRID, px
-from syf.game_data import GameData, ItemType
-from syf.inventory_system import (InventoryItem, InventoryTemplate, UnitInventoryManager)
 
 class TGuiBarracks(TGuiCoreScreen):
     """
@@ -33,8 +33,11 @@ class TGuiBarracks(TGuiCoreScreen):
         """Initialize the barracks screen widget."""
         super().__init__(parent)
 
+        from engine.engine.game import TGame
+        self.game = TGame()
+
         # Initialize state variables
-        self.unit_inventory_manager = UnitInventoryManager()
+        self.unit_inventory_manager = TUnitInventory()
         self.current_unit: Optional[str] = None
         self.saved_template: Optional[InventoryTemplate] = None
 
@@ -60,7 +63,7 @@ class TGuiBarracks(TGuiCoreScreen):
         self.setContentsMargins(0, 0, 0, 0)
 
         # Create equipment slots from data structure
-        for slot_data in GameData.get_equipment_slots():
+        for slot_data in TMod.get_equipment_slots():
             gx, gy = slot_data["position"]
             r_adj, g_adj, b_adj = slot_data["color_adjust"]
 

@@ -1,3 +1,4 @@
+from globe.location import TLocation
 from .site_type import TSiteType
 
 

@@ -11,7 +11,7 @@ unit_armours:
     description: "Standard protective gear for XCOM operatives."
     weight: 10
     size: 5
-    sprite: "armour_light_vest.png"
+    sprite: "armour_light_vest"
     armour: 10
     resistance:
       ballistic: 0.7
@@ -29,7 +29,7 @@ unit_armours:
     description: "Enhanced armor with better protection against various threats."
     weight: 15
     size: 7
-    sprite: "armour_tactical_suit.png"
+    sprite: "armour_tactical_suit"
     armour: 15
     resistance:
       ballistic: 0.5
@@ -47,7 +47,7 @@ unit_armours:
     description: "Basic combat protection."
     weight: 3
     size: 3
-    sprite: "armour_combat_vest.png"
+    sprite: "armour_combat_vest"
     armour: 5
     resistance:
       ballistic: 0.8
@@ -65,7 +65,7 @@ unit_armours:
     description: "Lightweight, strong armor."
     weight: 3
     size: 3
-    sprite: "armour_nano_vest.png"
+    sprite: "armour_nano_vest"
     armour: 20
     resistance:
       ballistic: 0.4
@@ -84,7 +84,7 @@ unit_armours:
     description: "Heavy powered armor."
     weight: 10
     size: 10
-    sprite: "armour_power_suit.png"
+    sprite: "armour_power_suit"
     armour: 30
     resistance:
       ballistic: 0.2
@@ -103,7 +103,7 @@ unit_armours:
     description: "Cloaking technology armor."
     weight: 4
     size: 4
-    sprite: "armour_stealth_suit.png"
+    sprite: "armour_stealth_suit"
     armour: 10
     resistance:
       ballistic: 0.6
@@ -122,7 +122,7 @@ unit_armours:
     description: "Maximum protection armor."
     weight: 8
     size: 8
-    sprite: "armour_heavy_vest.png"
+    sprite: "armour_heavy_vest"
     armour: 25
     resistance:
       ballistic: 0.3

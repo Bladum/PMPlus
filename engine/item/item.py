@@ -24,14 +24,6 @@ from typing import Dict, Any, Optional
 from enum import Enum
 from .item_type import TItemType
 
-class TItemRarity(Enum):
-    """Item rarity classification affecting appearance and value."""
-    COMMON = 0
-    UNCOMMON = 1
-    RARE = 2
-    EXOTIC = 3
-    LEGENDARY = 4
-
 
 class TItem:
     """
@@ -45,7 +37,6 @@ class TItem:
         icon_path: Path to item's visual icon
         properties: Dictionary of additional item-specific properties
         item_type: Type reference for this item
-        rarity: Rarity classification (affects value and appearance)
         weight: Item weight for inventory management
         id: Unique identifier for this item instance
     """
@@ -55,7 +46,6 @@ class TItem:
                  icon_path: str,
                  item_type: TItemType,
                  properties: Optional[Dict[str, Any]] = None,
-                 rarity: TItemRarity = TItemRarity.COMMON,
                  weight: int = 1,
                  item_id: Optional[str] = None):
         """
@@ -66,7 +56,6 @@ class TItem:
             icon_path: Path to the item's icon image
             item_type: Reference to the item's type definition
             properties: Additional properties specific to this item
-            rarity: Item's rarity classification
             weight: Weight of the item (for inventory management)
             item_id: Unique identifier (generated if not provided)
         """
@@ -74,7 +63,6 @@ class TItem:
         self.icon_path = icon_path
         self.item_type = item_type
         self.properties = properties or {}
-        self.rarity = rarity
         self.weight = weight
 
         # Generate UUID if no ID provided
@@ -123,13 +111,11 @@ class TItem:
 
     def get_display_name(self) -> str:
         """
-        Get a formatted display name including rarity if applicable.
+        Get a formatted display name.
 
         Returns:
-            String with item name (and rarity indication)
+            String with item name
         """
-        if self.rarity != TItemRarity.COMMON:
-            return f"{self.name} [{self.rarity.name.title()}]"
         return self.name
 
     def to_dict(self) -> Dict[str, Any]:
@@ -145,7 +131,6 @@ class TItem:
             'icon_path': self.icon_path,
             'item_type_id': self.item_type.pid if hasattr(self.item_type, 'pid') else None,
             'properties': self.properties,
-            'rarity': self.rarity.name,
             'weight': self.weight
         }
 
@@ -167,14 +152,11 @@ class TItem:
         if not item_type:
             raise ValueError(f"Invalid item_type_id: {item_type_id}")
 
-        rarity = TItemRarity[data.get('rarity', 'COMMON')]
-
         return cls(
             name=data.get('name', 'Unknown Item'),
             icon_path=data.get('icon_path', ''),
             item_type=item_type,
             properties=data.get('properties', {}),
-            rarity=rarity,
             weight=data.get('weight', 1),
             item_id=data.get('id')
         )
@@ -191,9 +173,8 @@ class TItem:
 
     def __str__(self):
         """String representation of the item."""
-        return f"{self.get_display_name()} [{self.id[:8]}]"
+        return f"{self.name} [{self.id[:8]}]"
 
     def __repr__(self):
         """Detailed representation of the item."""
         return f"TItem(name='{self.name}', type='{self.item_type}', id='{self.id[:8]}')"
-

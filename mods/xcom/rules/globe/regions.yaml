@@ -11,7 +11,7 @@ regions:
     name: "Europe"
     is_land: true
     description: "A continent known for its rich history and diverse cultures."
-    sprite: 'regions_001.png'
+    sprite: 'regions_001'
     color: '#FF00FF'
     mission_weight: 18
     base_cost: 800
@@ -22,7 +22,7 @@ regions:
     name: "North Africa"
     is_land: true
     description: "A continent known for its rich history and diverse cultures."
-    sprite: 'regions_002.png'
+    sprite: 'regions_002'
     mission_weight: 12
     base_cost: 600
 
@@ -30,7 +30,7 @@ regions:
     name: "South Africa"
     is_land: true
     description: "The southernmost region of Africa, known for its diverse wildlife and landscapes."
-    sprite: 'regions_003.png'
+    sprite: 'regions_003'
     mission_weight: 10
     base_cost: 500
 
@@ -38,7 +38,7 @@ regions:
     name: "North America"
     is_land: true
     description: "A continent comprising Canada, the United States, Mexico, and Central America."
-    sprite: 'regions_004.png'
+    sprite: 'regions_004'
     mission_weight: 20
     base_cost: 900
 
@@ -46,7 +46,7 @@ regions:
     name: "Central America"
     is_land: true
     description: "The region connecting North and South America, known for its tropical climate."
-    sprite: 'regions_005.png'
+    sprite: 'regions_005'
     mission_weight: 8
     base_cost: 400
 
@@ -54,7 +54,7 @@ regions:
     name: "South America"
     is_land: true
     description: "A continent rich in rainforests, mountains, and diverse cultures."
-    sprite: 'regions_006.png'
+    sprite: 'regions_006'
     mission_weight: 14
     base_cost: 700
 
@@ -62,7 +62,7 @@ regions:
     name: "Middle East"
     is_land: true
     description: "A region at the crossroads of Europe, Asia, and Africa, known for its history and resources."
-    sprite: 'regions_007.png'
+    sprite: 'regions_007'
     mission_weight: 10
     base_cost: 600
 
@@ -70,7 +70,7 @@ regions:
     name: "Russia"
     is_land: true
     description: "The largest country in the world, spanning Eastern Europe and northern Asia."
-    sprite: 'regions_008.png'
+    sprite: 'regions_008'
     mission_weight: 16
     base_cost: 850
 
@@ -78,7 +78,7 @@ regions:
     name: "Central Asia"
     is_land: true
     description: "A vast region of steppes and mountains, historically a crossroads of empires."
-    sprite: 'regions_009.png'
+    sprite: 'regions_009'
     mission_weight: 7
     base_cost: 400
 
@@ -86,7 +86,7 @@ regions:
     name: "Siberia"
     is_land: true
     description: "A vast, cold region in northern Asia, mostly within Russia."
-    sprite: 'regions_010.png'
+    sprite: 'regions_010'
     mission_weight: 6
     base_cost: 350
 
@@ -94,7 +94,7 @@ regions:
     name: "China"
     is_land: true
     description: "A populous and influential country in East Asia."
-    sprite: 'regions_011.png'
+    sprite: 'regions_011'
     mission_weight: 18
     base_cost: 900
 
@@ -102,7 +102,7 @@ regions:
     name: "Far East"
     is_land: true
     description: "Easternmost Asia, including Japan and Korea."
-    sprite: 'regions_012.png'
+    sprite: 'regions_012'
     mission_weight: 12
     base_cost: 700
 
@@ -110,7 +110,7 @@ regions:
     name: "Australia"
     is_land: true
     description: "A large island continent known for its unique wildlife."
-    sprite: 'regions_013.png'
+    sprite: 'regions_013'
     mission_weight: 8
     base_cost: 500
 
@@ -118,7 +118,7 @@ regions:
     name: "Arctic"
     is_land: false
     description: "The polar region at the northernmost part of Earth."
-    sprite: 'regions_014.png'
+    sprite: 'regions_014'
     mission_weight: 4
     base_cost: 200
 
@@ -126,7 +126,7 @@ regions:
     name: "Antarctic"
     is_land: false
     description: "The southernmost continent, covered in ice."
-    sprite: 'regions_015.png'
+    sprite: 'regions_015'
     mission_weight: 2
     base_cost: 100
 
@@ -135,7 +135,7 @@ regions:
     name: "Mediterranean Sea"
     is_land: false
     description: "A sea connected to the Atlantic Ocean, surrounded by the Mediterranean region."
-    sprite: 'regions_016.png'
+    sprite: 'regions_016'
     mission_weight: 5
     base_cost: 2500
 
@@ -143,7 +143,7 @@ regions:
     name: "North Atlantic"
     is_land: false
     description: "The northern part of the Atlantic Ocean."
-    sprite: 'regions_017.png'
+    sprite: 'regions_017'
     mission_weight: 6
     base_cost: 3000
 
@@ -151,6 +151,6 @@ regions:
     name: "South Atlantic"
     is_land: false
     description: "The southern part of the Atlantic Ocean."
-    sprite: 'regions_018.png'
+    sprite: 'regions_018'
     mission_weight: 4
     base_cost: 2000

@@ -28,8 +28,9 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout
 import sys
 import os
 
-from gui.gui_base_top_panel import TGuiBaseTopPanel
-from gui.other.theme_manager import XcomTheme
+from gui.base.gui__base_top import TGuiBaseTopPanel
+from gui.gui_core import TGuiCoreScreen
+from gui.theme_manager import XcomTheme
 
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))

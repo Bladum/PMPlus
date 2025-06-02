@@ -11,7 +11,7 @@ unit_equipment:
     name: "Old Pistol"
     category: 3
     description: "A basic pistol, providing minimal damage"
-    sprite: 'item_old_pistol.png'
+    sprite: 'item_old_pistol'
     weight: 1
     size: 0.1
     unit_damage: 4
@@ -28,7 +28,7 @@ unit_equipment:
     description: "Basic medical kit to treat wounds in the field."
     weight: 3
     size: 3
-    sprite: "item_medikit.png"
+    sprite: "item_medikit"
     unit_stats:
       energy: 1
 
@@ -38,7 +38,7 @@ unit_equipment:
     description: "Detects movement within a limited range."
     weight: 2
     size: 2
-    sprite: "item_motion_scanner.png"
+    sprite: "item_motion_scanner"
     unit_stats:
       sight: [0, 3]  # +3 night sight
 
@@ -48,7 +48,7 @@ unit_equipment:
     description: "Advanced healing compound."
     weight: 1
     size: 1
-    sprite: "item_stim_pack.png"
+    sprite: "item_stim_pack"
     unit_stats:
       energy: 2
       health: 3
@@ -59,7 +59,7 @@ unit_equipment:
     description: "Motion detection device."
     weight: 1
     size: 1
-    sprite: "item_scanner.png"
+    sprite: "item_scanner"
     unit_stats:
 
 
@@ -69,7 +69,7 @@ unit_equipment:
     description: "Basic combat knife for close-quarters combat."
     weight: 1
     size: 1
-    sprite: "item_combat_knife.png"
+    sprite: "item_combat_knife"
     unit_damage: 3
     unit_damage_type: "melee"
     unit_accuracy: 80
@@ -83,7 +83,7 @@ unit_equipment:
     description: "Standard issue sidearm with decent accuracy."
     weight: 2
     size: 2
-    sprite: "item_auto_pistol.png"
+    sprite: "item_auto_pistol"
     unit_damage: 4
     unit_damage_type: "ballistic"
     unit_accuracy: 70
@@ -100,7 +100,7 @@ unit_equipment:
     description: "Standard frag grenade."
     weight: 1
     size: 1
-    sprite: "item_grenade.png"
+    sprite: "item_grenade"
     unit_damage: 6
     unit_damage_type: "explosive"
     unit_accuracy: 70
@@ -114,7 +114,7 @@ unit_equipment:
     description: "Provides concealment."
     weight: 1
     size: 1
-    sprite: "item_smoke_grenade.png"
+    sprite: "item_smoke_grenade"
     unit_range: 8
     unit_action_point: 3
     unit_modes: ["snap"]
@@ -125,7 +125,7 @@ unit_equipment:
     description: "Lighting device for dark environments."
     weight: 1
     size: 1
-    sprite: "item_flares.png"
+    sprite: "item_flares"
 
   emp_grenade:
     name: "EMP Grenade"
@@ -133,7 +133,7 @@ unit_equipment:
     description: "Disables electronics."
     weight: 1
     size: 1
-    sprite: "item_emp_grenade.png"
+    sprite: "item_emp_grenade"
     unit_damage: 4
     unit_damage_type: "emp"
     unit_accuracy: 70
@@ -147,7 +147,7 @@ unit_equipment:
     description: "Improves accuracy."
     weight: 1
     size: 1
-    sprite: "item_laser_sight.png"
+    sprite: "item_laser_sight"
     unit_stats:
       accuracy: 10
 
@@ -157,7 +157,7 @@ unit_equipment:
     description: "See in darkness."
     weight: 1
     size: 1
-    sprite: "item_night_vision.png"
+    sprite: "item_night_vision"
     unit_stats:
       sight: [0, 5]
 
@@ -167,7 +167,7 @@ unit_equipment:
     description: "High-energy explosive."
     weight: 2
     size: 1
-    sprite: "item_plasma_grenade.png"
+    sprite: "item_plasma_grenade"
     unit_damage: 9
     unit_damage_type: "plasma"
     unit_accuracy: 65
@@ -181,7 +181,7 @@ unit_equipment:
     description: "Projects a protective shield."
     weight: 6
     size: 4
-    sprite: "item_shield_generator.png"
+    sprite: "item_shield_generator"
     unit_stats:
       shield: 20
       shield_regen: 2
@@ -192,7 +192,7 @@ unit_equipment:
     description: "Enhances psychic abilities."
     weight: 2
     size: 2
-    sprite: "item_psi_amp.png"
+    sprite: "item_psi_amp"
     unit_stats:
       psi_strength: 20
       psi_skill: 15
@@ -203,7 +203,7 @@ unit_equipment:
     description: "Battle enhancement drug."
     weight: 1
     size: 1
-    sprite: "item_combat_stim.png"
+    sprite: "item_combat_stim"
     unit_stats:
       reaction: 10
       strength: 5

@@ -27,13 +27,12 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout
 import sys
 import os
 
+from gui.globe.gui__globe_top import TGuiGlobeTopPanel
+from gui.gui_core import TGuiCoreScreen
+from gui.theme_manager import XcomTheme
+
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from gui.other.theme_manager import XcomTheme
-
-
-
 
 
 
@@ -65,11 +64,11 @@ class TGuiGlobe(QWidget):
         self.layout.addWidget(self.screen_container)
 
         # Screen management
-        self.screens: Dict[str, TGuiGlobeScreen] = {}
-        self.current_screen: Optional[TGuiGlobeScreen] = None
+        self.screens: Dict[str, TGuiCoreScreen] = {}
+        self.current_screen: Optional[TGuiCoreScreen] = None
         self.current_screen_name: str = ""
 
-    def register_screen(self, screen_name: str, screen_widget: TGuiGlobeScreen):
+    def register_screen(self, screen_name: str, screen_widget: TGuiCoreScreen):
         """
         Register a screen widget with a name.
 

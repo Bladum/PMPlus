@@ -9,7 +9,7 @@ countries:
   usa:
     name: "USA"
     description: "The United States of America, a powerful and influential nation located in North America."
-    sprite: 'countries_001.png'
+    sprite: 'countries_001'
     color: '#FF00FF'
     funding: 50
     funding_cap: 100
@@ -20,14 +20,14 @@ countries:
   russia:
     name: "Russia"
     description: "A vast and powerful nation located in Eurasia, Russia is known for its rich history and culture."
-    sprite: 'countries_002.png'
+    sprite: 'countries_002'
     founding: 40
     initial_relation: 5
 
   canada:
     name: "Canada"
     description: "A large country in North America, known for its natural beauty and resources."
-    sprite: 'countries_003.png'
+    sprite: 'countries_003'
     color: '#00BFFF'
     funding: 30
     funding_cap: 60
@@ -38,7 +38,7 @@ countries:
   mexico:
     name: "Mexico"
     description: "A country in southern North America, rich in culture and history."
-    sprite: 'countries_004.png'
+    sprite: 'countries_004'
     color: '#228B22'
     funding: 20
     funding_cap: 40
@@ -49,7 +49,7 @@ countries:
   colombia:
     name: "Colombia"
     description: "A country in South America known for its coffee and diverse landscapes."
-    sprite: 'countries_005.png'
+    sprite: 'countries_005'
     color: '#FFD700'
     funding: 10
     funding_cap: 20

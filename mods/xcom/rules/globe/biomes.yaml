@@ -9,14 +9,14 @@ biomes:
         map_id: 1
         type: water
         name: "Ocean"
-        sprite: 'biomes_001.png'
+        sprite: 'biomes_001'
         description: "A vast expanse of water, the ocean is home to a variety of marine life and is a major source of food and resources."
         terrains: {}
     sea:
         map_id: 2
         type: water
         name: "Sea"
-        sprite: 'biomes_002.png'
+        sprite: 'biomes_002'
         description: "Shallow water"
         terrains: {}
     # EARTH LAND
@@ -24,7 +24,7 @@ biomes:
         map_id: 3
         type: land
         name: "Farmland"
-        sprite: 'biomes_003.png'
+        sprite: 'biomes_003'
         description: "Grasslands and farmlands"
         terrains:
             farmland: 20
@@ -34,7 +34,7 @@ biomes:
         map_id: 4
         type: land
         name: "Forest"
-        sprite: 'biomes_004.png'
+        sprite: 'biomes_004'
         description: "Different types of forest"
         terrains:
             forest: 20
@@ -45,7 +45,7 @@ biomes:
         map_id: 21
         type: land
         name: "Mars"
-        sprite: 'biomes_010.png'
+        sprite: 'biomes_010'
         description: "Mars is a barren and desolate world with a harsh environment."
         terrains:
             mars_surface: 20

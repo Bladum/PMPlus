@@ -9,138 +9,138 @@ tilesets:
   #
   xcraft:
     name: "XCOM Craft"
-    file: "xcraft.png"
+    file: "xcraft"
 
   ufo:
     name: "Alien ufo"
-    file: "ufo.png"
+    file: "ufo"
 
   #
   #   base
   #
   xbase:
     name: "XCOM Base"
-    file: "xbase.png"
+    file: "xbase"
 
   abase:
     name: "Alien base"
-    file: "abase.png"
+    file: "abase"
 
   mibbase:
     name: "Man in Black base"
-    file: "mibbase.png"
+    file: "mibbase"
 
   redbase:
     name: "Red Dawn base"
-    file: "redbase.png"
+    file: "redbase"
 
   cultbase:
     name: "Cultist base"
-    file: "cultbase.png"
+    file: "cultbase"
 
   lotusbase:
     name: "Lotus base"
-    file: "lotusbase.png"
+    file: "lotusbase"
 
   #
   #   biomes
   #
   farmland:
     name: "Farmland"
-    file: "farmland.png"
+    file: "farmland"
 
   polar:
     name: "Polar"
-    file: "polar.png"
+    file: "polar"
 
   desert:
     name: "Desert"
-    file: "desert.png"
+    file: "desert"
 
   mountain:
     name: "Mountain"
-    file: "mountains.png"
+    file: "mountains"
 
   mountain_snow:
     name: "Mountain Snow"
-    file: "mountain_snow.png"
+    file: "mountain_snow"
 
   forest:
     name: "Forest"
-    file: "forest.png"
+    file: "forest"
 
   forest_snow:
     name: "Forest snow - tajga"
-    file: "forest_snow.png"
+    file: "forest_snow"
 
   jungle:
     name: "Jungle"
-    file: "jungle.png"
+    file: "jungle"
 
   #
   #   special biomes
   #
   piramids:
     name: "Desert piramids"
-    file: "piramids.png"
+    file: "piramids"
 
   undeground:
     name: "Underground"
-    file: "underground.png"
+    file: "underground"
 
   #
   #   special tilesets
   #
   island:           # map surounded by water
     name: "Island"
-    file: "island.png"
+    file: "island"
 
   ship_cargo:       # map 8x3
     name: "Cargo ship"
-    file: "ship_cargo.png"
+    file: "ship_cargo"
 
   ship_cruise:      # map 8x3
     name: "Cruise ship"
-    file: "ship_cruise.png"
+    file: "ship_cruise"
 
   #
   #   other planets
   #
   mars:
     name: "Mars"
-    file: "mars.png"
+    file: "mars"
 
   moon:
     name: "Moon"
-    file: "moon.png"
+    file: "moon"
 
   #
   #   human cities
   #
   urban_house:
     name: "Urban house"
-    file: "urban_house.png"
+    file: "urban_house"
 
   urban_commercial:
     name: "Urban commercial"
-    file: "urban_commercial.png"
+    file: "urban_commercial"
 
   urban_port:
     name: "Urban port"
-    file: "urban_port.png"
+    file: "urban_port"
 
   urban_industrial:
     name: "Urban industrial"
-    file: "urban_industrial.png"
+    file: "urban_industrial"
 
   urban_village:
     name: "Urban village"
-    file: "urban_village.png"
+    file: "urban_village"
 
   urban_hotel:
     name: "Urban hotel"
-    file: "urban_hotel.png"
+    file: "urban_hotel"
 
   urban_slums:
     name: "Urban slums"
-    file: "urban_slums.png"
+    file: "urban_slums"

@@ -25,7 +25,7 @@ from unit.unit_type import TUnitType
 
 class TUnit:
 
-    def __init__(self, unit_type : TUnitType, player : TSide):
+    def __init__(self, unit_type : TUnitType, side_id ):
         """
         Unit represent a single entity of unit in game.
         It has type only for reference, and all parameters
@@ -36,7 +36,7 @@ class TUnit:
         self.game = TGame()
 
         self.unit_type = unit_type
-        self.player = player
+        self.side_id = side_id
 
         # for player units
 
@@ -54,8 +54,8 @@ class TUnit:
         # equipment
 
         self.armour : TItemArmour = None
-        self.primary_weapon : TItemWeapon = None
-        self.secondary_weapon : list[TItemWeapon] = None
+        self.weapon : TItemWeapon = None
+        self.equipment : list[TItemWeapon] = None
 
         # position and direction
 
@@ -86,11 +86,11 @@ class TUnit:
             stats = stats + self.armour.get_stat_modifiers()
 
         # 4. Apply primary weapon modifiers
-        if self.primary_weapon:
-            stats = stats + self.primary_weapon.get_stat_modifiers()
+        if self.weapon:
+            stats = stats + self.weapon.get_stat_modifiers()
 
         # 5. Apply secondary weapon modifiers
-        for weapon in self.secondary_weapon:
+        for weapon in self.equipment:
             stats = stats + weapon.get_stat_modifiers()
 
         return stats

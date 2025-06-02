@@ -20,7 +20,7 @@ class TFacilityType:
 
         # required tech to build this facility
 
-        self.max_per_base = data.get('max_per_base', 1)
+        self.max_per_base = data.get('max_per_base', 0)
         self.facility_needed = data.get('facility_needed', [])
         self.tech_needed = data.get('tech_needed', [])
         self.service_needed = data.get('service_needed', [])

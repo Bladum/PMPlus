@@ -29,8 +29,8 @@ from PySide6.QtWidgets import (
     QAbstractItemView, QApplication
 )
 
-from gui.other.theme_manager import px, XcomStyle
-from item.item import TItem, TItemRarity  # Import TItem and TItemRarity
+from gui.theme_manager import XcomStyle, px
+from item.item import TItem  # Import TItem only
 from item.item_type import TItemType
 from syf.item_path_lookup import get_canonical_path  # Still need this function
 
@@ -399,20 +399,12 @@ class ItemList(QListWidget):
         except ValueError:
             item_type = TItemType.ITEM_GENERAL
 
-        # Convert string to TItemRarity enum if present
-        rarity_str = info.get('rarity', 'common')
-        try:
-            rarity = TItemRarity(rarity_str)
-        except ValueError:
-            rarity = TItemRarity.COMMON
-
         # Create TItem instance
         return TItem(
             name=name,
             icon_path=info.get('icon_path'),
             item_type=item_type,
             properties=info,
-            rarity=rarity,
             weight=info.get('weight', 1)
         )
 
@@ -453,7 +445,6 @@ class ItemList(QListWidget):
         item_data = {
             'name': item.name,
             'type': item.item_type.name,
-            'rarity': item.rarity.name,
             'properties': item.properties
         }
         mime_data.setText(json.dumps(item_data))
@@ -530,20 +521,12 @@ class ItemList(QListWidget):
                     except ValueError:
                         item_type = TItemType.ITEM_GENERAL
 
-                    # Convert string to TItemRarity enum if present
-                    rarity_str = item_data.get('rarity', 'COMMON')
-                    try:
-                        rarity = TItemRarity(rarity_str)
-                    except ValueError:
-                        rarity = TItemRarity.COMMON
-
                     # Create a TItem instance
                     item = TItem(
                         name=name,
                         icon_path=item_data.get('properties', {}).get('icon_path'),
                         item_type=item_type,
                         properties=item_data.get('properties', {}),
-                        rarity=rarity,
                         weight=item_data.get('properties', {}).get('weight', 1)
                     )
 
