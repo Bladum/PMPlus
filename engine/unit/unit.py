@@ -11,7 +11,7 @@ Interactions:
     - Uses TUnitStats for attributes
     - Has racial template (TRace)
     - Can have traits (TTrait)
-    - Equipped with armor and weapons
+    - Uses TUnitInventoryManager for equipment management
 """
 
 from item.item_armour import TItemArmour
@@ -19,6 +19,7 @@ from item.item_weapon import TItemWeapon
 from traits.trait import TTrait
 from unit.race import TRace
 from unit.side import TSide
+
 from unit.unit_stat import TUnitStats
 from unit.unit_type import TUnitType
 
@@ -51,11 +52,10 @@ class TUnit:
         self.race : TRace = None
         self.traits : list[TTrait] = None
 
-        # equipment
-
-        self.armour : TItemArmour = None
-        self.weapon : TItemWeapon = None
-        self.equipment : list[TItemWeapon] = None
+        # equipment - managed through inventory manager
+        from unit.unit_inv_manager import TUnitInventoryManager
+        self.inventory_manager = TUnitInventoryManager(self)
+        self.inventory = []  # For compatibility with inventory_manager's load/save methods
 
         # position and direction
 
@@ -73,29 +73,34 @@ class TUnit:
         self.kneeling = False            # is the unit kneeling?
         self.running = False             # is the unit running?
 
+    @property
+    def armour(self):
+        """Get the unit's equipped armor"""
+        return self.inventory_manager.equipment_slots.get("Armor")
+
+    @property
+    def weapon(self):
+        """Get the unit's primary weapon"""
+        return self.inventory_manager.equipment_slots.get("Primary")
+
+    @property
+    def equipment(self):
+        """Get all equipped items as a list"""
+        return [item for item in self.inventory_manager.equipment_slots.values() if item]
+
     def calculate_stats(self):
-        # 1. Start with base stats from race
-        stats = self.race.stats.copy()
+        # Use stats calculated from inventory manager
+        base_stats = self.race.stats.copy()
 
-        # 2. Apply traits modifiers
+        # Apply traits modifiers
         for trait in self.traits:
-            stats = stats + trait.stats
+            base_stats = base_stats + trait.stats
 
-        # 3. Apply armor modifiers
-        if self.armour:
-            stats = stats + self.armour.get_stat_modifiers()
+        # Get all stat modifiers from equipment through inventory manager
+        for slot_name, modifiers in self.inventory_manager.stat_modifiers.items():
+            for stat_name, modifier in modifiers.items():
+                if hasattr(base_stats, stat_name):
+                    current_value = getattr(base_stats, stat_name)
+                    setattr(base_stats, stat_name, current_value + modifier)
 
-        # 4. Apply primary weapon modifiers
-        if self.weapon:
-            stats = stats + self.weapon.get_stat_modifiers()
-
-        # 5. Apply secondary weapon modifiers
-        for weapon in self.equipment:
-            stats = stats + weapon.get_stat_modifiers()
-
-        return stats
-
-
-
-
-
+        return base_stats

@@ -6,6 +6,13 @@ class TDeployment:
     """
     Represents a deployment for a battle, loaded from TOML.
     Contains a list of TDeploymentGroup and civilian info.
+
+    Attributes:
+        pid (str): Deployment identifier.
+        effect (str|None): Special effect for this deployment (e.g., 'smoke').
+        civilians (int): Number of civilians to deploy.
+        groups (list[TDeploymentGroup]): List of deployment groups.
+        civilian_types (list): List of civilian unit types for the terrain.
     """
     def __init__(self, pid, data = {}, terrain_civilian_types=None):
         self.pid = pid
@@ -30,4 +37,3 @@ class TDeployment:
             if self.civilian_types:
                 all_units.append(random.choice(self.civilian_types))
         return all_units
-

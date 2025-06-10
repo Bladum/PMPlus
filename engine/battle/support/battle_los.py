@@ -1,3 +1,8 @@
+"""
+BattleLOS: Static line-of-sight (LOS) calculation for battle map tiles using Bresenham's algorithm.
+Last update: 2025-06-10
+"""
+
 class BattleLOS:
     """
     Static LOS calculation using tile properties (floor, wall, smoke, fire).
@@ -5,6 +10,16 @@ class BattleLOS:
     """
     @staticmethod
     def has_los(battle, start, end, max_range=22):
+        """
+        Determine if there is line of sight (LOS) between two points on the battle map.
+        Args:
+            battle: Battle object containing map tiles.
+            start (tuple): (x, y) start coordinates.
+            end (tuple): (x, y) end coordinates.
+            max_range (int): Maximum LOS range (default 22).
+        Returns:
+            bool: True if LOS exists, False otherwise.
+        """
         x0, y0 = start
         x1, y1 = end
         dx = abs(x1 - x0)
@@ -34,4 +49,3 @@ class BattleLOS:
                 err += dx
                 y0 += sy
         return True
-

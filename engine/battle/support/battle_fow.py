@@ -1,5 +1,9 @@
+"""
+TBattleFOW: Manages fog of war (visibility) for units and tiles on the battle map for all sides.
+Last update: 2025-06-10
+"""
 
 class TBattleFOW:
     """
-    Manage visibility (fog of war) of units and tiles on battle map for all sides
+    Manages visibility (fog of war) of units and tiles on the battle map for all sides.
     """

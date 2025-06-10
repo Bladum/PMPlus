@@ -7,6 +7,20 @@ class TBattleScriptStep:
     """
     Represents a single step in a map generation script.
     Each step defines an action to take when building the battle map.
+
+    Attributes:
+        type (str): Type of step (e.g., 'add_block', 'add_line', etc.).
+        group (int|None): Group filter for map blocks.
+        size (int|None): Size filter for map blocks.
+        runs (int): Number of times to run this step.
+        chance (float): Probability of applying this step.
+        direction (str): Direction for line-based steps ('horizontal', 'vertical', 'both').
+        row (int|None): Row index for placement (optional).
+        col (int|None): Column index for placement (optional).
+        ufo (str|None): Special block name for UFO (optional).
+        craft (str|None): Special block name for craft (optional).
+        label (int|None): Label for referencing this step.
+        condition (list): List of conditions (labels) for executing this step.
     """
     def __init__(self, data: dict):
         """
@@ -36,4 +50,3 @@ class TBattleScriptStep:
         # Conditions
         self.label: Optional[int] = data.get('label', None)
         self.condition: List[int] = data.get('condition', [])
-

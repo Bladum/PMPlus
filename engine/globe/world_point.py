@@ -12,6 +12,12 @@ class TWorldPoint:
         """Create a WorldPoint from a tuple (x, y)"""
         return cls(tuple_pos[0], tuple_pos[1])
 
+    @classmethod
+    def from_iterable(cls, iterable):
+        """Create a TWorldPoint from any iterable with two elements (x, y)."""
+        x, y = iterable
+        return cls(x, y)
+
     def to_tuple(self):
         return (self.x, self.y)
 

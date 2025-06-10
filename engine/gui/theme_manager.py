@@ -34,7 +34,7 @@ Dependencies:
 import sys
 import json
 import os.path
-from enum import Enum, auto
+from enums import Enum, auto
 from functools import lru_cache
 from typing import Dict, Any, Optional, List, Tuple, Union, Callable
 

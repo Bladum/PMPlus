@@ -1,7 +1,18 @@
 class TBattleWall:
     """
-    Represents a wall on battle map, it is not walkable
-    It is drawn on top of floor
+    Represents a wall on the battle map. Walls are not walkable and are drawn on top of floors.
+
+    Attributes:
+        block_sight (bool): Does this wall block line of sight? (default True)
+        block_fire (bool): Does this wall block projectiles? (default True)
+        sight_mod (int): Modifier to sight (0=transparent, 100=opaque)
+        fire_mod (int): Modifier to fire (0=transparent, 100=blocks all)
+        armor (int): How much damage it can take (default 20)
+        material (str): Material type (affects resistances, default 'concrete')
+        destroyed_wall_id (str|None): Wall to replace with when destroyed (optional)
+        is_light_source (bool): Emits light? (default False)
+        can_explode (bool): Can explode on destruction? (default False)
+        explosion_power (int): Explosion power if explodes (default 0)
     """
     def __init__(self, **kwargs):
         # Initialize attributes with defaults from kwargs.get()
@@ -21,4 +32,3 @@ class TBattleWall:
         Called when wall is destroyed. Returns id of replacement wall or None.
         """
         return self.destroyed_wall_id
-

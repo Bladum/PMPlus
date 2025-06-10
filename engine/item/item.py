@@ -21,7 +21,7 @@ Key Features:
 """
 
 from typing import Dict, Any, Optional
-from enum import Enum
+from enums import Enum
 from .item_type import TItemType
 
 
@@ -34,36 +34,33 @@ class TItem:
 
     Attributes:
         name: Human-readable item name
-        icon_path: Path to item's visual icon
+        sprite: Path to item's visual icon
         properties: Dictionary of additional item-specific properties
         item_type: Type reference for this item
         weight: Item weight for inventory management
         id: Unique identifier for this item instance
     """
 
-    def __init__(self,
-                 name: str,
-                 icon_path: str,
-                 item_type: TItemType,
-                 properties: Optional[Dict[str, Any]] = None,
-                 weight: int = 1,
-                 item_id: Optional[str] = None):
+    def __init__(self, item_type_id: str, item_id: Optional[str] = None):
         """
-        Initialize a new item.
+        Initialize a new item with properties from its type definition.
 
         Args:
-            name: Human-readable name of the item
-            icon_path: Path to the item's icon image
-            item_type: Reference to the item's type definition
-            properties: Additional properties specific to this item
-            weight: Weight of the item (for inventory management)
+            item_type_id: ID of the item's type definition to use for static parameters
             item_id: Unique identifier (generated if not provided)
         """
-        self.name = name
-        self.icon_path = icon_path
-        self.item_type = item_type
-        self.properties = properties or {}
-        self.weight = weight
+        # Get reference to the game's item type registry
+        from engine.engine.game import TGame
+        self.game = TGame()
+
+        # Get item type reference
+        self.item_type = self.game.mod.items.get(item_type_id)
+
+        # Set properties based on item type
+        self.name = self.item_type.name
+        self.sprite = self.item_type.sprite
+        self.weight = self.item_type.weight
+        self.properties = {}
 
         # Generate UUID if no ID provided
         import uuid
@@ -82,7 +79,7 @@ class TItem:
         from PySide6.QtGui import QPixmap
         from PySide6.QtCore import Qt
 
-        pixmap = QPixmap(self.icon_path)
+        pixmap = QPixmap(self.sprite)
 
         if size is not None and not pixmap.isNull():
             pixmap = pixmap.scaled(size, size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -127,11 +124,8 @@ class TItem:
         """
         return {
             'id': self.id,
-            'name': self.name,
-            'icon_path': self.icon_path,
             'item_type_id': self.item_type.pid if hasattr(self.item_type, 'pid') else None,
             'properties': self.properties,
-            'weight': self.weight
         }
 
     @classmethod
@@ -147,19 +141,20 @@ class TItem:
             New TItem instance
         """
         item_type_id = data.get('item_type_id')
-        item_type = type_registry.get(item_type_id)
 
-        if not item_type:
-            raise ValueError(f"Invalid item_type_id: {item_type_id}")
+        if not item_type_id:
+            raise ValueError("Missing item_type_id in data")
 
-        return cls(
-            name=data.get('name', 'Unknown Item'),
-            icon_path=data.get('icon_path', ''),
-            item_type=item_type,
-            properties=data.get('properties', {}),
-            weight=data.get('weight', 1),
+        item = cls(
+            item_type_id=item_type_id,
             item_id=data.get('id')
         )
+
+        # Apply any saved properties
+        if 'properties' in data:
+            item.properties = data.get('properties', {})
+
+        return item
 
     def __eq__(self, other):
         """Check if two items are equal (same ID)."""
@@ -177,4 +172,4 @@ class TItem:
 
     def __repr__(self):
         """Detailed representation of the item."""
-        return f"TItem(name='{self.name}', type='{self.item_type}', id='{self.id[:8]}')"
+        return f"TItem(type='{self.item_type.pid}', id='{self.id[:8]}')"

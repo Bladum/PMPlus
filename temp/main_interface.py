@@ -395,8 +395,7 @@ def create_bottom_panel() -> QWidget:
     
     # Add a test button for equipment slot validation
     def test_equipment_slots():
-        import engine.gui.widgets
-        engine.gui.widgets.test_equipment_slot_validation()
+        pass
     
     test_button = QPushButton("TEST", bottom_panel)
     test_button.setFixedSize(px(GRID * 2), px(GRID * 1))

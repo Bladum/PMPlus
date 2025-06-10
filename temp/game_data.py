@@ -21,7 +21,7 @@ Classes:
 """
 
 import json
-from enum import Enum
+from enums import Enum
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Tuple, Union
 

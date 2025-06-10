@@ -1,17 +1,7 @@
 """
-Defines a scripted trajectory and behavior sequence for UFOs on the world map.
-
-UFO scripts control how alien ships move around the globe, what actions they take,
-and how they interact with the game world. Scripts consist of ordered steps that
-define movement patterns, targets, and special actions like landing or base construction.
-
-Relationships:
-- Used by TUfo instances to determine movement and behavior
-- References TRegion for geographic targeting
-- Interacts with various world entities (cities, bases, craft)
-- Loaded and managed by TMod
-- Creates mission sites through landing, crashing, or base construction
-- Affects player scoring through completion of missions
+TUfoScript: Defines a scripted trajectory and behavior sequence for UFOs on the world map.
+Purpose: Controls UFO movement, actions, and mission site creation through ordered steps.
+Last update: 2025-06-10
 """
 
 from engine.globe.region import TRegion
@@ -21,7 +11,15 @@ from engine.base.geo.abase import TBaseAlien
 from engine.craft.craft import TCraft
 
 class TUfoScript:
+    """
+    Defines a scripted trajectory and behavior sequence for UFOs on the world map.
 
+    Attributes:
+        pid (str): Unique identifier for the script.
+        name (str): Name of the script.
+        description (str): Description of the script.
+        steps (list): List of step dictionaries defining the script.
+    """
     # Step type constants
     STEP_START_RANDOM = 'Starts in random tile in region'
     STEP_START_CITY = 'Starts in random city in region'
@@ -45,25 +43,49 @@ class TUfoScript:
     STEP_END = 'Remove ufo, score points for mission'
 
     def __init__(self, pid, data):
+        """
+        Initialize a TUfoScript instance.
+        Args:
+            pid (str): Unique identifier for the script.
+            data (dict): Dictionary with script attributes (name, desc, steps).
+        """
         self.pid = pid
-
         self.name = data.get('name', pid)
         self.description = data.get('desc', '')
         # Steps: list of dicts {type, duration, ...kwargs}
         self.steps = data.get('steps', [])
 
     def get_step(self, idx):
+        """
+        Get the step dictionary at the given index.
+        Args:
+            idx (int): Step index.
+        Returns:
+            dict or None: Step dictionary or None if out of range.
+        """
         if 0 <= idx < len(self.steps):
             return self.steps[idx]
         return None
 
     def total_steps(self):
+        """
+        Returns the total number of steps in the script.
+        Returns:
+            int: Number of steps.
+        """
         return len(self.steps)
 
     def process_current_step(self, ufo, game, step_idx, **kwargs):
         """
         Process the current step for the UFO using internal step logic.
         Returns True if step was processed, False if invalid.
+        Args:
+            ufo: TUfo instance.
+            game: Game instance.
+            step_idx (int): Index of the current step.
+            **kwargs: Additional arguments for step processing.
+        Returns:
+            bool: True if processed, False otherwise.
         """
         import random
         step = self.get_step(step_idx)

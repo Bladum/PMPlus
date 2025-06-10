@@ -21,15 +21,26 @@ Key Features:
 - Fire capability and ammo consumption
 """
 
-class TItemWeapon:
+from typing import Dict, Any, Optional
+from .item import TItem
+from .item_type import TItemType
 
-    def __init__(self, item_type=None):
-        from engine.engine.game import TGame
-        self.game = TGame()
-        self.item_type = self.game.mod.items.get(item_type)
-        # Reference to item type (category=1), holds all static parameters
+class TItemWeapon(TItem):
+
+    def __init__(self, item_type_id: str, item_id: Optional[str] = None):
+        """
+        Initialize a new weapon item.
+
+        Args:
+            item_type_id: ID of the weapon type to use
+            item_id: Unique identifier (generated if not provided)
+        """
+        # Initialize base item
+        super().__init__(item_type_id, item_id)
+
+        # Weapon-specific attributes
         self.active = True
-        self.ammo = 0
+        self.ammo = self.item_type.unit_ammo if hasattr(self.item_type, 'unit_ammo') else 0
 
         # Weapon mode support
         self.current_mode = 'snap'  # default mode
@@ -104,4 +115,3 @@ class TItemWeapon:
 
     def get_stat_modifiers(self):
         return self.item_type.unit_stats
-

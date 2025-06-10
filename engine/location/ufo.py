@@ -1,14 +1,35 @@
+"""
+TUfo: Represents a UFO on the world map as a location.
+Purpose: Handles UFO movement, script progression, combat status, and tactical deployment.
+Last update: 2025-06-10
+"""
+
 from globe.location import TLocation
 
 
 class TUfo(TLocation):
     """
-    Represents a UFO on the world map as location
-    Its temporary, but has assigned a ufo script to manage its movement
-    It has deployment to control what units are during battle
-    ufo must be first shot down by interception
+    Represents a UFO on the world map as a location.
+    Handles movement, script progression, combat status, and tactical deployment.
+
+    Attributes:
+        ufo_id (str): Unique identifier for the UFO.
+        position (tuple): Current (x, y) position on the world map.
+        ufo_type: Reference to TUfoType instance.
+        ufo_script: Reference to TUfoScript instance.
+        script_step (int): Current step in the UFO's script.
+        speed (int): Current speed.
+        speed_max (int): Maximum speed from ufo_type.
+        health (int): Current health.
+        game: Reference to the game instance.
     """
     def __init__(self, ufo_id, data):
+        """
+        Initialize a TUfo instance.
+        Args:
+            ufo_id (str): Unique identifier for the UFO.
+            data (dict): Dictionary with UFO attributes (type, script, position, etc.).
+        """
         super().__init__(ufo_id, data)
 
         from engine.engine.game import TGame
@@ -113,12 +134,17 @@ class TUfo(TLocation):
     def move_to(self, new_position):
         """
         Move the UFO to a new position (tile or coordinates).
+        Args:
+            new_position (tuple): The new (x, y) position.
         """
         self.position = new_position
 
     def set_position(self, x, y):
         """
         Set the UFO's position on the world map.
+        Args:
+            x (int): X coordinate.
+            y (int): Y coordinate.
         """
         self.position = (x, y)
         self.x = x
@@ -127,6 +153,8 @@ class TUfo(TLocation):
     def get_position(self):
         """
         Returns the (x, y) position of the UFO as a tuple.
+        Returns:
+            tuple: (x, y) coordinates.
         """
         if hasattr(self, 'position') and isinstance(self.position, (list, tuple)) and len(self.position) == 2:
             return tuple(self.position)
@@ -137,6 +165,10 @@ class TUfo(TLocation):
     def distance_to(self, other):
         """
         Returns the Euclidean distance to another location or (x, y) tuple.
+        Args:
+            other: Another location object or (x, y) tuple.
+        Returns:
+            float: Euclidean distance.
         """
         if hasattr(other, 'get_position'):
             ox, oy = other.get_position()
@@ -152,6 +184,10 @@ class TUfo(TLocation):
         """
         Apply damage to the UFO. Returns True if UFO is destroyed.
         If health drops below 50% of base, each turn there is a chance to crash.
+        Args:
+            amount (int): Amount of damage to apply.
+        Returns:
+            bool: True if UFO is destroyed, False otherwise.
         """
         self.health -= amount
         if self.health < 0:
@@ -161,6 +197,8 @@ class TUfo(TLocation):
     def is_destroyed(self):
         """
         Check if the UFO is destroyed (health <= 0).
+        Returns:
+            bool: True if destroyed, False otherwise.
         """
         return self.health <= 0
 
@@ -168,6 +206,8 @@ class TUfo(TLocation):
         """
         Check if the damaged UFO has crashed based on current health.
         Crash chance: 0% above 50% health, then +10% for each 10% below 50%.
+        Returns:
+            bool: True if crashed, False otherwise.
         """
         if not self.is_destroyed() and self.health > 0:
             base_health = self.ufo_type.health if self.ufo_type else 1
@@ -180,5 +220,3 @@ class TUfo(TLocation):
             return random.random() < crash_chance
         # If destroyed, always crashed
         return self.is_destroyed()
-
-

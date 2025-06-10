@@ -14,6 +14,19 @@ class TTerrain:
     Each terrain may be linked with a biome or be separated.
     Terrain has a list of map block entries and a map script used to generate the battle map.
     Loads TMX map files and creates TMapBlock objects for each entry.
+
+    Attributes:
+        pid (str): Terrain identifier.
+        name (str): Name of the terrain.
+        description (str): Description of the terrain.
+        tileset (str): Tileset name used for this terrain.
+        script: Map script for block placement.
+        maps_folder: Path to folder with TMX map files.
+        units_civilian (list): List of civilian unit types for this terrain.
+        map_blocks_entries (list): List of TMapBlockEntry objects.
+        map_blocks (list): List of loaded TMapBlock objects.
+        map_tmx_files (dict): Mapping of map file names to TMX data.
+        tileset_manager: Reference to the tileset manager.
     """
     def __init__(self, pid, data):
         from engine.engine.game import TGame

@@ -28,15 +28,15 @@
 
 2A) world map 
 - now add logic to display world map in game, it should be 
-- optiomize code for performance 
+- optimize code for performance 
 - allow to use zoom in and out using mouse wheel
 - allow drag move using right mouse button
 
 2B) day night cycle
 - add mechanism to calculate day and night cycle based on time of day, so map is 240x120 tiles, and 1 day is 1 turn, so 1 month is 30 turns, so every day night should move by 8 tiles
-- calculate which world tile is day night based on which day is it of montth, which means in game day would take 1 month in game
+- calculate which world tile is day night based on which day is it of month, which means in game day would take 1 month in game
 - exactly line between day and night should be calculated based on some sinus method to simulate smooth transition, like day / night on earth
-- we dont need to calcualte exact time of day, just day and night, so we can use simple logic to calculate it
+- we dont need to calculate exact time of day, just day and night, so we can use simple logic to calculate it
 
 2C) Events 
 - we need to add logic to process day, weeks, months, quarters, and years 
@@ -73,3 +73,65 @@
   - roof, 
   - objects on floor
   - unit 
+
+
+
+4) Craft Inventory Management System
+
+The TCraftInventoryManager has been implemented with the following features:
+
+- Hardpoint system for component mounting
+  - Each craft supports exactly 3 weapon slots and 2 equipment slots as per requirements
+  - Additional slots like engine, navigation, sensors based on craft type and size
+  - Special hardpoints available to larger craft sizes
+
+- Component compatibility system
+  - Type-based validation to ensure correct components are mounted in appropriate slots
+  - Support for craft-specific compatibility restrictions
+  - Performance modifiers tracking for components
+
+- Cargo management
+  - Weight tracking for components and cargo
+  - Cargo capacity calculation based on craft size and special cargo bay components
+  - Adding/removing items with quantity tracking
+
+- Template management
+  - Save/load templates for quick loadout switching
+  - Serialization support for saving/loading from game data
+
+- Specialized methods for weapons and equipment
+  - Direct mounting of weapons to the first available weapon slot
+  - Direct mounting of equipment to the first available equipment slot
+  - Quick validation of weapon and equipment compatibility
+  - Counting mounted weapons and equipment
+
+- Integration with craft object
+  - Sync components between inventory manager and craft object
+  - Sync cargo between inventory manager and craft object
+
+Future enhancements:
+- Implement UI hooks for the inventory system
+- Add ammo management for weapons
+- Implement equipment effects system
+- Add compatibility with research system for unlocking new components
+
+-------------------------------------------------
+
+ introduction
+ celem prezentacji (game design z uzyciem AI)
+ technologie (as code)
+ gdzie tu jest AI 
+ po co taki projekt i dlaczego tu jestem ?
+    Agentic codding & design
+    Content by human
+ co to jest AlienFall ?
+    ufo xcom defense 
+    openxcom community + dwa najwieksze mody 
+ demo projektu
+    wiki
+    mod
+    engine
+ opis planu kolejnych kroków
+ plany na przyszłość
+    agent na role
+    agent

@@ -1,18 +1,33 @@
+"""
+TGlobalRadar: Manages radar detection of UFOs and locations on the world map.
+Last update: 2025-06-10
+"""
 from engine.globe.world_point import TWorldPoint
 
 class TGlobalRadar:
     """
-    Manage radar / detection of UFOs and locations
+    TGlobalRadar manages radar detection of UFOs and locations on the world map.
+
+    Attributes:
+        world: TWorld instance representing the world map.
     """
     def __init__(self, world):
+        """
+        Initialize a TGlobalRadar instance.
+
+        Args:
+            world: TWorld instance.
+        """
         self.world = world  # TWorld instance
 
     def scan(self, locations, bases, crafts):
         """
         Perform radar scan from all bases and crafts, update cover and visibility for all locations.
-        locations: list of TLocation
-        bases: list of XCOM base objects (must provide get_radar_facilities())
-        crafts: list of XCOM craft objects (must provide radar_power, radar_range, and position)
+
+        Args:
+            locations (list): List of TLocation instances.
+            bases (list): List of XCOM base objects (must provide get_radar_facilities()).
+            crafts (list): List of XCOM craft objects (must provide radar_power, radar_range, and position).
         """
         # 1. Scan from bases
         for base in bases:

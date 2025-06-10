@@ -13,6 +13,14 @@ class TMapBlock:
     """
     Represents a block of map, which is a 2D array of battle tiles (default 15x15, can be larger).
     Used to generate map for battle. Each block can be placed on the battle map grid.
+
+    Attributes:
+        game: Reference to the TGame instance.
+        name (str): Name of the block (usually the TMX file name).
+        group (int): Group identifier for filtering blocks.
+        size (int): Size of the block (e.g., 15 for 15x15).
+        tiles (list[list[TBattleTile]]): 2D array of TBattleTile objects.
+        used_tilesets (set): Set of tilesets used in the block.
     """
     def __init__(self, size=15):
         from engine.engine.game import TGame  # Avoid circular import
@@ -34,6 +42,11 @@ class TMapBlock:
     def from_tmx(cls, tmx : TiledMap):
         """
         Create a TMapBlock from a TMX map object and optional gid_map.
+
+        Args:
+            tmx (TiledMap): The TMX map object to load from.
+        Returns:
+            TMapBlock: The created map block, or None if floor layer is missing.
         """
         # Only process layers: floor, wall, roof
         layers = {l.name: l for l in tmx.visible_layers if hasattr(l, 'data') and l.name in ('floor', 'wall', 'roof')}
@@ -136,4 +149,3 @@ class TMapBlock:
         out_path = user_docs / f"{self.name}.png"
         out_img.save(out_path)
         print(f"Saved map block image to {out_path}")
-

@@ -1,3 +1,8 @@
+"""
+TWorld: Map of the world, 2D array of WorldTiles. Can be many worlds in game.
+Last update: 2025-06-10
+"""
+
 from pytmx import TiledTileLayer
 
 from economy.ttransfer import TTransfer
@@ -9,26 +14,37 @@ from pathlib import Path
 
 class TWorld:
     """
-    Map of the world, 2D array of WorldTiles
-    Can be many worlds in game
+    TWorld represents a map of the world as a 2D array of WorldTiles.
+    Can support multiple worlds in the game.
+
+    Attributes:
+        pid (str): World identifier.
+        name (str): Name of the world.
+        description (str): Description of the world.
+        size (list): [width, height] of the world.
+        map_file (str|None): Path to the map file.
+        countries (bool): Whether countries are present.
+        bases (bool): Whether bases are present.
+        factions (bool): Whether factions are present.
+        regions (bool): Whether regions are present.
+        tech_start (list): Starting technologies.
+        transfer_list (list[TTransfer]): Global transfer list.
+        tiles (list[list[TWorldTile]]): 2D array of world tiles.
+        cities (list[TCity]): List of city objects.
+        factions (list[TFaction]): List of factions.
+        diplomacy (dict): Diplomacy/relations mapping.
     """
 
     def __init__(self, pid, data):
         self.pid = pid
         self.name = data.get('name', pid)
         self.description = data.get('description', '')
-
-        # World map properties
         self.size = data.get('size', [0, 0])
         self.map_file = data.get('map_file', None)
-
-        # World features
         self.countries = data.get('countries', False)
         self.bases = data.get('bases', False)
         self.factions = data.get('factions', False)
         self.regions = data.get('regions', False)
-
-        # Access to world via requirements
         self.tech_start = data.get('tech_start', [])
 
         # Global transfer list
@@ -111,7 +127,7 @@ class TWorld:
         from engine.engine.game import TGame
         game = TGame()
 
-        from PIL import Image, ImageDraw
+        from PIL import Image
         width, height = self.size
         tile_size = 16  # Assuming 16x16 tiles
         img = Image.new('RGBA', (width * tile_size, height * tile_size))
@@ -200,7 +216,7 @@ class TWorld:
 
         # Create world instance
         world = cls(pid="Earth", data={"size": [width, height]})
-        world.tiles = [[None for _ in range(width)] for _ in range(height)]
+        world.tiles = [[TWorldTile(x, y) for x in range(width)] for y in range(height)]
         world.used_tilesets = used_tilesets
 
         for y in range(height):
@@ -268,4 +284,3 @@ class TWorld:
                 world.cities.append(city_obj)
 
         return world
-

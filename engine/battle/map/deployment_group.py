@@ -5,6 +5,16 @@ class TDeploymentGroup:
     """
     Represents a group of similar units in a deployment, loaded from TOML.
     Supports weights for each unit, min/max qty, and inside/outside UFO chance.
+
+    Attributes:
+        qty_low (int): Minimum number of units in the group.
+        qty_high (int): Maximum number of units in the group.
+        unit_weights (dict): Dictionary of unit types and their weights.
+        outside_ufo (float): Chance unit is outside UFO (0.0-1.0).
+        inside_ufo (float): Chance unit is inside UFO (0.0-1.0).
+        leader (bool): Is this group a leader group?
+        patrol (bool): Is this group a patrol group?
+        guard (bool): Is this group a guard group?
     """
     def __init__(self, data):
         self.qty_low = data.get('qty_low', 0)
@@ -31,4 +41,3 @@ class TDeploymentGroup:
             k=count
         )
         return units
-

@@ -5,6 +5,15 @@ class TMapBlockEntry:
     """
     Represents how map blocks are managed inside terrain.
     Each entry describes a block's map name, size (1=15x15, 2=30x30, ...), group, chance, items, units, and visibility.
+
+    Attributes:
+        map (str): Name of the TMX map file (without extension).
+        size (int): Size of the block (1=15x15, 2=30x30, ...).
+        group (int): Group identifier for block selection.
+        chance (int): Chance for this block to be selected.
+        items (dict): Dictionary of items placed in this block.
+        units (dict): Dictionary of units placed in this block.
+        show (bool): Whether to show this block in debug/visualization.
     """
     def __init__(self, data):
 
@@ -28,4 +37,3 @@ class TMapBlockEntry:
 
         # Whether to show this block in debug/visualization
         self.show = data.get('show', False)
-

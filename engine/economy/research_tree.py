@@ -1,8 +1,20 @@
+"""
+TResearchTree: Manages the research tree and research progress.
+Purpose: Handles research entries, progress, dependencies, and visualization.
+Last update: 2025-06-10
+"""
 import random
 
 class TResearchTree:
     """
-    Represents a research tree, it is a list of research entries
+    Represents a research tree, it is a list of research entries.
+    Manages research progress, dependencies, and visualization.
+    Attributes:
+        entries (dict): tech_id -> TResearchEntry
+        completed (set): Set of completed tech_ids
+        in_progress (dict): tech_id -> progress (int)
+        available (set): Set of available tech_ids
+        locked (set): Set of permanently locked tech_ids
     """
 
     def __init__(self):
@@ -199,4 +211,3 @@ class TResearchTree:
         """Exports the research dependency tree visualization to a text file."""
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(self.visualize_dependencies_tree())
-

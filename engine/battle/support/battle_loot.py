@@ -1,3 +1,8 @@
+"""
+BattleLoot: Handles post-battle report generation, including loot, score, captures, experience, sanity, ammo, medals, etc.
+Last update: 2025-06-10
+"""
+
 class BattleLoot:
     """
     Handles post-battle report, loot, score, captures, experience, sanity, ammo, medals, etc.
@@ -5,6 +10,13 @@ class BattleLoot:
     """
     @staticmethod
     def generate(battle):
+        """
+        Generate a post-battle report summarizing score, loot, captures, experience, sanity, ammo, and medals.
+        Args:
+            battle: Battle object containing all relevant data.
+        Returns:
+            dict: Report with keys 'score', 'loot', 'captures', 'experience', 'sanity', 'ammo', 'medals'.
+        """
         report = {}
         report['score'] = BattleLoot._calculate_score(battle)
         report['loot'] = BattleLoot._collect_loot(battle)
@@ -91,4 +103,3 @@ class BattleLoot:
         for unit in battle.find_units(side=side):
             medals[getattr(unit, 'id', None)] = getattr(unit, 'medals_earned', [])
         return medals
-

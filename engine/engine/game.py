@@ -78,14 +78,18 @@ class TGame:
 
     def get_active_base(self) -> Optional[TBaseXCom]:
         """
-        Get the currently active base.
+        Get the currently active base. If none is active or the active base does not exist but bases exist,
+        set the first base as active and return it.
 
         Returns:
-            TBaseXCom object for the active base, or None if no active base
+            TBaseXCom object for the active base, or None if no bases exist
         """
-        if self.current_base_name and self.current_base_name in self.bases:
-            return self.bases[self.current_base_name]
-        return None
+        if not self.bases:
+            return None
+        # If current_base_name is not set or is invalid, set to first base
+        if not self.current_base_name or self.current_base_name not in self.bases:
+            self.current_base_name = next(iter(self.bases))
+        return self.bases[self.current_base_name]
 
     def set_active_base(self, base_name: str) -> bool:
         """

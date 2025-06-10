@@ -632,7 +632,7 @@ class EquipmentSlotWidget(QWidget):
         import json
         item_data = {
             'name': self.item.name,
-            'icon_path': self.item.icon_path,
+            'icon_path': self.item.sprite,
             'properties': self.item.properties,
             'source_slot_id': id(self)
         }

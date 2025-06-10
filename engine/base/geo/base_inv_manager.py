@@ -5,19 +5,11 @@ This module provides comprehensive inventory management for XCOM bases,
 handling items, units, and crafts with categorized storage and operations.
 """
 
-from enum import Enum, auto
 from typing import Dict, List, Optional, Tuple, Set, Union, Any
+
+from enums import EUnitItemCategory
 from unit.unit import TUnit
 from craft.craft import TCraft
-
-
-class ItemCategory(Enum):
-    """Categories for different types of items in base inventory"""
-    CRAFT_ITEM = "craft_item"
-    UNIT_ARMOUR = "unit_armour"
-    UNIT_WEAPON = "unit_weapon"
-    UNIT_EQUIPMENT = "unit_equipment"
-    ITEM_OTHER = "item_other"
 
 
 class TBaseInventory:
@@ -48,7 +40,7 @@ class TBaseInventory:
         self.items: Dict[str, float] = {}  # Item ID -> quantity
         self.units: List[TUnit] = []
         self.crafts: List[TCraft] = []
-        self.item_categories: Dict[str, ItemCategory] = {}  # Item ID -> category
+        self.item_categories: Dict[str, EUnitItemCategory] = {}  # Item ID -> category
         self.captures: Dict[str, float] = {}  # Captured units/specimens ID -> quantity
         self.item_sizes: Dict[str, float] = {}  # Item ID -> size value
         self.storage_capacity: int = storage_capacity
@@ -56,7 +48,7 @@ class TBaseInventory:
 
     # Item management methods
 
-    def add_item(self, item_id: str, quantity: float = 1.0, category: Optional[ItemCategory] = None) -> bool:
+    def add_item(self, item_id: str, quantity: float = 1.0, category: Optional[EUnitItemCategory] = None) -> bool:
         """
         Add an item to inventory or increase its quantity if it already exists.
         Validates against storage capacity before adding.
@@ -90,7 +82,7 @@ class TBaseInventory:
                 self.item_categories[item_id] = category
             else:
                 # Default to OTHER if no category provided
-                self.item_categories[item_id] = ItemCategory.ITEM_OTHER
+                self.item_categories[item_id] = EUnitItemCategory.EQUIPMENT
 
         return True
 
@@ -118,7 +110,7 @@ class TBaseInventory:
 
         return True
 
-    def set_item_quantity(self, item_id: str, quantity: float, category: Optional[ItemCategory] = None) -> bool:
+    def set_item_quantity(self, item_id: str, quantity: float, category: Optional[EUnitItemCategory] = None) -> bool:
         """
         Set exact quantity of an item, adding it if it doesn't exist.
         Validates against storage capacity.
@@ -155,7 +147,7 @@ class TBaseInventory:
             if item_id not in self.item_categories and category:
                 self.item_categories[item_id] = category
             elif item_id not in self.item_categories:
-                self.item_categories[item_id] = ItemCategory.ITEM_OTHER
+                self.item_categories[item_id] = EUnitItemCategory.EQUIPMENT
 
             return True
 
@@ -171,7 +163,7 @@ class TBaseInventory:
         """
         return self.items.get(item_id, 0)
 
-    def get_item_category(self, item_id: str) -> Optional[ItemCategory]:
+    def get_item_category(self, item_id: str) -> Optional[EUnitItemCategory]:
         """
         Get category of an item.
 
@@ -183,7 +175,7 @@ class TBaseInventory:
         """
         return self.item_categories.get(item_id)
 
-    def set_item_category(self, item_id: str, category: ItemCategory) -> bool:
+    def set_item_category(self, item_id: str, category: EUnitItemCategory) -> bool:
         """
         Set or update category of an existing item.
 
@@ -200,7 +192,7 @@ class TBaseInventory:
         self.item_categories[item_id] = category
         return True
 
-    def get_items_by_category(self, category: ItemCategory) -> Dict[str, float]:
+    def get_items_by_category(self, category: EUnitItemCategory) -> Dict[str, float]:
         """
         Get all items of a specific category with their quantities.
 
@@ -498,12 +490,40 @@ class TBaseInventory:
         self.item_categories = {}
         for item_id, category_str in data.get("item_categories", {}).items():
             try:
-                self.item_categories[item_id] = ItemCategory(category_str)
+                self.item_categories[item_id] = EUnitItemCategory(category_str)
             except ValueError:
                 # Fallback to ITEM_OTHER if category is invalid
-                self.item_categories[item_id] = ItemCategory.ITEM_OTHER
+                self.item_categories[item_id] = EUnitItemCategory.EQUIPMENT
 
         # Load captures
         self.captures = data.get("captures", {})
 
         # Note: This doesn't restore units or crafts, as they need special handling
+
+    def save_template(self) -> Dict[str, Any]:
+        """
+        Save current base inventory as a template dict.
+        Returns:
+            Dictionary representing the current items, units, crafts, and captures.
+        """
+        return {
+            'items': dict(self.items),
+            'units': [unit.id for unit in self.units],
+            'crafts': [craft.id for craft in self.crafts],
+            'captures': dict(self.captures)
+        }
+
+    def load_template(self, template: Dict[str, Any], unit_provider=None, craft_provider=None) -> None:
+        """
+        Load base inventory from a template dict.
+        Args:
+            template: Dictionary representing items, units, crafts, and captures.
+            unit_provider: Optional function to get TUnit by id
+            craft_provider: Optional function to get TCraft by id
+        """
+        self.items = dict(template.get('items', {}))
+        self.captures = dict(template.get('captures', {}))
+        if unit_provider:
+            self.units = [unit_provider(uid) for uid in template.get('units', [])]
+        if craft_provider:
+            self.crafts = [craft_provider(cid) for cid in template.get('crafts', [])]

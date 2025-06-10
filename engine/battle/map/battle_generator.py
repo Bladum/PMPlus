@@ -18,6 +18,15 @@ class TBattleGenerator:
     """
     Generates a battle map using terrain's map blocks and map script.
     Follows the XCOM/OpenXcom map generation approach using map blocks and scripts.
+
+    Attributes:
+        terrain (TTerrain): The terrain object containing map blocks and settings.
+        script (TBattleScript|None): The map script that defines how to assemble the map.
+        map_width (int): Number of map blocks horizontally (4-7).
+        map_height (int): Number of map blocks vertically (4-7).
+        block_size (int): Standard map block size (15x15 tiles).
+        block_grid (list[list[str]]): 2D array of block names.
+        battle_map (list[list[TBattleTile]]): 2D array of TBattleTile objects.
     """
     def __init__(self, terrain: TTerrain, script: TBattleScript = None, blocks_x: int = 4, blocks_y: int = 4):
         """
@@ -240,4 +249,3 @@ class TBattleGenerator:
                         row.append(0)  # Default if floor_id doesn't exist
                 writer.writerow(row)
         print(f"Battle map exported to {filepath}")
-

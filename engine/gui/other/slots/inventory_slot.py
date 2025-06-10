@@ -24,27 +24,13 @@ Key Features:
 """
 
 import json
-from typing import Optional, Dict, Any, List, Callable, Union
-from enum import Enum
+from typing import Optional, Dict, Any, List
+from item.item_type import TItemType
+from item.item import TItem
 
-from PySide6.QtWidgets import (
-    QFrame, QVBoxLayout, QHBoxLayout, QLabel,
-    QSizePolicy, QToolTip, QApplication
-)
-from PySide6.QtCore import Qt, QSize, QPoint, QMimeData, Signal
-from PySide6.QtGui import (
-    QDrag, QPainter, QPixmap, QPen, QColor, QBrush,
-    QFont, QFontMetrics, QCursor, QDragEnterEvent, QDropEvent, QMouseEvent
-)
-
-# Import the item types from the game's inventory system
-from engine.gui.widgets import ItemType
-
-# Import global inventory slot registry
-from engine.gui.widgets import equipment_slots_global
-
-# Import functions for armor-dependent slots
-from engine.gui.widgets import validate_and_update_equipment_slots, update_weight_display
+from PySide6.QtWidgets import QFrame, QVBoxLayout, QLabel, QSizePolicy
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtGui import QPixmap, QPainter, QPen, QColor, QBrush, QMouseEvent, QDragEnterEvent, QDropEvent
 
 
 class TInventorySlot(QFrame):
@@ -58,11 +44,11 @@ class TInventorySlot(QFrame):
     def __init__(
         self,
         parent=None,
-        slot_type: Optional[ItemType] = None,
+        slot_type: Optional[TItemType] = None,
         slot_name: str = "",
         size: int = 64,
         border_width: int = 2,
-        accept_types: List[ItemType] = None,
+        accept_types: List[TItemType] = None,
         bg_color: str = "#1E2836",
         border_color: str = "#30465d",
         hover_color: str = "#3399ff",
@@ -92,7 +78,7 @@ class TInventorySlot(QFrame):
         self.locked = locked  # If True, items can't be removed
 
         # Item storage
-        self.item: Optional[Item] = None
+        self.item: Optional[TItem] = None
         self.stack_size: int = 0
         self.custom_data: Dict[str, Any] = {}  # For any extra data
 
@@ -154,7 +140,7 @@ class TInventorySlot(QFrame):
         if hasattr(self, 'top_label'):
             self.top_label.move(x, y - self.top_label.height() - 2)
 
-    def add_item(self, item: Item, quantity: int = 1, emit_signal: bool = True) -> bool:
+    def add_item(self, item: TItem, quantity: int = 1, emit_signal: bool = True) -> bool:
         """
         Add an item to this slot if validation passes.
 
@@ -194,7 +180,7 @@ class TInventorySlot(QFrame):
 
         return True
 
-    def remove_item(self, quantity: Optional[int] = None, emit_signal: bool = True) -> Optional[Item]:
+    def remove_item(self, quantity: Optional[int] = None, emit_signal: bool = True) -> Optional[TItem]:
         """
         Remove and return the current item.
 
@@ -288,14 +274,13 @@ class TInventorySlot(QFrame):
                     event.ignore()
                     return
 
-                # Create Item instance from data
-                if hasattr(Item, 'from_dict'):
-                    item = Item.from_dict(item_data)
+                # Create TItem instance from data
+                if hasattr(TItem, 'from_dict'):
+                    item = TItem.from_dict(item_data)
                 else:
-                    item = Item(
-                        id=item_data.get('id', ''),
-                        name=item_data.get('name', ''),
-                        item_type=item_data.get('item_type', 'other')
+                    item = TItem(
+                        item_type_id=item_data.get('item_type_id', ''),
+                        item_id=item_data.get('id', None)
                     )
 
                 # Get source slot to prevent dragging to itself
@@ -405,10 +390,10 @@ class TInventorySlot(QFrame):
             # Get or create item icon
             if hasattr(self.item, 'get_pixmap'):
                 pixmap = self.item.get_pixmap(self._size - 10)
-            elif hasattr(self.item, 'icon_path') and self.item.icon_path:
-                pixmap = QPixmap(self.item.icon_path).scaled(self._size - 10, self._size - 10,
-                                                            Qt.KeepAspectRatio,
-                                                            Qt.SmoothTransformation)
+            elif hasattr(self.item, 'icon_path') and self.item.sprite:
+                pixmap = QPixmap(self.item.sprite).scaled(self._size - 10, self._size - 10,
+                                                          Qt.KeepAspectRatio,
+                                                          Qt.SmoothTransformation)
             else:
                 # Create a colored rectangle as placeholder
                 pixmap = QPixmap(self._size - 10, self._size - 10)
@@ -540,3 +525,15 @@ class TInventorySlot(QFrame):
 
         # Global default
         return 99
+
+# Add placeholder globals if not defined elsewhere
+try:
+    equipment_slots_global
+except NameError:
+    equipment_slots_global = []
+
+def validate_and_update_equipment_slots():
+    pass  # TODO: Implement or import actual logic
+
+def update_weight_display():
+    pass  # TODO: Implement or import actual logic

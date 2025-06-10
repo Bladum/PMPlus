@@ -67,30 +67,30 @@ if __name__ == "__main__":
 
     # CREATE BASE GUI
     from gui.gui_base import TGuiBase
-    from gui.base.gui_barracks import TGuiBarracksScreen
-    from gui.base.gui_hangar import TGuiHangarScreen
-    from gui.base.gui_lab import TGuiLabScreen
-    from gui.base.gui_workshop import TGuiWorkshopScreen
-    from gui.base.gui_storage import TGuiStorageScreen
-    from gui.base.gui_base_info import TGuiBaseInfoScreen
+    from gui.base.gui_barracks import TGuiBarracks
+    from gui.base.gui_hangar import TGuiHangar
+    from gui.base.gui_lab import TGuiLab
+    from gui.base.gui_workshop import TGuiWorkshop
+    from gui.base.gui_storage import TGuiStorage
+    from gui.base.gui_base_info import TGuiBaseInfo
 
     # Create the main Base GUI widget
     base_gui = TGuiBase()
 
     # Register all base screens
-    base_gui.register_screen("barracks", TGuiBarracksScreen())
-    base_gui.register_screen("hangar", TGuiHangarScreen())
-    base_gui.register_screen("research", TGuiLabScreen())
-    base_gui.register_screen("workshop", TGuiWorkshopScreen())
-    base_gui.register_screen("storage", TGuiStorageScreen())
-    base_gui.register_screen("base_info", TGuiBaseInfoScreen())
+    base_gui.register_screen("barracks", TGuiBarracks(base_gui))
+    base_gui.register_screen("hangar", TGuiHangar())
+    base_gui.register_screen("research", TGuiLab())
+    base_gui.register_screen("workshop", TGuiWorkshop())
+    base_gui.register_screen("storage", TGuiStorage())
+    base_gui.register_screen("base_info", TGuiBaseInfo())
 
     # Set initial screen to display
     base_gui.set_initial_screen("base_info")
 
     # Display the GUI
     base_gui.show()
-    base_gui.setMinimumSize(1024, 768)
+    base_gui.setMinimumSize(640, 400)
     base_gui.setWindowTitle("XCOM Base Management")
 
     # Run the application event loop

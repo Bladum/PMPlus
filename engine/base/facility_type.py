@@ -1,8 +1,40 @@
+"""
+TFacilityType: Represents a facility type blueprint for XCOM bases.
+Purpose: Holds all stats, requirements, and properties for a facility, loaded from TOML or YAML.
+Last update: 2025-06-10
+"""
+
 class TFacilityType:
-    """
-    Represents a facility type in base, with its stats (blueprint loaded from TOML)
-    """
-    def __init__(self, pid, data={}):
+    '''
+    Represents a facility type in base, with its stats (blueprint loaded from TOML or YAML).
+    Attributes:
+        pid (str): Unique facility type ID.
+        name (str): Facility name.
+        lift (bool): Whether this is a lift/elevator.
+        description (str): Description for UI.
+        map_block (str): Map block ID for battle map generation.
+        health (int): Facility HP for base defense.
+        build_time (int): Days to build.
+        build_cost (int): Money cost to build.
+        build_items (dict): Items required to build.
+        upkeep_cost (int): Monthly upkeep cost.
+        max_per_base (int): Max allowed per base.
+        facility_needed (list): Required facilities to build.
+        tech_needed (list): Required techs to build.
+        service_needed (list): Required services to build.
+        unit_space, alien_space, prison_space, storage_space, research_space, workshop_space, psi_space, craft_space, training_space, hospital_space, repairs_space, relax_space (int): Various capacities provided.
+        defense_power, defense_hit, defense_ammo (int): Base defense stats.
+        defense_sound_fire, defense_sound_hit (str): Sound IDs for defense.
+        radar_power, radar_range, radar_cover (int): Radar/detection stats.
+        service_provided, service_required (list): Services provided/required.
+    '''
+    def __init__(self, pid: str, data: dict = {}):
+        """
+        Initialize a facility type blueprint.
+        Args:
+            pid (str): Unique facility type ID.
+            data (dict): Dictionary with facility properties (from TOML/YAML).
+        """
         self.pid = pid
 
         self.name = data.get('name', '')

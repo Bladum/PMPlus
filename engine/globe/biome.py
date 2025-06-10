@@ -1,15 +1,38 @@
+"""
+TBiome: Represents a biome type assigned to each tile on the world map.
+Last update: 2025-06-10
+"""
+
 class TBiome:
-    """
-    Each tile on worls map is assigned to a biome like forest, desert, ocean
-    Biomes are used to generate battle with specific terrain type
-    """
-    def __init__(self, pid, data : dict = {}):
+    '''
+    TBiome represents a biome type assigned to each tile on the world map (e.g., forest, desert, ocean).
+    Biomes are used to generate battles with specific terrain types.
+
+    Attributes:
+        pid (str|int): Unique biome identifier.
+        name (str): Name of the biome.
+        description (str): Description of the biome.
+        image (str|None): Sprite/image reference for the biome.
+        type (str): Type of biome ('land', 'water', etc.).
+        terrains (dict): Mapping of terrain keys to weights for random selection.
+    '''
+    def __init__(self, pid, data: dict = None):
+        """
+        Initialize a TBiome instance.
+
+        Args:
+            pid (str|int): Unique biome identifier.
+            data (dict, optional): Dictionary with biome properties. Keys:
+                - name (str)
+                - description (str)
+                - sprite (str|None)
+                - type (str)
+                - terrains (dict)
+        """
+        if data is None:
+            data = {}
         self.pid = pid
-
-        # Required fields
         self.name = data.get("name", "")
-
-        # Optional fields with defaults
         self.description = data.get("description", "")
         self.image = data.get("sprite", None)
         self.type = data.get("type", 'land')
@@ -18,7 +41,8 @@ class TBiome:
     def get_random_terrain(self):
         """
         Randomly select a terrain for this biome based on weights in self.terrains.
-        Returns the terrain key (str) or None if no terrains defined.
+        Returns:
+            str|None: The selected terrain key, or None if no terrains defined.
         """
         import random
         if not self.terrains:
@@ -26,4 +50,3 @@ class TBiome:
         terrain_keys = list(self.terrains.keys())
         weights = [self.terrains[k] for k in terrain_keys]
         return random.choices(terrain_keys, weights=weights, k=1)[0]
-

@@ -14,7 +14,7 @@ Class Relationships:
 """
 
 from pathlib import Path
-from enum import Enum
+from enums import Enum, EItemCategory
 from typing import List, Dict, Any, Tuple
 
 from PIL.Image import Image
@@ -28,7 +28,7 @@ from battle.support.battle_effect import TBattleEffect
 from battle.support.damage_model import TDamageModel
 from battle.terrain.map_block import TMapBlock
 from battle.terrain.terrain import TTerrain
-from craft.craft_item import TCraftItem
+
 from craft.craft_type import TCraftType
 from economy.manufacture_entry import TManufactureEntry
 from economy.purchase_entry import TPurchaseEntry
@@ -38,6 +38,7 @@ from globe.country import TCountry
 from globe.region import TRegion
 from globe.world import TWorld
 from item.item_armour import TItemArmour
+from item.item_craft import TCraftItem
 from item.item_type import TItemType
 from item.item_mode import TWeaponMode
 from item.item_weapon import TItemWeapon
@@ -90,6 +91,9 @@ class TMod:
     def __init__(self, mod_data, mod_path):
         self.mod_data = mod_data
         self.mod_path = Path(mod_path)
+
+        from engine.engine.game import TGame
+        self.game = TGame()
 
         if self.mod_path:
             self.maps_path = self.mod_path / 'maps'
@@ -378,31 +382,31 @@ class TMod:
 
         datas = mod_data.get('craft_items', {})
         for pid, dat in datas.items():
-            dat['category'] = TItemType.ITEM_CRAFT_ITEM
+            dat['category'] = EItemCategory.CRAFT_ITEM
             obj = TItemType(pid, dat)
             self.items[pid] = obj
 
         datas = mod_data.get('unit_armours', {})
         for pid, dat in datas.items():
-            dat['category'] = TItemType.ITEM_UNIT_ARMOUR
+            dat['category'] = EItemCategory.UNIT_ITEM
             obj = TItemType(pid, dat)
             self.items[pid] = obj
 
         datas = mod_data.get('unit_equipment', {})
         for pid, dat in datas.items():
-            dat['category'] = TItemType.ITEM_UNIT_EQUIPMENT
+            dat['category'] = EItemCategory.UNIT_ITEM
             obj = TItemType(pid, dat)
             self.items[pid] = obj
 
         datas = mod_data.get('unit_weapons', {})
         for pid, dat in datas.items():
-            dat['category'] = TItemType.ITEM_UNIT_ITEM
+            dat['category'] = EItemCategory.UNIT_ITEM
             obj = TItemType(pid, dat)
             self.items[pid] = obj
 
         datas = mod_data.get('items', {})
         for pid, dat in datas.items():
-            dat['category'] = TItemType.ITEM_GENERAL
+            dat['category'] = EItemCategory.OTHER
             obj = TItemType(pid, dat)
             self.items[pid] = obj
         print(f"Loaded {len(self.items)} items")
@@ -530,7 +534,7 @@ class TMod:
                             armor_id = unit_data.get('armour')
                             if armor_id in self.items.keys():
                                 armor_item = TItemArmour(  armor_id )
-                                unit.armour = armor_item
+                                unit.inventory_manager.equip_item('Armour', armor_item)
                                 print(f"  Equipped {armor_id} armor to {unit.name}")
                             else:
                                 print(f"  Unknown armor: {armor_id}")
@@ -540,18 +544,18 @@ class TMod:
                             weapon_id = unit_data.get('weapon')
                             if weapon_id in self.items.keys():
                                 weapon_item = TItemWeapon(weapon_id )
-                                unit.weapon = weapon_item
+                                unit.inventory_manager.equip_item('Weapon', weapon_item)
                                 print(f"  Equipped {weapon_id} weapon to {unit.name}")
                             else:
                                 print(f"  Unknown weapon : {weapon_id}")
 
                         # Equip secondary weapons if provided
                         if 'equipment' in unit_data:
-                            unit.equipment = []
+
                             for weapon_id in unit_data['equipment']:
                                 if weapon_id in self.items.keys():
                                     weapon_item = TItemWeapon(weapon_id)
-                                    unit.equipment.append(weapon_item)
+                                    unit.inventory_manager.equip_item('Equipment', weapon_item)
                                     print(f"  Equipped {weapon_id} item to {unit.name}")
                                 else:
                                     print(f"  Unknown item: {weapon_id}")
@@ -569,7 +573,7 @@ class TMod:
         if not player_bases:
             print("Warning: No starting bases were created")
 
-        return player_bases
+        self.game.bases = player_bases
 
     def load_all_terrain_map_blocks(self):
         """

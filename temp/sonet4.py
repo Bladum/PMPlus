@@ -1,6 +1,6 @@
 import sys
 from dataclasses import dataclass
-from enum import Enum
+from enums import Enum
 from typing import Optional, Dict, Any
 import json
 

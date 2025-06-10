@@ -13,7 +13,27 @@ from unit.unit import TUnit
 class TBattleTile:
     """
     Represents a single tile in the battle map.
-    Each tile contains information about its floor, wall, and roof.
+    Each tile contains information about its floor, wall, roof, objects, and unit.
+
+    Attributes:
+        floor (TBattleFloor): The floor component of the tile.
+        wall (TBattleWall|None): The wall component of the tile.
+        roof (TBattleRoof|None): The roof component of the tile.
+        objects (list[TBattleObject]): List of objects on this tile.
+        unit (TUnit|None): Unit currently on this tile.
+        smoke (bool): Whether the tile contains smoke.
+        fire (bool): Whether the tile contains fire.
+        gas (bool): Whether the tile contains gas.
+        light_level (int): Light level on this tile.
+        fog_of_war (list): Fog of war state for this tile.
+        floor_id (str): ID of the floor tile.
+        wall_id (str|None): ID of the wall tile.
+        roof_id (str|None): ID of the roof tile.
+        passable (bool): Whether the tile can be walked on.
+        blocks_fire (bool): Whether the tile blocks fire.
+        blocks_sight (bool): Whether the tile blocks line of sight.
+        blocks_light (bool): Whether the tile blocks light.
+        metadata (dict): Additional metadata for the tile.
     """
     def __init__(self,
                  floor_id: str = '0',
@@ -294,4 +314,3 @@ class TBattleTile:
         wall_id = TBattleTile.gid_to_tileset_name(wall_gid, used_tilesets)
         roof_id = TBattleTile.gid_to_tileset_name(roof_gid, used_tilesets)
         return TBattleTile(floor_id, wall_id, roof_id)
-

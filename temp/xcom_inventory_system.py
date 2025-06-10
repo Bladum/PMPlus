@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QVBoxLayout, QToolTip, QListWidget, QListWidgetIte
     QMessageBox, QWidget, QApplication
 import json
 from dataclasses import dataclass
-from enum import Enum
+from enums import Enum
 from typing import Optional, Dict, Any
 
 SCALE = 2

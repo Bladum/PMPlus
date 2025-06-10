@@ -4,6 +4,14 @@ import os
 import glob
 
 class TTilesetManager:
+    """
+    Loads and manages all tile images from tilesets and individual images.
+
+    Attributes:
+        folder_path (str): Path to the folder containing tilesets.
+        all_tiles (dict): Dictionary mapping tile keys to (image, mask) tuples.
+    """
+
     def __init__(self):
         self.folder_path = '' #str(folder_path)
         self.all_tiles = {}  # flat dict: key -> (tile_img, mask)

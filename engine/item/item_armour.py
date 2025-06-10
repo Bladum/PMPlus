@@ -19,19 +19,28 @@ Key Features:
 - Unit stat modifications
 """
 
-from item.item_type import TItemType
+from typing import Dict, Any, Optional
+from .item import TItem
+from .item_type import TItemType
 
 
-class TItemArmour:
+class TItemArmour(TItem):
 
-    def __init__(self, item_type=None):
-        from engine.engine.game import TGame
-        self.game = TGame()
+    def __init__(self, item_type_id: str, item_id: Optional[str] = None):
+        """
+        Initialize a new armour item.
 
-        self.item_type : TItemType = self.game.mod.items.get(item_type)   # Reference to item type (holds static parameters)
+        Args:
+            item_type_id: ID of the armour type to use
+            item_id: Unique identifier (generated if not provided)
+        """
+        # Initialize base item
+        super().__init__(item_type_id, item_id)
+
+        # Armour-specific attributes
         self.shield = 0
         self.max_shield = self.item_type.armour_shield
-        self.shield_regen =  self.item_type.armour_shield_regen
+        self.shield_regen = self.item_type.armour_shield_regen
 
     def shield_regeneration(self):
         """

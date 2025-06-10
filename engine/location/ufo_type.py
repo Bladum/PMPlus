@@ -1,26 +1,56 @@
 """
-Defines the specifications and capabilities of a specific UFO class.
-
-UFO Types represent the various alien craft that can appear in the game, from small scouts
-to large battleships. Each type has unique stats affecting its movement, combat capabilities,
-detection properties, and the mission site it generates when landing or crashing.
-
-Relationships:
-- Referenced by TUfo instances to determine their appearance and capabilities
-- Balanced against player's TCraftType vehicles for interception gameplay
-- Contains deployment information for alien units appearing in the UFO
-- Linked to tactical combat map generation when the UFO becomes a mission site
-- Affects scoring calculations for player achievements
-- Stored in TMod's ufo_types collection for global access
+TUfoType: Defines the specifications and capabilities of a specific UFO class.
+Purpose: Represents alien craft stats, combat, detection, and deployment for world and tactical gameplay.
+Last update: 2025-06-10
 """
 
 class TUfoType:
+    """
+    Represents the specifications and capabilities of a specific UFO class.
 
+    Attributes:
+        pid (str): Unique identifier for the UFO type.
+        name (str): Name of the UFO type.
+        pedia (str): Encyclopedia entry or description.
+        vessel (str): Image during dogfight.
+        marker (str): Image marker for geoscape visualization.
+        size (int): Size of the UFO (default 1).
+        health (int): Maximum health.
+        speed (int): Maximum speed.
+        shield (int): Shield value.
+        shield_regen (int): Shield regeneration per turn.
+        damage (int): Weapon damage.
+        rate (int): Weapon fire rate.
+        range (int): Weapon range.
+        accuracy (float): Weapon accuracy.
+        fire_sound (str): Sound played when firing.
+        radar_range (int): Radar detection range.
+        radar_power (int): Radar detection power.
+        radar_cover (int): Radar cover value.
+        radar_cover_change (int): Radar cover change per turn.
+        is_hunter (bool): Whether the UFO hunts player craft.
+        hunt_bravery (float): Aggressiveness in hunting.
+        bombard_power (int): Bombardment power.
+        score_complete (int): Score for completing mission.
+        score_destroy (int): Score for destroying UFO.
+        score_avoid (int): Score for avoiding UFO.
+        score_damage (int): Score for damaging UFO.
+        score_turn (int): Score per turn.
+        map_block (str): Map block for tactical battle.
+        map_width (int): Map width for tactical battle.
+        map_height (int): Map height for tactical battle.
+        force_terrain (list): Forced terrain types.
+        deployments (dict): Alien units that can appear in this UFO.
+    """
     def __init__(self, pid, data):
+        """
+        Initialize a TUfoType instance.
+        Args:
+            pid (str): Unique identifier for the UFO type.
+            data (dict): Dictionary with UFO type attributes.
+        """
         self.pid = pid
-
         self.name = data.get('name', pid)
-
         self.pedia = data.get('pedia', '')
         self.vessel = data.get('vessel', '')        # image during dogfight
         self.marker = data.get('marker', 'alien')   # image on geoscape
@@ -58,4 +88,3 @@ class TUfoType:
         self.force_terrain = data.get('force_terrain', [])
         # Deployments (alien units that can appear in this UFO)
         self.deployments = data.get('deployments', {})
-

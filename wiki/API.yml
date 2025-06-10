@@ -1,0 +1,1010 @@
+import pytest
+from engine.battle.support.damage_model import TDamageModel
+
+class TestTDamageModel:
+    def test_class_exists(self):
+        model = TDamageModel()
+        assert isinstance(model, TDamageModel)
+TBattleEffect:
+  description: Special effect for battle map tiles/units (e.g. smoke, fire, panic, sanity).
+  constructor:
+    pid:
+      type: str
+      description: Effect identifier (unique string for the effect).
+    data:
+      type: dict
+      description: Dictionary with effect properties (name, description, icon).
+TBattleActions:
+  description: Handles unit actions during battle (move, crouch, use item, cover, throw, overwatch, suppression, rest).
+  constructor: {}
+
+BattleLoot:
+  description: Handles post-battle report generation, including loot, score, captures, experience, sanity, ammo, medals, etc.
+  methods:
+    generate:
+      description: Generate a post-battle report summarizing score, loot, captures, experience, sanity, ammo, and medals.
+      args:
+        battle:
+          type: Battle
+          description: Battle object containing all relevant data.
+      returns:
+        type: dict
+        description: Report with keys 'score', 'loot', 'captures', 'experience', 'sanity', 'ammo', 'medals'.
+
+BattleLOS:
+  description: Static line-of-sight (LOS) calculation for battle map tiles using Bresenham's algorithm.
+  methods:
+    has_los:
+      description: Determine if there is line of sight (LOS) between two points on the battle map.
+      args:
+        battle:
+          type: Battle
+          description: Battle object containing map tiles.
+        start:
+          type: tuple
+          description: (x, y) start coordinates.
+        end:
+          type: tuple
+          description: (x, y) end coordinates.
+        max_range:
+          type: int
+          description: Maximum LOS range (default 22).
+      returns:
+        type: bool
+        description: True if LOS exists, False otherwise.
+
+BattlePathfinder:
+  description: Static pathfinding for battle map tiles using A* algorithm and tile walkability.
+  methods:
+    find_path:
+      description: Find a path from start to end on the battle map using the A* algorithm.
+      args:
+        battle:
+          type: Battle
+          description: Battle object containing map tiles.
+        start:
+          type: tuple
+          description: (x, y) start coordinates.
+        end:
+          type: tuple
+          description: (x, y) end coordinates.
+        unit_size:
+          type: int
+          description: Size of the unit (default 1).
+      returns:
+        type: list
+        description: List of (x, y) tuples representing the path, or empty list if no path found.
+
+TDamageModel:
+  description: Handles damage calculation for weapons, explosions, and other sources. Implements armor penetration, critical hits, and damage types. Manages damage distribution to different body parts.
+  constructor: {}
+
+TReactionFire:
+  description: Handles reaction fire mechanics in battle.
+  constructor: {}
+
+# --- Battle Map Generation Classes ---
+
+TMapBlock:
+  description: |
+    Represents a block of the battle map (e.g., 15x15 or larger). Each TMapBlock is a 2D array of TBattleTile objects, loaded from a TMX file, and can be rendered to PNG for debugging. Used for assembling the battle map from modular blocks.
+  constructor:
+    size:
+      type: int
+      description: Size of the block (e.g., 15 for 15x15). Default is 15.
+
+TBattleTile:
+  description: |
+    Represents a single tile in the battle map. Each tile contains information about its floor, wall, roof, objects, and unit. Provides methods for copying, updating, and applying damage to tiles.
+  constructor:
+    floor_id:
+      type: str
+      description: ID of the floor tile (default '0').
+    wall_id:
+      type: str | None
+      description: ID of the wall tile (optional).
+    roof_id:
+      type: str | None
+      description: ID of the roof tile (optional).
+
+TMapBlockEntry:
+  description: |
+    Represents a map block entry in a terrain definition. Each entry describes a block's map name, size, group, chance, items, units, and visibility.
+  constructor:
+    data:
+      type: dict
+      description: Dictionary with keys: map (str), size (int), group (int), chance (int), items (dict), units (dict), show (bool).
+
+TTerrain:
+  description: |
+    Represents a terrain type for battle map generation. Each terrain has a list of map block entries, a map script, and loads TMX map files for use in map generation.
+  constructor:
+    pid:
+      type: str
+      description: Terrain identifier.
+    data:
+      type: dict
+      description: Dictionary with terrain properties (name, description, tileset, script, maps_folder, units_civilian, map_blocks).
+
+TBattleScript:
+  description: |
+    Represents a script for map block placement. Used to generate a battle map from map blocks in a specific way (by group, size, etc). Each script consists of steps, each step describes how to fill part of the map grid.
+  constructor:
+    pid:
+      type: str
+      description: Script identifier.
+    data:
+      type: dict
+      description: Dictionary with script properties (steps: list of step dicts).
+
+TBattleScriptStep:
+  description: |
+    Represents a single step in a map generation script. Each step defines an action to take when building the battle map.
+  constructor:
+    data:
+      type: dict
+      description: Dictionary with step properties (type, group, size, runs, chance, direction, row, col, ufo, craft, label, condition).
+
+TBattleGenerator:
+  description: |
+    Generates a battle map using terrain's map blocks and map script. Follows the XCOM/OpenXcom map generation approach using map blocks and scripts.
+  constructor:
+    terrain:
+      type: TTerrain
+      description: The terrain object containing map blocks and settings.
+    script:
+      type: TBattleScript | None
+      description: The map script that defines how to assemble the map (optional).
+    blocks_x:
+      type: int
+      description: Number of map blocks horizontally (default 4, min 4, max 7).
+    blocks_y:
+      type: int
+      description: Number of map blocks vertically (default 4, min 4, max 7).
+
+TDeployment:
+  description: |
+    Represents a deployment for a battle, loaded from TOML. Contains a list of TDeploymentGroup and civilian info.
+  constructor:
+    pid:
+      type: str
+      description: Deployment identifier.
+    data:
+      type: dict
+      description: Dictionary with deployment properties (effect, civilians, units: list of group dicts).
+    terrain_civilian_types:
+      type: list | None
+      description: List of civilian unit types for the terrain (optional).
+
+TDeploymentGroup:
+  description: |
+    Represents a group of similar units in a deployment, loaded from TOML. Supports weights for each unit, min/max qty, and inside/outside UFO chance.
+  constructor:
+    data:
+      type: dict
+      description: Dictionary with group properties (qty_low, qty_high, units, outside_ufo, inside_ufo, leader, patrol, guard).
+
+TManufacture:
+  description: |
+    Manages a collection of manufacturing projects (TManufactureEntry). Provides methods to load, filter, and check availability of manufacturing projects.
+  constructor:
+    data:
+      type: dict | None
+      description: Dictionary containing manufacturing data (parsed from TOML).
+  attributes:
+    entries:
+      type: dict
+      description: Dictionary of project_id -> TManufactureEntry
+  methods:
+    load:
+      description: Load manufacturing data from a dictionary (parsed from TOML).
+      args:
+        data:
+          type: dict
+          description: Dictionary containing manufacturing data.
+    get_entry:
+      description: Get a specific manufacturing entry by project_id.
+      args:
+        project_id:
+          type: str
+          description: ID of the manufacturing project to retrieve.
+      returns:
+        type: TManufactureEntry | None
+        description: The entry if found, else None.
+    get_projects_by_category:
+      description: Get manufacturing projects filtered by a specific category.
+      args:
+        category:
+          type: str
+          description: Type of manufacturing projects to filter by.
+      returns:
+        type: list
+        description: List of manufacturing entries matching the category.
+    get_available_projects:
+      description: Get list of manufacturing projects that are available based on requirements.
+      args:
+        available_technologies:
+          type: list | None
+          description: List of researched technologies.
+        available_services:
+          type: list | None
+          description: List of services available in the base.
+        available_items:
+          type: dict | None
+          description: Dictionary of items in storage with quantities.
+      returns:
+        type: list
+        description: List of available manufacturing projects (TManufactureEntry).
+
+TManufactureEntry:
+  description: |
+    Represents a manufacturing entry (project) that can be manufactured. Stores all data and requirements for a manufacturing project.
+  constructor:
+    pid:
+      type: str
+      description: Project ID.
+    data:
+      type: dict | None
+      description: Data for the entry.
+  attributes:
+    name:
+      type: str
+      description: Name of the project.
+    category:
+      type: str
+      description: Category of the project.
+    build_time:
+      type: int
+      description: Time required to build.
+    build_cost:
+      type: int
+      description: Cost to build.
+    give_score:
+      type: int
+      description: Score given on completion.
+    tech_start:
+      type: list
+      description: Technologies required to start.
+    items_needed:
+      type: dict
+      description: Items required to manufacture.
+    services_needed:
+      type: list
+      description: Services required to manufacture.
+    region_needed:
+      type: list
+      description: Required regions.
+    country_needed:
+      type: list
+      description: Required countries.
+    items_build:
+      type: any
+      description: Items produced.
+    units_build:
+      type: any
+      description: Units produced.
+    crafts_build:
+      type: any
+      description: Crafts produced.
+
+PurchaseOrder:
+  description: |
+    Represents a purchase order made by the player. Handles items, units, and crafts to be purchased, their quantities, and order status.
+  constructor:
+    order_id:
+      type: str
+      description: Unique order identifier.
+    base_id:
+      type: str
+      description: Base where the order is placed.
+    items:
+      type: dict | None
+      description: Items to purchase.
+    units:
+      type: dict | None
+      description: Units to purchase.
+    crafts:
+      type: dict | None
+      description: Crafts to purchase.
+  attributes:
+    id:
+      type: str
+      description: Order ID.
+    base_id:
+      type: str
+      description: Base where the order is placed.
+    items:
+      type: dict
+      description: Items to purchase {item_id: quantity}.
+    units:
+      type: dict
+      description: Units to purchase {unit_id: quantity}.
+    crafts:
+      type: dict
+      description: Crafts to purchase {craft_id: quantity}.
+    status:
+      type: str
+      description: Order status ('ordered', 'processed', 'cancelled').
+  methods:
+    is_empty:
+      description: Check if the order is empty (no items, units, or crafts).
+      returns:
+        type: bool
+        description: True if empty, False otherwise.
+    mark_processed:
+      description: Mark the order as processed.
+    mark_cancelled:
+      description: Mark the order as cancelled.
+    calculate_total_cost:
+      description: Calculates the total cost of the purchase order using provided lookup functions.
+      args:
+        item_cost_lookup:
+          type: callable
+          description: Function to get item cost by id.
+        unit_cost_lookup:
+          type: callable
+          description: Function to get unit cost by id.
+        craft_cost_lookup:
+          type: callable
+          description: Function to get craft cost by id.
+      returns:
+        type: int
+        description: Total cost of the order.
+
+TAnimation:
+  description: Manages visual animations in both tactical and strategic views. Controls unit movements, weapon effects, explosions, and other visual effects.
+  constructor: {}
+  attributes:
+    animations:
+      type: list
+      description: List of currently running animations.
+  methods:
+    play_animation:
+      description: Play a specific animation on a target.
+    stop_animation:
+      description: Stop a running animation by its ID.
+    update:
+      description: Update all running animations by delta time.
+    clear:
+      description: Remove all running animations (e.g., on scene change).
+
+TDifficulty:
+  description: Controls game difficulty settings. Adjusts AI behavior, alien research progress, funding, and other parameters.
+  constructor:
+    level:
+      type: str
+      description: Initial difficulty level (default 'Normal').
+  attributes:
+    level:
+      type: str
+      description: Current difficulty level.
+    modifiers:
+      type: dict
+      description: Gameplay modifiers for the current difficulty.
+  methods:
+    set_level:
+      description: Set the difficulty level.
+    get_modifier:
+      description: Get a specific modifier for the current difficulty.
+    apply_modifiers:
+      description: Apply difficulty modifiers to the game state.
+
+TSaveGame:
+  description: Handles saving and loading game state. Manages serialization of all game objects and state.
+  constructor:
+    save_path:
+      type: str
+      description: Path to the save file (optional).
+  attributes:
+    save_path:
+      type: str
+      description: Path to the save file.
+    last_saved:
+      type: any
+      description: Timestamp of the last save.
+  methods:
+    save:
+      description: Save the current game state to disk.
+    load:
+      description: Load a game state from disk.
+    get_save_metadata:
+      description: Return metadata about the save file.
+
+TSoundManager:
+  description: Manages all game sounds and music. Handles ambient sounds, battle effects, and UI feedback.
+  constructor: {}
+  attributes:
+    sounds:
+      type: dict
+      description: Dictionary of loaded sound effects.
+    music_tracks:
+      type: list
+      description: List of available music tracks.
+  methods:
+    play_sound:
+      description: Play a specific sound effect.
+    play_music:
+      description: Play a music track.
+    stop_all:
+      description: Stop all currently playing sounds and music.
+    load_sounds:
+      description: Load all required sound assets.
+
+TStatistics:
+  description: Tracks player performance metrics across the campaign. Records kills, mission success rates, and achievements.
+  constructor: {}
+  attributes:
+    kills:
+      type: int
+      description: Total number of kills by player units.
+    missions_completed:
+      type: int
+      description: Number of missions successfully completed.
+    missions_failed:
+      type: int
+      description: Number of missions failed.
+    achievements:
+      type: list
+      description: List of unlocked achievements.
+  methods:
+    record_kill:
+      description: Record a kill by a unit.
+    record_mission_result:
+      description: Record the result of a mission.
+    add_achievement:
+      description: Add a new achievement.
+    get_summary:
+      description: Return a summary of statistics.
+
+TGame:
+  description: Main game class (singleton). Holds all game data, including world map, campaigns, calendar, budget, research, mod data, and bases.
+  constructor: {}
+  attributes:
+    worldmap:
+      type: TWorld
+      description: World map object (tiles, countries, regions, biomes, locations).
+    campaigns:
+      type: list
+      description: List of current campaigns.
+    calendar:
+      type: TCalendar
+      description: Calendar for date, turn, and event triggers.
+    budget:
+      type: int
+      description: XCOM budget.
+    funding:
+      type: int
+      description: XCOM funding.
+    scoring:
+      type: int
+      description: XCOM scoring.
+    research_tree:
+      type: TResearchTree
+      description: Global research tree.
+    mod:
+      type: TMod
+      description: Loaded mod data (e.g., item stats).
+    bases:
+      type: dict
+      description: Dictionary of bases (name: TBaseXCom).
+    current_base_name:
+      type: str
+      description: Name of the currently active base.
+    base_labels:
+      type: dict
+      description: Mapping of base labels/names.
+  methods:
+    get_active_base:
+      description: Get the currently active base.
+    set_active_base:
+      description: Set a base as the active base.
+    set_active_base_by_index:
+      description: Set a base as the active base using its index.
+    add_base:
+      description: Add a new base to the game.
+    remove_base:
+      description: Remove a base from the game.
+    base_exists:
+      description: Check if a base exists.
+    get_base_status:
+      description: Get the status of a base by name.
+    get_base_status_by_index:
+      description: Get the status of a base by index.
+    get_current_base_units:
+      description: Get units for the currently active base.
+    get_current_base_items:
+      description: Get items for the currently active base.
+    get_current_base_crafts:
+      description: Get craft vehicles for the currently active base.
+    get_base_summary:
+      description: Get summary statistics for the current active base.
+    initialize_starting_bases:
+      description: Initialize the starting bases for a new game based on the mod configuration.
+
+TModLoader:
+  description: Loads and merges all YAML files from a mod's rules directory, building a unified dictionary (yaml_data) for use by TMod and the game engine.
+  constructor:
+    mod_name:
+      type: str
+      description: Name of the mod being loaded.
+    mod_path:
+      type: str | Path
+      description: Path to the mod directory.
+  attributes:
+    mod_name:
+      type: str
+      description: Name of the mod being loaded.
+    mod_path:
+      type: Path
+      description: Path to the mod directory.
+    yaml_data:
+      type: dict
+      description: Parsed and merged data from all YAML files.
+  methods:
+    load_all_yaml_files:
+      description: Load and merge all YAML files from the rules directory in the mod folder.
+
+TItem:
+  description: |
+    Base class for all game items. Encapsulates common properties and behaviors for item instances that can be stored in inventories, equipped by units, etc.
+  constructor:
+    item_type_id:
+      type: str
+      description: ID of the item's type definition to use for static parameters.
+    item_id:
+      type: str | None
+      description: Unique identifier for this item instance (generated if not provided).
+
+TItemArmour:
+  description: |
+    Represents an armour item assigned to a unit. Manages shield, regeneration, and resistance.
+  constructor:
+    item_type_id:
+      type: str
+      description: ID of the armour type to use.
+    item_id:
+      type: str | None
+      description: Unique identifier for this armour item (generated if not provided).
+
+TItemWeapon:
+  description: |
+    Represents a weapon item assigned to a unit. Tracks ammo, firing mode, and calculates effective parameters.
+  constructor:
+    item_type_id:
+      type: str
+      description: ID of the weapon type to use.
+    item_id:
+      type: str | None
+      description: Unique identifier for this weapon item (generated if not provided).
+
+TCraftItem:
+  description: |
+    Represents a craft-specific item (e.g., vehicle weapon). Manages ammo, maintenance, and hardpoint compatibility.
+  constructor:
+    item_type_id:
+      type: str
+      description: ID of the craft item type to use.
+    item_id:
+      type: str | None
+      description: Unique identifier for this craft item (generated if not provided).
+
+TItemType:
+  description: |
+    Base item type definition that stores static parameters for all types of items. Serves as the central reference for all item characteristics and parameters.
+  constructor:
+    pid:
+      type: str
+      description: Unique item type identifier.
+    data:
+      type: dict
+      description: Dictionary with item type properties (name, category, weight, stats, etc).
+    mode_defs:
+      type: dict | None
+      description: Optional dictionary of weapon mode definitions.
+
+TWeaponMode:
+  description: |
+    Represents a specific firing/usage mode for weapons. Defines modifiers for accuracy, damage, range, AP cost, and shot count.
+  constructor:
+    pid:
+      type: str
+      description: Mode identifier.
+    data:
+      type: dict
+      description: Dictionary with mode properties (name, key, ap_cost_modifier, range_modifier, accuracy_modifier, shots, damage_modifier).
+
+TItemTransferManager:
+  description: |
+    Manages the transfer of items between inventory slots. Handles drag-and-drop, compatibility checks, swap logic, and undo/redo history.
+  constructor:
+    validate_slot_compatibility:
+      type: callable | None
+      description: Optional function to check if an item can be placed in a slot. Should take (item, slot) and return True if compatible.
+
+TLocation:
+  description: Base class for all world map locations (city, site, UFO, etc).
+  constructor:
+    loc_id:
+      type: str
+      description: Unique identifier for the location.
+    data:
+      type: dict | None
+      description: Dictionary with location attributes.
+
+TCity:
+  description: Represents a city on the world map as a location.
+  constructor:
+    loc_id:
+      type: str
+      description: Unique identifier for the city location.
+    data:
+      type: dict | None
+      description: Dictionary with city attributes (size, name, description, terrains).
+  attributes:
+    size:
+      type: int
+      description: Size of the city (default 4).
+    name:
+      type: str
+      description: Name of the city.
+    description:
+      type: str
+      description: Description of the city.
+    terrains:
+      type: dict | list
+      description: Terrain types available in the city, with weights if dict.
+
+TSite:
+  description: Represents a static mission site (not a UFO or base) on the world map.
+  constructor:
+    loc_id:
+      type: str
+      description: Unique identifier for the site location.
+    data:
+      type: dict
+      description: Dictionary with site attributes (site_type, etc.).
+  attributes:
+    site_type:
+      type: TSiteType
+      description: Type of the site, determines appearance and tactical configuration.
+    map_blocks:
+      type: dict
+      description: Tactical map blocks for the mission.
+    game:
+      type: TGame
+      description: Reference to the game instance.
+
+TSiteType:
+  description: Defines the type and parameters for a mission site.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the site type.
+    data:
+      type: dict
+      description: Dictionary with site type attributes.
+  attributes:
+    name:
+      type: str
+      description: Name of the site type.
+    pedia:
+      type: str
+      description: Encyclopedia entry or description.
+    marker:
+      type: str
+      description: Image marker for geoscape visualization.
+    size:
+      type: int
+      description: Size of the site type (default 1).
+    map_blocks:
+      type: dict
+      description: Tactical map block configuration.
+    deployment:
+      type: any
+      description: Deployment information for enemy units.
+
+TUfo:
+  description: Represents a UFO on the world map, with movement and combat logic.
+  constructor:
+    ufo_id:
+      type: str
+      description: Unique identifier for the UFO.
+    data:
+      type: dict
+      description: Dictionary with UFO attributes (type, script, position, etc.).
+  attributes:
+    position:
+      type: tuple
+      description: Current (x, y) position on the world map.
+    ufo_type:
+      type: TUfoType
+      description: Reference to TUfoType instance.
+    ufo_script:
+      type: TUfoScript
+      description: Reference to TUfoScript instance.
+    script_step:
+      type: int
+      description: Current step in the UFO's script.
+    speed:
+      type: int
+      description: Current speed.
+    speed_max:
+      type: int
+      description: Maximum speed from ufo_type.
+    health:
+      type: int
+      description: Current health.
+    game:
+      type: TGame
+      description: Reference to the game instance.
+
+TUfoScript:
+  description: Defines a scripted trajectory and behavior sequence for UFOs.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the script.
+    data:
+      type: dict
+      description: Dictionary with script attributes (name, desc, steps).
+  attributes:
+    name:
+      type: str
+      description: Name of the script.
+    description:
+      type: str
+      description: Description of the script.
+    steps:
+      type: list
+      description: List of step dictionaries defining the script.
+
+TUfoType:
+  description: Defines the specifications and capabilities of a specific UFO class.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the UFO type.
+    data:
+      type: dict
+      description: Dictionary with UFO type attributes.
+  attributes:
+    name:
+      type: str
+      description: Name of the UFO type.
+    pedia:
+      type: str
+      description: Encyclopedia entry or description.
+    vessel:
+      type: str
+      description: Image during dogfight.
+    marker:
+      type: str
+      description: Image marker for geoscape visualization.
+    size:
+      type: int
+      description: Size of the UFO (default 1).
+    health:
+      type: int
+      description: Maximum health.
+    speed:
+      type: int
+      description: Maximum speed.
+    shield:
+      type: int
+      description: Shield value.
+    shield_regen:
+      type: int
+      description: Shield regeneration per turn.
+    damage:
+      type: int
+      description: Weapon damage.
+    rate:
+      type: int
+      description: Weapon fire rate.
+    range:
+      type: int
+      description: Weapon range.
+    accuracy:
+      type: float
+      description: Weapon accuracy.
+    fire_sound:
+      type: str
+      description: Sound played when firing.
+    radar_range:
+      type: int
+      description: Radar detection range.
+    radar_power:
+      type: int
+      description: Radar detection power.
+    radar_cover:
+      type: int
+      description: Radar cover value.
+    radar_cover_change:
+      type: int
+      description: Radar cover change per turn.
+    is_hunter:
+      type: bool
+      description: Whether the UFO hunts player craft.
+    hunt_bravery:
+      type: float
+      description: Aggressiveness in hunting.
+    bombard_power:
+      type: int
+      description: Bombardment power.
+    score_complete:
+      type: int
+      description: Score for completing mission.
+    score_destroy:
+      type: int
+      description: Score for destroying UFO.
+    score_avoid:
+      type: int
+      description: Score for avoiding UFO.
+    score_damage:
+      type: int
+      description: Score for damaging UFO.
+    score_turn:
+      type: int
+      description: Score per turn.
+    map_block:
+      type: str
+      description: Map block for tactical battle.
+    map_width:
+      type: int
+      description: Map width for tactical battle.
+    map_height:
+      type: int
+      description: Map height for tactical battle.
+    force_terrain:
+      type: list
+      description: Forced terrain types.
+    deployments:
+      type: dict
+      description: Alien units that can appear in this UFO.
+
+TCalendar:
+  description: |
+    Manages the in-game calendar, campaign scheduling, and event checks. Handles date progression, campaign generation, and triggers for daily, weekly, monthly, quarterly, and yearly events.
+  constructor:
+    data:
+      type: dict | None
+      description: Dictionary with campaign step data per month (e.g., {"m01": {...}, ...}). Optional.
+  attributes:
+    year:
+      type: int
+      description: Current year in the game.
+    month:
+      type: int
+      description: Current month (1-12).
+    day:
+      type: int
+      description: Current day (1-30).
+    total_days:
+      type: int
+      description: Total days elapsed since start.
+    campaign_months:
+      type: dict
+      description: Campaign rules for each month (month number: TCampaignStep).
+  methods:
+    set_start_date:
+      description: Set the starting date for the calendar.
+      args:
+        year:
+          type: int
+          description: Start year.
+        month:
+          type: int
+          description: Start month (1-12).
+        day:
+          type: int
+          description: Start day (1-30).
+    get_date:
+      description: Get the current date.
+      returns:
+        type: tuple
+        description: (year, month, day)
+    advance_days:
+      description: Advance the game by n days, performing all checks (daily, weekly, monthly, quarterly, yearly).
+      args:
+        n:
+          type: int
+          description: Number of days to advance.
+    generate_monthly_campaigns:
+      description: Generate campaigns for the given month based on campaign_months data.
+      args:
+        month:
+          type: int
+          description: Month number.
+        research_status:
+          type: callable
+          description: Function or set to check if tech is researched.
+        all_campaigns:
+          type: list
+          description: List of TCampaign.
+        all_factions:
+          type: list
+          description: List of TFaction.
+        worldmap:
+          type: object
+          description: Reference to world map for region/tile selection.
+      returns:
+        type: list
+        description: Campaign instances to start this month.
+    daily_campaign_check:
+      description: Check all active campaigns and their missions, create locations if timer/date fits.
+      args:
+        current_day:
+          type: int
+          description: Current day in the calendar.
+        active_campaigns:
+          type: list
+          description: Campaign instances generated by generate_monthly_campaigns.
+        worldmap:
+          type: object
+          description: Reference to world map for location creation.
+
+TCampaign:
+  description: |
+    Represents a set of missions for a specific faction in a specific region. Created by the calendar, it has a start date, end date, and list of missions, limited by research status. Has a goal to achieve, when the alien will score points.
+  constructor:
+    pid:
+      type: str
+      description: Campaign identifier.
+    data:
+      type: dict
+      description: Campaign data (name, score, objective, faction, tech_start, tech_end, regions, missions).
+  attributes:
+    pid:
+      type: str
+      description: Campaign identifier.
+    name:
+      type: str
+      description: Campaign name.
+    score:
+      type: int
+      description: Points awarded for campaign completion.
+    objective:
+      type: int
+      description: Campaign objective type.
+    faction:
+      type: str
+      description: Faction name.
+    tech_start:
+      type: list
+      description: Technologies required to start.
+    tech_end:
+      type: list
+      description: Technologies that end the campaign.
+    regions:
+      type: dict
+      description: Region weights for campaign occurrence.
+    missions:
+      type: list
+      description: List of TMission objects.
+
+TCampaignStep:
+  description: |
+    Defines mission generation rules for a specific game month. Specifies how many campaigns/events are generated and their weights for a given month.
+  constructor:
+    month:
+      type: int
+      description: Month number.
+    data:
+      type: dict
+      description: Step data (qty_min, qty_max, events, weights).
+  attributes:
+    month:
+      type: int
+      description: Month number.
+    qty_min:
+      type: int
+      description: Minimum number of campaigns/events to generate.
+    qty_max:
+      type: int
+      description: Maximum number of campaigns/events to generate.
+    events:
+      type: int
+      description: Total number of events in this month.
+    weights:
+      type: dict
+      description: Arc weights for random selection.

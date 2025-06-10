@@ -25,18 +25,12 @@ Key Features:
 
 from typing import Any, Dict, List, Optional
 
+from enums import EUnitItemCategory
 from unit.unit_stat import TUnitStats
 from .item_mode import TWeaponMode
 
 class TItemType:
 
-
-    ITEM_GENERAL: int = 0
-    ITEM_CRAFT_ITEM: int = 1
-    ITEM_UNIT_ITEM: int = 2
-    ITEM_UNIT_EQUIPMENT: int = 3
-    ITEM_UNIT_ARMOUR: int = 4
-    ITEM_UNIT_CAPTURE: int = 5
 
     def __init__(self, pid: str, data: Dict[str, Any], mode_defs: Optional[Dict[str, Any]] = None):
 
@@ -93,8 +87,8 @@ class TItemType:
         self.armour_sense: List[int] = data.get('armour_sense', [0, 0])
 
         # Add slots for armour
-        self.primary_slots: int = data.get('primary_slots', 1) if self.category == self.ITEM_UNIT_ARMOUR else 0
-        self.secondary_slots: int = data.get('secondary_slots', 2) if self.category == self.ITEM_UNIT_ARMOUR else 0
+        self.primary_slots: int = data.get('primary_slots', 1) if self.category == EUnitItemCategory.WEAPON else 0
+        self.secondary_slots: int = data.get('secondary_slots', 2) if self.category == EUnitItemCategory.EQUIPMENT else 0
 
         # Combat stats for craft
         self.craft_damage: int = data.get('craft_damage', 0)

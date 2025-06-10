@@ -1,3 +1,8 @@
+"""
+BattlePathfinder: Static pathfinding for battle map tiles using A* algorithm and tile walkability.
+Last update: 2025-06-10
+"""
+
 class BattlePathfinder:
     """
     Static pathfinding using TBattleTile.get_move_cost() and is_walkable().
@@ -5,6 +10,16 @@ class BattlePathfinder:
     """
     @staticmethod
     def find_path(battle, start, end, unit_size=1):
+        """
+        Find a path from start to end on the battle map using the A* algorithm.
+        Args:
+            battle: Battle object containing map tiles.
+            start (tuple): (x, y) start coordinates.
+            end (tuple): (x, y) end coordinates.
+            unit_size (int): Size of the unit (default 1).
+        Returns:
+            list: List of (x, y) tuples representing the path, or empty list if no path found.
+        """
         from queue import PriorityQueue
         import math
         width, height = battle.width, battle.height
@@ -43,4 +58,3 @@ class BattlePathfinder:
                     priority = new_cost + heuristic(nx, ny, end[0], end[1])
                     queue.put((priority, nx, ny, new_path, new_cost))
         return []
-

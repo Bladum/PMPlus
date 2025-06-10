@@ -1,17 +1,33 @@
+"""
+TBaseXCom: Represents an XCOM base on the world map, with facilities, inventory, and management methods.
+Purpose: Handles facility management, inventory, and base serialization for XCOM bases.
+Last update: 2025-06-10
+"""
+
 from craft.craft import TCraft
 from engine.base.facility import TFacility, TFacilityType
 from engine.globe.location import TLocation
 from unit.unit import TUnit
-from engine.base.geo.base_inventory import TBaseInventory
+from engine.base.geo.base_inv_manager import TBaseInventory
 
 
 class TBaseXCom(TLocation):
-    """
-    Represents a base on the world map as location (xcom or alien)
-    Holds facilities, units, items, captures, crafts, and provides methods for base management.
-    """
-    def __init__(self, pid, data : dict = {}):
-        super().__init__( pid, data )
+    '''
+    Represents a base on the world map (XCOM or alien).
+    Manages facilities, units, items, captures, crafts, and provides methods for base management.
+    Attributes:
+        facilities (dict): Mapping of (x, y) positions to TFacility objects.
+        inventory (TBaseInventory): Inventory system for items, units, crafts, and captures.
+        game: Reference to the game object for mod and research checks.
+    '''
+    def __init__(self, pid, data: dict = {}):
+        """
+        Initialize an XCOM base at a world location.
+        Args:
+            pid: Unique base identifier.
+            data (dict): Dictionary with base properties (location, name, etc).
+        """
+        super().__init__(pid, data)
 
         from engine.engine.game import TGame
         self.game = TGame()

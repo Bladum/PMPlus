@@ -10,6 +10,11 @@ class TBattleScript:
     Represents a script for map block placement.
     Used to generate a battle map from map blocks in a specific way (by group, size, etc).
     Each script consists of steps, each step describes how to fill part of the map grid.
+
+    Attributes:
+        pid: Script identifier.
+        steps (list[TBattleScriptStep]): List of steps in the script.
+        context (set): Set of executed step labels.
     """
     def __init__(self, pid: Any, data: dict):
 

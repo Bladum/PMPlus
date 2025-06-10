@@ -40,6 +40,9 @@ class TGuiBaseTopPanel(QWidget):
         """Initialize the top panel widget with all components."""
         super().__init__(parent)
 
+        from engine.engine.game import TGame
+        self.game = TGame()
+
         # Set fixed height and styling
         self.setFixedHeight(px(GRID * 2))
         self.setStyleSheet(f"background: {XcomTheme.BG_DARK};")
@@ -122,7 +125,7 @@ class TGuiBaseTopPanel(QWidget):
             btn.setFont(QFont(XcomTheme.FONT_FAMILY, XcomTheme.FONT_SIZE_NORMAL))
 
             # Set button style based on base status
-            status = GameData.get_base_status(idx)
+            status = self.game.get_base_status( str(idx) )
             if status == 'active':
                 btn.setProperty("class", "base_active")
                 btn.setStyleSheet(XcomStyle.pushbutton_base_active())
@@ -151,7 +154,7 @@ class TGuiBaseTopPanel(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        active_base = GameData.get_active_base()
+        active_base = self.game.get_active_base()
         current_date = "MAY 30, 2025"
         current_money = "$3,500,000"
 
@@ -199,7 +202,7 @@ class TGuiBaseTopPanel(QWidget):
         self.screen_changed.emit(screen_name)
         print(f"Switched to screen: {screen_name}")
 
-    def _handle_base_button_click(self, base_index: int) -> None:
+    def _handle_base_button_click(self, base_index: str) -> None:
         """
         Handle base button clicks with visual feedback.
 
@@ -209,7 +212,7 @@ class TGuiBaseTopPanel(QWidget):
         if self._switch_base(base_index):
             # Update all button styles
             for i, button in enumerate(self.base_buttons):
-                status = GameData.get_base_status(i)
+                status = self.game.get_base_status( str(i) )
                 if status == 'active':
                     button.setProperty("class", "base_active")
                     button.setStyleSheet(XcomStyle.pushbutton_base_active())
@@ -217,7 +220,7 @@ class TGuiBaseTopPanel(QWidget):
                     button.setProperty("class", "base_available")
                     button.setStyleSheet(XcomStyle.pushbutton_base_available())
 
-    def _switch_base(self, base_index: int) -> bool:
+    def _switch_base(self, base_index: str) -> bool:
         """
         Handle base switching with data refresh.
 
@@ -227,17 +230,17 @@ class TGuiBaseTopPanel(QWidget):
         Returns:
             True if base switch was successful, False otherwise
         """
-        if GameData.set_active_base(base_index):
+        if self.game.set_active_base(base_index):
             self._update_base_display()
             # Emit signal for base change
             self.base_changed.emit(base_index)
-            print(f"Switched to base: {GameData.BASES[base_index].name}")
+            print(f"Switched to base: {self.game.bases[base_index].name}")
             return True
         return False
 
     def _update_base_display(self) -> None:
         """Update base name label for the current active base."""
-        active_base = GameData.get_active_base()
+        active_base = self.game.get_active_base()
         self.base_info_label.setText(active_base.name)
 
     # Public methods for external use

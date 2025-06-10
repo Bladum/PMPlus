@@ -1,6 +1,15 @@
 class TBattleFloor:
     """
-    Represents a floor on battle map, it is walkable
+    Represents a floor on the battle map. It is walkable and may affect movement, sight, and accuracy.
+
+    Attributes:
+        move_cost (int): Movement cost for units (default 1).
+        sight_cost (int): Additional sight cost (affects LOS, default 0).
+        accuracy_cost (int): Penalty/bonus to accuracy (cover, default 0).
+        armor (int): How much damage it can take before being destroyed (default 10).
+        sound (str|None): Sound to play when unit moves over (optional).
+        is_light_source (bool): Emits light? (default False).
+        destroyed_floor_id (str|None): Floor to replace with when destroyed (optional).
     """
     def __init__(self, **kwargs):
         self.move_cost = kwargs.get('move_cost', 1)  # Movement cost for units
@@ -16,4 +25,3 @@ class TBattleFloor:
         Called when floor is destroyed. Returns id of replacement floor or None.
         """
         return self.destroyed_floor_id
-
