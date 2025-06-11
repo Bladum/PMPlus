@@ -106,6 +106,142 @@ TBattleTile:
     roof_id:
       type: str | None
       description: ID of the roof tile (optional).
+  attributes:
+    floor:
+      type: TBattleFloor
+      description: The floor component of the tile.
+    wall:
+      type: TBattleWall | None
+      description: The wall component of the tile.
+    roof:
+      type: TBattleRoof | None
+      description: The roof component of the tile.
+    objects:
+      type: list[TBattleObject]
+      description: List of objects on this tile.
+    unit:
+      type: TUnit | None
+      description: Unit currently on this tile.
+    smoke:
+      type: bool
+      description: Whether the tile contains smoke.
+    fire:
+      type: bool
+      description: Whether the tile contains fire.
+    gas:
+      type: bool
+      description: Whether the tile contains gas.
+    light_level:
+      type: int
+      description: Light level on this tile.
+    fog_of_war:
+      type: list
+      description: Fog of war state for this tile.
+    floor_id:
+      type: str
+      description: ID of the floor tile.
+    wall_id:
+      type: str | None
+      description: ID of the wall tile.
+    roof_id:
+      type: str | None
+      description: ID of the roof tile.
+    passable:
+      type: bool
+      description: Whether the tile can be walked on.
+    blocks_fire:
+      type: bool
+      description: Whether the tile blocks fire.
+    blocks_sight:
+      type: bool
+      description: Whether the tile blocks line of sight.
+    blocks_light:
+      type: bool
+      description: Whether the tile blocks light.
+    metadata:
+      type: dict
+      description: Additional metadata for the tile.
+  methods:
+    copy:
+      description: Create a deep copy of this tile.
+      returns:
+        type: TBattleTile
+        description: A new TBattleTile with the same properties.
+    update_properties:
+      description: Update tile properties based on layer IDs.
+    has_floor:
+      description: Check if this tile has a floor.
+      returns:
+        type: bool
+    has_wall:
+      description: Check if this tile has a wall.
+      returns:
+        type: bool
+    has_roof:
+      description: Check if this tile has a roof.
+      returns:
+        type: bool
+    is_walkable:
+      description: Returns True if tile can be walked on (no wall).
+      returns:
+        type: bool
+    get_move_cost:
+      description: Returns movement cost for this tile (floor only if walkable).
+      returns:
+        type: int | float
+    get_sight_cost:
+      description: Returns sight cost for this tile (floor + wall modifiers).
+      returns:
+        type: int
+    get_accuracy_mod:
+      description: Returns accuracy modifier for this tile (floor + wall).
+      returns:
+        type: int
+    get_armor:
+      description: Returns total armor for this tile (floor + wall).
+      returns:
+        type: int
+    is_light_source:
+      description: Returns True if any component is a light source.
+      returns:
+        type: bool
+    destroy_floor:
+      description: Destroys the floor and replaces it if needed.
+      returns:
+        type: str | None
+    destroy_wall:
+      description: Destroys the wall and replaces it if needed.
+      returns:
+        type: str | None
+    destroy_object:
+      description: Destroys an object and replaces it if needed.
+      args:
+        obj:
+          type: TBattleObject
+      returns:
+        type: str | None
+    apply_damage:
+      description: Apply damage to this tile (point or area).
+    apply_point_damage:
+      description: Apply direct damage to this tile and its contents.
+    apply_area_damage:
+      description: Apply area damage starting from this tile, propagating outward.
+    calculate_resistance:
+      description: Calculate resistance modifier for an object/armor vs. damage type.
+      returns:
+        type: float
+    distribute_damage:
+      description: Split damage into HURT/STUN based on damage model.
+      returns:
+        type: tuple
+    gid_to_tileset_name:
+      description: Convert a global tile ID (gid) to a string in the format 'XXX_YYY'.
+      returns:
+        type: str | None
+    from_gids:
+      description: Create a TBattleTile from GIDs and used_tilesets info.
+      returns:
+        type: TBattleTile
 
 TMapBlockEntry:
   description: |
@@ -983,19 +1119,22 @@ TCampaign:
       description: List of TMission objects.
 
 TCampaignStep:
-  description: |
-    Defines mission generation rules for a specific game month. Specifies how many campaigns/events are generated and their weights for a given month.
+  description: Mission generation rules for a specific game month. Defines how many campaigns/events are generated and their weights for a given month.
   constructor:
     month:
       type: int
-      description: Month number.
+      description: Month number (1-based).
     data:
       type: dict
-      description: Step data (qty_min, qty_max, events, weights).
+      description: Dictionary with possible keys:
+        qty_min (int): Minimum number of campaigns/events.
+        qty_max (int): Maximum number of campaigns/events.
+        events (int): Total number of events in this month.
+        weights (dict): Arc weights for random selection (faction or event type -> weight).
   attributes:
     month:
       type: int
-      description: Month number.
+      description: Month number (1-based).
     qty_min:
       type: int
       description: Minimum number of campaigns/events to generate.
@@ -1007,4 +1146,874 @@ TCampaignStep:
       description: Total number of events in this month.
     weights:
       type: dict
-      description: Arc weights for random selection.
+      description: Arc weights for random selection (faction or event type -> weight).
+
+QuestManager:
+  description: |
+    Tracks quest and organization progress, unlocks new content, and provides progress metrics.
+  constructor:
+    quests_data:
+      type: dict
+      description: Quest data keyed by quest key.
+    orgs_data:
+      type: dict
+      description: Organization data keyed by org key.
+    completed_techs:
+      type: list | set | None
+      description: Completed technologies (optional).
+  attributes:
+    quests:
+      type: dict
+      description: All quests by key.
+    organizations:
+      type: dict
+      description: All organizations by key.
+    completed_techs:
+      type: set
+      description: Set of completed technologies.
+    completed_quests:
+      type: set
+      description: Set of completed quests.
+  methods:
+    update_quests:
+      description: Update quest completion status based on completed quests and techs.
+    update_organizations:
+      description: Update organization unlock status based on completed quests and techs.
+    get_progress:
+      description: Get progress metrics (completed value, total value, percent complete).
+    unlock_new_content:
+      description: Update quests and organizations to unlock new content.
+    get_unlocked_organizations:
+      description: Return a list of unlocked organizations.
+    get_locked_organizations:
+      description: Return a list of locked organizations.
+
+TRace:
+  description: Represents a race/type of unit and its basic stats, abilities, and AI behavior.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the race.
+    data:
+      type: dict
+      description: Dictionary containing race attributes and stats.
+  attributes:
+    pid:
+      type: str
+      description: Race ID.
+    name:
+      type: str
+      description: Display name.
+    description:
+      type: str
+      description: Description of the race.
+    sprite:
+      type: str
+      description: Sprite or image reference.
+    is_big:
+      type: bool
+      description: Whether the unit is large-sized.
+    is_mechanical:
+      type: bool
+      description: Whether the unit is mechanical.
+    gain_experience:
+      type: bool
+      description: Whether the unit gains experience.
+    health_regen:
+      type: int
+      description: Health regeneration per turn.
+    sound_death:
+      type: str | None
+      description: Sound played on death.
+    corpse_image:
+      type: str | None
+      description: Image for the corpse.
+    stats:
+      type: TUnitStats
+      description: Base stats for the race.
+    aggression:
+      type: float
+      description: AI aggression level.
+    intelligence:
+      type: float
+      description: AI intelligence level.
+    immune_panic:
+      type: bool
+      description: Immunity to panic.
+    immune_pain:
+      type: bool
+      description: Immunity to pain.
+    immune_bleed:
+      type: bool
+      description: Immunity to bleeding.
+    can_run:
+      type: bool
+      description: Can the unit run?
+    can_kneel:
+      type: bool
+      description: Can the unit kneel?
+    can_sneak:
+      type: bool
+      description: Can the unit sneak?
+    can_surrender:
+      type: bool
+      description: Can the unit surrender?
+    can_capture:
+      type: bool
+      description: Can the unit be captured?
+    spawn_on_death:
+      type: str | None
+      description: Unit spawned on death.
+    avoids_fire:
+      type: bool
+      description: Avoids fire tiles.
+    spotter:
+      type: int
+      description: Spotter role value.
+    sniper:
+      type: int
+      description: Sniper role value.
+    sell_cost:
+      type: int
+      description: Sell cost for the unit.
+    female_frequency:
+      type: float
+      description: Frequency of female units.
+    level_max:
+      type: int
+      description: Maximum level.
+    level_train:
+      type: int
+      description: Training level.
+    level_start:
+      type: int
+      description: Starting level.
+
+TSide:
+  description: Represents a faction or side in the game (e.g., player, alien, civilian). Used to define unit ownership, allegiance, and combat relationships.
+  attributes:
+    XCOM:
+      type: int
+      description: Player faction (0).
+    ALIEN:
+      type: int
+      description: Alien faction (1).
+    CIVILIAN:
+      type: int
+      description: Civilian faction (2).
+    ALLIED:
+      type: int
+      description: Allied faction (3).
+TTrait:
+  description: Base class for all unit traits (promotions, wounds, effects, etc.), modifying stats and abilities.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the trait.
+    data:
+      type: dict
+      description: Dictionary containing trait attributes and stat modifications.
+  attributes:
+    id:
+      type: str
+      description: Trait ID.
+    name:
+      type: str
+      description: Display name.
+    sprite:
+      type: str
+      description: Sprite or image reference.
+    description:
+      type: str
+      description: Description of the trait.
+    type:
+      type: int
+      description: Trait type/category (promotion, wound, effect, etc.).
+    stats:
+      type: TUnitStats
+      description: Stat modifications provided by the trait.
+    cost:
+      type: int
+      description: Cost to acquire the trait.
+    items_needed:
+      type: list
+      description: Items required to acquire the trait.
+    races:
+      type: list
+      description: Races eligible for the trait.
+    min_level:
+      type: int
+      description: Minimum level required.
+    max_level:
+      type: int
+      description: Maximum level allowed.
+    services_needed:
+      type: list
+      description: Required services for the trait.
+    tech_needed:
+      type: list
+      description: Technologies required to unlock.
+    recovery_time:
+      type: int
+      description: Recovery time (for transformations).
+    transfer_time:
+      type: int
+      description: Transfer time (for transformations).
+    battle_duration:
+      type: int
+      description: Duration of battle effect.
+    battle_effect:
+      type: any
+      description: Effect applied in battle.
+    battle_chance_complete:
+      type: int
+      description: Chance to complete effect in battle.
+    battle_only:
+      type: bool
+      description: Whether the trait is battle-only.
+  methods:
+    get_stat_modifiers:
+      description: Returns a dictionary of stat modifiers provided by this trait.
+
+TUnit:
+  description: Represents an individual unit in the game with all its attributes and capabilities. Handles stats, equipment, traits, and status for gameplay.
+  constructor:
+    unit_type:
+      type: TUnitType
+      description: The unit type template.
+    side_id:
+      type: int
+      description: Faction/side identifier.
+  attributes:
+    game:
+      type: TGame
+      description: Reference to the game instance.
+    unit_type:
+      type: TUnitType
+      description: Unit type template.
+    side_id:
+      type: int
+      description: Faction/side identifier.
+    name:
+      type: str
+      description: Unit name.
+    nationality:
+      type: str
+      description: Nationality string.
+    face:
+      type: str
+      description: Face/sprite reference.
+    female:
+      type: bool
+      description: Gender flag.
+    stats:
+      type: TUnitStats
+      description: Unit stats.
+    race:
+      type: TRace
+      description: Racial template.
+    traits:
+      type: list[TTrait]
+      description: List of traits.
+    inventory_manager:
+      type: TUnitInventoryManager
+      description: Equipment manager.
+    inventory:
+      type: list
+      description: List of equipped items.
+    position:
+      type: any
+      description: Map position.
+    direction:
+      type: any
+      description: Facing direction.
+    alive:
+      type: bool
+      description: Alive status.
+    dead:
+      type: bool
+      description: Dead status.
+    mind_controlled:
+      type: bool
+      description: Mind control status.
+    panicked:
+      type: bool
+      description: Panic status.
+    crazy:
+      type: bool
+      description: Insanity status.
+    stunned:
+      type: bool
+      description: Stun status.
+    kneeling:
+      type: bool
+      description: Kneeling status.
+    running:
+      type: bool
+      description: Running status.
+  methods:
+    armour:
+      description: Get the unit's equipped armor.
+    weapon:
+      description: Get the unit's primary weapon.
+    equipment:
+      description: Get all equipped items as a list.
+    calculate_stats:
+      description: Calculate the unit's stats, applying traits and equipment modifiers.
+
+TUnitInventoryManager:
+  description: Unified inventory manager for a single unit. Handles slot logic, stat modification, template save/load, dynamic slot availability, and auto-equip.
+  constructor:
+    unit:
+      type: TUnit | None
+      description: The unit this manager is attached to.
+  attributes:
+    unit:
+      type: TUnit
+      description: The unit instance.
+    equipment_slots:
+      type: dict
+      description: Mapping of slot names to equipped items.
+    slot_types:
+      type: dict
+      description: Mapping of slot names to item categories.
+    available_slots:
+      type: set
+      description: Set of currently available slot names.
+    stat_modifiers:
+      type: dict
+      description: Stat modifiers per slot.
+    _template:
+      type: dict | None
+      description: Last saved template.
+    _named_templates:
+      type: dict
+      description: Named templates for quick load/save.
+  methods:
+    equip_item:
+      description: Equip an item to a specified slot.
+    unequip_item:
+      description: Unequip an item from a specified slot.
+    get_total_weight:
+      description: Get the total weight of equipped items.
+    get_available_slots:
+      description: Get a list of currently available slot names.
+    save_template:
+      description: Save the current equipment configuration as a template.
+    load_template:
+      description: Load an equipment configuration from a template.
+    save_named_template:
+      description: Save a named equipment template.
+    load_named_template:
+      description: Load a named equipment template.
+    list_templates:
+      description: List all saved template names.
+    clear_all:
+      description: Unequip all items and reset slots.
+    get_all_items:
+      description: Get all equipped items as a list.
+    to_dict:
+      description: Serialize the inventory manager to a dictionary.
+    from_dict:
+      description: Create an inventory manager from a dictionary.
+    auto_equip:
+      description: Automatically equip an item in the first available slot of appropriate type.
+
+TUnitStats:
+  description: Represents a unit's stats and provides methods to manage them during the game.
+  constructor:
+    data:
+      type: dict | None
+      description: Dictionary of stat values. Defaults to None.
+  attributes:
+    health:
+      type: int
+      description: Max health.
+    speed:
+      type: int
+      description: Speed stat.
+    strength:
+      type: int
+      description: Strength stat.
+    energy:
+      type: int
+      description: Max energy.
+    aim:
+      type: int
+      description: Aim stat.
+    melee:
+      type: int
+      description: Melee stat.
+    reflex:
+      type: int
+      description: Reflex stat.
+    psi:
+      type: int
+      description: Psi stat.
+    bravery:
+      type: int
+      description: Bravery stat.
+    sanity:
+      type: int
+      description: Sanity stat.
+    sight:
+      type: tuple
+      description: (day, night) sight range.
+    sense:
+      type: tuple
+      description: (day, night) sense range.
+    cover:
+      type: tuple
+      description: (day, night) cover value.
+    morale:
+      type: int
+      description: Max morale.
+    action_points:
+      type: int
+      description: Max action points.
+    size:
+      type: int
+      description: Unit size.
+    action_points_left:
+      type: int
+      description: Current action points.
+    energy_left:
+      type: int
+      description: Current energy.
+    hurt:
+      type: int
+      description: Current damage.
+    stun:
+      type: int
+      description: Current stun damage.
+    morale_left:
+      type: int
+      description: Current morale.
+  methods:
+    receive_damage:
+      description: Apply hurt damage and return (dead, unconscious).
+    receive_stun:
+      description: Apply stun damage and return unconscious status.
+    restore_health:
+      description: Restore health by a given amount.
+    restore_stun:
+      description: Restore stun by a given amount.
+    restore_energy:
+      description: Restore energy by a given amount.
+    restore_morale:
+      description: Restore morale by a given amount.
+    use_ap:
+      description: Use a given amount of action points.
+    new_game:
+      description: Reset stats for a new game.
+    new_turn:
+      description: Reset stats for a new turn.
+    action_rest:
+      description: Rest action to restore some stats.
+    get_effective_ap:
+      description: Get effective action points for the turn, reduced by low morale or sanity.
+    is_alive:
+      description: Check if the unit is alive.
+    is_conscious:
+      description: Check if the unit is conscious.
+    is_panicked:
+      description: Check if the unit is panicked.
+    is_crazy:
+      description: Check if the unit is crazy.
+    get_sight:
+      description: Get sight range for day or night.
+    get_health_left:
+      description: Get remaining health.
+    get_stun_left:
+      description: Get remaining stun.
+    __add__:
+      description: Add two TUnitStats objects.
+    sum_with:
+      description: Sum this object's stats with another TUnitStats and update self.
+    __repr__:
+      description: String representation of TUnitStats.
+
+TUnitType:
+  description: Represents a type/template of unit with stats, race, traits, and equipment. Used as a template for creating units in the game.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the unit type.
+    data:
+      type: dict
+      description: Dictionary containing unit type attributes and configuration.
+  attributes:
+    pid:
+      type: str
+      description: Unit type ID.
+    name:
+      type: str
+      description: Display name.
+    race:
+      type: str
+      description: Race identifier.
+    sprite:
+      type: str
+      description: Sprite or image reference.
+    rank:
+      type: int
+      description: Rank value.
+    traits:
+      type: list
+      description: List of trait identifiers.
+    armour:
+      type: any
+      description: Armour configuration.
+    primary:
+      type: any
+      description: Primary weapon configuration.
+    secondary:
+      type: any
+      description: Secondary weapon configuration.
+    score_dead:
+      type: int
+      description: Score for killing this unit.
+    score_alive:
+      type: int
+      description: Score for capturing this unit alive.
+    items_dead:
+      type: list
+      description: Items dropped on death.
+    items_alive:
+      type: list
+      description: Items dropped if alive.
+    ai_ignore:
+      type: bool
+      description: AI ignore flag.
+    vip:
+      type: bool
+      description: VIP flag.
+    drop_items:
+      type: bool
+      description: Drop items on death flag.
+    drop_armour:
+      type: bool
+      description: Drop armour on death flag.
+  methods:
+    create_unit_from_template:
+      description: Create a unit instance based on this type.
+
+TPedia:
+  description: Main container for the UFOpedia system. Manages and provides access to all pedia entries, categories, and navigation logic.
+  constructor:
+    entries:
+      type: dict
+      description: Dictionary of pedia entries (pid -> TPediaEntry). Optional.
+    categories:
+      type: dict
+      description: Dictionary of entry types (type id -> TPediaEntryType). Optional.
+  methods:
+    add_entry:
+      description: Add a new pedia entry.
+      args:
+        entry:
+          type: TPediaEntry
+          description: The entry to add.
+    get_entry:
+      description: Retrieve a pedia entry by its pid.
+      args:
+        pid:
+          type: str
+          description: Entry identifier.
+      returns:
+        type: TPediaEntry | None
+        description: The entry if found, else None.
+    list_entries_by_type:
+      description: List all entries of a given type/category.
+      args:
+        type_id:
+          type: int
+          description: The type/category id.
+      returns:
+        type: list
+        description: List of TPediaEntry objects.
+    add_category:
+      description: Add a new entry type/category.
+      args:
+        category:
+          type: TPediaEntryType
+          description: The category to add.
+    get_category:
+      description: Retrieve a category/type by its id.
+      args:
+        type_id:
+          type: int
+          description: The type/category id.
+      returns:
+        type: TPediaEntryType | None
+        description: The category if found, else None.
+
+TPediaEntry:
+  description: Represents a single entry in the UFOpedia. Stores all relevant data, such as type, name, description, sprite, and related stats.
+  constructor:
+    pid:
+      type: str
+      description: Unique identifier for the entry.
+    data:
+      type: dict
+      description: Dictionary containing entry data and metadata (type, name, section, description, sprite, tech_needed, order, related, stats).
+  methods:
+    is_unlocked:
+      description: Check if the entry is unlocked based on available technologies.
+      args:
+        unlocked_techs:
+          type: list
+          description: List of unlocked technology names/IDs.
+      returns:
+        type: bool
+        description: True if all required techs are unlocked, else False.
+
+TPediaEntryType:
+  description: Represents a type/category of pedia entry. Used for categorizing and managing pedia entries by type.
+  constructor:
+    type_id:
+      type: int
+      description: Unique identifier for the entry type/category.
+    name:
+      type: str
+      description: Display name for the category.
+    description:
+      type: str
+      description: Description of the category/type. Optional.
+    icon:
+      type: str
+      description: Icon or sprite reference for the category. Optional.
+    order:
+      type: int
+      description: Display order for the category. Optional.
+
+# --- GUI Base Screen Classes ---
+
+TGuiBaseTopPanel:
+  description: |
+    Widget for managing the top navigation panel of the XCOM inventory interface. Provides screen switching, base selection, and displays current base, date, and funds.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the panel.
+
+TGuiBarracks:
+  description: |
+    Implements the barracks management screen with unit roster, equipment loadouts, and inventory functionality. Provides the main interface for managing units, their equipment, loadout templates, and stats in the base barracks.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiHangar:
+  description: |
+    Hangar screen for craft management. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiStorage:
+  description: |
+    Storage screen for base storage management. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiTransfer:
+  description: |
+    Transfer screen for inter-base transfers. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiPrison:
+  description: |
+    Prison screen for containment. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiAcademy:
+  description: |
+    Academy screen for manufacturing and training. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiWorkshop:
+  description: |
+    Workshop screen for manufacturing. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiLab:
+  description: |
+    Laboratory screen for science and research. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiMarket:
+  description: |
+    Market screen for purchases. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiArchive:
+  description: |
+    Archive screen for research and records. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiBaseInfo:
+  description: |
+    Base info summary screen for base activities. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+TGuiFacility:
+  description: |
+    Facility screen for manufacturing and base facilities. Inherits from TGuiCoreScreen.
+  constructor:
+    parent:
+      type: QWidget (optional)
+      description: Parent widget for the screen.
+
+# --- End GUI Base Screen Classes ---
+
+TFacility:
+  description: Represents a facility instance in an XCOM base. Tracks position, build progress, health, and links to facility type blueprint.
+  constructor:
+    facility_name:
+      type: str
+      description: Facility type ID or name.
+    position:
+      type: tuple | None
+      description: (x, y) grid position in base (optional).
+TFacilityType:
+  description: Represents a facility type blueprint for XCOM bases. Holds all stats, requirements, and properties for a facility, loaded from TOML or YAML.
+  constructor:
+    pid:
+      type: str
+      description: Unique facility type ID.
+    data:
+      type: dict
+      description: Dictionary with facility properties (from TOML/YAML).
+TBaseXComBattleGenerator:
+  description: Generates a battle map layout for an XCOM base based on its facilities. Converts base facility layout into a 2D map block array for tactical battles.
+  constructor:
+    base:
+      type: TBaseXCom
+      description: The base object with facilities and positions.
+
+TBattleFloor:
+  description: |
+    Represents a floor on the battle map. It is walkable and may affect movement, sight, and accuracy.
+  constructor:
+    move_cost:
+      type: int
+      description: Movement cost for units (default 1).
+    sight_cost:
+      type: int
+      description: Additional sight cost (affects LOS, default 0).
+    accuracy_cost:
+      type: int
+      description: Penalty/bonus to accuracy (cover, default 0).
+    armor:
+      type: int
+      description: How much damage it can take before being destroyed (default 10).
+    sound:
+      type: str | None
+      description: Sound to play when unit moves over (optional).
+    is_light_source:
+      type: bool
+      description: Emits light? (default False).
+    destroyed_floor_id:
+      type: str | None
+      description: Floor to replace with when destroyed (optional).
+  methods:
+    on_destroy:
+      description: Returns id of replacement floor or None when destroyed.
+      returns:
+        type: str | None
+        description: Replacement floor id or None.
+
+TBattleObject:
+  description: |
+    Represents an object that may exist on a single tile. Can be picked up, thrown, destroyed, or emit light.
+  constructor:
+    is_light_source:
+      type: bool
+      description: Emits light? (default False).
+    armor:
+      type: int
+      description: How much damage it can take before being destroyed (default 5).
+    destroyed_object_id:
+      type: str | None
+      description: Object to replace with when destroyed (optional).
+  methods:
+    on_destroy:
+      description: Returns id of replacement object or None when destroyed.
+      returns:
+        type: str | None
+        description: Replacement object id or None.
+
+TBattleRoof:
+  description: |
+    Represents a roof layer on a battle map tile. Used for visual and gameplay purposes (e.g., blocking light, providing cover). Placeholder for future attributes.
+  constructor: {}
+
+TBattleWall:
+  description: |
+    Represents a wall on the battle map. Walls are not walkable and are drawn on top of floors. Can block movement, sight, and fire, and may explode or emit light.
+  constructor:
+    block_sight:
+      type: bool
+      description: Does this wall block line of sight? (default True)
+    block_fire:
+      type: bool
+      description: Does this wall block projectiles? (default True)
+    sight_mod:
+      type: int
+      description: Modifier to sight (0=transparent, 100=opaque, default 100)
+    fire_mod:
+      type: int
+      description: Modifier to fire (0=transparent, 100=blocks all, default 100)
+    armor:
+      type: int
+      description: How much damage it can take (default 20)
+    material:
+      type: str
+      description: Material type (affects resistances, default 'concrete')
+    destroyed_wall_id:
+      type: str | None
+      description: Wall to replace with when destroyed (optional)
+    is_light_source:
+      type: bool
+      description: Emits light? (default False)
+    can_explode:
+      type: bool
+      description: Can explode on destruction? (default False)
+    explosion_power:
+      type: int
+      description: Explosion power if explodes (default 0)
+  methods:
+    on_destroy:
+      description: Returns id of replacement wall or None when destroyed.
+      returns:
+        type: str | None
+        description: Replacement wall id or None.

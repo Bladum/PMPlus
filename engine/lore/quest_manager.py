@@ -1,8 +1,30 @@
+"""
+QuestManager: Quest and organization progress tracker.
+Purpose: Tracks quest and organization progress, unlocks new content, and provides progress metrics.
+Last update: 2025-06-10
+"""
+
 from .quest import TQuest
 from .organization import TOrganization
 
 class QuestManager:
+    """
+    QuestManager tracks quest and organization progress, unlocks new content, and provides progress metrics.
+
+    Attributes:
+        quests (dict): All quests by key.
+        organizations (dict): All organizations by key.
+        completed_techs (set): Set of completed technologies.
+        completed_quests (set): Set of completed quests.
+    """
     def __init__(self, quests_data, orgs_data, completed_techs=None):
+        """
+        Initialize the quest manager.
+        Args:
+            quests_data (dict): Quest data keyed by quest key.
+            orgs_data (dict): Organization data keyed by org key.
+            completed_techs (list|set|None): Completed technologies.
+        """
         self.quests = {k: TQuest(k, **v) for k, v in quests_data.items()}
         self.organizations = {k: TOrganization(k, **v) for k, v in orgs_data.items()}
         self.completed_techs = set(completed_techs or [])
@@ -39,4 +61,3 @@ class QuestManager:
     def __repr__(self):
         completed, total, percent = self.get_progress()
         return f"Quests: {len(self.completed_quests)}/{len(self.quests)} completed, Progress: {percent:.1f}%"
-

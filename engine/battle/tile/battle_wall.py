@@ -15,6 +15,21 @@ class TBattleWall:
         explosion_power (int): Explosion power if explodes (default 0)
     """
     def __init__(self, **kwargs):
+        """
+        Initialize a TBattleWall instance.
+
+        Args:
+            block_sight (bool, optional): Does this wall block line of sight? Default is True.
+            block_fire (bool, optional): Does this wall block projectiles? Default is True.
+            sight_mod (int, optional): Modifier to sight (0=transparent, 100=opaque). Default is 100.
+            fire_mod (int, optional): Modifier to fire (0=transparent, 100=blocks all). Default is 100.
+            armor (int, optional): How much damage it can take. Default is 20.
+            material (str, optional): Material type (affects resistances). Default is 'concrete'.
+            destroyed_wall_id (str|None, optional): Wall to replace with when destroyed. Default is None.
+            is_light_source (bool, optional): Emits light? Default is False.
+            can_explode (bool, optional): Can explode on destruction? Default is False.
+            explosion_power (int, optional): Explosion power if explodes. Default is 0.
+        """
         # Initialize attributes with defaults from kwargs.get()
         self.block_sight = kwargs.get('block_sight', True)          # Does this wall block line of sight?
         self.block_fire = kwargs.get('block_fire', True)            # Does this wall block projectiles?
@@ -30,5 +45,8 @@ class TBattleWall:
     def on_destroy(self):
         """
         Called when wall is destroyed. Returns id of replacement wall or None.
+
+        Returns:
+            str|None: Replacement wall id or None.
         """
         return self.destroyed_wall_id

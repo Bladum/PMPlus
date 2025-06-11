@@ -12,6 +12,18 @@ class TBattleFloor:
         destroyed_floor_id (str|None): Floor to replace with when destroyed (optional).
     """
     def __init__(self, **kwargs):
+        """
+        Initialize a TBattleFloor instance.
+
+        Args:
+            move_cost (int, optional): Movement cost for units. Default is 1.
+            sight_cost (int, optional): Additional sight cost (affects LOS). Default is 0.
+            accuracy_cost (int, optional): Penalty/bonus to accuracy (cover). Default is 0.
+            armor (int, optional): How much damage it can take before being destroyed. Default is 10.
+            sound (str|None, optional): Sound to play when unit moves over. Default is None.
+            is_light_source (bool, optional): Emits light? Default is False.
+            destroyed_floor_id (str|None, optional): Floor to replace with when destroyed. Default is None.
+        """
         self.move_cost = kwargs.get('move_cost', 1)  # Movement cost for units
         self.sight_cost = kwargs.get('sight_cost', 0)  # Additional sight cost (affects LOS)
         self.accuracy_cost = kwargs.get('accuracy_cost', 0)  # Penalty/bonus to accuracy (cover)
@@ -23,5 +35,8 @@ class TBattleFloor:
     def on_destroy(self):
         """
         Called when floor is destroyed. Returns id of replacement floor or None.
+
+        Returns:
+            str|None: Replacement floor id or None.
         """
         return self.destroyed_floor_id

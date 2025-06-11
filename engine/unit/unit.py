@@ -1,17 +1,7 @@
 """
-TUnit Class
-==========
-
-Purpose:
-    Represents an individual unit in the game with all its attributes and capabilities.
-
-Interactions:
-    - Uses TUnitType for type information
-    - Belongs to a faction (TSide)
-    - Uses TUnitStats for attributes
-    - Has racial template (TRace)
-    - Can have traits (TTrait)
-    - Uses TUnitInventoryManager for equipment management
+TUnit: Represents an individual unit in the game with all its attributes and capabilities.
+Purpose: Handles unit stats, equipment, traits, and status for gameplay.
+Last update: 2025-06-10
 """
 
 from item.item_armour import TItemArmour
@@ -19,18 +9,47 @@ from item.item_weapon import TItemWeapon
 from traits.trait import TTrait
 from unit.race import TRace
 from unit.side import TSide
-
 from unit.unit_stat import TUnitStats
 from unit.unit_type import TUnitType
 
 
 class TUnit:
+    """
+    Represents an individual unit in the game with all its attributes and capabilities.
+    Handles stats, equipment, traits, and status for gameplay.
+    """
 
-    def __init__(self, unit_type : TUnitType, side_id ):
+    def __init__(self, unit_type: TUnitType, side_id):
         """
-        Unit represent a single entity of unit in game.
-        It has type only for reference, and all parameters
+        Initialize a TUnit instance.
 
+        Args:
+            unit_type (TUnitType): The unit type template.
+            side_id (int): Faction/side identifier.
+
+        Attributes:
+            game (TGame): Reference to the game instance.
+            unit_type (TUnitType): Unit type template.
+            side_id (int): Faction/side identifier.
+            name (str): Unit name.
+            nationality (str): Nationality string.
+            face (str): Face/sprite reference.
+            female (bool): Gender flag.
+            stats (TUnitStats): Unit stats.
+            race (TRace): Racial template.
+            traits (list[TTrait]): List of traits.
+            inventory_manager (TUnitInventoryManager): Equipment manager.
+            inventory (list): List of equipped items.
+            position (Any): Map position.
+            direction (Any): Facing direction.
+            alive (bool): Alive status.
+            dead (bool): Dead status.
+            mind_controlled (bool): Mind control status.
+            panicked (bool): Panic status.
+            crazy (bool): Insanity status.
+            stunned (bool): Stun status.
+            kneeling (bool): Kneeling status.
+            running (bool): Running status.
         """
 
         from engine.engine.game import TGame
@@ -48,9 +67,9 @@ class TUnit:
 
         # core units
 
-        self.stats : TUnitStats = None
-        self.race : TRace = None
-        self.traits : list[TTrait] = None
+        self.stats: TUnitStats = None
+        self.race: TRace = None
+        self.traits: list[TTrait] = None
 
         # equipment - managed through inventory manager
         from unit.unit_inv_manager import TUnitInventoryManager

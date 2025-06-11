@@ -1,3 +1,9 @@
+"""
+TUnitType: Represents a type/template of unit with stats, race, traits, and equipment.
+Purpose: Used as a template for creating units in the game, combining race, traits, and items.
+Last update: 2025-06-10
+"""
+
 import random
 
 from item.item_armour import TItemArmour
@@ -7,13 +13,37 @@ from unit.side import TSide
 
 class TUnitType:
     """
-    Represents a type of unit with its stats
-    This is a combination of RACE, TRAITS, and ITEMS
-    This is kind of a template for units, used to create actual units in the game.
-    This is not used by player, only by AI units
+    Represents a type of unit with its stats.
+    This is a combination of RACE, TRAITS, and ITEMS.
+    Used as a template for units, not directly by the player.
     """
 
     def __init__(self, pid, data):
+        """
+        Initialize a TUnitType instance.
+        Args:
+            pid (str): Unique identifier for the unit type.
+            data (dict): Dictionary containing unit type attributes and configuration.
+        Attributes:
+            pid (str): Unit type ID.
+            name (str): Display name.
+            race (str): Race identifier.
+            sprite (str): Sprite or image reference.
+            rank (int): Rank value.
+            traits (list): List of trait identifiers.
+            armour (Any): Armour configuration.
+            primary (Any): Primary weapon configuration.
+            secondary (Any): Secondary weapon configuration.
+            score_dead (int): Score for killing this unit.
+            score_alive (int): Score for capturing this unit alive.
+            items_dead (list): Items dropped on death.
+            items_alive (list): Items dropped if alive.
+            ai_ignore (bool): AI ignore flag.
+            vip (bool): VIP flag.
+            drop_items (bool): Drop items on death flag.
+            drop_armour (bool): Drop armour on death flag.
+        """
+
         self.pid = pid
 
         self.name = data.get('name', '')
@@ -42,7 +72,7 @@ class TUnitType:
         self.drop_armour = data.get('drop_armour', False)
 
     @staticmethod
-    def create_unit_from_template(unit_type : str, player: TSide):
+    def create_unit_from_template(unit_type: str, player: TSide):
         """
         Create a unit instance based on this type
         """
@@ -58,7 +88,7 @@ class TUnitType:
         # create basic unit
 
         from engine.unit.unit import TUnit
-        unit = TUnit( unit_type, player)
+        unit = TUnit(unit_type, player)
 
         # assign race
 
@@ -67,7 +97,7 @@ class TUnitType:
         # assign armour
 
         armour_name = unit_type.armour
-        armour_selected = random.choice( armour_name )
+        armour_selected = random.choice(armour_name)
         armour = game.mod.items.get(armour_selected)
         if armour:
             unit.armour = TItemArmour(armour.name)

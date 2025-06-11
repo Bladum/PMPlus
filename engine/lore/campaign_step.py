@@ -4,6 +4,8 @@ Purpose: Defines how many campaigns/events are generated and their weights for a
 Last update: 2025-06-10
 """
 
+import logging
+
 class TCampaignStep:
     """
     TCampaignStep defines mission generation rules for a specific game month.
@@ -37,18 +39,21 @@ class TCampaignStep:
         if isinstance(weights, dict):
             self.weights = weights
         elif weights:
-            # Log or handle invalid weights type
+            logging.warning(f"Invalid weights type for TCampaignStep month {month}: {type(weights)}. Expected dict.")
             self.weights = {}
         # Defensive: ensure all numeric fields are ints
         try:
             self.qty_min = int(self.qty_min)
-        except Exception:
+        except Exception as e:
+            logging.error(f"qty_min conversion error in TCampaignStep month {month}: {e}")
             self.qty_min = 0
         try:
             self.qty_max = int(self.qty_max)
-        except Exception:
+        except Exception as e:
+            logging.error(f"qty_max conversion error in TCampaignStep month {month}: {e}")
             self.qty_max = 0
         try:
             self.events = int(self.events)
-        except Exception:
+        except Exception as e:
+            logging.error(f"events conversion error in TCampaignStep month {month}: {e}")
             self.events = 0

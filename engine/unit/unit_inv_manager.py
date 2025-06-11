@@ -1,16 +1,7 @@
 """
-Unified Unit Inventory Management System
-
-This module merges and extends the features of TUnitInventory and TUnitInventoryManager.
-It provides a comprehensive inventory management system for units, including:
-- Equipment slot management (armor, weapon, up to 4 equipment slots)
-- Dynamic slot availability based on armor
-- Stat modification from equipped items
-- Equipment template save/load (with named templates)
-- Weight calculation
-- Item validation and compatibility checking
-- Synchronization with the unit's inventory
-- Auto-equip functionality
+TUnitInventoryManager: Unified inventory management for units.
+Purpose: Handles equipment slots, stat modifications, templates, and auto-equip logic for unit inventories.
+Last update: 2025-06-10
 """
 
 from typing import Optional, Dict, List, Any, Tuple, Set
@@ -28,6 +19,12 @@ class InventoryTemplate:
     slot names to item data dictionaries.
     """
     def __init__(self, name: str, equipment_data: Dict[str, Optional[Dict[str, Any]]]) -> None:
+        """
+        Initialize an InventoryTemplate.
+        Args:
+            name (str): Template name.
+            equipment_data (dict): Mapping of slot names to item data dicts.
+        """
         self.name = name
         self.equipment_data = equipment_data
 
@@ -45,12 +42,24 @@ class InventoryTemplate:
         )
 
 class TUnitInventoryManager:
-
     """
     Unified inventory manager for a single unit.
     Handles slot logic, stat modification, template save/load, dynamic slot availability, and auto-equip.
     """
     def __init__(self, unit: Optional[TUnit] = None):
+        """
+        Initialize a TUnitInventoryManager.
+        Args:
+            unit (TUnit, optional): The unit this manager is attached to.
+        Attributes:
+            unit (TUnit): The unit instance.
+            equipment_slots (dict): Mapping of slot names to equipped items.
+            slot_types (dict): Mapping of slot names to item categories.
+            available_slots (set): Set of currently available slot names.
+            stat_modifiers (dict): Stat modifiers per slot.
+            _template (dict): Last saved template.
+            _named_templates (dict): Named templates for quick load/save.
+        """
         self.unit = unit
         self.equipment_slots: Dict[str, Optional[TItem]] = {
             'Armor': None,
@@ -256,4 +265,3 @@ class TUnitInventoryManager:
                 if slot in self.available_slots and self.equipment_slots[slot] is None:
                     return self.equip_item(slot, item), slot
         return False, ''
-

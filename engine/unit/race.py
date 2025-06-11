@@ -1,12 +1,56 @@
+"""
+TRace: Represents a race/type of unit and its basic stats.
+Purpose: Stores race-specific attributes, stats, abilities, and AI behavior for units.
+Last update: 2025-06-10
+"""
+
 from unit.unit_stat import TUnitStats
 
 
 class TRace:
     """
-    Represents race = type of unit and its basic stats
+    Represents a race (type of unit) and its basic stats, abilities, and AI behavior.
+    Used as a template for unit creation and stat calculation.
     """
 
     def __init__(self, pid, data):
+        """
+        Initialize a TRace instance.
+        Args:
+            pid (str): Unique identifier for the race.
+            data (dict): Dictionary containing race attributes and stats.
+        Attributes:
+            pid (str): Race ID.
+            name (str): Display name.
+            description (str): Description of the race.
+            sprite (str): Sprite or image reference.
+            is_big (bool): Whether the unit is large-sized.
+            is_mechanical (bool): Whether the unit is mechanical.
+            gain_experience (bool): Whether the unit gains experience.
+            health_regen (int): Health regeneration per turn.
+            sound_death (str|None): Sound played on death.
+            corpse_image (str|None): Image for the corpse.
+            stats (TUnitStats): Base stats for the race.
+            aggression (float): AI aggression level.
+            intelligence (float): AI intelligence level.
+            immune_panic (bool): Immunity to panic.
+            immune_pain (bool): Immunity to pain.
+            immune_bleed (bool): Immunity to bleeding.
+            can_run (bool): Can the unit run?
+            can_kneel (bool): Can the unit kneel?
+            can_sneak (bool): Can the unit sneak?
+            can_surrender (bool): Can the unit surrender?
+            can_capture (bool): Can the unit be captured?
+            spawn_on_death (str|None): Unit spawned on death.
+            avoids_fire (bool): Avoids fire tiles.
+            spotter (int): Spotter role value.
+            sniper (int): Sniper role value.
+            sell_cost (int): Sell cost for the unit.
+            female_frequency (float): Frequency of female units.
+            level_max (int): Maximum level.
+            level_train (int): Training level.
+            level_start (int): Starting level.
+        """
         self.pid = pid
 
         self.name = data.get('name', pid)
@@ -49,4 +93,3 @@ class TRace:
         self.level_max = data.get('level_max', 0)
         self.level_train = data.get('level_train', 0)
         self.level_start = data.get('level_start', 0)
-

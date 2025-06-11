@@ -1,15 +1,41 @@
+"""
+TBaseAlien: Represents an alien base on the world map as a location.
+Purpose: Implements growth, mission generation, and scoring logic for alien bases.
+Last update: 2025-06-11
+"""
+
 from globe.location import TLocation
 
 
 class TBaseAlien(TLocation):
     """
-    Represents a Alien base on the world map as location
-    battle is randomly generated, but there is a logic that allow to alien base to grow in time
-    it has specific map script
-    number of levels depends on size of alien base
+    Represents an alien base on the world map as a location.
+    Battle is randomly generated, but there is logic that allows the alien base to grow in time.
+    It has a specific map script. Number of levels depends on size of alien base.
     Implements growth, mission generation, and scoring logic.
+    Attributes:
+        level (int): Current level of the base.
+        level_max (int): Maximum level the base can reach.
+        level_up_pending (bool): Whether a level up is pending.
+        month_progress (int): Days since last mission cycle.
+        missions_this_month (int): Number of missions launched this month.
+        supply_pending (bool): Whether a supply mission is pending.
+        score_per_day (int): Score penalty per day for XCOM.
+        units_per_level (dict): Number of units per base level.
+        map_size_per_level (dict): Map size per base level.
+        max_missions_per_month (dict): Max missions per month per level.
+        days_in_month (int): Number of days in a month.
+        missions_types (list): List of possible mission types.
+        region_id: Region identifier for the base.
+        pending_missions (list): Missions to be launched this month.
     """
     def __init__(self, pid, data : dict = {}):
+        """
+        Initialize an alien base at a world location.
+        Args:
+            pid: Unique base identifier.
+            data (dict): Dictionary with base properties (location, name, etc).
+        """
         super().__init__( pid, data )
 
         from engine.engine.game import TGame
@@ -101,4 +127,3 @@ class TBaseAlien(TLocation):
         Returns number of battle levels (always 2: surface and underground)
         """
         return 2
-

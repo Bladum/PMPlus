@@ -3,6 +3,7 @@ TCalendar: In-game calendar and campaign scheduling manager.
 Purpose: Handles date progression, campaign generation, and event checks for each day, week, month, quarter, and year.
 Last update: 2025-06-10
 """
+import logging
 from engine.lore.campaign_step import TCampaignStep
 
 
@@ -34,12 +35,14 @@ class TCalendar:
         # Parse campaign steps for each month
         for month_key, month_info in data.items():
             if not isinstance(month_info, dict):
+                logging.warning(f"Invalid month_info for {month_key}: expected dict, got {type(month_info)}")
                 continue
             try:
                 month_num = int(month_key[1:])
                 entry = TCampaignStep(month_num, month_info)
                 self.campaign_months[month_num] = entry
-            except (ValueError, IndexError):
+            except (ValueError, IndexError) as e:
+                logging.error(f"Error parsing month_key {month_key}: {e}")
                 continue
         # Fill up to 120 months (10 years)
         complete_months = {}

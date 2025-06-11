@@ -55,4 +55,8 @@ class TCampaign:
         self.missions = []
         if 'missions' in data and isinstance(data['missions'], list):
             for mission_data in data['missions']:
-                self.missions.append(TMission(mission_data))
+                try:
+                    self.missions.append(TMission(mission_data))
+                except Exception as e:
+                    import logging
+                    logging.error(f"Error initializing TMission for campaign {pid}: {e}")

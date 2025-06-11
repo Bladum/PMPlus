@@ -1,11 +1,16 @@
+"""
+TTrait: Represents a trait of a unit, modifying stats and abilities.
+Purpose: Base class for all unit traits (promotions, wounds, effects, etc.).
+Last update: 2025-06-10
+"""
+
 from unit.unit_stat import TUnitStats
 
 
 class TTrait:
-
     """
-    Represents a traits of unit, which adds some stats to unit
-    This is virtual class, it is used to create other classes
+    Represents a trait of a unit, which modifies stats or abilities.
+    This is a virtual base class for all specific trait types.
     """
 
     # Class type constants
@@ -19,6 +24,32 @@ class TTrait:
     TRAIT_PERK = 7            # special one time added perk to unit on specific level
 
     def __init__(self, pid, data):
+        """
+        Initialize a TTrait instance.
+        Args:
+            pid (str): Unique identifier for the trait.
+            data (dict): Dictionary containing trait attributes and stat modifications.
+        Attributes:
+            id (str): Trait ID.
+            name (str): Display name.
+            sprite (str): Sprite or image reference.
+            description (str): Description of the trait.
+            type (int): Trait type/category.
+            stats (TUnitStats): Stat modifications provided by the trait.
+            cost (int): Cost to acquire the trait.
+            items_needed (list): Items required to acquire the trait.
+            races (list): Races eligible for the trait.
+            min_level (int): Minimum level required.
+            max_level (int): Maximum level allowed.
+            services_needed (list): Required services for the trait.
+            tech_needed (list): Technologies required to unlock.
+            recovery_time (int): Recovery time (for transformations).
+            transfer_time (int): Transfer time (for transformations).
+            battle_duration (int): Duration of battle effect.
+            battle_effect (Any): Effect applied in battle.
+            battle_chance_complete (int): Chance to complete effect in battle.
+            battle_only (bool): Whether the trait is battle-only.
+        """
         self.id = pid
 
         self.name = data.get('name', pid)

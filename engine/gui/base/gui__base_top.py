@@ -37,7 +37,12 @@ class TGuiBaseTopPanel(QWidget):
     base_changed = Signal(int)
 
     def __init__(self, parent=None):
-        """Initialize the top panel widget with all components."""
+        """
+        Initialize the top panel widget with all components.
+
+        Args:
+            parent (QWidget, optional): Parent widget for the panel.
+        """
         super().__init__(parent)
 
         from engine.engine.game import TGame
@@ -60,7 +65,10 @@ class TGuiBaseTopPanel(QWidget):
         self._setup_ui()
 
     def _setup_ui(self):
-        """Create all UI components for the top panel."""
+        """
+        Create all UI components for the top panel.
+        Sets up layouts for screen buttons, base buttons, and info labels.
+        """
         # Main horizontal layout to combine all sections
         main_layout = QHBoxLayout(self)
         main_layout.setContentsMargins(0, 0, 0, 0)
@@ -79,7 +87,11 @@ class TGuiBaseTopPanel(QWidget):
         self.setLayout(main_layout)
 
     def _create_screen_buttons(self):
-        """Create screen selection button panel."""
+        """
+        Create screen selection button panel.
+        Returns:
+            QHBoxLayout: Layout containing screen selection buttons.
+        """
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
@@ -112,7 +124,11 @@ class TGuiBaseTopPanel(QWidget):
         return layout
 
     def _create_base_buttons(self):
-        """Create base selection button grid."""
+        """
+        Create base selection button grid.
+        Returns:
+            QGridLayout: Layout containing base selection buttons.
+        """
         layout = QGridLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
@@ -149,7 +165,11 @@ class TGuiBaseTopPanel(QWidget):
         return layout
 
     def _create_info_labels(self):
-        """Create information labels section."""
+        """
+        Create information labels section (base name, date, funds).
+        Returns:
+            QGridLayout: Layout containing info labels.
+        """
         layout = QGridLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
@@ -177,15 +197,22 @@ class TGuiBaseTopPanel(QWidget):
         layout.addWidget(date_label, 1, 0, 1, 2)
         layout.addWidget(money_label, 1, 2, 1, 2)
 
+        # Store date and money labels for later updates
+        self.date_label = date_label
+        self.money_label = money_label
         return layout
 
     def _handle_screen_button_click(self, screen_name: str) -> None:
         """
-        Handle screen button clicks with visual feedback.
+        Handle screen button clicks with visual feedback and error checking.
 
         Args:
-            screen_name: Name of the selected screen
+            screen_name (str): Name of the selected screen.
         """
+        if screen_name not in self.available_screens:
+            print(f"Invalid screen name: {screen_name}")
+            return
+
         # Update internal state
         self.current_screen = screen_name
 
@@ -202,13 +229,17 @@ class TGuiBaseTopPanel(QWidget):
         self.screen_changed.emit(screen_name)
         print(f"Switched to screen: {screen_name}")
 
-    def _handle_base_button_click(self, base_index: str) -> None:
+    def _handle_base_button_click(self, base_index: int) -> None:
         """
         Handle base button clicks with visual feedback.
 
         Args:
-            base_index: Zero-based index of the selected base
+            base_index (int): Zero-based index of the selected base.
         """
+        if not isinstance(base_index, int) or not (0 <= base_index < len(self.base_buttons)):
+            print(f"Invalid base index: {base_index}")
+            return
+
         if self._switch_base(base_index):
             # Update all button styles
             for i, button in enumerate(self.base_buttons):
@@ -220,15 +251,15 @@ class TGuiBaseTopPanel(QWidget):
                     button.setProperty("class", "base_available")
                     button.setStyleSheet(XcomStyle.pushbutton_base_available())
 
-    def _switch_base(self, base_index: str) -> bool:
+    def _switch_base(self, base_index: int) -> bool:
         """
         Handle base switching with data refresh.
 
         Args:
-            base_index: Zero-based index of the base to switch to
+            base_index (int): Zero-based index of the base to switch to.
 
         Returns:
-            True if base switch was successful, False otherwise
+            bool: True if base switch was successful, False otherwise.
         """
         if self.game.set_active_base(base_index):
             self._update_base_display()
@@ -239,13 +270,19 @@ class TGuiBaseTopPanel(QWidget):
         return False
 
     def _update_base_display(self) -> None:
-        """Update base name label for the current active base."""
+        """
+        Update base name label for the current active base.
+        """
         active_base = self.game.get_active_base()
         self.base_info_label.setText(active_base.name)
 
     # Public methods for external use
     def get_current_screen(self) -> str:
-        """Get the currently selected screen name."""
+        """
+        Get the currently selected screen name.
+        Returns:
+            str: Name of the current screen.
+        """
         return self.current_screen
 
     def set_screen(self, screen_name: str) -> bool:
@@ -253,10 +290,10 @@ class TGuiBaseTopPanel(QWidget):
         Programmatically set the current screen.
 
         Args:
-            screen_name: Name of the screen to select
+            screen_name (str): Name of the screen to select.
 
         Returns:
-            True if successful, False if screen name is invalid
+            bool: True if successful, False if screen name is invalid.
         """
         if screen_name in self.available_screens:
             self._handle_screen_button_click(screen_name)
@@ -264,11 +301,21 @@ class TGuiBaseTopPanel(QWidget):
         return False
 
     def update_date_display(self, date_str: str) -> None:
-        """Update the date display with the provided string."""
+        """
+        Update the date display with the provided string.
+
+        Args:
+            date_str (str): Date string to display.
+        """
         if hasattr(self, 'date_label') and self.date_label:
             self.date_label.setText(date_str)
 
     def update_money_display(self, money_str: str) -> None:
-        """Update the money display with the provided string."""
+        """
+        Update the money display with the provided string.
+
+        Args:
+            money_str (str): Money string to display.
+        """
         if hasattr(self, 'money_label') and self.money_label:
             self.money_label.setText(money_str)

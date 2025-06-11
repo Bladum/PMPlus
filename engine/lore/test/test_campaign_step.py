@@ -1,3 +1,7 @@
+"""
+Test suite for TCampaignStep class.
+Covers initialization, default values, and error handling for weights and numeric fields.
+"""
 import pytest
 from engine.lore.campaign_step import TCampaignStep
 

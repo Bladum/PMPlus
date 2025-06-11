@@ -1,10 +1,33 @@
+"""
+TOrganization: Player organization level definition.
+Purpose: Represents a player organization level, unlock requirements, and quest dependencies.
+Last update: 2025-06-10
+"""
+
 class TOrganization:
     """
-    Represents a player organization level.
+    TOrganization represents a player organization level.
     Each level has its own name, description, icon, pedia, and quests.
     Prerequisites (tech/quests) are required to unlock the next level.
+
+    Attributes:
+        key (str): Organization key.
+        name (str): Organization name.
+        description (str): Description of the organization level.
+        sprite (str): Icon or sprite for the organization.
+        pedia (str): Encyclopedia entry.
+        quests (list): Quests associated with this level.
+        quests_needed (list): Quests required to unlock this level.
+        tech_needed (list): Technologies required to unlock this level.
+        unlocked (bool): Whether the organization is unlocked.
     """
     def __init__(self, key, data=None):
+        """
+        Initialize an organization level.
+        Args:
+            key (str): Organization key.
+            data (dict): Organization data and parameters.
+        """
         data = data or {}
         self.key = key
         self.name = data.get('name', '')

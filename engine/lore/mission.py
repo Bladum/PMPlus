@@ -1,15 +1,32 @@
+"""
+TMission: Mission definition for campaign-generated world map locations.
+Purpose: Represents a mission created by a campaign, with deployment and tech requirements.
+Last update: 2025-06-10
+"""
 
 class TMission:
     """
-    Mission is created by campaign
-    it is a physical location on world map
-        - it's flying ufo (temporary and moving) and must be first intercepted
-        - it's new alien base (static and permanent), usually 2 level mission, grounded
-        - it's a static site (temporary and static), 1 level mission, grounded
-    manage points when mission is failed / succeeded
+    TMission represents a mission created by a campaign, with deployment and tech requirements.
+    It is a physical location on the world map (UFO, base, or static site).
+
+    Attributes:
+        ufo (str|None): UFO type if mission is a UFO.
+        site (str|None): Site type if mission is a static site.
+        base (str|None): Base type if mission is a base.
+        count (int): Number of missions to generate.
+        chance (float): Probability of mission occurrence.
+        timer (int): Delay before mission activation.
+        tech_start (list): Technologies required to start.
+        tech_end (list): Technologies that end the mission.
+        deployments (dict): Deployment options for the mission.
     """
 
     def __init__(self, data):
+        """
+        Initialize a mission.
+        Args:
+            data (dict): Mission data and parameters.
+        """
 
         # what will be created by this mission
         self.ufo = data.get('ufo', None)

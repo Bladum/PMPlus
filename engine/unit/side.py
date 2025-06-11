@@ -1,19 +1,14 @@
 """
-TSide Class
-===========
-
-Purpose:
-    Represents a faction or side in the game (e.g., player, alien, civilian).
-    This class identifies which faction a unit belongs to during gameplay.
-
-Interactions:
-    - Used by TUnit to define unit ownership and allegiance
-    - Determines combat relationships (friendly/enemy) between units
-    - Affects AI behavior and targeting decisions
-    - Used for victory/defeat condition evaluation
+TSide: Represents a faction or side in the game (e.g., player, alien, civilian).
+Purpose: Identifies unit allegiance, affects AI, and determines combat relationships.
+Last update: 2025-06-10
 """
 
 class TSide:
+    """
+    Represents a faction or side in the game (e.g., player, alien, civilian).
+    Used to define unit ownership, allegiance, and combat relationships.
+    """
 
     XCOM = 0
     ALIEN = 1
@@ -21,4 +16,3 @@ class TSide:
     ALLIED = 3
 
     pass
-

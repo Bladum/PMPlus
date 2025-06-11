@@ -35,18 +35,14 @@ For each Python file or class you work on, complete the following steps in order
      - **Attributes:** attr1, attr2
      - **Methods:** method1(), method2()
      ```
-4. **Validate and Update API.yml**
-   - Check if all arguments passed to the class constructor (and any derived attributes) are documented in BIS API.yml (located in the wiki/ or docs/ folder).
-   - If any are missing or outdated, update BIS API.yml accordingly. Create the file if it does not exist.
-   - See Section 5 (Synchronization with BIS API Documentation and Local README).
-5. **Check or Create Test File**
+4. **Check or Create Test File**
    - Analyze files named test_* in the test subfolder for the file/class. If not present, create a test file that covers all methods and attributes.
    - Follow best practices and avoid common pitfalls as described in Section 1 and Section 4.
    - See details below for how to structure and implement tests.
    - *Example test file location:*
      - For src/my_module.py, create or update src/test/test_my_module.py
 
-6. **OXC references**
+5. **OXC references**
    - ALienFall is clone of Open XCOM and its repository (https://github.com/OpenXcom/OpenXcom/)
    - You can use OXC code as a reference for how to implement classes, methods, and documentation.
    - Update any relevant OXC documentation or comments in the code.

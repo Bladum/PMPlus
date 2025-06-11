@@ -44,7 +44,7 @@ Represents a quest or flag for tracking game progress.
 Manages quests in the game.
 
 ## QuestManager
-Tracks quest and organization progress, unlocks new content, and provides progress metrics.
+QuestManager tracks quest and organization progress, unlocks new content, and provides progress metrics.
 - **Attributes:** quests, organizations, completed_techs, completed_quests
 - **Methods:** update_quests(), update_organizations(), get_progress(), unlock_new_content(), get_unlocked_organizations(), get_locked_organizations()
 

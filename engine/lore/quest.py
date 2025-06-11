@@ -1,10 +1,32 @@
+"""
+TQuest: Quest/flag definition for game progress tracking.
+Purpose: Represents a quest or flag for tracking game progress, unlocks, and dependencies.
+Last update: 2025-06-10
+"""
+
 class TQuest:
     """
-    Represents a quest in game, which is basically a FLAG.
+    TQuest represents a quest or flag for tracking game progress.
     This is used to manage progress in game instead of using research (optional).
-    This is usually used to manage progress in game in %.
+    Usually used to manage progress in game in %.
+
+    Attributes:
+        key (str): Quest key.
+        name (str): Quest name.
+        description (str): Description of the quest.
+        pedia (str): Encyclopedia entry.
+        value (int): Value/weight of the quest for progress.
+        quests_needed (list): Quests required to complete this quest.
+        tech_needed (list): Technologies required to complete this quest.
+        completed (bool): Whether the quest is completed.
     """
     def __init__(self, key, data):
+        """
+        Initialize a quest.
+        Args:
+            key (str): Quest key.
+            data (dict): Quest data and parameters.
+        """
         self.key = key
         self.name = data.get('name', '')
         self.description = data.get('description', '')
@@ -23,4 +45,3 @@ class TQuest:
 
     def __repr__(self):
         return f"<TQuest {self.key} ({'Done' if self.completed else 'Not Done'})>"
-

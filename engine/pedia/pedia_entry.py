@@ -1,6 +1,24 @@
+"""
+TPediaEntry: Represents a single entry in the UFOpedia system.
+Purpose: Stores all data and metadata for a pedia entry, including type, name, description, and related stats.
+Last update: 2025-06-11
+"""
+
 class TPediaEntry:
     """
-    represents a single entry in pedia
+    Represents a single entry in the UFOpedia.
+    Stores all relevant data, such as type, name, description, sprite, and related stats.
+    Attributes:
+        pid (str): Entry ID.
+        type (int): Entry type/category.
+        name (str): Display name.
+        section (str): Section/category name.
+        description (str): Entry description.
+        sprite (str): Sprite or image reference.
+        tech_needed (list): Technologies required to unlock.
+        order (int): Display order.
+        related (list): Related entries.
+        stats (dict): Additional stats or metadata.
     """
 
     CRAFTS = 0
@@ -39,6 +57,23 @@ class TPediaEntry:
     ALIEN_ARTEFACTS = 37  # alien alloys, zrbite, power navigation
 
     def __init__(self, pid, data):
+        """
+        Initialize a TPediaEntry.
+        Args:
+            pid (str): Unique identifier for the entry.
+            data (dict): Dictionary containing entry data and metadata.
+        Attributes:
+            pid (str): Entry ID.
+            type (int): Entry type/category.
+            name (str): Display name.
+            section (str): Section/category name.
+            description (str): Entry description.
+            sprite (str): Sprite or image reference.
+            tech_needed (list): Technologies required to unlock.
+            order (int): Display order.
+            related (list): Related entries.
+            stats (dict): Additional stats or metadata.
+        """
         self.pid = pid
         self.type = data.get('type', 0)
         self.name = data.get('name', pid)
@@ -47,7 +82,15 @@ class TPediaEntry:
         self.sprite = data.get('sprite', '')
         self.tech_needed = data.get('tech_needed', [])
         self.order = data.get('order', 0)
-
-        # additional fields that might be present in some entries
         self.related = data.get('related', [])
         self.stats = data.get('stats', {})
+
+    def is_unlocked(self, unlocked_techs):
+        """
+        Check if the entry is unlocked based on available technologies.
+        Args:
+            unlocked_techs (list): List of unlocked technology names/IDs.
+        Returns:
+            bool: True if all required techs are unlocked, else False.
+        """
+        return all(tech in unlocked_techs for tech in self.tech_needed)

@@ -40,32 +40,26 @@ class TBattleTile:
                  wall_id: Optional[str] = None,
                  roof_id: Optional[str] = None):
         """
-        Initialize a battle tile with layer IDs.
+        Initialize a TBattleTile instance with layer IDs.
 
         Args:
-            floor_id: ID of the floor tile (mandatory)
-            wall_id: ID of the wall tile (optional)
-            roof_id: ID of the roof tile (optional)
+            floor_id (str, optional): ID of the floor tile. Default is '0'.
+            wall_id (str|None, optional): ID of the wall tile. Default is None.
+            roof_id (str|None, optional): ID of the roof tile. Default is None.
         """
-
         self.floor : TBattleFloor = TBattleFloor()
         self.wall : TBattleWall = None
         self.roof : TBattleRoof = None
-
         self.objects : list[TBattleObject] = []
         self.unit : TUnit = None
-
         self.smoke = False
         self.fire = False
         self.gas = False
         self.light_level = 0
         self.fog_of_war = []
-
         self.floor_id: str = floor_id
         self.wall_id: Optional[str] = wall_id
         self.roof_id: Optional[str] = roof_id
-
-        # Additional properties
         self.passable: bool = True
         self.blocks_fire: bool = False
         self.blocks_sight: bool = False
@@ -77,7 +71,7 @@ class TBattleTile:
         Create a deep copy of this tile.
 
         Returns:
-            A new TBattleTile with the same properties
+            TBattleTile: A new TBattleTile with the same properties.
         """
         new_tile = TBattleTile(self.floor_id, self.wall_id, self.roof_id)
         new_tile.passable = self.passable
@@ -92,18 +86,13 @@ class TBattleTile:
         Update tile properties based on layer IDs.
         For example, walls might make a tile impassable.
         """
-        # Base assumption: floors are passable
         self.passable = True
         self.blocks_fire = False
         self.blocks_sight = False
-
-        # Walls typically block movement and sight/fire
         if self.wall_id is not None:
             self.passable = False
             self.blocks_fire = True
             self.blocks_sight = True
-
-        # Roofs might block light
         if self.roof_id is not None:
             self.blocks_light = True
 
