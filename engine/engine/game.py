@@ -1,20 +1,22 @@
-from craft.craft import TCraft
-from engine.globe.world import TWorld
-from engine.lore.campaign import TCampaign
-from engine.lore.calendar import TCalendar
-from engine.economy.research_tree import TResearchTree
+from ..craft.craft import TCraft
+from ..globe.world import TWorld
+from ..lore.campaign import TCampaign
+from ..lore.calendar import TCalendar
+from ..economy.research_tree import TResearchTree
+from ..economy.purchase import TPurchase
+from ..economy.ttransfer import TransferManager
 
-from engine.lore.faction import TFaction
-from engine.base.geo.xbase import TBaseXCom
-from engine.engine.mod import TMod, TUnitCategory, TItemCategory
-from engine.base.facility import TFacility, TFacilityType
+from ..lore.faction import TFaction
+from ..base.geo.xbase import TBaseXCom
+from .mod import TMod, TUnitCategory, TItemCategory
+from ..base.facility import TFacility, TFacilityType
 from pathlib import Path
 import os
 import yaml
 
 from typing import List, Dict, Any, Tuple, Optional
 
-from unit.unit import TUnit
+from ..unit.unit import TUnit
 
 
 class TGame:
@@ -49,6 +51,16 @@ class TGame:
 
         # Global research tree
         self.research_tree : TResearchTree = None
+
+        # Manufacturing tracking for monthly invoices
+        self.monthly_manufacturing_hours = {}  # month_year -> {base_id: {entry_id: hours}}
+        self.current_month_manufacturing = {}  # base_id -> {entry_id: hours} for current month
+
+        # Purchase system
+        self.purchase_system = None  # Will be initialized with purchase data
+
+        # Transfer system for deliveries
+        self.transfer_manager = TransferManager()
 
         # Loaded mod data (e.g., item stats)
         self.mod:TMod = None
@@ -356,5 +368,209 @@ class TGame:
 
             return True
         except Exception as e:
-            print(f"Error initializing starting bases: {e}")
+            print(f"Error loading base {base_name}: {e}")
             return False
+
+    def track_manufacturing_hours(self, base_id, entry_id, hours):
+        """
+        Track manufacturing hours for monthly invoicing.
+        
+        Args:
+            base_id (str): Base where manufacturing takes place
+            entry_id (str): Manufacturing project entry ID
+            hours (float): Number of man-hours worked
+        """
+        if base_id not in self.current_month_manufacturing:
+            self.current_month_manufacturing[base_id] = {}
+        
+        if entry_id not in self.current_month_manufacturing[base_id]:
+            self.current_month_manufacturing[base_id][entry_id] = 0
+        
+        self.current_month_manufacturing[base_id][entry_id] += hours
+
+    def finalize_monthly_manufacturing(self, month_year):
+        """
+        Finalize manufacturing hours for the month and prepare invoice.
+        
+        Args:
+            month_year (str): Month and year in format "YYYY-MM"
+            
+        Returns:
+            dict: Manufacturing hours by base and project for the month
+        """
+        if month_year not in self.monthly_manufacturing_hours:
+            self.monthly_manufacturing_hours[month_year] = {}
+        
+        # Copy current month data to monthly archive
+        for base_id, projects in self.current_month_manufacturing.items():
+            if base_id not in self.monthly_manufacturing_hours[month_year]:
+                self.monthly_manufacturing_hours[month_year][base_id] = {}
+            
+            for entry_id, hours in projects.items():
+                if entry_id not in self.monthly_manufacturing_hours[month_year][base_id]:
+                    self.monthly_manufacturing_hours[month_year][base_id][entry_id] = 0
+                self.monthly_manufacturing_hours[month_year][base_id][entry_id] += hours
+        
+        # Store the finalized data for this month
+        finalized_data = dict(self.current_month_manufacturing)
+        
+        # Reset current month tracking
+        self.current_month_manufacturing = {}
+        
+        return finalized_data
+
+    def get_monthly_manufacturing_invoice(self, month_year, hourly_rate=50):
+        """
+        Get manufacturing invoice for a specific month.
+        
+        Args:
+            month_year (str): Month and year in format "YYYY-MM"
+            hourly_rate (float): Cost per man-hour
+            
+        Returns:
+            dict: Invoice details with costs per base and project
+        """
+        if month_year not in self.monthly_manufacturing_hours:
+            return {"total_cost": 0, "details": {}}
+        
+        invoice = {"total_cost": 0, "details": {}}
+        
+        for base_id, projects in self.monthly_manufacturing_hours[month_year].items():
+            base_total = 0
+            base_details = {}
+            
+            for entry_id, hours in projects.items():
+                cost = hours * hourly_rate
+                base_total += cost
+                base_details[entry_id] = {"hours": hours, "cost": cost}
+            
+            invoice["details"][base_id] = {
+                "total_cost": base_total,
+                "projects": base_details
+            }
+            invoice["total_cost"] += base_total
+        
+        return invoice
+
+    def process_daily_transfers_and_purchases(self):
+        """
+        Process daily transfers and purchase deliveries.
+        Should be called once per day by the calendar system.
+        """
+        # Process transfers - items that complete delivery today are added to base inventory
+        self.transfer_manager.tick_all(self._add_delivered_items_to_base)
+        
+        # Process purchase orders - orders ready for delivery today are sent to transfer system
+        if self.purchase_system:
+            self.purchase_system.process_daily_purchases(self.transfer_manager)
+
+    def _add_delivered_items_to_base(self, base_id: str, object_type: str, object_id: str, quantity: int):
+        """
+        Callback function for transfer manager to add delivered items to base inventory.
+        
+        Args:
+            base_id: ID of the base receiving the delivery
+            object_type: Type of object ('item', 'unit', 'craft')
+            object_id: ID of the specific object
+            quantity: Quantity delivered
+        """
+        if base_id not in self.bases:
+            print(f"Warning: Trying to deliver to unknown base {base_id}")
+            return
+            
+        base = self.bases[base_id]
+        
+        if object_type == 'item':
+            success = base.add_item(object_id, quantity)
+            if success:
+                print(f"Delivered {quantity}x {object_id} to base {base_id}")
+            else:
+                print(f"Warning: Failed to deliver {quantity}x {object_id} to base {base_id} - insufficient storage")
+        elif object_type == 'unit':
+            # For units, we'd need to create TUnit instances - placeholder for now
+            print(f"Unit delivery not yet implemented: {quantity}x {object_id} to base {base_id}")
+        elif object_type == 'craft':
+            # For crafts, we'd need to create TCraft instances - placeholder for now
+            print(f"Craft delivery not yet implemented: {quantity}x {object_id} to base {base_id}")
+        else:
+            print(f"Warning: Unknown object type for delivery: {object_type}")
+
+    def initialize_purchase_system(self, purchase_data: dict):
+        """
+        Initialize the purchase system with purchase entries and black market data.
+        
+        Args:
+            purchase_data: Dictionary containing purchase entries and black market configuration
+        """
+        if self.purchase_system is None:
+            self.purchase_system = TPurchase(purchase_data)
+            print("Purchase system initialized")
+
+    def get_purchase_system(self) -> Optional[TPurchase]:
+        """Get the purchase system instance."""
+        return self.purchase_system
+
+    def setup_calendar_integration(self):
+        """
+        Setup integration between game systems and calendar events.
+        This should be called after all systems are initialized.
+        """
+        if self.calendar:
+            # Override calendar methods to call our game logic
+            original_on_day = self.calendar.on_day
+            original_on_month = self.calendar.on_month
+            
+            def enhanced_on_day(*args, **kwargs):
+                original_on_day(*args, **kwargs)
+                self.on_daily_tick()
+            
+            def enhanced_on_month(*args, **kwargs):
+                original_on_month(*args, **kwargs)
+                self.on_monthly_tick()
+            
+            self.calendar.on_day = enhanced_on_day
+            self.calendar.on_month = enhanced_on_month
+            
+            print("Calendar integration setup completed")
+
+    def on_daily_tick(self):
+        """
+        Called every day by the calendar system.
+        Processes all daily game events including transfers and purchases.
+        """
+        print(f"Processing daily tick for {self.calendar.get_date()}")
+        
+        # Process transfers and purchases
+        self.process_daily_transfers_and_purchases()
+        
+        # Process research if available
+        if self.research_tree:
+            completed_research = self.research_tree.daily_progress()
+            if completed_research:
+                print(f"Research completed: {', '.join(completed_research)}")
+        
+        # Process base facilities (construction progress)
+        for base in self.bases.values():
+            for facility in base.facilities:
+                if not facility.completed:
+                    facility.build_day()
+                    if facility.completed:
+                        print(f"Facility construction completed at {base.name}: {facility.facility_type.name}")
+
+    def on_monthly_tick(self):
+        """
+        Called every month by the calendar system.
+        Processes monthly events including purchase limit resets.
+        """
+        current_month = self.calendar.get_date()
+        print(f"Processing monthly tick for {current_month[0]}-{current_month[1]:02d}")
+        
+        # Process monthly purchase system reset
+        if self.purchase_system:
+            self.purchase_system.process_monthly_reset()
+        
+        # Finalize monthly manufacturing hours
+        month_year = f"{current_month[0]}-{current_month[1]:02d}"
+        self.finalize_monthly_manufacturing(month_year)
+        
+        print(f"Monthly processing completed for {month_year}")

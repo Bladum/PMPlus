@@ -1,45 +1,80 @@
 # Economy Module
 
-This folder contains classes for managing the economic systems in the game, including manufacturing, purchasing, research, and transfers.
+This module implements the core economic systems for the XCOM/AlienFall game, including manufacturing, purchasing, research, black market, and transfer management. It provides the logic for all resource flows, project management, and economic interactions between bases, suppliers, and the world.
 
-## TManufacture
-Manages a collection of manufacturing projects and their entries. Provides methods to load, filter, and check the availability of manufacturing projects.
-- **Attributes:** entries (dict of project_id -> TManufactureEntry)
-- **Methods:** load(), get_entry(), get_projects_by_category(), get_available_projects()
+## Architecture Overview
 
-## TManufactureEntry
-Represents a single manufacturing project entry, storing all data and requirements for a manufacturing project.
-- **Attributes:** pid, name, category, build_time, build_cost, give_score, tech_start, items_needed, services_needed, region_needed, country_needed, items_build, units_build, crafts_build
-- **Methods:** __init__()
+```
+Economy Module
+├── Manufacturing System
+│   ├── TManufacture (main interface)
+│   ├── TManufactureEntry (project templates)
+│   ├── ManufacturingManager (active projects)
+│   └── ManufacturingProject (project progress)
+├── Purchase System
+│   ├── TPurchase (main interface)
+│   ├── TPurchaseEntry (purchase templates)
+│   ├── PurchaseManager (order management)
+│   ├── PurchaseOrder (order tracking)
+│   └── BlackMarket (special suppliers)
+├── Research System
+│   ├── TResearchManager (main interface)
+│   ├── TResearchEntry (research templates)
+│   ├── ResearchProject (active research)
+│   └── TResearchTree (dependency management)
+└── Transfer System
+    ├── TTransfer (single delivery)
+    └── TransferManager (all deliveries)
+```
 
-## PurchaseOrder
-Represents a purchase order made by the player, handling items, units, and crafts to be purchased, their quantities, and order status.
-- **Attributes:** id, base_id, items, units, crafts, status
-- **Methods:** is_empty(), mark_processed(), mark_cancelled(), calculate_total_cost()
+## Subsystems
 
-## TPurchaseEntry
-Represents a purchasable entry (item/unit/craft) that can be purchased, with all requirements and results.
-- **Attributes:** pid, name, category, supplier, purchase_cost, purchase_time, tech_needed, items_needed, services_needed, region_needed, country_needed, items_buy, units_buy, crafts_buy
-- **Methods:** __init__()
+### Manufacturing System
+- **Purpose:** Manage manufacturing projects, validate requirements, allocate workshop capacity, and track progress.
+- **Key Classes:**
+  - `TManufacture`: Main interface for manufacturing operations.
+  - `TManufactureEntry`: Defines what can be manufactured.
+  - `ManufacturingManager`: Manages active projects and workshop allocation.
+  - `ManufacturingProject`: Tracks individual project progress.
 
-## TResearchEntry
-Represents a research entry (project) that can be researched, with all requirements and results.
-- **Attributes:** pid, name, cost, score, tech_needed, items_needed, services_needed, event_spawn, item_spawn, tech_disable, tech_give, tech_unlock, pedia, complete_game
-- **Methods:** __init__()
+### Purchase System
+- **Purpose:** Handle purchasing of items, units, and crafts, including black market transactions, monthly limits, and delivery tracking.
+- **Key Classes:**
+  - `TPurchase`: Main interface for purchasing operations.
+  - `TPurchaseEntry`: Defines what can be purchased.
+  - `PurchaseManager`: Manages orders and deliveries.
+  - `PurchaseOrder`: Tracks order status and delivery.
+  - `BlackMarket`: Manages special suppliers and rotating stock.
 
-## TResearchTree
-Manages the research tree, research progress, dependencies, and visualization.
-- **Attributes:** entries, completed, in_progress, available, locked
-- **Methods:** add_entry(), start_research(), progress_research(), complete_research(), get_research_progress(), get_available_research(), assign_scientists(), progress_all_research(), daily_progress(), is_completed(), lock_entry(), unlock_entry(), get_entry(), reset(), visualize_dependencies(), export_dependencies_to_file(), visualize_dependencies_tree(), export_dependencies_tree_to_file()
+### Research System
+- **Purpose:** Manage research projects, scientist allocation, dependencies, and progress tracking.
+- **Key Classes:**
+  - `TResearchManager`: Main interface for research operations.
+  - `TResearchEntry`: Defines researchable projects.
+  - `ResearchProject`: Tracks research progress.
+  - `TResearchTree`: Manages dependencies and unlocks.
 
-## TTransfer & TransferManager
-TTransfer represents a single transit for one item, craft, or unit. TransferManager manages all transits and handles daily updates and delivery to base storage.
-- **Attributes (TTransfer):** id, base_id, object_type, object_id, quantity, days_left, status
-- **Methods (TTransfer):** tick(), is_delivered(), cancel()
-- **Attributes (TransferManager):** transits
-- **Methods (TransferManager):** add_transit(), tick_all()
+### Transfer System
+- **Purpose:** Handle all item, unit, and craft deliveries between bases and from suppliers.
+- **Key Classes:**
+  - `TTransfer`: Represents a single delivery.
+  - `TransferManager`: Manages all active deliveries.
+
+## Integration
+- All subsystems are integrated with the main game loop for daily/monthly processing.
+- Manufacturing and purchasing interact with the transfer system for deliveries.
+- Research unlocks new manufacturing and purchasing options.
+- Black market provides special purchase opportunities with unique mechanics.
+
+## Testing & Documentation
+- Each subsystem includes unit tests in the `test/` subfolder, covering core logic and edge cases where available. **Note:** Not all classes have full test coverage yet; test coverage is a work in progress. Check the `test/` subfolder for the latest status, and contributions to test coverage are welcome.
+- All classes and methods are documented with docstrings following project standards.
+- Comprehensive markdown documentation is provided for each subsystem, synchronized with the codebase.
 
 ---
 
-All classes are documented and follow the BIS coding agent best practices. See `wiki/API.yml` for parameter documentation.
+For detailed API and class documentation, see the code docstrings and the subsystem markdown files:
+- `MANUFACTURING_SYSTEM_DOCUMENTATION.md`
+- `PURCHASE_SYSTEM_DOCUMENTATION.md`
+- `RESEARCH_SYSTEM_DOCUMENTATION.md`
 
