@@ -2,7 +2,11 @@
 engine/gui/other/widget/unit_list_widget.py
 
 Widget for managing and displaying a list of units with filtering capabilities in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TUnitListWidget: Widget for displaying and managing a list of units.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Dict, List, Any, Optional, Callable
@@ -12,7 +16,6 @@ from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QComboBox, QListWidget, QListWidgetItem,
     QLabel, QPushButton, QLineEdit, QAbstractItemView, QGroupBox, QScrollArea
 )
-
 from gui.theme_manager import XcomStyle, px
 from unit.unit import TUnit
 
@@ -20,7 +23,10 @@ from unit.unit import TUnit
 class TUnitListWidget(QWidget):
     """
     Widget for displaying and managing a list of units.
-    Inherits from QWidget.
+
+    Attributes:
+        unitSelected (Signal): Emitted when a unit is selected.
+        unitChanged (Signal): Emitted when unit data changes (e.g., equipment changed).
     """
 
     # Signal emitted when a unit is selected

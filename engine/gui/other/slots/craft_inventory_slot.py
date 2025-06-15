@@ -2,12 +2,15 @@
 engine/gui/other/slots/craft_inventory_slot.py
 
 Specialized inventory slot for craft equipment items in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TCraftInventorySlot: Inventory slot for craft components with craft-specific functionality.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Optional, Dict, Any
 from PySide6.QtCore import Signal
-
 from gui.other.slots.inventory_slot import TInventorySlot
 from item.item import TItem
 from item.item_type import TItemType
@@ -16,8 +19,21 @@ from craft.craft import TCraft
 
 class TCraftInventorySlot(TInventorySlot):
     """
-    Specialized inventory slot for craft components with craft-specific functionality.
-    Inherits from TInventorySlot.
+    Inventory slot for craft components with craft-specific functionality.
+
+    Attributes:
+        statsChanged (Signal): Emitted when craft stats change.
+        systemsChanged (Signal): Emitted when a craft system changes.
+
+    Methods:
+        __init__(...): Initialize the slot with custom properties.
+        set_craft(...): Associate this slot with a specific craft.
+        set_hardpoint_type(...): Set the type of hardpoint this slot represents.
+        update_craft_compatibility(): Update slot restrictions based on current craft specifications.
+        can_accept_item(...): Check if an item can be accepted in this slot.
+        add_item(...): Add an component to this slot with craft-specific effects.
+        remove_item(...): Remove and return the current component, reverting craft stat changes.
+        set_compatibility(...): Set compatibility requirements for this component slot.
     """
 
     # Signal emitted when craft's stats change due to component changes

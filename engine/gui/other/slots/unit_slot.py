@@ -2,7 +2,11 @@
 engine/gui/other/slots/unit_slot.py
 
 Specialized slot for craft personnel assignments in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TUnitSlot: Slot for unit assignments to craft crew positions.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Optional, Dict
@@ -10,15 +14,16 @@ from gui.other.slots.inventory_slot import TInventorySlot
 from PySide6.QtCore import Qt, Signal, QSize
 from PySide6.QtGui import QDrag, QCursor, QMimeData
 from PySide6.QtWidgets import QToolTip
-
 from unit.unit import TUnit
 
 
 class TUnitSlot(TInventorySlot):
     """
-    Specialized slot for unit assignments to craft crew positions.
+    Slot for unit assignments to craft crew positions.
     Always contains a single TUnit or None (empty).
-    Inherits from TInventorySlot.
+
+    Attributes:
+        crewChanged (Signal): Emitted when craft capabilities change due to crew changes.
     """
 
     # Signal emitted when craft capabilities change due to crew changes

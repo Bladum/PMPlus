@@ -1,51 +1,62 @@
-# GUI Base Screens
+# Base Submodule
 
-This folder contains the main GUI screen classes for the XCOM base management interface. Each class represents a different screen or panel in the base UI, such as Barracks, Hangar, Storage, and more.
+This document provides a high-level summary and API reference for all Python files in the `engine/gui/base` folder. It is intended for developers and AI agents to understand the responsibilities and integration points of each base GUI class.
 
-## Classes
-
-### TGuiBaseTopPanel
-Widget for managing the top navigation panel of the XCOM inventory interface. Provides screen switching, base selection, and displays current base, date, and funds.
-
-### TGuiBarracks
-Main barracks management screen with unit roster, equipment loadouts, and inventory functionality.
-
-### TGuiHangar
-Screen for craft management in the base.
-
-### TGuiStorage
-Screen for base storage management.
-
-### TGuiTransfer
-Screen for inter-base transfers.
-
-### TGuiPrison
-Screen for containment/prison management.
-
-### TGuiAcademy
-Screen for manufacturing and training management.
-
-### TGuiWorkshop
-Screen for manufacturing management.
-
-### TGuiLab
-Screen for science and research management.
-
-### TGuiMarket
-Screen for purchases and market management.
-
-### TGuiArchive
-Screen for research and records management.
-
-### TGuiBaseInfo
-Screen for base info summary and activities overview.
-
-### TGuiFacility
-Screen for facility management.
-
-### TPurchaseGui
-Purchase system interface for buying items, units, and crafts.
+## Table of Contents
+1. [Overview](#overview)
+2. [Class Purposes and Details](#class-purposes-and-details)
+3. [API Reference](#api-reference)
 
 ---
 
-All classes inherit from `TGuiCoreScreen` unless otherwise noted. See also: `wiki/gui.md` for more details on the GUI system.
+## Overview
+
+The `base` submodule implements all GUI components for the XCOM base management system, including navigation panels, barracks, storage, workshop, transfers, purchasing, and more. These classes provide the visual and interactive layer for base operations and management.
+
+---
+
+## Class Purposes and Details
+
+### TGuiBaseTopPanel
+- **Purpose:**
+  - Implements the top navigation bar for the base interface.
+  - Provides screen switching, base selection, and displays critical game information.
+- **Integration:**
+  - Used by the main base container to manage navigation and state.
+
+### TGuiWorkshop
+- **Purpose:**
+  - Main workshop GUI screen for manufacturing management.
+- **Integration:**
+  - Used to manage and display manufacturing projects and progress.
+
+### TGuiTransfer
+- **Purpose:**
+  - Main transfer GUI screen for inter-base transfers.
+- **Integration:**
+  - Used to manage and display transfer operations between bases.
+
+### TGuiStorage
+- **Purpose:**
+  - Main storage GUI screen for base storage management.
+- **Integration:**
+  - Used to manage and display base storage inventory.
+
+### TPurchaseGui
+- **Purpose:**
+  - Main GUI screen for purchasing items, units, and crafts.
+- **Integration:**
+  - Used to manage and display purchase operations and orders.
+
+### TGuiBarracks
+- **Purpose:**
+  - Main barracks GUI screen for unit and inventory management.
+  - Handles unit management, equipment assignment, loadout templates, and item inventory interfaces.
+- **Integration:**
+  - Used to manage base personnel and equipment.
+
+---
+
+## API Reference
+
+See class docstrings in each file for detailed method signatures and usage examples. All classes follow the standardized documentation style and are designed for extensibility and maintainability.

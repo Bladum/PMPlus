@@ -9,29 +9,6 @@ Classes:
 Last standardized: 2025-06-15
 """
 
-"""
-research_tree.py
----------------
-TResearchTree: Manages the research tree and research progress.
-Purpose: Handles research entries, progress, dependencies, and visualization in the XCOM/AlienFall economy system.
-
-This module defines the TResearchTree class, which manages the research tree structure, dependencies, progress, and visualization. It supports randomization of costs, dependency unlocking, and research status tracking.
-
-Attributes:
-    entries (dict): tech_id -> TResearchEntry
-    completed (set): Set of completed tech_ids
-    in_progress (dict): tech_id -> progress (int)
-    available (set): Set of available tech_ids
-    locked (set): Set of permanently locked tech_ids
-
-Usage:
-    tree = TResearchTree()
-    tree.add_entry(entry)
-    tree.start_research(tech_id)
-    tree.progress_research(tech_id, points)
-    tree.complete_research(tech_id)
-"""
-
 import random
 
 class TResearchTree:

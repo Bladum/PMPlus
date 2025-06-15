@@ -2,7 +2,11 @@
 engine/gui/other/slots/inventory_slot.py
 
 Customizable slot component for holding and displaying game items in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TInventorySlot: Interactive slot for equipment items with drag-and-drop, type restrictions, and visual customization.
+
+Last standardized: 2025-06-15
 """
 
 import json
@@ -18,7 +22,13 @@ from PySide6.QtGui import QPixmap, QPainter, QPen, QColor, QBrush, QMouseEvent, 
 class TInventorySlot(QFrame):
     """
     Interactive slot for equipment items with support for drag and drop, type restrictions, and visual customization.
-    Inherits from QFrame.
+
+    Attributes:
+        itemChanged (Signal): Emitted when item or None is changed.
+        itemDropped (Signal): Emitted when item and quantity are dropped.
+        rightClicked (Signal): Emitted when slot is right-clicked.
+        slot_name (str): Name of the slot.
+        # ...other attributes...
     """
 
     # Signals for slot events
@@ -33,7 +43,7 @@ class TInventorySlot(QFrame):
         slot_name: str = "",
         size: int = 64,
         border_width: int = 2,
-        accept_types: List[TItemType] = None,
+        accept_types: Optional[List[TItemType]] = None,
         bg_color: str = "#1E2836",
         border_color: str = "#30465d",
         hover_color: str = "#3399ff",

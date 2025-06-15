@@ -1,32 +1,18 @@
-"""
-Test suite for gui_core.py (TGuiCoreScreen base class).
-Mocks PySide6.QtWidgets.QWidget for headless testing.
-"""
-import pytest
-from unittest.mock import patch, MagicMock
+import unittest
+from engine.gui.gui_core import TGuiCoreScreen
+from PySide6.QtWidgets import QApplication
+import sys
 
-# Patch PySide6.QtWidgets.QWidget for headless test
-gui_core = pytest.importorskip('engine.gui.gui_core', reason="gui_core requires PySide6")
+app = QApplication.instance() or QApplication(sys.argv)
 
-@pytest.fixture
-def mock_parent():
-    return MagicMock()
+class TestTGuiCoreScreen(unittest.TestCase):
+    def test_init(self):
+        screen = TGuiCoreScreen()
+        self.assertIsNotNone(screen)
+        self.assertTrue(hasattr(screen, 'screen_activated'))
+        self.assertTrue(hasattr(screen, 'screen_deactivated'))
+        self.assertTrue(hasattr(screen, 'refresh_base_data'))
+        self.assertTrue(hasattr(screen, 'update_summary_display'))
 
-@pytest.fixture
-def screen(mock_parent):
-    with patch('engine.gui.gui_core.QWidget', autospec=True):
-        return gui_core.TGuiCoreScreen(mock_parent)
-
-
-def test_init_sets_stylesheet(screen):
-    """Test TGuiCoreScreen initializes and sets stylesheet."""
-    assert hasattr(screen, 'setStyleSheet')
-
-
-def test_screen_activated_deactivated_refresh_update(screen):
-    """Test that all public methods exist and are callable (no-op)."""
-    screen.screen_activated()
-    screen.screen_deactivated()
-    screen.refresh_base_data()
-    screen.update_summary_display()
-    # No exceptions should be raised
+if __name__ == '__main__':
+    unittest.main()

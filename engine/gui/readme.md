@@ -13,58 +13,80 @@ This document is the authoritative design and architecture reference for the XCO
 
 ## Overview
 
-The GUI module implements the core graphical user interface systems for the XCOM/AlienFall game, including the main base GUI, globe GUI, theming, and screen/widget management. It provides the logic for all user interactions, screen transitions, and visual consistency.
+The GUI module implements the core graphical user interface systems for the XCOM/AlienFall game, including theming, screen management, inventory widgets, and navigation panels. It provides the logic for all user interactions, visual consistency, and modular screen transitions.
 
 ## System Architecture
 
 ```
 GUI Module
-├── TGuiBase (main base GUI container)
-├── TGuiCoreScreen (base class for all screens)
-├── TGuiGlobe (main globe GUI container)
-├── XcomTheme (theme constants and color definitions)
+├── theme_manager.py (theming, scaling, style management)
+├── gui_base.py (main base GUI container)
+├── gui_world.py (main globe GUI container)
+├── gui_core.py (base class for all screens)
+├── globe/ (globe-specific screens)
+├── other/
+│   ├── slots/ (inventory and unit slot widgets)
+│   └── widget/ (inventory, unit, and craft list widgets)
 ```
 
 ---
 
 ## Class Purposes and Details
 
-### TGuiBase
-- Main base GUI class that manages screens and navigation for the XCOM game.
-- Acts as a coordinator between different specialized screen interfaces.
-- Inherits from QWidget and manages top panel and screen container.
+### theme_manager.py
+- **XcomTheme**: Centralized color palette and visual constants for the XCOM-style UI. Ensures consistent look and feel across all widgets.
+- **XcomStyle**: Provides stylesheet and widget style management for all GUI components.
+- **px**: Utility function for scaling pixel values for high-DPI support.
+- **SCALE, GRID, etc.**: Constants for display scaling and layout.
 
-### TGuiCoreScreen
-- Base class for all screen widgets that can be displayed in the BaseGUI.
-- Provides hooks for activation, deactivation, data refresh, and summary updates.
-- Inherits from QWidget and integrates with theming.
+### gui_base.py
+- **TGuiBase**: Main base GUI class managing screens and navigation for the XCOM game.
+  - Coordinates between specialized screen interfaces.
+  - Handles top panel and screen container setup.
+  - Integrates with `TGuiBaseTopPanel` and `TGuiCoreScreen`.
+  - Manages screen transitions and base changes.
 
-### TGuiGlobe
-- Main globe GUI container that manages screens and navigation for the XCOM globe view.
-- Inherits from QWidget and manages top panel and screen container for the globe.
-- Supports screen management and transitions for globe-related interfaces.
+### gui_world.py
+- **TGuiGlobe**: Main globe GUI container for the XCOM globe view.
+  - Manages screen transitions and navigation for globe-specific screens.
+  - Integrates with `TGuiGlobeTopPanel` and `TGuiCoreScreen`.
+  - Handles top panel and screen container setup.
 
-### XcomTheme
-- Centralized system for managing application-wide theming, styling, and visual consistency.
-- Provides color palette, scaling utilities, and style constants for the XCOM-style user interface.
-- Used by all GUI components for consistent appearance.
+### gui_core.py
+- **TGuiCoreScreen**: Base class for all screen widgets in the GUI.
+  - Provides activation, deactivation, and data refresh hooks.
+  - Ensures consistent background and style.
+
+### globe/
+- **TGuiGlobeTopPanel**: Top navigation panel for the globe interface.
+  - Manages screen switching, world selection, and displays critical game info.
+  - Emits signals for screen/world changes and end turn.
+- **TGuiGlobeResearch**: Globe research management screen.
+- **TGuiGlobeReports**: Globe reports/summary screen.
+- **TGuiGlobeProduction**: Globe production management screen.
+
+### other/slots/
+- **TInventorySlot**: Interactive slot for equipment items with drag-and-drop, type restrictions, and visual customization.
+- **TUnitInventorySlot**: Specialized slot for unit equipment, emits stat change signals.
+- **TCraftInventorySlot**: Specialized slot for craft components, emits stat/system change signals.
+- **TUnitSlot**: Slot for unit assignments to craft crew positions, emits crew change signals.
+
+### other/widget/
+- **TBaseInventoryWidget**: Widget for displaying and managing a base's complete inventory. Advanced filtering for unit and craft items.
+- **TCraftListWidget**: Widget for managing and displaying a list of crafts with filtering and search.
+- **TUnitItemListWidget**: Specialized inventory widget for unit equipment, with category filtering and drag-and-drop.
+- **TUnitListWidget**: Widget for managing and displaying a list of units with filtering and search.
 
 ---
 
 ## Integration Guide
 
-- TGuiBase and TGuiGlobe are used as the main containers for base and globe interfaces, respectively.
-- TGuiCoreScreen is used as the base class for all custom screens and widgets.
-- XcomTheme is used throughout the GUI for consistent theming and scaling.
-- All classes are designed for extensibility and integration with PySide6/Qt widgets.
+- All widgets and screens use centralized theming and style management from `theme_manager.py`.
+- Screen containers (`TGuiBase`, `TGuiGlobe`) manage navigation and transitions between specialized screens.
+- Inventory and slot widgets are reusable and can be integrated into any screen requiring item or unit management.
 
 ---
 
 ## API Reference
 
-- See individual class docstrings and method signatures in the respective Python files for detailed API documentation.
-- All classes are designed for use by both AI agents and human developers, with clear separation of containers, screens, and theming.
-
----
-
-*This README is automatically generated and should be kept in sync with code and documentation changes.*
+See individual class docstrings for detailed method signatures and usage examples. All classes follow standardized documentation and are designed for extensibility and maintainability.

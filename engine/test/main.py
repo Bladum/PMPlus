@@ -9,10 +9,10 @@ Last standardized: 2025-06-14
 from pathlib import Path
 import sys
 
-from battle.map.battle_generator import TBattleGenerator
+from battle.battle_generator import TBattleGenerator
 from engine.engine.modloader import TModLoader
 
-from battle.tile.tileset_manager import TTilesetManager
+from battle.tileset_manager import TTilesetManager
 
 # Add PySide6 import for GUI
 from PySide6.QtWidgets import QApplication

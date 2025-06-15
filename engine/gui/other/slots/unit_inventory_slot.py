@@ -2,12 +2,15 @@
 engine/gui/other/slots/unit_inventory_slot.py
 
 Specialized inventory slot for unit equipment items in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TUnitInventorySlot: Inventory slot for unit equipment with unit-specific functionality.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Optional, Dict
 from PySide6.QtCore import Signal
-
 from item.item import TItem
 from unit.unit import TUnit
 from gui.other.slots.inventory_slot import TInventorySlot
@@ -15,11 +18,12 @@ from gui.other.slots.inventory_slot import TInventorySlot
 
 class TUnitInventorySlot(TInventorySlot):
     """
-    Specialized inventory slot for unit equipment with unit-specific functionality.
-    Inherits from TInventorySlot.
+    Inventory slot for unit equipment with unit-specific functionality.
+
+    Attributes:
+        statsChanged (Signal): Emitted when unit stats change.
     """
 
-    # Signal emitted when unit's stats change due to equipment
     statsChanged = Signal(object)  # Emits unit object when stats change
 
     def __init__(

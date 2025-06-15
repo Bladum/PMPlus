@@ -2,7 +2,11 @@
 engine/gui/other/widget/unit_item_list_widget.py
 
 Specialized inventory widget for displaying and managing unit equipment in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TUnitItemListWidget: Inventory widget for unit equipment with unit-specific features.
+
+Last standardized: 2025-06-15
 """
 
 import json
@@ -25,9 +29,11 @@ def get_canonical_path(name: str) -> str:
 
 class TUnitItemListWidget(QWidget):
     """
-    Specialized inventory widget for displaying and managing unit equipment.
+    Inventory widget for displaying and managing unit equipment.
     Combines functionality from the generic inventory widget with unit-specific features.
-    Inherits from QWidget.
+
+    Attributes:
+        unit_categories (list): List of unit equipment categories with icons.
     """
 
     def __init__(self, parent=None):

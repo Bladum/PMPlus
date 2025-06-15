@@ -2,7 +2,11 @@
 engine/gui/other/widget/base_inventory_widget.py
 
 Comprehensive widget for managing base storage inventory in the XCOM GUI.
-Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
+
+Classes:
+    TBaseInventoryWidget: Widget for displaying and managing a base's complete inventory.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Dict, List, Any, Optional, Callable, Union, Tuple
@@ -22,7 +26,11 @@ class TBaseInventoryWidget(QWidget):
     """
     Widget for displaying and managing a base's complete inventory.
     Advanced version of TInventoryWidget with specialized filtering for both unit equipment and craft components.
-    Inherits from QWidget.
+
+    Attributes:
+        itemDragged (Signal): Emitted when an item is dragged out (TItem, int).
+        itemDropped (Signal): Emitted when an item is dropped in (TItem, int).
+        inventoryChanged (Signal): Emitted when item count changes.
     """
 
     # Signal emitted when an item is dragged out

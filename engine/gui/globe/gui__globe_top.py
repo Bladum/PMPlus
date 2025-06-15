@@ -1,25 +1,12 @@
 """
-Widget for managing the top navigation panel of the XCOM inventory interface.
+engine/gui/globe/gui__globe_top.py
 
-This class implements the top navigation bar for the game interface,
-providing screen switching between different game views (Barracks, Hangar, etc.)
-and world selection functionality. It displays critical game information
-like current world, date, and available funds.
+Widget for managing the top navigation panel of the XCOM globe interface.
 
-Interactions:
-- Used by TGuiBase as the main navigation system
-- Emits signals when users change screens or worlds
-- Connects to GameData to retrieve world and financial information
-- Provides visual feedback for current screen and world selection
-- Updates when game state changes (funds, etc.)
+Classes:
+    TGuiGlobeTopPanel: Implements the top navigation bar for the globe view, providing screen switching, world selection, and displaying critical game information.
 
-Key Features:
-- Screen selection buttons with visual active state
-- World selection grid for different planets/locations
-- End turn button to progress game time
-- Information display for current world, date, and funds
-- Consistent theming via TThemeManager styling system
-- Signal-based communication with parent interfaces
+Last standardized: 2025-06-15
 """
 
 from PySide6.QtCore import Qt, Signal
@@ -31,7 +18,24 @@ from gui.theme_manager import XcomTheme, GRID, px, XcomStyle
 
 
 class TGuiGlobeTopPanel(QWidget):
+    """
+    Implements the top navigation bar for the globe interface.
 
+    - Provides screen switching between different game views (Barracks, Hangar, etc.)
+    - Allows world selection and displays current world, date, and available funds
+    - Emits signals for screen/world changes and end turn
+    - Integrates with GameData for world and financial info
+    - Consistent theming via XcomTheme/XcomStyle
+
+    Attributes:
+        screen_changed (Signal): Emitted when the screen changes.
+        world_changed (Signal): Emitted when the world changes.
+        end_turn_clicked (Signal): Emitted when the end turn button is clicked.
+        current_screen (str): The currently active screen.
+        current_world (str): The currently selected world.
+        available_screens (list): List of available screens.
+        available_worlds (list): List of available worlds.
+    """
 
     # Define signals
     screen_changed = Signal(str)
@@ -39,7 +43,12 @@ class TGuiGlobeTopPanel(QWidget):
     end_turn_clicked = Signal()
 
     def __init__(self, parent=None):
-        """Initialize the top panel widget with all components."""
+        """
+        Initialize the top panel widget with all components.
+
+        Args:
+            parent: Parent widget.
+        """
         super().__init__(parent)
 
         # Set fixed height and styling

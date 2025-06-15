@@ -11,7 +11,7 @@ Last updated: 2025-06-14
 
 from item.item_armour import TItemArmour
 from item.item_weapon import TItemWeapon
-from traits.trait import TTrait
+from unit.trait import TTrait
 from unit.race import TRace
 from unit.side import TSide
 from unit.unit_stat import TUnitStats

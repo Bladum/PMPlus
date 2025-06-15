@@ -12,7 +12,7 @@ Last updated: 2025-06-14
 from engine.globe.region import TRegion
 from engine.lore.faction import TFaction
 from engine.location.city import TCity
-from engine.base.geo.abase import TBaseAlien
+from engine.base.abase import TBaseAlien
 from engine.craft.craft import TCraft
 
 class TUfoScript:
