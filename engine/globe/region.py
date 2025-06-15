@@ -1,13 +1,19 @@
 """
-TRegion: Represents a region on the world map, used for mission control and analytics.
-Last update: 2025-06-10
+region.py
+
+Defines the TRegion class, representing a region on the world map. Used for mission control, analytics, and region-based gameplay mechanics.
+
+Classes:
+    TRegion: Region entity for world map and mission control.
+
+Last standardized: 2025-06-14
 """
 
 from globe.world_tile import TWorldTile
 
 
 class TRegion:
-    '''
+    """
     TRegion represents a region on the world map. Each tile is assigned to a region.
     Regions are used to control mission locations and provide analytics for score.
 
@@ -23,7 +29,7 @@ class TRegion:
         base_cost (int): Cost to build a base in this region.
         service_provided (list): List of services provided.
         service_forbidden (list): List of forbidden services.
-    '''
+    """
 
     def __init__(self, pid, data: dict = None):
         """
@@ -31,15 +37,7 @@ class TRegion:
 
         Args:
             pid (str|int): Unique region identifier.
-            data (dict, optional): Dictionary with region properties. Keys:
-                - name (str)
-                - is_land (bool)
-                - description (str)
-                - color (str)
-                - mission_weight (int)
-                - base_cost (int)
-                - service_provided (list)
-                - service_forbidden (list)
+            data (dict, optional): Dictionary with region properties.
         """
         if data is None:
             data = {}
@@ -58,12 +56,6 @@ class TRegion:
     def calculate_region_tiles(self, tiles, width, height, region_neighbors):
         """
         Calculate and assign this region's tiles and neighbors.
-
-        Args:
-            tiles (list): 2D array of TWorldTile.
-            width (int): Width of the world.
-            height (int): Height of the world.
-            region_neighbors (dict): Mapping of region_id to set of neighbor region_ids.
         """
         # Find all tiles belonging to this region
         region_tiles = set()

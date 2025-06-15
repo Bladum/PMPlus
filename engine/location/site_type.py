@@ -1,21 +1,17 @@
 """
-TSiteType: Represents a type of Site (static mission location) with all its parameters and stats.
-Purpose: Defines characteristics for mission locations, tactical map generation, and enemy deployments.
-Last update: 2025-06-10
+XCOM Location Module: site_type.py
+
+Represents a type of Site (static mission location) with all its parameters and stats.
+
+Classes:
+    TSiteType: Defines characteristics for mission locations, tactical map generation, and enemy deployments.
+
+Last updated: 2025-06-14
 """
 
 class TSiteType:
     """
     Represents a type of Site (static mission location) with all its parameters and stats.
-
-    Attributes:
-        pid (str): Unique identifier for the site type.
-        name (str): Name of the site type.
-        pedia (str): Encyclopedia entry or description.
-        marker (str): Image marker for geoscape visualization.
-        size (int): Size of the site type (default 1).
-        map_blocks (dict): Tactical map block configuration.
-        deployment (Any): Deployment information for enemy units.
     """
     def __init__(self, pid, data):
         """
@@ -24,11 +20,11 @@ class TSiteType:
             pid (str): Unique identifier for the site type.
             data (dict): Dictionary with site type attributes.
         """
-        self.pid = pid
-        self.name = data.get('name', pid)
-        self.pedia = data.get('pedia', '')
-        self.marker = data.get('marker', 'site')  # image on geoscape
-        self.size = data.get('size', 1)
-        self.map_blocks = data.get('map_blocks', {})
-        self.deployment = data.get('deployment', None)
+        self.pid = pid  # Unique identifier for the site type
+        self.name = data.get('name', pid)  # Name of the site type
+        self.pedia = data.get('pedia', '')  # Encyclopedia entry or description
+        self.marker = data.get('marker', 'site')  # Image marker for geoscape visualization
+        self.size = data.get('size', 1)  # Size of the site type
+        self.map_blocks = data.get('map_blocks', {})  # Tactical map block configuration
+        self.deployment = data.get('deployment', None)  # Deployment information for enemy units
         # Add more fields as needed for site types

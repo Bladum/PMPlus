@@ -1,12 +1,18 @@
 """
-TCountry: Represents a country on the world map, manages funding and relations with XCOM.
-Last update: 2025-06-10
+country.py
+
+Defines the TCountry class, representing a country on the world map. Manages funding, relations with XCOM, and country-specific properties for world map analytics and gameplay.
+
+Classes:
+    TCountry: Country entity for world map and funding system.
+
+Last standardized: 2025-06-14
 """
 
 
 
 class TCountry:
-    '''
+    """
     TCountry represents a country that owns tiles on the world map.
     The country's score is used to calculate XCOM's funding, and countries can join or leave XCOM.
 
@@ -23,23 +29,14 @@ class TCountry:
         initial_relation (int): Initial relation value.
         relation (int): Current relation value.
         active (bool): Whether the country is still funding XCOM.
-    '''
+    """
     def __init__(self, pid, data: dict = None):
         """
         Initialize a TCountry instance.
 
         Args:
             pid (str|int): Unique country identifier.
-            data (dict, optional): Dictionary with country properties. Keys:
-                - name (str)
-                - description (str)
-                - color (str)
-                - funding (int)
-                - funding_cap (int)
-                - service_provided (list)
-                - service_forbidden (list)
-                - owned_tiles (list)
-                - initial_relation (int)
+            data (dict, optional): Dictionary with country properties.
         """
         if data is None:
             data = {}

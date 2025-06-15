@@ -1,15 +1,20 @@
 """
-TCampaignStep: Mission generation rules for a specific game month.
-Purpose: Defines how many campaigns/events are generated and their weights for a given month.
-Last update: 2025-06-10
+XCOM Lore Module: campaign_step.py
+
+Specifies mission generation rules for a specific game month.
+
+Classes:
+    TCampaignStep: Mission generation rules for a game month.
+
+Last updated: 2025-06-14
 """
 
 import logging
 
 class TCampaignStep:
     """
-    TCampaignStep defines mission generation rules for a specific game month.
-    It specifies how many campaigns/events are generated and their weights for a given month.
+    Defines mission generation rules for a specific game month.
+    Specifies how many campaigns/events are generated and their weights for a given month.
 
     Attributes:
         month (int): Month number (1-based).
@@ -18,9 +23,11 @@ class TCampaignStep:
         events (int): Total number of events in this month.
         weights (dict): Arc weights for random selection (faction or event type -> weight).
     """
+
     def __init__(self, month, data):
         """
         Initialize campaign step rules for a month.
+
         Args:
             month (int): Month number (1-based).
             data (dict): Step data with possible keys:

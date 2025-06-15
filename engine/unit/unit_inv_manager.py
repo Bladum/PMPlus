@@ -1,7 +1,13 @@
 """
-TUnitInventoryManager: Unified inventory management for units.
-Purpose: Handles equipment slots, stat modifications, templates, and auto-equip logic for unit inventories.
-Last update: 2025-06-10
+XCOM Unit Module: unit_inv_manager.py
+
+Unified inventory management for units.
+
+Classes:
+    InventoryTemplate: Container for saved equipment configurations.
+    TUnitInventoryManager: Handles equipment slots, stat modifications, templates, and auto-equip logic for unit inventories.
+
+Last updated: 2025-06-14
 """
 
 from typing import Optional, Dict, List, Any, Tuple, Set
@@ -14,9 +20,7 @@ from unit.unit import TUnit
 class InventoryTemplate:
     """
     Container for saved equipment configurations.
-    Templates allow players to save and quickly restore equipment setups
-    for different scenarios or unit types. They store a mapping of equipment
-    slot names to item data dictionaries.
+    Templates allow players to save and quickly restore equipment setups for different scenarios or unit types.
     """
     def __init__(self, name: str, equipment_data: Dict[str, Optional[Dict[str, Any]]]) -> None:
         """
@@ -51,14 +55,6 @@ class TUnitInventoryManager:
         Initialize a TUnitInventoryManager.
         Args:
             unit (TUnit, optional): The unit this manager is attached to.
-        Attributes:
-            unit (TUnit): The unit instance.
-            equipment_slots (dict): Mapping of slot names to equipped items.
-            slot_types (dict): Mapping of slot names to item categories.
-            available_slots (set): Set of currently available slot names.
-            stat_modifiers (dict): Stat modifiers per slot.
-            _template (dict): Last saved template.
-            _named_templates (dict): Named templates for quick load/save.
         """
         self.unit = unit
         self.equipment_slots: Dict[str, Optional[TItem]] = {

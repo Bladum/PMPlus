@@ -1,7 +1,12 @@
 """
-TGuiTransfer: Transfer screen GUI for inter-base transfers.
-Purpose: Represents the transfer interface between bases in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_transfer.py
+
+Transfer Screen GUI for inter-base transfers.
+
+Classes:
+    TGuiTransfer: Main transfer GUI screen for inter-base transfer interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

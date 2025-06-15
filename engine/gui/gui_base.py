@@ -1,33 +1,19 @@
 """
+XCOM GUI Module: gui_base.py
+
 Main base GUI class that manages screens and navigation for the XCOM game.
 
-This class serves as the foundational container for the game's interface,
-managing screen transitions and maintaining the top panel navigation system.
-It acts as a coordinator between different specialized screen interfaces
-like Barracks, Hangar, Research Lab, etc.
+Classes:
+    TGuiBase: Foundational container for the game's interface, managing screen transitions and navigation.
 
-Interactions:
-- Contains and manages TGuiBaseTopPanel for navigation
-- Registers and displays various TGuiBaseScreen implementations
-- Handles screen transitions and maintains screen state
-- Propagates base change events to active screens
-- Provides interface for programmatic screen switching
-
-Key Features:
-- Screen registration and management system
-- Smooth transitions between different game screens
-- Event propagation from navigation panel to screen widgets
-- Consistent theming and visual layout across all screens
-- Centralized container for all game interface screens
+Last updated: 2025-06-14
 """
 
 from typing import Dict, Type, Optional
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout
-
 import sys
 import os
-
 from gui.base.gui__base_top import TGuiBaseTopPanel
 from gui.gui_core import TGuiCoreScreen
 from gui.theme_manager import XcomTheme
@@ -35,15 +21,20 @@ from gui.theme_manager import XcomTheme
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-
-
-
-
 class TGuiBase(QWidget):
-
+    """
+    Main base GUI class that manages screens and navigation for the XCOM game.
+    Acts as a coordinator between different specialized screen interfaces.
+    Inherits from QWidget.
+    """
 
     def __init__(self, parent=None):
-        """Initialize the base GUI with top panel and screen container."""
+        """
+        Initialize the base GUI with top panel and screen container.
+
+        Args:
+            parent: Parent widget.
+        """
         super().__init__(parent)
 
         # Set up the layout

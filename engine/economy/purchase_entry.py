@@ -1,19 +1,25 @@
 """
-TPurchaseEntry: Represents a single purchasable entry.
-Purpose: Stores all data and requirements for a purchase option.
-Last update: 2025-06-10
-"""
+purchase_entry.py
 
+Defines the TPurchaseEntry class, representing a single purchasable entry. Stores all data and requirements for a purchase option in the XCOM/AlienFall economy system.
+
+Classes:
+    TPurchaseEntry: Purchase entry template for items, units, or crafts.
+
+Last standardized: 2025-06-14
+"""
 class TPurchaseEntry:
-    '''
+    """
     Represents a purchasable entry (item/unit/craft) that can be purchased.
+    Stores requirements, outputs, and metadata for a purchase.
+
     Attributes:
         pid (str): Purchase entry ID.
         name (str): Name of the entry.
         category (str): Category of the entry.
         supplier (str|None): Supplier name or None.
         purchase_cost (int): Cost to purchase.
-        purchase_time (int): Time required to purchase.
+        purchase_time (int): Time required to purchase (in days).
         tech_needed (list): Technologies required to purchase.
         items_needed (dict): Items required to purchase.
         services_needed (list): Services required to purchase.
@@ -22,14 +28,15 @@ class TPurchaseEntry:
         items_buy (any): Items received on purchase.
         units_buy (any): Units received on purchase.
         crafts_buy (any): Crafts received on purchase.
-    '''
+    """
     def __init__(self, pid, data=None):
-        '''
+        """
         Initialize a purchase entry.
+
         Args:
             pid (str): Purchase entry ID.
             data (dict, optional): Data for the entry.
-        '''
+        """
         data = data or {}
         self.pid = pid
         self.name = data.get('name', '')

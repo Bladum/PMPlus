@@ -1,25 +1,8 @@
 """
- TUnitItemListWidget - A specialized inventory widget for displaying and managing unit equipment.
+engine/gui/other/widget/unit_item_list_widget.py
 
-This class provides a comprehensive inventory widget with unit-specific functionality,
-category filtering and drag-and-drop support. It serves as the component for displaying
-and managing equipment that can be equipped by soldiers and other units.
-
-Interactions:
-- Connects with unit data structures to display available equipment
-- Used by barracks and squad management screens
-- Provides drag sources for equipping items onto unit equipment slots
-- Receives items unequipped from unit equipment slots
-- Interfaces with TItemTransferManager for drag and drop operations
-
-Key Features:
-- Category filtering via dropdown with unit-specific categories
-- Sorted item display with quantities
-- Item icon rendering with counts
-- Drag and drop support for moving items
-- Helper methods for adding different equipment types
-- Direct connection to currently selected unit's inventory
-- Consistent styling across the application
+Specialized inventory widget for displaying and managing unit equipment in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 import json
@@ -30,13 +13,11 @@ from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QComboBox, QListWidget, QListWidgetItem,
     QAbstractItemView, QApplication
 )
-
 from gui.theme_manager import XcomStyle, px
 from item.item import TItem
 from item.item_type import TItemType
 
 
-# Helper for icon path resolution (stub)
 def get_canonical_path(name: str) -> str:
     # In a real implementation, resolve the canonical path for the item icon
     return "other/item.png"
@@ -44,12 +25,18 @@ def get_canonical_path(name: str) -> str:
 
 class TUnitItemListWidget(QWidget):
     """
-    A specialized inventory widget for displaying and managing unit equipment.
+    Specialized inventory widget for displaying and managing unit equipment.
     Combines functionality from the generic inventory widget with unit-specific features.
+    Inherits from QWidget.
     """
 
     def __init__(self, parent=None):
-        """Initialize the unit inventory widget with appropriate categories."""
+        """
+        Initialize the unit inventory widget with appropriate categories.
+
+        Args:
+            parent: Parent widget.
+        """
         super().__init__(parent)
 
         # Define unit-specific categories with icons

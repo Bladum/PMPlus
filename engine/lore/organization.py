@@ -1,7 +1,12 @@
 """
-TOrganization: Player organization level definition.
-Purpose: Represents a player organization level, unlock requirements, and quest dependencies.
-Last update: 2025-06-10
+organization.py
+
+Defines the TOrganization class, representing a player organization level. Encapsulates unlock requirements, quest dependencies, and progression logic for organizations in the game.
+
+Classes:
+    TOrganization: Player organization level definition.
+
+Last standardized: 2025-06-14
 """
 
 class TOrganization:
@@ -24,6 +29,7 @@ class TOrganization:
     def __init__(self, key, data=None):
         """
         Initialize an organization level.
+
         Args:
             key (str): Organization key.
             data (dict): Organization data and parameters.
@@ -40,11 +46,28 @@ class TOrganization:
         self.unlocked = False
 
     def can_be_unlocked(self, completed_quests, completed_techs):
+        """
+        Check if the organization can be unlocked based on completed quests and technologies.
+
+        Args:
+            completed_quests (set): Set of completed quest keys.
+            completed_techs (set): Set of completed technology keys.
+        Returns:
+            bool: True if organization can be unlocked, False otherwise.
+        """
         return all(q in completed_quests for q in self.quests_needed) and \
                all(t in completed_techs for t in self.tech_needed)
 
     def unlock(self):
+        """
+        Unlock the organization.
+        """
         self.unlocked = True
 
     def __repr__(self):
+        """
+        String representation of the organization.
+        Returns:
+            str: Representation string.
+        """
         return f"<TOrganization {self.key} ({'Unlocked' if self.unlocked else 'Locked'})>"

@@ -1,15 +1,83 @@
-# engine/base/ README
+# Base Module
 
-## TBaseXComBattleGenerator
-TBaseXComBattleGenerator generates a tactical battle map layout for an XCOM base using its facilities and their positions.
-- **Attributes:** base
-- **Methods:** __init__(), generate_battle_map()
+This document is the authoritative design and architecture reference for the XCOM/AlienFall base management systems. It is intended for validation by AI agents and developers to ensure all planned features and classes are implemented as designed. All subsystem documentation is consolidated here.
 
-## TBaseXCom
-TBaseXCom represents an XCOM base on the world map, managing facilities, inventory, and base serialization.
-- **Attributes:** facilities, inventory, game
-- **Methods:** __init__(), add_facility(), remove_facility(), update_inventory_capacities(), can_build_facility(), can_place_facility_at(), build_day(), get_active_facilities(), get_services_provided(), get_total_capacity(), get_storage_space(), get_unit_space(), get_prison_space(), get_alien_space(), get_craft_space(), get_hospital_space(), get_training_space(), get_workshop_space(), get_research_space(), get_psi_space(), get_relax_space(), get_repair_space(), get_radar_facilities(), get_defense_facilities(), add_item(), remove_item(), get_item_quantity(), consume_items(), add_unit(), remove_unit(), get_units_count(), get_units_by_type(), add_craft(), remove_craft(), get_crafts_count(), get_crafts_by_type(), add_capture(), remove_capture(), get_capture_quantity(), save_data(), load_data()
+## Table of Contents
+1. [Overview](#overview)
+2. [System Architecture](#system-architecture)
+3. [Class Purposes and Details](#class-purposes-and-details)
+4. [Integration Guide](#integration-guide)
+5. [API Reference](#api-reference)
 
 ---
-This folder contains classes for base facility management, battle map generation, and inventory handling. See code docstrings for details.
+
+## Overview
+
+The base module implements the core systems for XCOM and alien base management, including facility construction, inventory, tactical battle map generation, and base serialization. It provides the logic for all base-related operations, from facility management to inventory and tactical defense.
+
+## System Architecture
+
+```
+Base Module
+├── TBaseAlien (alien base logic)
+├── TBaseXCom (XCOM base logic)
+├── TBaseInventory (inventory management)
+├── TFacility (facility instance)
+├── TFacilityType (facility blueprint)
+├── TBaseXComBattleGenerator (battle map generator)
+```
+
+---
+
+## Class Purposes and Details
+
+### TBaseAlien
+- Represents an alien base on the world map as a location.
+- Handles base growth, mission generation, and scoring logic for alien bases.
+- Integrates with the world map and mission systems.
+
+### TBaseXCom
+- Represents an XCOM base on the world map, with facilities, inventory, and management methods.
+- Handles facility management, inventory, and base serialization for XCOM bases.
+- Provides methods for adding/removing facilities and updating inventory capacities.
+
+### TBaseInventory
+- Inventory management system for XCOM bases.
+- Handles items, units, and crafts with categorized storage, addition, removal, and sorting operations.
+- Validates storage and craft capacity, and integrates with facility upgrades.
+
+### TFacility
+- Represents a facility instance in an XCOM base.
+- Tracks position, build progress, health, and links to the facility type blueprint.
+- Handles construction progress and activation logic.
+
+### TFacilityType
+- Represents a facility type blueprint for XCOM bases.
+- Holds all stats, requirements, and properties for a facility, loaded from TOML or YAML.
+- Used for facility construction, requirements validation, and UI display.
+
+### TBaseXComBattleGenerator
+- Generates a tactical battle map layout for an XCOM base using its facilities and their positions.
+- Converts the base's facility layout into a 2D map block array for tactical battles.
+
+---
+
+## Integration Guide
+
+- TBaseXCom and TBaseAlien are used for player and alien base management, respectively.
+- TBaseInventory is used by TBaseXCom for managing all items, units, and crafts.
+- TFacility and TFacilityType are used for facility construction and management.
+- TBaseXComBattleGenerator is used to generate tactical battle maps for base defense missions.
+- All classes are imported in the base module's `__init__.py` for unified access.
+
+---
+
+## API Reference
+
+- See individual class docstrings and method signatures in the respective Python files for detailed API documentation.
+- All classes are designed for use by both AI agents and human developers, with clear separation of data templates, managers, and active objects.
+
+---
+
+*This README is automatically generated and should be kept in sync with code and documentation changes.*
 

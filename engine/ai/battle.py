@@ -1,18 +1,22 @@
 """
-battle.py - AI logic for enemy unit behavior during tactical battles.
-Defines the TBattleAI class responsible for enemy decision-making in combat.
+battle.py
 
-This module provides the TBattleAI class, which encapsulates the tactical decision-making
-process for enemy units during battles. It is responsible for selecting targets, deciding
-movements, and executing actions for all AI-controlled units each turn.
+Defines the TBattleAI class, responsible for enemy unit decision-making during tactical battles. Handles target selection, movement, and action execution for all AI-controlled units each turn.
+
+Classes:
+    TBattleAI: AI logic for enemy unit behavior during tactical battles.
+
+Last standardized: 2025-06-14
 """
 
 class TBattleAI:
     """
     TBattleAI handles artificial intelligence for enemy units during tactical battles.
-    It controls unit movement, target selection, and tactical decisions for each AI-controlled unit.
-    """
+    Controls unit movement, target selection, and tactical decisions for each AI-controlled unit.
 
+    Attributes:
+        battle_state: The current state of the battle, including units, map, and objectives.
+    """
     def __init__(self, battle_state):
         """
         Initialize the battle AI with the current battle state.
@@ -58,16 +62,4 @@ class TBattleAI:
         and perform actions as appropriate for each unit.
         """
         # TODO: Implement turn execution logic
-        pass
-
-    def log_decision(self, unit, action, target=None):
-        """
-        Log the AI's decision for debugging and analysis.
-
-        Args:
-            unit: The AI-controlled unit making the decision.
-            action: The action chosen (e.g., 'move', 'attack').
-            target: The target of the action, if any.
-        """
-        # TODO: Implement logging (could use Python's logging module)
         pass

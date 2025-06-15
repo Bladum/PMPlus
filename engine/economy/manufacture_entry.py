@@ -1,17 +1,24 @@
 """
-TManufactureEntry: Represents a single manufacturing project entry.
-Purpose: Stores all data and requirements for a manufacturing project.
-Last update: 2025-06-10
+manufacture_entry.py
+
+Defines the TManufactureEntry class, representing a single manufacturing project entry. Stores all data and requirements for a manufacturing project.
+
+Classes:
+    TManufactureEntry: Manufacturing project entry template.
+
+Last standardized: 2025-06-14
 """
 
 class TManufactureEntry:
-    '''
+    """
     Represents a manufacturing entry (project) that can be manufactured.
+    Stores requirements, outputs, and metadata for a manufacturing project.
+
     Attributes:
         pid (str): Project ID.
         name (str): Name of the project.
         category (str): Category of the project.
-        build_time (int): Time required to build.
+        build_time (int): Time required to build (in man-days).
         build_cost (int): Cost to build.
         give_score (int): Score given on completion.
         tech_start (list): Technologies required to start.
@@ -22,14 +29,15 @@ class TManufactureEntry:
         items_build (any): Items produced.
         units_build (any): Units produced.
         crafts_build (any): Crafts produced.
-    '''
+    """
     def __init__(self, pid, data=None):
-        '''
+        """
         Initialize a manufacturing entry.
+
         Args:
             pid (str): Project ID.
             data (dict, optional): Data for the entry.
-        '''
+        """
         data = data or {}
         self.pid = pid
         self.name = data.get('name', '')

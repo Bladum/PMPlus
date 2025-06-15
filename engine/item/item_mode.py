@@ -1,7 +1,12 @@
 """
 TWeaponMode: Represents a specific firing/usage mode for weapons.
-Purpose: Defines operational modes (snap, aimed, auto, etc.) with modifiers for accuracy, damage, AP cost, and shot count.
-Last update: 2025-06-10
+
+Defines operational modes (snap, aimed, auto, etc.) with modifiers for accuracy, damage, AP cost, and shot count.
+
+Classes:
+    TWeaponMode: Main class for weapon firing/usage modes.
+
+Last standardized: 2025-06-14
 """
 
 class TWeaponMode:

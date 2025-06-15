@@ -1,7 +1,12 @@
 """
-TPurchase: Main purchasing system interface.
-Purpose: Manages purchase entries, orders, and integration with base/transfer systems.
-Last update: 2025-06-12
+purchase_system.py
+
+Defines the TPurchase class, the main purchasing system interface. Manages purchase entries, orders, and integration with base and transfer systems, including black market support.
+
+Classes:
+    TPurchase: Main purchasing system interface for regular and black market purchases.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Dict, List, Optional, Tuple, Any

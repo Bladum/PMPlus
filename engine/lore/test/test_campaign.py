@@ -38,3 +38,30 @@ def test_campaign_init_mission_error(monkeypatch):
     # Should not raise, error is logged
     TCampaign('c2', data)
 
+def test_campaign_init_defaults():
+    """Test TCampaign initializes with default values."""
+    data = {}
+    camp = TCampaign('CAMP1', data)
+    assert camp.pid == 'CAMP1'
+    assert camp.name == ''
+    assert camp.score == 0
+    assert camp.objective == 0
+    assert camp.faction == ''
+    assert camp.tech_start == []
+    assert camp.tech_end == []
+    assert isinstance(camp.regions, dict)
+    assert isinstance(camp.missions, list)
+
+def test_campaign_init_with_data():
+    """Test TCampaign initializes with provided data."""
+    data = {'name': 'Test', 'score': 10, 'objective': 2, 'faction': 'Aliens', 'tech_start': ['A'], 'tech_end': ['B'], 'regions': {'R': 1}, 'missions': []}
+    camp = TCampaign('CAMP2', data)
+    assert camp.name == 'Test'
+    assert camp.score == 10
+    assert camp.objective == 2
+    assert camp.faction == 'Aliens'
+    assert camp.tech_start == ['A']
+    assert camp.tech_end == ['B']
+    assert camp.regions == {'R': 1}
+    assert camp.missions == []
+

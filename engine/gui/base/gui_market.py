@@ -1,7 +1,12 @@
 """
-TGuiMarket: Market screen GUI for purchases.
-Purpose: Represents the purchase interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_market.py
+
+Market Screen GUI for purchases.
+
+Classes:
+    TGuiMarket: Main market GUI screen for purchase interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

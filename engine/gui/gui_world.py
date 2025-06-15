@@ -1,32 +1,19 @@
 """
+XCOM GUI Module: gui_world.py
+
 Main globe GUI class that manages screens and navigation for the XCOM globe view.
 
-This class serves as the container for the globe interface,
-managing screen transitions and maintaining the top panel navigation system.
-It acts as a coordinator between different specialized globe screen interfaces
-like Map, Intercept, Research, Production, etc.
+Classes:
+    TGuiGlobe: Container for the globe interface, managing screen transitions and navigation.
 
-Interactions:
-- Contains and manages TGuiGlobeTopPanel for navigation
-- Registers and displays various TGuiGlobeScreen implementations
-- Handles screen transitions and maintains screen state
-- Provides interface for programmatic screen switching
-
-Key Features:
-- Screen registration and management system
-- Smooth transitions between different globe screens
-- Event propagation from navigation panel to screen widgets
-- Consistent theming and visual layout across all screens
-- Centralized container for all globe interface screens
+Last updated: 2025-06-14
 """
 
 from typing import Dict, Type, Optional
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout
-
 import sys
 import os
-
 from gui.globe.gui__globe_top import TGuiGlobeTopPanel
 from gui.gui_core import TGuiCoreScreen
 from gui.theme_manager import XcomTheme
@@ -34,13 +21,19 @@ from gui.theme_manager import XcomTheme
 # Add parent directory to path for imports to work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-
-
 class TGuiGlobe(QWidget):
-    """Main globe GUI container that manages screens and navigation."""
+    """
+    Main globe GUI container that manages screens and navigation.
+    Inherits from QWidget.
+    """
 
     def __init__(self, parent=None):
-        """Initialize the globe GUI with top panel and screen container."""
+        """
+        Initialize the globe GUI with top panel and screen container.
+
+        Args:
+            parent: Parent widget.
+        """
         super().__init__(parent)
 
         # Set up the layout

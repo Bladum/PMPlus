@@ -1,15 +1,8 @@
 """
-A specialized inventory slot for craft equipment items.
+engine/gui/other/slots/craft_inventory_slot.py
 
-This class extends the base inventory slot with craft-specific functionality.
-It handles equipping and unequipping components on spacecraft/vehicles, including
-validation of component compatibility with craft specifications and systems.
-
-Key Features:
-- Craft-specific item validation
-- Updates craft stats when components change
-- Handles specialized equipment types (weapons, engines, etc.)
-- Visual feedback for component compatibility
+Specialized inventory slot for craft equipment items in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 from typing import Optional, Dict, Any
@@ -24,6 +17,7 @@ from craft.craft import TCraft
 class TCraftInventorySlot(TInventorySlot):
     """
     Specialized inventory slot for craft components with craft-specific functionality.
+    Inherits from TInventorySlot.
     """
 
     # Signal emitted when craft's stats change due to component changes
@@ -43,7 +37,21 @@ class TCraftInventorySlot(TInventorySlot):
         hover_color="#3399ff",
         locked=False
     ):
-        """Initialize craft inventory slot with custom properties."""
+        """
+        Initialize craft inventory slot with custom properties.
+
+        Args:
+            parent: Parent widget.
+            slot_type: Type of slot (e.g., weapon, engine).
+            slot_name: Name of the slot.
+            size: Size of the slot in pixels.
+            border_width: Border width in pixels.
+            accept_types: List of accepted item types.
+            bg_color: Background color.
+            border_color: Border color.
+            hover_color: Hover color.
+            locked: If True, slot is locked.
+        """
         super().__init__(
             parent=parent,
             slot_type=slot_type,

@@ -1,7 +1,12 @@
 """
-TUnit: Represents an individual unit in the game with all its attributes and capabilities.
-Purpose: Handles unit stats, equipment, traits, and status for gameplay.
-Last update: 2025-06-10
+XCOM Unit Module: unit.py
+
+Represents an individual unit in the game with all its attributes and capabilities.
+
+Classes:
+    TUnit: Handles unit stats, equipment, traits, and status for gameplay.
+
+Last updated: 2025-06-14
 """
 
 from item.item_armour import TItemArmour

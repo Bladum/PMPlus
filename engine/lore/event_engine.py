@@ -1,12 +1,16 @@
 """
-TEventEngine: Random event manager.
-Purpose: Manages random events in the game, separate from calendar-driven events.
-Last update: 2025-06-10
+XCOM Lore Module: event_engine.py
+
+Manages random events in the game that are not tied to the calendar.
+
+Classes:
+    TEventEngine: Random event manager.
+
+Last updated: 2025-06-14
 """
 
 class TEventEngine:
     """
-    TEventEngine manages random events in the game.
-    Events are not managed by the calendar, but occur randomly based on game state.
+    Manages random events in the game that are not tied to the calendar.
     """
     pass

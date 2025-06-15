@@ -1,8 +1,12 @@
 """
-PurchaseOrder: Represents a purchase order made by the player.
-Purpose: Handles items, units, and crafts to be purchased, their quantities, and order status.
-Enhanced with delivery tracking and transfer integration.
-Last update: 2025-06-12
+purchase_order.py
+
+Defines the PurchaseOrder class, representing a purchase order made by the player. Handles items, units, and crafts to be purchased, their quantities, delivery tracking, and order status. Enhanced with delivery and transfer integration.
+
+Classes:
+    PurchaseOrder: Represents a purchase order and its delivery state.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Dict, Optional, Any

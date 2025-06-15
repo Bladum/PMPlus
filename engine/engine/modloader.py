@@ -1,9 +1,20 @@
+"""
+engine/engine/modloader.py
+
+Defines the TModLoader class, which loads and merges all YAML files from a mod's rules directory for use by TMod and the game engine.
+
+Classes:
+    TModLoader: Loads mod data from YAML files in the mod's rules directory.
+
+Last standardized: 2025-06-15
+"""
+
 import logging
 from pathlib import Path
 import yaml  # Replacing tomli with yaml
 
-from battle.map.battle_generator import TBattleGenerator
-from battle.tile.tileset_manager import TTilesetManager
+from battle.battle_generator import TBattleGenerator
+from battle.tileset_manager import TTilesetManager
 
 
 class TModLoader:
@@ -20,6 +31,7 @@ class TModLoader:
     def __init__(self, mod_name, mod_path):
         """
         Initialize the mod loader.
+
         Args:
             mod_name (str): Name of the mod.
             mod_path (str or Path): Path to the mod directory.
@@ -32,6 +44,7 @@ class TModLoader:
     def load_all_yaml_files(self):
         """
         Load and merge all YAML files from the rules directory in the mod folder.
+
         Raises:
             FileNotFoundError: If the rules directory does not exist.
         """

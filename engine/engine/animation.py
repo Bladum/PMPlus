@@ -1,3 +1,14 @@
+"""
+engine/engine/animation.py
+
+Defines the TAnimation class, which manages visual animations in both tactical and strategic views, including unit movements, weapon effects, explosions, and other visual effects.
+
+Classes:
+    TAnimation: Manages visual animations in both tactical and strategic views.
+
+Last standardized: 2025-06-15
+"""
+
 import logging
 
 class TAnimation:
@@ -5,18 +16,12 @@ class TAnimation:
     Manages visual animations in both tactical and strategic views.
     Controls unit movements, weapon effects, explosions, and other visual effects.
 
-    Methods to be implemented:
-    - play_animation(animation_type, target, options): Play a specific animation.
-    - stop_animation(animation_id): Stop a running animation.
-    - update(dt): Update all running animations by delta time.
-    - clear(): Remove all animations (e.g., on scene change).
-
     Attributes:
-    - animations: List or dict of currently running animations.
+        animations (list): List of currently running animations.
     """
     def __init__(self):
         """
-        Initialize the animation manager.
+        Initialize the animation manager with an empty animation list.
         """
         self.animations = []
         logging.debug("TAnimation initialized with empty animation list.")
@@ -24,6 +29,7 @@ class TAnimation:
     def play_animation(self, animation_type, target, options=None):
         """
         Play a specific animation on a target.
+
         Args:
             animation_type (str): The type of animation to play.
             target (object): The target object for the animation.
@@ -36,6 +42,7 @@ class TAnimation:
     def stop_animation(self, animation_id):
         """
         Stop a running animation by its ID.
+
         Args:
             animation_id (int): The ID of the animation to stop.
         """
@@ -45,7 +52,8 @@ class TAnimation:
 
     def update(self, dt):
         """
-        Update all running animations.
+        Update all running animations by the given time delta.
+
         Args:
             dt (float): Time delta since last update.
         """

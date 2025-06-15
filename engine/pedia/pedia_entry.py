@@ -1,24 +1,18 @@
 """
-TPediaEntry: Represents a single entry in the UFOpedia system.
-Purpose: Stores all data and metadata for a pedia entry, including type, name, description, and related stats.
-Last update: 2025-06-11
+XCOM Pedia Module: pedia_entry.py
+
+Represents a single entry in the UFOpedia system.
+
+Classes:
+    TPediaEntry: Main class for UFOpedia entries.
+
+Last updated: 2025-06-14
 """
 
 class TPediaEntry:
     """
     Represents a single entry in the UFOpedia.
     Stores all relevant data, such as type, name, description, sprite, and related stats.
-    Attributes:
-        pid (str): Entry ID.
-        type (int): Entry type/category.
-        name (str): Display name.
-        section (str): Section/category name.
-        description (str): Entry description.
-        sprite (str): Sprite or image reference.
-        tech_needed (list): Technologies required to unlock.
-        order (int): Display order.
-        related (list): Related entries.
-        stats (dict): Additional stats or metadata.
     """
 
     CRAFTS = 0

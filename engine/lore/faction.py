@@ -1,13 +1,17 @@
 """
-TFaction: Faction definition for the game.
-Purpose: Represents a faction, its properties, and its relationship to XCOM.
-Last update: 2025-06-10
+XCOM Lore Module: faction.py
+
+Defines a faction in the game, with properties, relationships, and requirements.
+
+Classes:
+    TFaction: Faction definition for the game.
+
+Last updated: 2025-06-14
 """
 
 class TFaction:
     """
-    TFaction represents a faction in the game, which can own missions and locations.
-    Faction may be ally or enemy of XCOM.
+    Represents a faction in the game, which can own missions and locations. May be ally or enemy of XCOM.
 
     Attributes:
         pid (str): Faction identifier.
@@ -22,6 +26,13 @@ class TFaction:
     """
 
     def __init__(self, pid, data : dict = {}):
+        """
+        Initialize a faction.
+
+        Args:
+            pid (str): Faction identifier.
+            data (dict): Faction data and parameters.
+        """
         # Required fields
         self.pid = pid
 

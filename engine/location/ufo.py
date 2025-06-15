@@ -1,7 +1,12 @@
 """
-TUfo: Represents a UFO on the world map as a location.
-Purpose: Handles UFO movement, script progression, combat status, and tactical deployment.
-Last update: 2025-06-10
+XCOM Location Module: ufo.py
+
+Represents a UFO on the world map as a location.
+
+Classes:
+    TUfo: Handles UFO movement, script progression, combat status, and tactical deployment.
+
+Last updated: 2025-06-14
 """
 
 from globe.location import TLocation
@@ -11,17 +16,6 @@ class TUfo(TLocation):
     """
     Represents a UFO on the world map as a location.
     Handles movement, script progression, combat status, and tactical deployment.
-
-    Attributes:
-        ufo_id (str): Unique identifier for the UFO.
-        position (tuple): Current (x, y) position on the world map.
-        ufo_type: Reference to TUfoType instance.
-        ufo_script: Reference to TUfoScript instance.
-        script_step (int): Current step in the UFO's script.
-        speed (int): Current speed.
-        speed_max (int): Maximum speed from ufo_type.
-        health (int): Current health.
-        game: Reference to the game instance.
     """
     def __init__(self, ufo_id, data):
         """

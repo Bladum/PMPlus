@@ -51,3 +51,55 @@ def test_event_init_basic():
     assert ev.sites == ['CrashSite']
     assert ev.bases == ['AlienBase']
 
+def test_event_init_defaults():
+    """Test TEvent initializes with default values."""
+    data = {}
+    event = TEvent('EVT1', data)
+    assert event.pid == 'EVT1'
+    assert event.name == 'EVT1'
+    assert event.description == ''
+    assert event.sprite == ''
+    assert event.tech_needed == []
+    assert event.regions == []
+    assert event.is_city is False
+    assert event.month_start == 0
+    assert event.month_random == 0
+    assert event.month_end == 9999
+    assert event.qty_max == 1
+    assert event.chance == 0 or isinstance(event.chance, float)
+    assert event.score == 0 or isinstance(event.score, int)
+    assert event.funds == 0 or isinstance(event.funds, int)
+    assert event.items == []
+    assert event.units == []
+    assert event.crafts == []
+    assert event.facilities == []
+    assert event.ufos == []
+    assert event.sites == []
+    assert event.bases == []
+
+
+def test_event_init_with_data():
+    """Test TEvent initializes with provided data."""
+    data = {'name': 'Alien Raid', 'description': 'Desc', 'sprite': 'icon', 'tech_needed': ['A'], 'regions': ['R'], 'is_city': True, 'month_start': 2, 'month_random': 1, 'month_end': 5, 'qty_max': 3, 'chance': 0.5, 'score': 10, 'funds': 100, 'items': ['item'], 'units': ['unit'], 'crafts': ['craft'], 'facilities': ['fac'], 'ufos': ['ufo'], 'sites': ['site'], 'bases': ['base']}
+    event = TEvent('EVT2', data)
+    assert event.name == 'Alien Raid'
+    assert event.description == 'Desc'
+    assert event.sprite == 'icon'
+    assert event.tech_needed == ['A']
+    assert event.regions == ['R']
+    assert event.is_city is True
+    assert event.month_start == 2
+    assert event.month_random == 1
+    assert event.month_end == 5
+    assert event.qty_max == 3
+    assert event.chance == 0.5
+    assert event.score == 10
+    assert event.funds == 100
+    assert event.items == ['item']
+    assert event.units == ['unit']
+    assert event.crafts == ['craft']
+    assert event.facilities == ['fac']
+    assert event.ufos == ['ufo']
+    assert event.sites == ['site']
+    assert event.bases == ['base']
+

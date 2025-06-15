@@ -1,3 +1,14 @@
+"""
+TileMapGame: Tactical grid-based game testbed for XCOM mechanics (duplicate test file).
+
+Provides a PySide6-based visual test environment for rendering, unit selection, pathfinding, and line of sight calculations.
+
+Classes:
+    TileMapGame: Main class for the tactical testbed.
+
+Last standardized: 2025-06-14
+"""
+
 from PySide6.QtWidgets import QApplication, QGraphicsView, QGraphicsScene, QGraphicsRectItem
 from PySide6.QtCore import Qt, QRectF
 from PySide6.QtGui import QPainter, QColor

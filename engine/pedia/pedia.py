@@ -1,16 +1,18 @@
 """
-TPedia: Main container for the in-game encyclopedia (UFOpedia).
-Purpose: Manages and provides access to all pedia entries, categories, and navigation logic.
-Last update: 2025-06-11
+XCOM Pedia Module: pedia.py
+
+Main container for the in-game encyclopedia (UFOpedia).
+
+Classes:
+    TPedia: Main class for the UFOpedia system.
+
+Last updated: 2025-06-14
 """
 
 class TPedia:
     """
     Represents the entire UFOpedia system, containing all entries and categories.
     Used to manage, search, and display pedia content in the game UI.
-    Attributes:
-        entries (dict): All pedia entries, keyed by pid.
-        categories (dict): All categories/types, keyed by type id.
     """
     def __init__(self, entries=None, categories=None):
         """

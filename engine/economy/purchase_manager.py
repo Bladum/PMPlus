@@ -1,7 +1,12 @@
 """
-PurchaseManager: Manages active purchase orders and processes deliveries.
-Purpose: Handles order placement, daily processing, and integration with transfer system.
-Last update: 2025-06-12
+purchase_manager.py
+
+Defines the PurchaseManager class, which manages active purchase orders and processes deliveries. Handles order placement, daily processing, and integration with the transfer system.
+
+Classes:
+    PurchaseManager: Active purchase order and delivery manager.
+
+Last standardized: 2025-06-14
 """
 
 from typing import Dict, List, Optional, Tuple, Any
@@ -15,7 +20,7 @@ class PurchaseManager:
     """
     Manages active purchase orders across all bases.
     Handles order processing, delivery scheduling, and transfer integration.
-    
+
     Attributes:
         active_orders (dict): base_id -> list of PurchaseOrder objects
         completed_orders (list): List of completed orders for history

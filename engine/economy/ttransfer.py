@@ -1,13 +1,20 @@
 """
-TTransfer & TransferManager: Manage item/craft/unit transits between bases.
-Purpose: Handles transit status, delivery, and daily updates for all transfers.
-Last update: 2025-06-10
+engine/economy/ttransfer.py
+
+Defines the TTransfer and TransferManager classes, which manage item, craft, and unit transits between bases, including delivery, status, and daily updates.
+
+Classes:
+    TTransfer: Represents a single delivery in transit.
+    TransferManager: Manages all active deliveries and their progress.
+
+Last standardized: 2025-06-15
 """
 
 class TTransfer:
     """
     Represents a single transit for one item, craft, or unit.
     Contains info about what, where, when, and quantity.
+    
     Attributes:
         id (str): Transit ID.
         base_id (str): Base receiving the delivery.
@@ -16,6 +23,11 @@ class TTransfer:
         quantity (int): Quantity being transferred.
         days_left (int): Days remaining for delivery.
         status (str): 'in_transit', 'delivered', or 'cancelled'.
+    
+    Methods:
+        tick(): Progress the transit by one day.
+        is_delivered(): Check if the transit is delivered.
+        cancel(): Cancel the transit if still in transit.
     """
     def __init__(self, transit_id, base_id, object_type, object_id, quantity, days_required):
         self.id = transit_id
@@ -54,8 +66,13 @@ class TransferManager:
     """
     Manages all transits. Each transit is a single item/craft/unit delivery.
     Handles daily updates and delivery to base storage.
+    
     Attributes:
         transits (list): List of TTransfer objects.
+    
+    Methods:
+        add_transit(transit): Add a new transit to the manager.
+        tick_all(base_storage_lookup): Progress all transits by one day and deliver if ready.
     """
     def __init__(self):
         self.transits = []  # List of Transit objects

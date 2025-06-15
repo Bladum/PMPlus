@@ -1,39 +1,82 @@
 """
-Base item type definition that stores static parameters for all types of items.
+TItemType: Base item type definition that stores static parameters for all types of items.
 
-This class serves as the central reference for all item characteristics and parameters.
-It defines the static/unchanging properties of items that individual instances refer to,
-acting as a template or definition for creating actual game items.
+Acts as the central reference for all item characteristics and parameters. Defines the static/unchanging properties of items that individual instances refer to, acting as a template for creating actual game items.
 
-Interactions:
-- Referenced by TItemArmour, TItemWeapon and other item classes for base parameters
-- Used by manufacturing and research systems to determine requirements
-- Used by inventory systems to determine slot compatibility
-- Referenced for purchase/sell costs in economy systems
-- Accesses TWeaponMode for weapon firing modes
+Classes:
+    TItemType: Main class for item type definitions.
 
-Key Features:
-- Complete item classification system with categories
-- Static combat parameters (damage, accuracy, etc.)
-- Technology/research requirements
-- Economic parameters (costs, manufacturing)
-- Armor properties (resistance, shield, slots)
-- Weapon properties with multiple firing modes
-- Craft/vehicle equipment parameters
-- Support for special effects and bonuses
+Last standardized: 2025-06-14
 """
 
 from typing import Any, Dict, List, Optional
-
 from enums import EUnitItemCategory
 from unit.unit_stat import TUnitStats
 from .item_mode import TWeaponMode
 
 class TItemType:
+    """
+    Base item type definition for all types of items.
 
+    Stores static parameters and acts as a template for item instances.
 
+    Attributes:
+        pid (str): Unique identifier for the item type.
+        name (str): Human-readable name.
+        category (int): Item category.
+        description (str): Description text.
+        weight (int): Item weight for inventory.
+        size (int): Item size for base capacity.
+        pedia (str): Pedia entry or reference.
+        sprite (str): Path to sprite/icon.
+        sound (str): Path to sound effect.
+        tech_needed (List[str]): Technologies required to use.
+        unit_damage (int): Damage value for unit use.
+        unit_damage_type (str): Damage type for unit use.
+        unit_accuracy (int): Accuracy value for unit use.
+        unit_range (int): Range value for unit use.
+        unit_ammo (int): Ammo capacity for unit use.
+        unit_shots (int): Shots per action for unit use.
+        unit_action_point (int): Action point cost for unit use.
+        unit_stats (TUnitStats): Stat modifiers for units.
+        unit_modes (Dict[str, TWeaponMode]): Available weapon modes.
+        unit_rearm_cost (int): Rearm cost after battle.
+        armour_defense (int): Armor defense value.
+        armour_resistance (Dict[str, float]): Resistance by damage type.
+        armour_shield (int): Shield value.
+        armour_shield_regen (int): Shield regeneration per turn.
+        armour_cover (List[int]): Cover values.
+        armour_sight (List[int]): Sight modifiers.
+        armour_sense (List[int]): Sense modifiers.
+        primary_slots (int): Number of primary slots (if weapon).
+        secondary_slots (int): Number of secondary slots (if equipment).
+        craft_damage (int): Craft damage value.
+        craft_accuracy (float): Craft accuracy value.
+        craft_range (int): Craft range value.
+        craft_ammo (int): Craft ammo capacity.
+        craft_size (int): Craft size.
+        craft_action_point (int): Craft action point cost.
+        craft_rearm_time (int): Time to rearm craft.
+        craft_rearm_cost (int): Cost to rearm craft.
+        craft_reload_time (int): Time to reload craft weapon.
+        manufacture_tech (List[str]): Techs required for manufacturing.
+        purchase_tech (List[str]): Techs required for purchase.
+        sell_cost (int): Sell cost.
+        effects (Dict[str, Any]): Special effects.
+        bonus (Dict[str, Any]): Bonus properties.
+        requirements (Dict[str, Any]): Requirements for use.
+        is_underwater (bool): Whether item is usable underwater.
+        modes (Dict[str, TWeaponMode]): Weapon modes.
+    """
     def __init__(self, pid: str, data: Dict[str, Any], mode_defs: Optional[Dict[str, Any]] = None):
+        """
+        Initialize a new item type definition.
 
+        Args:
+            pid (str): Unique identifier for the item type.
+            data (dict): Dictionary of item type properties.
+            mode_defs (Optional[dict]): Optional dictionary of weapon mode definitions.
+        """
         from engine.engine.game import TGame
         self.game = TGame()
 
@@ -127,6 +170,11 @@ class TItemType:
     def get_mode_parameters(self, mode_name: str) -> Dict[str, Any]:
         """
         Returns the effective parameters for the given mode.
+
+        Args:
+            mode_name (str): Name of the mode to retrieve parameters for.
+        Returns:
+            dict: Effective parameters for the mode (ap_cost, range, accuracy, shots, damage).
         """
         base_params: Dict[str, Any] = {
             'ap_cost': self.unit_action_point,

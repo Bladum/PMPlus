@@ -1,7 +1,13 @@
 """
-BlackMarket: Manages black market suppliers and special item availability.
-Purpose: Handles special suppliers with limited availability, rotating stock, and price variance.
-Last update: 2025-06-12
+black_market.py
+
+Defines the BlackMarket and BlackMarketSupplier classes, managing black market suppliers and special item availability. Handles special suppliers with limited availability, rotating stock, price variance, and discovery mechanics.
+
+Classes:
+    BlackMarketSupplier: Represents a single black market supplier with unique rules.
+    BlackMarket: Manages all black market suppliers, discovery, and global reputation.
+
+Last standardized: 2025-06-14
 """
 
 from typing import Dict, List, Optional, Tuple, Any
@@ -11,8 +17,8 @@ import logging
 
 class BlackMarketSupplier:
     """
-    Represents a black market supplier with special characteristics.
-    
+    Represents a black market supplier with special characteristics and mechanics.
+
     Attributes:
         name (str): Supplier name.
         reputation (str): Reputation level (unknown, questionable, reliable, trusted).
@@ -21,7 +27,7 @@ class BlackMarketSupplier:
         availability_schedule (str): When items refresh (daily, weekly, monthly).
         price_variance_range (tuple): Min/max price variance (0.5, 2.0) = 50% to 200%.
         reliability (float): Chance supplier delivers on time (0.0-1.0).
-        discovery_requirements (dict): Requirements to discover this supplier.
+        discovery_requirements (dict): Requirements to discover this supplier (techs, regions, items, money).
         is_discovered (bool): Whether player has discovered this supplier.
         last_refresh (datetime): When stock was last refreshed.
         current_stock (list): Currently available purchase entry IDs.
@@ -29,11 +35,11 @@ class BlackMarketSupplier:
     
     def __init__(self, name: str, data: Optional[Dict[str, Any]] = None):
         """
-        Initialize black market supplier.
-        
+        Initialize a black market supplier.
+
         Args:
             name (str): Supplier name.
-            data (dict, optional): Supplier configuration.
+            data (dict, optional): Supplier configuration and state.
         """
         data = data or {}
         
@@ -109,10 +115,10 @@ class BlackMarketSupplier:
     
     def get_price_multiplier(self) -> float:
         """
-        Get a random price multiplier within the supplier's variance range.
+        Get the current price multiplier for this supplier (randomized within range).
         
         Returns:
-            float: Price multiplier for this supplier's items.
+            float: Price multiplier (e.g., 1.2 for 20% markup).
         """
         return random.uniform(*self.price_variance_range)
     
@@ -166,19 +172,19 @@ class BlackMarketSupplier:
     
     def get_delivery_reliability(self) -> float:
         """
-        Get the supplier's delivery reliability (chance of on-time delivery).
+        Get the delivery reliability (chance of on-time delivery) for this supplier.
         
         Returns:
-            float: Reliability value (0.0-1.0).
+            float: Reliability value (0.0-1.0)
         """
         return self.reliability
     
     def to_dict(self) -> Dict[str, Any]:
         """
-        Serialize the supplier's state to a dictionary.
+        Serialize the supplier's state to a dictionary for saving/loading.
         
         Returns:
-            dict: Serialized state.
+            dict: Supplier state.
         """
         return {
             'name': self.name,
@@ -215,12 +221,20 @@ class BlackMarketSupplier:
 
 class BlackMarket:
     """
-    Manages all black market suppliers and operations.
+    Manages all black market suppliers, their discovery, and global black market operations.
     
     Attributes:
         suppliers (dict): name -> BlackMarketSupplier
         discovery_events (list): List of discovery event records
         global_reputation (float): Player's reputation with black market (0.0-1.0)
+    
+    Methods:
+        add_supplier(supplier): Add a new supplier to the black market.
+        get_discovered_suppliers(): List all discovered suppliers.
+        get_discoverable_suppliers(...): List suppliers that can be discovered now.
+        attempt_discovery(...): Attempt to discover a supplier, returns result and message.
+        refresh_all_stock(...): Refresh stock for all suppliers.
+        get_supplier_stock(...): Get current stock for a supplier.
     """
     
     def __init__(self):
@@ -253,16 +267,16 @@ class BlackMarket:
     def get_discoverable_suppliers(self, technologies: List[str], regions: List[str], 
                                  items: Dict[str, int], money: int) -> List[BlackMarketSupplier]:
         """
-        Get suppliers that can be discovered with current resources.
+        Get a list of suppliers that can be discovered with current player state.
         
         Args:
-            technologies (list): Available technologies
-            regions (list): Controlled regions
-            items (dict): Available items
-            money (int): Available money
+            technologies (list): Player's known technologies.
+            regions (list): Player's controlled regions.
+            items (dict): Player's items.
+            money (int): Player's available money.
             
         Returns:
-            List[BlackMarketSupplier]: Discoverable suppliers
+            list: Discoverable BlackMarketSupplier objects.
         """
         discoverable = []
         for supplier in self.suppliers.values():
@@ -275,17 +289,17 @@ class BlackMarket:
     def attempt_discovery(self, supplier_name: str, technologies: List[str], 
                          regions: List[str], items: Dict[str, int], money: int) -> Tuple[bool, str]:
         """
-        Attempt to discover a supplier.
+        Attempt to discover a supplier by name, checking requirements.
         
         Args:
-            supplier_name (str): Supplier to discover
-            technologies (list): Available technologies
-            regions (list): Controlled regions
-            items (dict): Available items
-            money (int): Available money
+            supplier_name (str): Name of the supplier to discover.
+            technologies (list): Player's known technologies.
+            regions (list): Player's controlled regions.
+            items (dict): Player's items.
+            money (int): Player's available money.
             
         Returns:
-            Tuple[bool, str]: (success, message)
+            (bool, str): (True if discovered, message)
         """
         if supplier_name not in self.suppliers:
             return False, f"Unknown supplier: {supplier_name}"
@@ -310,10 +324,10 @@ class BlackMarket:
     
     def refresh_all_stock(self, available_entries: List[Any]):
         """
-        Refresh stock for all suppliers that need it.
+        Refresh stock for all suppliers in the black market.
         
         Args:
-            available_entries (list): Available purchase entries
+            available_entries (list): List of all possible purchase entries.
         """
         for supplier in self.suppliers.values():
             if supplier.should_refresh_stock():
@@ -321,13 +335,13 @@ class BlackMarket:
     
     def get_supplier_stock(self, supplier_name: str) -> List[Any]:
         """
-        Get current stock for a supplier.
+        Get the current stock for a given supplier.
         
         Args:
-            supplier_name (str): Supplier name
+            supplier_name (str): Name of the supplier.
             
         Returns:
-            List: Current stock entries
+            list: List of available purchase entry IDs.
         """
         if supplier_name not in self.suppliers:
             return []

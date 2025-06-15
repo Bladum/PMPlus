@@ -1,7 +1,14 @@
 """
-TGlobalRadar: Manages radar detection of UFOs and locations on the world map.
-Last update: 2025-06-10
+radar.py
+
+Defines the TGlobalRadar class, which manages radar detection of UFOs and locations on the world map. Handles radar scanning from bases and crafts, updating cover and visibility for all locations.
+
+Classes:
+    TGlobalRadar: Global radar detection manager.
+
+Last standardized: 2025-06-14
 """
+
 from engine.globe.world_point import TWorldPoint
 
 class TGlobalRadar:
@@ -18,7 +25,7 @@ class TGlobalRadar:
         Args:
             world: TWorld instance.
         """
-        self.world = world  # TWorld instance
+        self.world = world
 
     def scan(self, locations, bases, crafts):
         """

@@ -1,7 +1,12 @@
 """
-TSite: Represents a static mission site on the world map.
-Purpose: Handles mission site attributes, type, and tactical map block generation.
-Last update: 2025-06-10
+XCOM Location Module: site.py
+
+Represents a static mission site on the world map.
+
+Classes:
+    TSite: Mission site with attributes, type, and tactical map block generation.
+
+Last updated: 2025-06-14
 """
 
 from globe.location import TLocation
@@ -11,15 +16,7 @@ from .site_type import TSiteType
 class TSite(TLocation):
     """
     Represents a mission location on the world map that is not a UFO or a base.
-
     Sites are static, temporary locations that represent mission opportunities.
-    When a mission at the site is completed, the site is removed and points are scored.
-    Sites typically represent alien activities, civilian emergencies, or special operations.
-
-    Attributes:
-        site_type (TSiteType): Type of the site, determines appearance and tactical configuration.
-        map_blocks (dict): Tactical map blocks for the mission.
-        game (TGame): Reference to the game instance.
     """
 
     def __init__(self, loc_id, data: dict):
@@ -32,10 +29,10 @@ class TSite(TLocation):
         super().__init__(loc_id, data)
 
         from engine.engine.game import TGame
-        self.game: TGame = TGame()
+        self.game: TGame = TGame()  # Reference to the game instance
 
         site_type = data.get('site_type')
-        self.site_type = self.game.mod.sites.get(site_type)
+        self.site_type = self.game.mod.sites.get(site_type)  # Site type definition
 
         # Use map_blocks from type if not present in instance data
         self.map_blocks = self.generate_random_map_blocks()

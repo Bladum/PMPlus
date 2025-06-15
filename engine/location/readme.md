@@ -1,38 +1,52 @@
 # Location Module
 
-This folder contains classes for representing locations and mission sites on the world map in the game. Each class is responsible for a specific type of location or related logic.
+This document is the authoritative design and architecture reference for the XCOM/AlienFall location systems. It is intended for validation by AI agents and developers to ensure all planned features and classes are implemented as designed. All subsystem documentation is consolidated here.
 
-## TCity
-Represents a city on the world map as a location.
-- **Attributes:** size, name, description, terrains
-- **Methods:** get_random_terrain()
-
-## TSite
-Represents a static mission site (not a UFO or base) on the world map.
-- **Attributes:** site_type, map_blocks, game
-- **Methods:** generate_random_map_blocks()
-
-## TSiteType
-Defines the type and parameters for a mission site.
-- **Attributes:** pid, name, pedia, marker, size, map_blocks, deployment
-
-## TUfo
-Represents a UFO on the world map, with movement and combat logic.
-- **Attributes:** ufo_id, position, ufo_type, ufo_script, script_step, speed, speed_max, health, game
-- **Methods:** advance_script(), move_to(), set_position(), get_position(), distance_to(), take_damage(), is_destroyed(), is_crashed()
-
-## TUfoScript
-Defines a scripted trajectory and behavior sequence for UFOs.
-- **Attributes:** pid, name, description, steps
-- **Methods:** get_step(), total_steps(), process_current_step()
-
-## TUfoType
-Defines the specifications and capabilities of a specific UFO class.
-- **Attributes:** pid, name, pedia, vessel, marker, size, health, speed, shield, shield_regen, damage, rate, range, accuracy, fire_sound, radar_range, radar_power, radar_cover, radar_cover_change, is_hunter, hunt_bravery, bombard_power, score_complete, score_destroy, score_avoid, score_damage, score_turn, map_block, map_width, map_height, force_terrain, deployments
+## Table of Contents
+1. [Overview](#overview)
+2. [System Architecture](#system-architecture)
+3. [Class Purposes and Details](#class-purposes-and-details)
+4. [Integration Guide](#integration-guide)
+5. [API Reference](#api-reference)
 
 ---
 
-- All classes follow project documentation and testing standards.
-- See test/ subfolder for unit tests covering all public methods and attributes.
-- For API details, see wiki/API.yml.
+## Overview
+
+The location module implements the core systems for sites, cities, UFOs, and related location logic.
+
+## System Architecture
+
+```
+Location Module
+├── TSiteType (site_type.py)
+├── TSite (site.py)
+├── TCity (city.py)
+├── TUfoType (ufo_type.py)
+├── TUfoScript (ufo_script.py)
+├── TUfo (ufo.py)
+```
+
+---
+
+## Class Purposes and Details
+
+- **TSiteType:** Defines types of sites.
+- **TSite:** Represents a site location.
+- **TCity:** Represents a city location.
+- **TUfoType:** Defines UFO types.
+- **TUfoScript:** Handles UFO scripting logic.
+- **TUfo:** Represents a UFO on the map.
+
+---
+
+## Integration Guide
+
+- Use these classes for all site, city, and UFO operations.
+
+---
+
+## API Reference
+
+(See individual files for detailed method signatures.)
 

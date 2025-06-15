@@ -1,16 +1,12 @@
 """
-Module Overview: mod.py
------------------------
-This module provides core enumeration types and the main mod management class that serves
-as a central repository for all game data loaded from mod files and directories.
+engine/engine/mod.py
 
-Class Relationships:
-- TItemCategory: Used by TUnitInventory for slot validation and by TMod for UI elements
-- TUnitCategory: Used by TMod and TGame for unit filtering and organization
-- TMod: Central data manager that loads, stores, and provides access to all game entities
-  * Interfaces with TModLoader to load data from files
-  * Accessed by TGame to provide data to the game systems
-  * Contains collections of all game object types for global access
+Defines the TMod class and core enumerations for the game engine, serving as a central repository for all game data loaded from mod files and directories.
+
+Classes:
+    TMod: Main mod management class and core enumerations for the game engine.
+
+Last standardized: 2025-06-15
 """
 
 from pathlib import Path
@@ -21,13 +17,14 @@ from PIL.Image import Image
 from pytmx import TiledTileset
 
 from base.facility_type import TFacilityType
-from battle.map.battle_script import TBattleScript
-from battle.map.deployment import TDeployment
-from battle.mission.objective import TBattleObjective
-from battle.support.battle_effect import TBattleEffect
-from battle.support.damage_model import TDamageModel
-from battle.terrain.map_block import TMapBlock
-from battle.terrain.terrain import TTerrain
+from battle.battle_script import TBattleScript  # Fixed import
+from battle.deployment import TDeployment      # Fixed import
+from engine.battle.objective import TBattleObjective
+from battle.battle_effect import TBattleEffect  # Fixed import
+from battle.damage_model import TDamageModel    # Fixed import
+from battle.map_block import TMapBlock          # Fixed import
+from battle.terrain import TTerrain             # Fixed import
+from battle.tileset_manager import TTilesetManager  # Fixed import
 
 from craft.craft_type import TCraftType
 from economy.manufacture_entry import TManufactureEntry
@@ -52,7 +49,7 @@ from lore.event import TEvent
 from lore.faction import TFaction
 from lore.mission import TMission
 from pedia.pedia_entry import TPediaEntry
-from traits.trait import TTrait
+from unit.trait import TTrait  # Fixed import
 from unit.race import TRace
 from unit.unit_type import TUnitType
 
@@ -83,12 +80,55 @@ class TUnitCategory(Enum):
 
 class TMod:
     """
-    Represents a mod in game, it is a list of files and folders
-    It is used to load data from files and folders
-    It is used to manage all data in game
-    It is used to manage all events in game
+    Represents a mod in game, it is a list of files and folders.
+    Used to load data from files and folders and manage all data in game.
+    Also manages all events in game and provides access to all game entities.
+
+    Attributes:
+        mod_data (dict): Raw mod data loaded from YAML files.
+        mod_path (Path): Path to the mod directory.
+        game (TGame): Reference to the main game singleton.
+        tileset_manager (TTilesetManager): Manager for map tilesets.
+        facilities (dict): Facility types.
+        races (dict): Unit races.
+        units (dict): Unit types.
+        traits (dict): Unit traits.
+        researches (dict): Research entries.
+        purchases (dict): Purchase entries.
+        manufacturing (dict): Manufacturing entries.
+        deployments (dict): Battle deployments.
+        effects (dict): Battle effects.
+        map_blocks (dict): Map blocks.
+        map_scripts (dict): Battle scripts.
+        objectives (dict): Battle objectives.
+        terrains (dict): Terrain types.
+        items (dict): Item types.
+        weapon_modes (dict): Weapon modes.
+        damage_models (dict): Damage models.
+        worlds (dict): World maps.
+        biomes (dict): Biomes.
+        countries (dict): Countries.
+        regions (dict): Regions.
+        cities (dict): Cities.
+        factions (dict): Factions.
+        campaigns (dict): Campaigns.
+        events (dict): Events.
+        sites (dict): Site types.
+        mission (dict): Missions.
+        ufo_types (dict): UFO types.
+        craft_types (dict): Craft types.
+        ufo_scripts (dict): UFO scripts.
+        starting_base (dict): Starting base data.
+        pedia_entries (dict): Pedia entries.
     """
     def __init__(self, mod_data, mod_path):
+        """
+        Initialize the mod manager with mod data and path.
+
+        Args:
+            mod_data (dict): Raw mod data loaded from YAML files.
+            mod_path (str or Path): Path to the mod directory.
+        """
         self.mod_data = mod_data
         self.mod_path = Path(mod_path)
 
@@ -108,7 +148,7 @@ class TMod:
 
         # here save all graphics tiles
 
-        from battle.tile.tileset_manager import TTilesetManager
+        from battle.tileset_manager import TTilesetManager
         self.tileset_manager: TTilesetManager = None
 
         # base
@@ -413,8 +453,7 @@ class TMod:
 
     def load_initial_base_data(self):
         """
-        Create the initial player base(s) using data from the starting_base configuration.
-        Sets up facilities, inventory, and other base components.
+        Load initial base data from mod files.
         """
         from engine.base.geo.xbase import TBaseXCom
         from item.item import TItem
@@ -577,14 +616,14 @@ class TMod:
 
     def load_all_terrain_map_blocks(self):
         """
-        Loads all map blocks for all terrains in this mod.
+        Load all terrain map blocks from mod data.
         """
         for terrain in self.terrains.values():
             terrain.load_maps_and_blocks(self.maps_path / terrain.maps_folder)
 
     def render_all_map_blocks(self):
         """
-        Render all map blocks to PNG for debugging/visualization.
+        Render all map blocks for preview or caching.
         """
         for terrain in self.terrains.values():
             terrain.render_map_blocks()

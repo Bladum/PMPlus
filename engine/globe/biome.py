@@ -1,10 +1,16 @@
 """
-TBiome: Represents a biome type assigned to each tile on the world map.
-Last update: 2025-06-10
+biome.py
+
+Defines the TBiome class, representing a biome type assigned to each tile on the world map. Used to generate battles with specific terrain types and for world map analytics.
+
+Classes:
+    TBiome: Biome type for world map tiles.
+
+Last standardized: 2025-06-14
 """
 
 class TBiome:
-    '''
+    """
     TBiome represents a biome type assigned to each tile on the world map (e.g., forest, desert, ocean).
     Biomes are used to generate battles with specific terrain types.
 
@@ -15,19 +21,14 @@ class TBiome:
         image (str|None): Sprite/image reference for the biome.
         type (str): Type of biome ('land', 'water', etc.).
         terrains (dict): Mapping of terrain keys to weights for random selection.
-    '''
+    """
     def __init__(self, pid, data: dict = None):
         """
         Initialize a TBiome instance.
 
         Args:
             pid (str|int): Unique biome identifier.
-            data (dict, optional): Dictionary with biome properties. Keys:
-                - name (str)
-                - description (str)
-                - sprite (str|None)
-                - type (str)
-                - terrains (dict)
+            data (dict, optional): Dictionary with biome properties.
         """
         if data is None:
             data = {}
@@ -41,6 +42,7 @@ class TBiome:
     def get_random_terrain(self):
         """
         Randomly select a terrain for this biome based on weights in self.terrains.
+
         Returns:
             str|None: The selected terrain key, or None if no terrains defined.
         """

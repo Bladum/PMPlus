@@ -1,7 +1,12 @@
 """
-TGuiAcademy: Academy screen GUI for manufacturing and training.
-Purpose: Represents the manufacturing/training interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_academy.py
+
+Academy Screen GUI for manufacturing and training management.
+
+Classes:
+    TGuiAcademy: Main academy GUI screen for manufacturing/training interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

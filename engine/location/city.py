@@ -1,7 +1,12 @@
 """
-TCity: Represents a city location on the world map.
-Purpose: Handles city-specific attributes (name, size, description, terrains) and provides terrain selection logic.
-Last update: 2025-06-10
+XCOM Location Module: city.py
+
+Represents a city location on the world map.
+
+Classes:
+    TCity: City location with name, size, description, and terrain selection logic.
+
+Last updated: 2025-06-14
 """
 
 from engine.globe.location import TLocation
@@ -9,16 +14,10 @@ import random
 
 
 class TCity(TLocation):
-    '''
+    """
     Represents a city on the world map as a location.
     Inherits from TLocation and adds city-specific attributes.
-
-    Attributes:
-        size (int): Size of the city (default 4).
-        name (str): Name of the city.
-        description (str): Description of the city.
-        terrains (dict or list): Terrain types available in the city, with weights if dict.
-    '''
+    """
     def __init__(self, loc_id, data: dict = None):
         """
         Initialize a TCity instance.
@@ -29,10 +28,10 @@ class TCity(TLocation):
         if data is None:
             data = {}
         super().__init__(loc_id, data)
-        self.size = data.get("size", 4)
-        self.name = data.get("name", '')
-        self.description = data.get("description", '')
-        self.terrains = data.get("terrains", {})
+        self.size = data.get("size", 4)  # Size of the city (default 4)
+        self.name = data.get("name", '')  # Name of the city
+        self.description = data.get("description", '')  # Description of the city
+        self.terrains = data.get("terrains", {})  # Terrains available in the city
 
     def get_random_terrain(self):
         """

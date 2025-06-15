@@ -1,7 +1,12 @@
 """
-TGuiPrison: Prison screen GUI for containment.
-Purpose: Represents the containment/prison interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_prison.py
+
+Prison Screen GUI for containment management.
+
+Classes:
+    TGuiPrison: Main prison GUI screen for containment interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

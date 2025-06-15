@@ -1,18 +1,27 @@
-'''
+"""
+Projectile and FloatingNumber: Visual test classes for projectile motion and floating text in PySide6.
 
+Provides a testbed for animating projectiles and floating numbers in a QGraphicsScene, useful for XCOM/AlienFall engine effects.
 
+Classes:
+    Projectile: Visual representation of a projectile.
+    FloatingNumber: Animated floating number for damage/effects.
 
-'''
+Last standardized: 2025-06-14
+"""
 
 from PySide6.QtWidgets import QApplication, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QGraphicsEllipseItem
 from PySide6.QtGui import QColor, QPainter, QPen
 from PySide6.QtCore import Qt, QRectF, QTimer, QTime
-
 from PySide6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, Property
 from PySide6.QtWidgets import QGraphicsTextItem
 
 
 class Projectile(QGraphicsEllipseItem):
+    """
+    Visual representation of a projectile in the scene.
+    """
+
     def __init__(self, x, y, size=3):
         super().__init__(0, 0, size, size)  # Create at origin with size 3x3
         self.setBrush(QColor(0, 0, 0))      # Black color
@@ -20,7 +29,12 @@ class Projectile(QGraphicsEllipseItem):
         self.setPos(x - size/2, y - size/2) # Center the circle at x,y
         self.setZValue(2000)                # Make sure it's above everything
 
+
 class FloatingNumber(QGraphicsTextItem):
+    """
+    Animated floating number for displaying damage or effects.
+    """
+
     def __init__(self, text, x, y, color=Qt.red, font_size=12):
         super().__init__(text)
         # Set up appearance
@@ -67,6 +81,7 @@ class FloatingNumber(QGraphicsTextItem):
         return self.opacity()
 
     opacity = Property(float, _get_opacity, _set_opacity)
+
 
 class BattleTile(QGraphicsRectItem):
     def __init__(self, x, y, size=16):

@@ -1,7 +1,14 @@
 """
-TFunding: Manages XCOM's funding based on country scores and generates monthly reports.
-Last update: 2025-06-10
+funding.py
+
+Defines the TFunding class, which manages XCOM's funding based on country scores and generates monthly reports. Operates from the country perspective and updates funding and relations.
+
+Classes:
+    TFunding: Funding and monthly report manager for XCOM.
+
+Last standardized: 2025-06-14
 """
+
 class TFunding:
     """
     TFunding manages XCOM's funding based on the score in each country and generates monthly reports.
@@ -18,7 +25,7 @@ class TFunding:
         Args:
             countries (list|dict): List or dict of TCountry instances.
         """
-        self.countries = countries  # List or dict of TCountry
+        self.countries = countries
         self.month_scores = {country.pid: 0 for country in countries}
 
     def add_tile_score(self, country_id, score):
@@ -35,6 +42,7 @@ class TFunding:
     def monthly_report(self):
         """
         Update all countries' funding and relation based on their monthly score.
+
         Returns:
             dict: Summary report with relation, funding, active status, and score for each country.
         """
@@ -48,5 +56,5 @@ class TFunding:
                 'active': country.active,
                 'score': score
             }
-            self.month_scores[country.pid] = 0  # Reset for next month
+            self.month_scores[country.pid] = 0
         return report

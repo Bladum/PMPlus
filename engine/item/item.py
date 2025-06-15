@@ -1,23 +1,12 @@
 """
-Base class for all game items.
+TItem: Base class for all game items.
 
-This class encapsulates common properties and behaviors for all items in the game.
-It serves as a foundation for specialized item types (weapons, armor, equipment)
-and provides a consistent interface for inventory management.
+Provides common properties and behaviors for all items in the game, including serialization, inventory compatibility, and UI display.
 
-Interactions:
-- Used by TItemTransferManager for drag/drop operations
-- Referenced by inventory UIs for displaying items
-- Extended by specialized item classes (TItemWeapon, TItemArmour)
-- Used for serialization and storage of item instances
-- Provides interface for property and metadata access
+Classes:
+    TItem: Main class for game items.
 
-Key Features:
-- Core item properties (name, type, weight)
-- Visual representation for inventory display
-- Property access for UI and game systems
-- Compatibility checking with inventory slots
-- Serialization support for saving/loading
+Last standardized: 2025-06-14
 """
 
 from typing import Dict, Any, Optional
@@ -29,16 +18,15 @@ class TItem:
     """
     Base class for all game items.
 
-    Encapsulates common properties and behaviors for item instances
-    that can be stored in inventories, equipped by units, etc.
+    Encapsulates common properties and behaviors for item instances that can be stored in inventories, equipped by units, etc.
 
     Attributes:
-        name: Human-readable item name
-        sprite: Path to item's visual icon
-        properties: Dictionary of additional item-specific properties
-        item_type: Type reference for this item
-        weight: Item weight for inventory management
-        id: Unique identifier for this item instance
+        name (str): Human-readable item name.
+        sprite (str): Path to item's visual icon.
+        properties (dict): Additional item-specific properties.
+        item_type (TItemType): Type reference for this item.
+        weight (int): Item weight for inventory management.
+        id (str): Unique identifier for this item instance.
     """
 
     def __init__(self, item_type_id: str, item_id: Optional[str] = None):
@@ -46,8 +34,8 @@ class TItem:
         Initialize a new item with properties from its type definition.
 
         Args:
-            item_type_id: ID of the item's type definition to use for static parameters
-            item_id: Unique identifier (generated if not provided)
+            item_type_id (str): ID of the item's type definition to use for static parameters.
+            item_id (Optional[str]): Unique identifier (generated if not provided).
         """
         # Get reference to the game's item type registry
         from engine.engine.game import TGame
@@ -71,10 +59,10 @@ class TItem:
         Get a QPixmap representation of the item for UI display.
 
         Args:
-            size: Optional pixel size for the image (maintains aspect ratio)
+            size (Optional[int]): Optional pixel size for the image (maintains aspect ratio).
 
         Returns:
-            QPixmap object for the item's icon
+            QPixmap: QPixmap object for the item's icon.
         """
         from PySide6.QtGui import QPixmap
         from PySide6.QtCore import Qt
@@ -91,7 +79,7 @@ class TItem:
         Get list of slot types this item is compatible with.
 
         Returns:
-            List of slot identifiers this item can be equipped to
+            list[str]: List of slot identifiers this item can be equipped to.
         """
         return self.properties.get('compatible_slots', [])
 
@@ -100,7 +88,7 @@ class TItem:
         Get the item's category.
 
         Returns:
-            Integer representing the item category from TItemType constants
+            int: Integer representing the item category from TItemType constants.
         """
         if hasattr(self.item_type, 'category'):
             return self.item_type.category
@@ -108,10 +96,10 @@ class TItem:
 
     def get_display_name(self) -> str:
         """
-        Get a formatted display name.
+        Get a formatted display name for the item.
 
         Returns:
-            String with item name
+            str: String with item name.
         """
         return self.name
 
@@ -120,7 +108,7 @@ class TItem:
         Convert the item to a dictionary for serialization.
 
         Returns:
-            Dictionary representation of the item
+            dict: Dictionary representation of the item.
         """
         return {
             'id': self.id,
@@ -134,11 +122,11 @@ class TItem:
         Create an item instance from a dictionary representation.
 
         Args:
-            data: Dictionary representation of the item
-            type_registry: Dictionary mapping type IDs to TItemType objects
+            data (dict): Dictionary representation of the item.
+            type_registry (dict): Dictionary mapping type IDs to TItemType objects.
 
         Returns:
-            New TItem instance
+            TItem: New TItem instance.
         """
         item_type_id = data.get('item_type_id')
 
@@ -157,19 +145,42 @@ class TItem:
         return item
 
     def __eq__(self, other):
-        """Check if two items are equal (same ID)."""
+        """
+        Check if two items are equal (same ID).
+
+        Args:
+            other (TItem): Another item to compare.
+
+        Returns:
+            bool: True if IDs match, False otherwise.
+        """
         if not isinstance(other, TItem):
             return False
         return self.id == other.id
 
     def __hash__(self):
-        """Hash based on item ID."""
+        """
+        Hash based on item ID.
+
+        Returns:
+            int: Hash value.
+        """
         return hash(self.id)
 
     def __str__(self):
-        """String representation of the item."""
+        """
+        String representation of the item.
+
+        Returns:
+            str: Human-readable string.
+        """
         return f"{self.name} [{self.id[:8]}]"
 
     def __repr__(self):
-        """Detailed representation of the item."""
+        """
+        Detailed representation of the item.
+
+        Returns:
+            str: Debug string.
+        """
         return f"TItem(type='{self.item_type.pid}', id='{self.id[:8]}')"

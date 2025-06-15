@@ -36,3 +36,24 @@ def test_organization_repr():
     s = repr(org)
     assert 'TOrganization' in s
 
+def test_organization_init_defaults():
+    """Test TOrganization initializes with default values."""
+    org = TOrganization('ORG1')
+    assert org.key == 'ORG1'
+    assert org.name == ''
+    assert org.description == ''
+    assert org.sprite == ''
+    assert org.pedia == ''
+    assert org.quests == []
+    assert org.quests_needed == []
+    assert org.tech_needed == []
+    assert org.unlocked is False
+
+
+def test_organization_can_be_unlocked():
+    """Test can_be_unlocked returns True only if all requirements are met."""
+    org = TOrganization('ORG2', {'quests_needed': ['Q1', 'Q2'], 'tech_needed': ['T1']})
+    assert not org.can_be_unlocked({'Q1'}, {'T1'})
+    assert not org.can_be_unlocked({'Q1', 'Q2'}, set())
+    assert org.can_be_unlocked({'Q1', 'Q2'}, {'T1'})
+

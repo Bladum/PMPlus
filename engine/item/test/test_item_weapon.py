@@ -1,3 +1,7 @@
+"""
+Test suite for engine.item.item_weapon (TItemWeapon)
+Covers initialization and attribute defaults using pytest.
+"""
 import pytest
 from engine.item.item_weapon import TItemWeapon
 from unittest.mock import patch, MagicMock
@@ -66,4 +70,14 @@ def test_getters():
     assert weapon.get_damage() == 40
     assert weapon.get_ap_cost() == 2
     assert weapon.get_stat_modifiers() == {'accuracy': 3}
+
+def test_init_defaults(weapon):
+    """Test initialization and attribute values from item type."""
+    assert weapon.name == 'Laser Rifle'
+    assert weapon.sprite == 'laser_rifle.png'
+    assert weapon.weight == 3
+    assert weapon.ammo == 6
+    assert weapon.active is True
+    assert weapon.current_mode == 'snap'
+    assert isinstance(weapon.mode_params, dict)
 

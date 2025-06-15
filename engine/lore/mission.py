@@ -1,7 +1,12 @@
 """
-TMission: Mission definition for campaign-generated world map locations.
-Purpose: Represents a mission created by a campaign, with deployment and tech requirements.
-Last update: 2025-06-10
+mission.py
+
+Defines the TMission class, representing a mission created by a campaign. Encapsulates deployment, tech requirements, and world map location logic for campaign-generated missions.
+
+Classes:
+    TMission: Mission definition for campaign-generated world map locations.
+
+Last standardized: 2025-06-14
 """
 
 class TMission:
@@ -24,10 +29,10 @@ class TMission:
     def __init__(self, data):
         """
         Initialize a mission.
+
         Args:
             data (dict): Mission data and parameters.
         """
-
         # what will be created by this mission
         self.ufo = data.get('ufo', None)
         self.site = data.get('site', None)

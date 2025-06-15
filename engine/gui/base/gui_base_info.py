@@ -1,7 +1,12 @@
 """
-TGuiBaseInfo: Base info summary screen GUI.
-Purpose: Represents the summary of base activities in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_base_info.py
+
+Base Info Summary Screen GUI for base activities overview.
+
+Classes:
+    TGuiBaseInfo: Main base info summary GUI screen.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

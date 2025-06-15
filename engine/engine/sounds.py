@@ -1,3 +1,14 @@
+"""
+engine/engine/sounds.py
+
+Defines the TSoundManager class, which manages all game sounds and music, including ambient sounds, battle effects, and UI feedback.
+
+Classes:
+    TSoundManager: Manages all game sounds and music.
+
+Last standardized: 2025-06-15
+"""
+
 import logging
 
 class TSoundManager:
@@ -6,18 +17,12 @@ class TSoundManager:
     Handles ambient sounds, battle effects, and UI feedback.
 
     Attributes:
-    - sounds: Dictionary of loaded sound effects.
-    - music_tracks: List of available music tracks.
-
-    Methods to be implemented:
-    - play_sound(sound_id): Play a specific sound effect.
-    - play_music(track_id): Play a music track.
-    - stop_all(): Stop all currently playing sounds and music.
-    - load_sounds(): Load all required sound assets.
+        sounds (dict): Dictionary of loaded sound effects.
+        music_tracks (list): List of available music tracks.
     """
     def __init__(self):
         """
-        Initialize the sound manager.
+        Initialize the sound manager with empty sound and music lists.
         """
         self.sounds = {}
         self.music_tracks = []
@@ -26,6 +31,7 @@ class TSoundManager:
     def play_sound(self, sound_id):
         """
         Play a specific sound effect.
+
         Args:
             sound_id (str): Identifier for the sound effect.
         """
@@ -36,6 +42,7 @@ class TSoundManager:
     def play_music(self, track_id):
         """
         Play a music track.
+
         Args:
             track_id (str): Identifier for the music track.
         """

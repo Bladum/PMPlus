@@ -1,7 +1,12 @@
 """
-TGuiWorkshop: Workshop screen GUI for manufacturing.
-Purpose: Represents the manufacturing interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_workshop.py
+
+Workshop Screen GUI for manufacturing management.
+
+Classes:
+    TGuiWorkshop: Main workshop GUI screen for manufacturing interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

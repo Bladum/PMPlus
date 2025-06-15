@@ -1,6 +1,37 @@
+"""
+Test suite for engine.unit.unit_inv_manager (InventoryTemplate, TUnitInventoryManager)
+Covers initialization, to_dict, and from_dict methods using pytest.
+"""
 import pytest
+from engine.unit.unit_inv_manager import InventoryTemplate
 from unittest.mock import MagicMock
 from unit.unit_inv_manager import TUnitInventoryManager
+
+@pytest.fixture
+def template():
+    equipment_data = {'slot1': {'id': 'rifle', 'ammo': 5}}
+    return InventoryTemplate('Alpha', equipment_data)
+
+def test_init_defaults(template):
+    """Test initialization and attribute values."""
+    assert template.name == 'Alpha'
+    assert template.equipment_data == {'slot1': {'id': 'rifle', 'ammo': 5}}
+
+def test_to_dict(template):
+    """Test to_dict returns correct dictionary."""
+    d = template.to_dict()
+    assert d['name'] == 'Alpha'
+    assert d['equipment_data'] == {'slot1': {'id': 'rifle', 'ammo': 5}}
+
+def test_from_dict():
+    """Test from_dict creates a template with correct attributes."""
+    data = {
+        'name': 'Bravo',
+        'equipment_data': {'slot2': {'id': 'pistol', 'ammo': 2}}
+    }
+    t = InventoryTemplate.from_dict(data)
+    assert t.name == 'Bravo'
+    assert t.equipment_data == {'slot2': {'id': 'pistol', 'ammo': 2}}
 
 class DummyItem:
     def __init__(self, item_type='equipment', weight=1, stat_modifiers=None):

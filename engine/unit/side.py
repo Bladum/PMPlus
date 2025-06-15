@@ -1,7 +1,12 @@
 """
-TSide: Represents a faction or side in the game (e.g., player, alien, civilian).
-Purpose: Identifies unit allegiance, affects AI, and determines combat relationships.
-Last update: 2025-06-10
+XCOM Unit Module: side.py
+
+Represents a faction or side in the game (e.g., player, alien, civilian).
+
+Classes:
+    TSide: Identifies unit allegiance and determines combat relationships.
+
+Last updated: 2025-06-14
 """
 
 class TSide:

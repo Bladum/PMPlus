@@ -1,7 +1,12 @@
 """
-ManufacturingProject: Represents an active manufacturing project in progress.
-Purpose: Tracks progress, resources, and completion of manufacturing projects.
-Last update: 2025-06-12
+manufacturing_project.py
+
+Defines the ManufacturingProject class, representing an active manufacturing project in progress. Tracks progress, resources, and completion of manufacturing projects.
+
+Classes:
+    ManufacturingProject: Active manufacturing project tracker.
+
+Last standardized: 2025-06-14
 """
 
 from datetime import datetime, timedelta
@@ -11,7 +16,7 @@ import uuid
 class ManufacturingProject:
     """
     Represents an active manufacturing project being worked on.
-    
+
     Attributes:
         project_id (str): Unique project identifier
         entry_id (str): Reference to TManufactureEntry
@@ -30,12 +35,13 @@ class ManufacturingProject:
     def __init__(self, entry_id, base_id, quantity, build_time_per_item, workshop_capacity=1):
         """
         Initialize a manufacturing project.
-        
+
         Args:
             entry_id (str): Reference to TManufactureEntry
             base_id (str): Base where manufacturing takes place
             quantity (int): Number of items to build
-            build_time_per_item (int): Time to build one item in man-days            workshop_capacity (int): Workshop capacity allocated
+            build_time_per_item (int): Time to build one item in man-days
+            workshop_capacity (int): Workshop capacity allocated
         """
         self.project_id = str(uuid.uuid4())
         self.entry_id = entry_id

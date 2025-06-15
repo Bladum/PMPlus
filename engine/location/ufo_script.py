@@ -1,7 +1,12 @@
 """
-TUfoScript: Defines a scripted trajectory and behavior sequence for UFOs on the world map.
-Purpose: Controls UFO movement, actions, and mission site creation through ordered steps.
-Last update: 2025-06-10
+XCOM Location Module: ufo_script.py
+
+Defines a scripted trajectory and behavior sequence for UFOs on the world map.
+
+Classes:
+    TUfoScript: Controls UFO movement, actions, and mission site creation through ordered steps.
+
+Last updated: 2025-06-14
 """
 
 from engine.globe.region import TRegion

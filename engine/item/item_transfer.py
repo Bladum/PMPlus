@@ -1,7 +1,12 @@
 """
 TItemTransferManager: Manages the transfer of items between inventory slots.
-Purpose: Handles drag-and-drop, compatibility checks, swap logic, and undo/redo history for inventory systems.
-Last update: 2025-06-10
+
+Handles drag-and-drop, compatibility checks, swap logic, and undo/redo history for inventory systems.
+
+Classes:
+    TItemTransferManager: Main class for inventory item transfer management.
+
+Last standardized: 2025-06-14
 """
 
 from typing import Dict, Optional, Any, Callable, Tuple

@@ -1,7 +1,12 @@
 """
-TGuiStorage: Storage screen GUI for base storage management.
-Purpose: Represents the storage management interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_storage.py
+
+Storage Screen GUI for base storage management.
+
+Classes:
+    TGuiStorage: Main storage GUI screen for storage management interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

@@ -1,7 +1,12 @@
 """
-TManufacture: Manages manufacturing projects and their entries.
-Purpose: Handles loading, filtering, and availability checks for manufacturing projects.
-Last update: 2025-06-10
+manufacture.py
+
+Defines the TManufacture class, which manages manufacturing projects and their entries. Handles loading, filtering, and availability checks for manufacturing projects.
+
+Classes:
+    TManufacture: Manufacturing project manager.
+
+Last standardized: 2025-06-14
 """
 
 from .manufacture_entry import TManufactureEntry

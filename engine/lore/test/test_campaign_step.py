@@ -33,3 +33,12 @@ def test_campaign_step_weights_type():
     step = TCampaignStep(2, data)
     assert step.weights == {}
 
+def test_campaign_step_init_with_data():
+    """Test TCampaignStep initializes with provided data."""
+    data = {'qty_min': 2, 'qty_max': 5, 'events': 3, 'weights': {'A': 1}}
+    step = TCampaignStep(2, data)
+    assert step.qty_min == 2
+    assert step.qty_max == 5
+    assert step.events == 3
+    assert step.weights == {'A': 1}
+

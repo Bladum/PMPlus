@@ -1,16 +1,8 @@
 """
-A specialized slot for craft personnel assignments.
+engine/gui/other/slots/unit_slot.py
 
-This class extends the base inventory slot to handle unit assignments to crafts.
-It displays units assigned to craft crew positions and handles drag and drop
-functionality for unit assignment/reassignment between craft and barracks.
-
-Key Features:
-- Displays a unit sprite and basic information
-- Validates unit compatibility with craft positions
-- Handles drag and drop of units between barracks and craft
-- Updates craft stats and capabilities based on assigned crew
-- Provides visual feedback for unit compatibility with positions
+Specialized slot for craft personnel assignments in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 from typing import Optional, Dict
@@ -19,7 +11,6 @@ from PySide6.QtCore import Qt, Signal, QSize
 from PySide6.QtGui import QDrag, QCursor, QMimeData
 from PySide6.QtWidgets import QToolTip
 
-
 from unit.unit import TUnit
 
 
@@ -27,6 +18,7 @@ class TUnitSlot(TInventorySlot):
     """
     Specialized slot for unit assignments to craft crew positions.
     Always contains a single TUnit or None (empty).
+    Inherits from TInventorySlot.
     """
 
     # Signal emitted when craft capabilities change due to crew changes
@@ -45,7 +37,21 @@ class TUnitSlot(TInventorySlot):
         hover_color="#3399ff",
         locked=False
     ):
-        """Initialize craft unit slot with custom properties."""
+        """
+        Initialize craft unit slot with custom properties.
+
+        Args:
+            parent: Parent widget.
+            position_type: Type of crew position (e.g., pilot).
+            position_name: Name of the position.
+            size: Size of the slot in pixels.
+            border_width: Border width in pixels.
+            accept_types: List of accepted unit types.
+            bg_color: Background color.
+            border_color: Border color.
+            hover_color: Hover color.
+            locked: If True, slot is locked.
+        """
         super().__init__(
             parent=parent,
             slot_type=position_type,

@@ -1,7 +1,21 @@
+"""
+TWorldPoint: Represents a position on the world map (tile coordinates).
+Provides utility methods for position handling.
+
+Classes:
+    TWorldPoint: Utility class for world map positions.
+
+Last standardized: 2024-06-11
+"""
+
 class TWorldPoint:
     """
     Represents a position on the world map (tile coordinates).
     Provides utility methods for position handling.
+
+    Attributes:
+        x (int): X coordinate.
+        y (int): Y coordinate.
     """
     def __init__(self, x, y):
         self.x = int(x)
@@ -9,7 +23,7 @@ class TWorldPoint:
 
     @classmethod
     def from_tuple(cls, tuple_pos):
-        """Create a WorldPoint from a tuple (x, y)"""
+        """Create a TWorldPoint from a tuple (x, y)."""
         return cls(tuple_pos[0], tuple_pos[1])
 
     @classmethod
@@ -19,14 +33,16 @@ class TWorldPoint:
         return cls(x, y)
 
     def to_tuple(self):
+        """Return the point as a tuple (x, y)."""
         return (self.x, self.y)
 
     def distance_to(self, other):
+        """Calculate Euclidean distance to another TWorldPoint."""
         import math
         return math.hypot(self.x - other.x, self.y - other.y)
 
     def manhattan_distance(self, other):
-        """Calculate Manhattan distance between two points"""
+        """Calculate Manhattan distance between two points."""
         return abs(self.x - other.x) + abs(self.y - other.y)
 
     def __eq__(self, other):
@@ -36,26 +52,26 @@ class TWorldPoint:
         return hash((self.x, self.y))
 
     def __repr__(self):
-        return f"WorldPoint({self.x}, {self.y})"
+        return f"TWorldPoint({self.x}, {self.y})"
 
     def __add__(self, other):
-        """Add two points together"""
+        """Add two points together."""
         return TWorldPoint(self.x + other.x, self.y + other.y)
 
     def __sub__(self, other):
-        """Subtract one point from another"""
+        """Subtract one point from another."""
         return TWorldPoint(self.x - other.x, self.y - other.y)
 
     def scale(self, factor):
-        """Scale the point by a factor"""
+        """Scale the point by a factor."""
         return TWorldPoint(self.x * factor, self.y * factor)
 
     def is_within_bounds(self, width, height):
-        """Check if the point is within map boundaries"""
+        """Check if the point is within map boundaries."""
         return 0 <= self.x < width and 0 <= self.y < height
 
     def midpoint(self, other):
-        """Find the midpoint between this point and another"""
+        """Find the midpoint between this point and another."""
         return TWorldPoint((self.x + other.x) // 2, (self.y + other.y) // 2)
 
     def get_adjacent_points(self):

@@ -1,18 +1,8 @@
 """
-A comprehensive widget for managing base storage inventory.
+engine/gui/other/widget/base_inventory_widget.py
 
-This class provides a unified inventory view for all items stored at a base,
-with specialized filtering and organization for different item types (both
-unit equipment and craft components). It serves as the central hub for
-inventory management across multiple base screens.
-
-Key Features:
-- Advanced category and subcategory filtering
-- Unified view for unit equipment and craft components
-- Item count and weight tracking
-- Search functionality by name and properties
-- Support for item transfers between different inventories
-- Consistent styling across the application
+Comprehensive widget for managing base storage inventory in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 from typing import Dict, List, Any, Optional, Callable, Union, Tuple
@@ -23,7 +13,6 @@ from PySide6.QtWidgets import (
     QLabel, QPushButton, QLineEdit, QAbstractItemView, QGroupBox, QScrollArea,
     QCheckBox, QSpinBox
 )
-
 from gui.theme_manager import XcomStyle, px
 from item.item import TItem
 from item.item_type import TItemType
@@ -32,8 +21,8 @@ from item.item_type import TItemType
 class TBaseInventoryWidget(QWidget):
     """
     Widget for displaying and managing a base's complete inventory.
-    This is a more advanced version of TInventoryWidget with specialized
-    filtering for both unit equipment and craft components.
+    Advanced version of TInventoryWidget with specialized filtering for both unit equipment and craft components.
+    Inherits from QWidget.
     """
 
     # Signal emitted when an item is dragged out
@@ -50,8 +39,8 @@ class TBaseInventoryWidget(QWidget):
         Initialize the base inventory widget with advanced filtering capabilities.
 
         Args:
-            parent: Parent widget
-            title: Title for the group box
+            parent: Parent widget.
+            title: Title for the group box.
         """
         super().__init__(parent)
 

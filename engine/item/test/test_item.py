@@ -1,19 +1,37 @@
+"""
+Test suite for engine.item.item (TItem)
+Covers initialization and attribute defaults using pytest.
+"""
 import pytest
 from engine.item.item import TItem
 from unittest.mock import MagicMock, patch
 
 class DummyItemType:
-    def __init__(self):
-        self.name = 'TestItem'
-        self.sprite = 'test_sprite.png'
-        self.weight = 5
-        self.pid = 'test_itemtype'
-        self.category = 1
+    name = 'Medkit'
+    sprite = 'medkit_icon.png'
+    weight = 2
 
 class DummyGame:
+    class Mod:
+        def __init__(self):
+            self.items = {'medkit': DummyItemType()}
     def __init__(self):
-        self.mod = MagicMock()
-        self.mod.items = {'test_itemtype': DummyItemType()}
+        self.mod = self.Mod()
+
+@pytest.fixture
+def item(monkeypatch):
+    import engine.item.item as item_mod
+    monkeypatch.setattr(item_mod, 'TGame', DummyGame)
+    return TItem('medkit')
+
+def test_init_defaults(item):
+    """Test initialization and attribute values from item type."""
+    assert item.name == 'Medkit'
+    assert item.sprite == 'medkit_icon.png'
+    assert item.weight == 2
+    assert hasattr(item, 'id')
+    assert hasattr(item, 'item_type')
+    assert hasattr(item, 'game')
 
 @patch('engine.item.item.TGame', new=DummyGame)
 def test_item_init():

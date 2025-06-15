@@ -1,7 +1,12 @@
 """
-TGuiLab: Laboratory screen GUI for science/research.
-Purpose: Represents the science/research interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_lab.py
+
+Laboratory Screen GUI for science and research management.
+
+Classes:
+    TGuiLab: Main laboratory GUI screen for science/research interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

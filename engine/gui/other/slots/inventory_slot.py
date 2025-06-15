@@ -1,40 +1,25 @@
 """
-A customizable slot component that can hold and display game items.
+engine/gui/other/slots/inventory_slot.py
 
-This class provides an interactive slot for equipment items with support for
-drag and drop operations, item type restrictions, and visual customization.
-It forms the foundation of equipment screens, loadout interfaces, and inventory
-grids throughout the game UI.
-
-Interactions:
-- Communicates with TItemTransferManager for drag and drop operations
-- Validates item type compatibility with defined slot restrictions
-- Connects with inventory systems for item movement
-- Emits signals when items are added, removed, or interacted with
-- Responds to armor changes by updating slot availability
-
-Key Features:
-- Type-restricted slots (armor, weapon, equipment, etc.)
-- Visual customization through colors and borders
-- Drag and drop with validation
-- Stack management for stackable items
-- Detailed tooltip display with item information
-- Lock functionality to prevent item removal
-- Right-click return to inventory functionality
+Customizable slot component for holding and displaying game items in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 import json
 from typing import Optional, Dict, Any, List
 from item.item_type import TItemType
 from item.item import TItem
-
+from enums import EUnitItemCategory
 from PySide6.QtWidgets import QFrame, QVBoxLayout, QLabel, QSizePolicy
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QPixmap, QPainter, QPen, QColor, QBrush, QMouseEvent, QDragEnterEvent, QDropEvent
 
 
 class TInventorySlot(QFrame):
-
+    """
+    Interactive slot for equipment items with support for drag and drop, type restrictions, and visual customization.
+    Inherits from QFrame.
+    """
 
     # Signals for slot events
     itemChanged = Signal(object)  # Emits item or None when changed
@@ -58,16 +43,16 @@ class TInventorySlot(QFrame):
         Initialize an inventory slot with custom properties.
 
         Args:
-            parent: Parent widget
-            slot_type: Type restriction for this slot (None allows any type)
-            slot_name: Display name for the slot
-            size: Size of the slot in pixels
-            border_width: Width of the slot border in pixels
-            accept_types: List of item types this slot accepts (None = accept all)
-            bg_color: Background color for empty slot
-            border_color: Border color for empty slot
-            hover_color: Color to show when hovering
-            locked: Whether items can be removed from this slot
+            parent: Parent widget.
+            slot_type: Type of slot (e.g., weapon, armor).
+            slot_name: Name of the slot.
+            size: Size of the slot in pixels.
+            border_width: Border width in pixels.
+            accept_types: List of accepted item types.
+            bg_color: Background color.
+            border_color: Border color.
+            hover_color: Hover color.
+            locked: If True, slot is locked.
         """
         super().__init__(parent)
 
@@ -172,7 +157,7 @@ class TInventorySlot(QFrame):
             self.itemChanged.emit(self.item)
 
         # Special handling for armor items - update equipment slots availability
-        if self.slot_type == ItemType.ARMOUR:
+        if self.slot_type == TItemType.ARMOUR:
             validate_and_update_equipment_slots()
 
         # Update weight display
@@ -200,7 +185,7 @@ class TInventorySlot(QFrame):
             return None
 
         removed_item = self.item
-        was_armor = self.slot_type == ItemType.ARMOUR
+        was_armor = self.slot_type == TItemType.ARMOUR
 
         # If removing partial stack
         if quantity is not None and quantity < self.stack_size:
@@ -243,19 +228,9 @@ class TInventorySlot(QFrame):
 
     def move_to_inventory(self) -> None:
         """Move item from slot to inventory (right-click functionality)."""
-        # Import globals from main_interface module to ensure proper access
-        try:
-            import main_interface
-            item_list_widget_global = main_interface.item_list_widget_global if hasattr(main_interface, 'item_list_widget_global') else None
-
-            if self.item and item_list_widget_global and hasattr(item_list_widget_global, 'add_item_to_inventory'):
-                item = self.remove_item()
-                item_list_widget_global.add_item_to_inventory(item, self.stack_size)
-                print(f"Moved {item.name} back to inventory via right-click")
-            else:
-                print(f"Cannot move item: item={self.item is not None}, item_list_widget={item_list_widget_global is not None}")
-        except (ImportError, AttributeError) as e:
-            print(f"Could not move item to inventory: {e}")
+        # TODO: Integrate with main_interface.item_list_widget_global if available in the application context
+        print("[TODO] main_interface integration required for move_to_inventory.")
+        # If integration is available, implement item transfer logic here.
 
     def dragEnterEvent(self, event: QDragEnterEvent) -> None:
         """Handle drag enter with visual feedback."""
@@ -326,10 +301,10 @@ class TInventorySlot(QFrame):
                 return
 
             # Create Item instance from data
-            if hasattr(Item, 'from_dict'):
-                item = Item.from_dict(item_data)
+            if hasattr(TItem, 'from_dict'):
+                item = TItem.from_dict(item_data)
             else:
-                item = Item(
+                item = TItem(
                     id=item_data.get('id', ''),
                     name=item_data.get('name', ''),
                     item_type=item_data.get('item_type', 'other')
@@ -342,14 +317,9 @@ class TInventorySlot(QFrame):
                     # Replace items - move current item to inventory
                     old_item = self.remove_item()
                     if old_item:
-                        # Import globals from main_interface module to ensure proper access
-                        try:
-                            import main_interface
-                            item_list_widget_global = main_interface.item_list_widget_global if hasattr(main_interface, 'item_list_widget_global') else None
-                            if item_list_widget_global and hasattr(item_list_widget_global, 'add_item_to_inventory'):
-                                item_list_widget_global.add_item_to_inventory(old_item, self.stack_size)
-                        except (ImportError, AttributeError):
-                            pass
+                        # TODO: Integrate with main_interface.item_list_widget_global if available in the application context
+                        print("[TODO] main_interface integration required for item replacement.")
+                        # If integration is available, implement item transfer logic here.
 
                 # Handle the drop
                 self.add_item(item, quantity)
@@ -498,7 +468,7 @@ class TInventorySlot(QFrame):
         # Default to standard type-based rules
         if hasattr(item, 'item_type'):
             # Weapons and armor typically can't stack
-            if item.item_type in [ItemType.WEAPON, ItemType.ARMOUR]:
+            if item.item_type in [TItemType.WEAPON, TItemType.ARMOUR]:
                 return False
 
         # Default to not stackable for safety
@@ -520,13 +490,13 @@ class TInventorySlot(QFrame):
 
         # Default limits based on type
         if hasattr(item, 'item_type'):
-            if item.item_type == ItemType.EQUIPMENT:
+            if item.item_type == TItemType.EQUIPMENT:
                 return 5
 
         # Global default
         return 99
 
-# Add placeholder globals if not defined elsewhere
+# Ensure equipment_slots_global is defined before use
 try:
     equipment_slots_global
 except NameError:

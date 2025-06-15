@@ -1,7 +1,12 @@
 """
-TTrait: Represents a trait of a unit, modifying stats and abilities.
-Purpose: Base class for all unit traits (promotions, wounds, effects, etc.).
-Last update: 2025-06-10
+XCOM Unit Module: trait.py
+
+Represents a trait of a unit, modifying stats and abilities.
+
+Classes:
+    TTrait: Base class for all unit traits (promotions, wounds, effects, etc.).
+
+Last updated: 2025-06-14
 """
 
 from unit.unit_stat import TUnitStats
@@ -26,9 +31,11 @@ class TTrait:
     def __init__(self, pid, data):
         """
         Initialize a TTrait instance.
+
         Args:
             pid (str): Unique identifier for the trait.
             data (dict): Dictionary containing trait attributes and stat modifications.
+
         Attributes:
             id (str): Trait ID.
             name (str): Display name.

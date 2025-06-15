@@ -1,16 +1,8 @@
 """
-A widget for managing and displaying a list of units with filtering capabilities.
+engine/gui/other/widget/unit_list_widget.py
 
-This class provides a reusable component for unit selection and management across
-different game screens. It handles unit filtering, selection, and displays unit
-information in a organized list with customizable presentation.
-
-Key Features:
-- Unit category filtering via dropdown
-- Sorted unit display with icons and stats
-- Selection and unit information display
-- Search functionality for large unit lists
-- Consistent styling across the application
+Widget for managing and displaying a list of units with filtering capabilities in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 from typing import Dict, List, Any, Optional, Callable
@@ -26,7 +18,10 @@ from unit.unit import TUnit
 
 
 class TUnitListWidget(QWidget):
-    """Widget for displaying and managing a list of units."""
+    """
+    Widget for displaying and managing a list of units.
+    Inherits from QWidget.
+    """
 
     # Signal emitted when a unit is selected
     unitSelected = Signal(TUnit)
@@ -39,8 +34,8 @@ class TUnitListWidget(QWidget):
         Initialize the unit list widget with filter and search capabilities.
 
         Args:
-            parent: Parent widget
-            title: Title for the group box
+            parent: Parent widget.
+            title: Title for the group box.
         """
         super().__init__(parent)
 

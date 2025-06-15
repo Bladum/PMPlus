@@ -1,3 +1,11 @@
+"""
+Test entry point for XCOM/AlienFall engine systems.
+
+Provides a sample main script for initializing the game, loading mods, and rendering the world map using PySide6.
+
+Last standardized: 2025-06-14
+"""
+
 from pathlib import Path
 import sys
 

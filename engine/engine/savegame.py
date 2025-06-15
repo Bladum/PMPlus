@@ -1,3 +1,14 @@
+"""
+engine/engine/savegame.py
+
+Defines the TSaveGame class, which handles serialization, saving, and loading of game state.
+
+Classes:
+    TSaveGame: Handles saving and loading game state.
+
+Last standardized: 2025-06-15
+"""
+
 import logging
 
 class TSaveGame:
@@ -6,17 +17,13 @@ class TSaveGame:
     Manages serialization of all game objects and state.
 
     Attributes:
-    - save_path: Path to the save file.
-    - last_saved: Timestamp of the last save.
-
-    Methods to be implemented:
-    - save(game_state): Save the current game state to disk.
-    - load(path): Load a game state from disk.
-    - get_save_metadata(): Return metadata about the save file.
+        save_path (str): Path to the save file.
+        last_saved (datetime): Timestamp of the last save.
     """
     def __init__(self, save_path=None):
         """
         Initialize the save game manager.
+
         Args:
             save_path (str, optional): Path to the save file.
         """
@@ -27,6 +34,7 @@ class TSaveGame:
     def save(self, game_state):
         """
         Save the current game state to disk.
+
         Args:
             game_state (object): The game state to serialize and save.
         """
@@ -37,6 +45,7 @@ class TSaveGame:
     def load(self, path):
         """
         Load a game state from disk.
+
         Args:
             path (str): Path to the save file.
         """
@@ -47,6 +56,7 @@ class TSaveGame:
     def get_save_metadata(self):
         """
         Return metadata about the save file (e.g., last saved time, version).
+
         Returns:
             dict: Metadata about the save file.
         """

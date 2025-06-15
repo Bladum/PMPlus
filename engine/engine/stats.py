@@ -1,3 +1,14 @@
+"""
+engine/engine/stats.py
+
+Defines the TStatistics class, which tracks player performance metrics, kills, mission results, and achievements for campaign analytics.
+
+Classes:
+    TStatistics: Tracks player performance metrics across the campaign.
+
+Last standardized: 2025-06-15
+"""
+
 import logging
 
 class TStatistics:
@@ -7,20 +18,14 @@ class TStatistics:
     Provides data for end-game scoring and monthly reports.
 
     Attributes:
-    - kills: Total number of kills by player units.
-    - missions_completed: Number of missions successfully completed.
-    - missions_failed: Number of missions failed.
-    - achievements: List or dict of unlocked achievements.
-
-    Methods to be implemented:
-    - record_kill(unit): Record a kill by a unit.
-    - record_mission_result(success): Record the result of a mission.
-    - add_achievement(achievement): Add a new achievement.
-    - get_summary(): Return a summary of statistics.
+        kills (int): Total number of kills by player units.
+        missions_completed (int): Number of missions successfully completed.
+        missions_failed (int): Number of missions failed.
+        achievements (list): List or dict of unlocked achievements.
     """
     def __init__(self):
         """
-        Initialize the statistics tracker.
+        Initialize the statistics tracker with zeroed stats and empty achievements list.
         """
         self.kills = 0
         self.missions_completed = 0
@@ -31,6 +36,7 @@ class TStatistics:
     def record_kill(self, unit):
         """
         Record a kill by a unit.
+
         Args:
             unit (object): The unit that made the kill.
         """
@@ -42,6 +48,7 @@ class TStatistics:
     def record_mission_result(self, success):
         """
         Record the result of a mission.
+
         Args:
             success (bool): True if mission was successful, False otherwise.
         """
@@ -57,6 +64,7 @@ class TStatistics:
     def add_achievement(self, achievement):
         """
         Add a new achievement.
+
         Args:
             achievement (str): The achievement to add.
         """
@@ -68,6 +76,7 @@ class TStatistics:
     def get_summary(self):
         """
         Return a summary of statistics.
+
         Returns:
             dict: Summary of key statistics.
         """

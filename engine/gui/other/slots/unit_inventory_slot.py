@@ -1,15 +1,8 @@
 """
-A specialized inventory slot for unit equipment items.
+engine/gui/other/slots/unit_inventory_slot.py
 
-This class extends the base inventory slot with unit-specific functionality.
-It handles equipping and unequipping items on soldiers/units, including
-validation of item compatibility with unit stats and traits.
-
-Key Features:
-- Unit-specific item validation
-- Updates unit stats when equipment changes
-- Handles specialized equipment types (weapons, armor, etc.)
-- Visual feedback for unit compatibility
+Specialized inventory slot for unit equipment items in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 from typing import Optional, Dict
@@ -23,6 +16,7 @@ from gui.other.slots.inventory_slot import TInventorySlot
 class TUnitInventorySlot(TInventorySlot):
     """
     Specialized inventory slot for unit equipment with unit-specific functionality.
+    Inherits from TInventorySlot.
     """
 
     # Signal emitted when unit's stats change due to equipment
@@ -41,7 +35,21 @@ class TUnitInventorySlot(TInventorySlot):
         hover_color="#3399ff",
         locked=False
     ):
-        """Initialize unit inventory slot with custom properties."""
+        """
+        Initialize unit inventory slot with custom properties.
+
+        Args:
+            parent: Parent widget.
+            slot_type: Type of slot (e.g., weapon, armor).
+            slot_name: Name of the slot.
+            size: Size of the slot in pixels.
+            border_width: Border width in pixels.
+            accept_types: List of accepted item types.
+            bg_color: Background color.
+            border_color: Border color.
+            hover_color: Hover color.
+            locked: If True, slot is locked.
+        """
         super().__init__(
             parent=parent,
             slot_type=slot_type,

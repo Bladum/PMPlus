@@ -1,7 +1,12 @@
 """
-TGuiArchive: Archive screen GUI for research and records.
-Purpose: Represents the archive/research interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_archive.py
+
+Archive Screen GUI for research and records management.
+
+Classes:
+    TGuiArchive: Main archive GUI screen for research/records interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

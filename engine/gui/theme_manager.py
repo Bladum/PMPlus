@@ -1,34 +1,15 @@
 """
-XCOM Theme Manager
+XCOM GUI Module: theme_manager.py
 
-A centralized system for managing application-wide theming, styling, and visual consistency.
-Provides dynamic theme management, theme switching capabilities, and centralized styling application.
+Centralized system for managing application-wide theming, styling, and visual consistency.
 
-Key Features:
-- Theme switching (default XCOM dark theme and potential custom themes)
-- Global styling application for the entire application
-- Consistent styling for all widget types
-- Fluid scaling across different display resolutions
-- Centralized access to all theme constants and styling methods
+Classes/Functions:
+    theme_manager: Singleton for theme management.
+    px: Utility for scaling pixel values.
+    XcomTheme: Theme constants and color definitions.
+    XcomStyle: Stylesheet and widget style management.
 
-Usage:
-    # Get the singleton theme manager instance
-    from engine.gui.theme_manager import theme_manager
-
-    # Apply the theme to your application
-    app = QApplication(sys.argv)
-    theme_manager.apply_theme(app)
-
-    # Get stylesheets for specific widgets
-    my_button.setStyleSheet(theme_manager.get_style("pushbutton"))
-    my_combo.setStyleSheet(theme_manager.get_style("combobox"))
-
-    # Or use the automatic widget styling
-    theme_manager.apply_widget_theme(my_button)
-
-Dependencies:
-- PySide6.QtCore: Core Qt functionality
-- PySide6.QtGui: GUI components and font management
+Last updated: 2025-06-14
 """
 
 import sys
@@ -37,7 +18,6 @@ import os.path
 from enums import Enum, auto
 from functools import lru_cache
 from typing import Dict, Any, Optional, List, Tuple, Union, Callable
-
 from PySide6.QtCore import Qt, QObject, Signal
 from PySide6.QtGui import QFont, QPalette, QColor
 from PySide6.QtWidgets import QApplication, QWidget

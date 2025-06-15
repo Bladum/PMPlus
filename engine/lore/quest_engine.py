@@ -1,7 +1,12 @@
 """
-TQuestEngine: Quest management engine.
-Purpose: Manages quests in the game, including progress, completion, and unlock logic.
-Last update: 2025-06-10
+quest_engine.py
+
+Defines the TQuestEngine class, which manages quests in the game, including progress, completion, and unlock logic. Used to track and update quest status throughout the game.
+
+Classes:
+    TQuestEngine: Quest management engine.
+
+Last standardized: 2025-06-14
 """
 
 class TQuestEngine:

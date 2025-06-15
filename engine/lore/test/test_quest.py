@@ -34,3 +34,30 @@ def test_quest_repr():
     s = repr(quest)
     assert 'TQuest' in s
 
+def test_quest_init_defaults():
+    """Test TQuest initializes with default values."""
+    q = TQuest('Q1', {})
+    assert q.key == 'Q1'
+    assert q.name == ''
+    assert q.description == ''
+    assert q.pedia == ''
+    assert q.value == 0
+    assert q.quests_needed == []
+    assert q.tech_needed == []
+    assert q.completed is False
+
+
+def test_quest_can_be_completed():
+    """Test can_be_completed returns True only if all requirements are met."""
+    q = TQuest('Q2', {'quests_needed': ['A', 'B'], 'tech_needed': ['T']})
+    assert not q.can_be_completed({'A'}, {'T'})
+    assert not q.can_be_completed({'A', 'B'}, set())
+    assert q.can_be_completed({'A', 'B'}, {'T'})
+
+
+def test_quest_complete():
+    """Test complete() marks quest as completed."""
+    q = TQuest('Q3', {})
+    q.complete()
+    assert q.completed is True
+

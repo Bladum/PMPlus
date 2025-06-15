@@ -1,16 +1,8 @@
 """
-A widget for managing and displaying a list of crafts with filtering capabilities.
+engine/gui/other/widget/craft_list_widget.py
 
-This class provides a reusable component for craft selection and management across
-different game screens. It handles craft filtering, selection, and displays craft
-information in a organized list with customizable presentation.
-
-Key Features:
-- Craft type filtering via dropdown
-- Sorted craft display with icons and stats
-- Selection and craft information display
-- Search functionality for large craft lists
-- Consistent styling across the application
+Widget for managing and displaying a list of crafts with filtering capabilities in the XCOM GUI.
+Standardized: All docstrings and comments follow the unified documentation style (2025-06-14).
 """
 
 from typing import Dict, List, Any, Optional, Callable
@@ -26,7 +18,10 @@ from craft.craft import TCraft
 
 
 class TCraftListWidget(QWidget):
-    """Widget for displaying and managing a list of crafts."""
+    """
+    Widget for displaying and managing a list of crafts.
+    Inherits from QWidget.
+    """
 
     # Signal emitted when a craft is selected
     craftSelected = Signal(TCraft)
@@ -39,8 +34,8 @@ class TCraftListWidget(QWidget):
         Initialize the craft list widget with filter and search capabilities.
 
         Args:
-            parent: Parent widget
-            title: Title for the group box
+            parent: Parent widget.
+            title: Title for the group box.
         """
         super().__init__(parent)
 

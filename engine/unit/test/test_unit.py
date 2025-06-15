@@ -1,4 +1,9 @@
+"""
+Test suite for engine.unit.unit (TUnit)
+Covers initialization and attribute defaults using pytest.
+"""
 import pytest
+from engine.unit.unit import TUnit
 from unittest.mock import MagicMock
 from unit.unit import TUnit
 from unit.unit_type import TUnitType
@@ -61,4 +66,28 @@ class TestTUnit:
         stats = unit.calculate_stats()
         assert isinstance(stats, TUnitStats)
         assert stats.health == 11
+
+class DummyUnitType:
+    pass
+
+@pytest.fixture
+def unit():
+    return TUnit(DummyUnitType(), side_id=1)
+
+def test_init_defaults(unit):
+    """Test initialization and attribute presence."""
+    assert hasattr(unit, 'unit_type')
+    assert hasattr(unit, 'side_id')
+    assert hasattr(unit, 'name')
+    assert hasattr(unit, 'stats')
+    assert hasattr(unit, 'traits')
+    assert hasattr(unit, 'inventory_manager')
+    assert hasattr(unit, 'alive')
+    assert hasattr(unit, 'dead')
+    assert hasattr(unit, 'mind_controlled')
+    assert hasattr(unit, 'panicked')
+    assert hasattr(unit, 'crazy')
+    assert hasattr(unit, 'stunned')
+    assert hasattr(unit, 'kneeling')
+    assert hasattr(unit, 'running')
 

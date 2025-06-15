@@ -1,8 +1,62 @@
+"""
+craft_type.py
+
+Defines the TCraftType class, which represents the blueprint for all craft types in the XCOM game. Encapsulates all static data and configuration for a craft, including stats, capabilities, costs, and special features.
+
+Classes:
+    TCraftType: Craft type blueprint and configuration.
+
+Last standardized: 2025-06-14
+"""
+
 class TCraftType:
     """
-    Represents a type of craft used by XCOM with basic stats
+    Represents a type of craft used by XCOM with all relevant stats and configuration.
+
+    Attributes:
+        pid (str): Unique identifier for the craft type.
+        name (str): Display name of the craft.
+        description (str): Description for UI or pedia.
+        pedia (str): Pedia entry or reference.
+        map_block (str): Map block reference for deployment.
+        purchase_tech (Any): Technology required to purchase.
+        sell_cost (int): Cost to sell the craft.
+        upkeep_cost (int): Monthly maintenance cost.
+        score_lost (int): Score lost if the craft is destroyed.
+        can_land (bool): Whether the craft can land.
+        is_underwater (bool): Whether the craft can operate underwater.
+        is_spaceship (bool): Whether the craft is a spaceship.
+        is_underground (bool): Whether the craft can go underground.
+        pilots (int): Number of pilots required.
+        shield (int): Shield points.
+        shield_regen (int): Shield regeneration per turn.
+        health (int): Maximum health points.
+        range (int): Maximum fuel/range.
+        speed (int): Speed on world map.
+        acceleration (int): Speed during dogfight.
+        hit_bonus (int): Bonus to hit chance in combat.
+        avoid_bonus (int): Bonus to evasion in combat.
+        damage_bonus (int): Bonus to weapon damage.
+        fuel_use (int): Fuel used per tile moved.
+        fuel_cost (int): Cost to refuel.
+        fuel_item (Any): Item used for refueling.
+        repair_cost (int): Cost to repair per HP.
+        repair_item (dict): Items used for repair.
+        items (list): Cargo item capacity [small, large].
+        units (int): Number of units (crew) capacity.
+        large_units (int): Number of large units (2x2) capacity.
+        radar_range (int): Radar detection range.
+        radar_power (int): Radar detection power.
+        stealth (int): Stealth rating.
     """
     def __init__(self, pid, data):
+        """
+        Initialize a new TCraftType instance.
+
+        Args:
+            pid (str): Unique identifier for the craft type.
+            data (dict): Dictionary of all craft parameters.
+        """
         self.pid = pid
 
         self.name = data.get('name', pid)

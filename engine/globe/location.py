@@ -1,6 +1,12 @@
 """
-TLocation: Represents a single location on the world map (base, city, crash site, etc.).
-Last update: 2025-06-10
+location.py
+
+Defines the TLocation class, representing a single location on the world map (base, city, crash site, etc.). Handles radar detection, visibility, and cover mechanics for world map locations.
+
+Classes:
+    TLocation: World map location entity.
+
+Last standardized: 2025-06-14
 """
 
 from engine.globe.world_point import TWorldPoint
@@ -26,29 +32,19 @@ class TLocation:
 
         Args:
             pid (str|int): Unique location identifier.
-            data (dict, optional): Dictionary with location properties. Keys:
-                - name (str)
-                - description (str)
-                - position (tuple)
-                - initial_cover (int)
-                - cover (int)
-                - cover_change (int)
+            data (dict, optional): Dictionary with location properties.
         """
         if data is None:
             data = {}
-        # Required fields
         self.pid = pid
-
         self.name = data.get("name", "")
         self.description = data.get("description", "")
-        pos = data.get("position", (0, 0))  # Default position (0, 0) if not provided
+        pos = data.get("position", (0, 0))
         self.position = TWorldPoint.from_tuple(pos)
-
-        # Radar detection fields
-        self.initial_cover = data.get("initial_cover", 0)  # max cover value
-        self.cover = data.get("cover", self.initial_cover)  # current cover
-        self.cover_change = data.get("cover_change", 0)  # how much cover recovers per turn
-        self.visible = False  # is visible to player
+        self.initial_cover = data.get("initial_cover", 0)
+        self.cover = data.get("cover", self.initial_cover)
+        self.cover_change = data.get("cover_change", 0)
+        self.visible = False
 
     def update_visibility(self):
         """
@@ -58,11 +54,9 @@ class TLocation:
 
     def replenish_cover(self):
         """
-        Replenish the cover value up to the initial maximum, then update visibility.
+        Replenish the cover value for the location by cover_change amount.
         """
-        if self.cover < self.initial_cover:
-            self.cover = min(self.initial_cover, self.cover + self.cover_change)
-        self.update_visibility()
+        self.cover = min(self.initial_cover, self.cover + self.cover_change)
 
     def get_position(self):
         """
@@ -73,8 +67,10 @@ class TLocation:
     def distance_to(self, other):
         """
         Returns the Euclidean distance to another TLocation, TWorldPoint, or (x, y) tuple.
+
         Args:
             other: TLocation, TWorldPoint, or (x, y) tuple.
+
         Returns:
             float: Euclidean distance.
         """

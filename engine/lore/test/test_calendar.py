@@ -37,3 +37,24 @@ def test_generate_monthly_campaigns_empty():
     result = cal.generate_monthly_campaigns(1, lambda t: True, [], [], DummyWorldMap())
     assert result == []
 
+def test_calendar_init_defaults():
+    """Test TCalendar initializes with default values."""
+    cal = TCalendar()
+    assert cal.year == 2000
+    assert cal.month == 1
+    assert cal.day == 1
+    assert cal.total_days == 0
+    assert isinstance(cal.campaign_months, dict)
+
+
+def test_calendar_init_with_data():
+    """Test TCalendar parses campaign month data correctly."""
+    data = {"m01": {"qty_min": 1, "qty_max": 2, "events": 3, "weights": {"A": 1}}}
+    cal = TCalendar(data)
+    assert 1 in cal.campaign_months
+    step = cal.campaign_months[1]
+    assert hasattr(step, 'qty_min')
+    assert hasattr(step, 'qty_max')
+    assert hasattr(step, 'events')
+    assert hasattr(step, 'weights')
+

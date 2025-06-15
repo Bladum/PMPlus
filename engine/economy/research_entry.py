@@ -1,27 +1,18 @@
 """
-TResearchEntry: Represents a single research entry.
-Purpose: Stores all data and requirements for a research project.
-Last update: 2025-06-10
+engine/economy/research_entry.py
+
+Defines the TResearchEntry class, which serves as a template for research projects, storing all data and requirements for a research project.
+
+Classes:
+    TResearchEntry: Represents a single research entry.
+
+Last standardized: 2025-06-15
 """
 
 class TResearchEntry:
     '''
     Represents a research entry (project) that can be researched.
-    Attributes:
-        pid (str): Research entry ID.
-        name (str): Name of the research.
-        cost (int): Research cost.
-        score (int): Score given on completion.
-        tech_needed (list): Technologies required to research.
-        items_needed (dict): Items required to research.
-        services_needed (list): Services required to research.
-        event_spawn (any): Event triggered on completion.
-        item_spawn (dict): Items spawned on completion.
-        tech_disable (list): Techs disabled on completion.
-        tech_give (list): Techs given on completion.
-        tech_unlock (list): Techs unlocked on completion.
-        pedia (any): Pedia entry for research.
-        complete_game (bool): If true, completes the game.
+    See module docstring for attribute details.
     '''
     def __init__(self, pid, data=None):
         '''

@@ -1,43 +1,88 @@
 # Unit Module
 
-This folder contains classes for unit representation, stats, traits, inventory, and related logic in the game.
+This document is the authoritative design and architecture reference for the XCOM/AlienFall unit systems. It is intended for validation by AI agents and developers to ensure all planned features and classes are implemented as designed. All subsystem documentation is consolidated here.
 
-## Classes
-
-### TRace
-Represents a race (type of unit) and its basic stats, abilities, and AI behavior.
-- **Attributes:** pid, name, description, sprite, is_big, is_mechanical, gain_experience, health_regen, sound_death, corpse_image, stats, aggression, intelligence, immune_panic, immune_pain, immune_bleed, can_run, can_kneel, can_sneak, can_surrender, can_capture, spawn_on_death, avoids_fire, spotter, sniper, sell_cost, female_frequency, level_max, level_train, level_start
-- **Methods:** __init__
-
-### TSide
-Represents a faction or side in the game (e.g., player, alien, civilian).
-- **Attributes:** XCOM, ALIEN, CIVILIAN, ALLIED
-
-### TTrait
-Base class for all unit traits (promotions, wounds, effects, etc.), modifying stats and abilities.
-- **Attributes:** id, name, sprite, description, type, stats, cost, items_needed, races, min_level, max_level, services_needed, tech_needed, recovery_time, transfer_time, battle_duration, battle_effect, battle_chance_complete, battle_only
-- **Methods:** __init__, get_stat_modifiers
-
-### TUnit
-Represents an individual unit in the game with all its attributes and capabilities. Handles stats, equipment, traits, and status for gameplay.
-- **Attributes:** game, unit_type, side_id, name, nationality, face, female, stats, race, traits, inventory_manager, inventory, position, direction, alive, dead, mind_controlled, panicked, crazy, stunned, kneeling, running
-- **Methods:** __init__, calculate_stats, armour, weapon, equipment
-
-### TUnitInventoryManager
-Unified inventory manager for a single unit. Handles slot logic, stat modification, template save/load, dynamic slot availability, and auto-equip.
-- **Attributes:** unit, equipment_slots, slot_types, available_slots, stat_modifiers, _template, _named_templates
-- **Methods:** __init__, equip_item, unequip_item, get_total_weight, get_available_slots, save_template, load_template, save_named_template, load_named_template, list_templates, clear_all, get_all_items, to_dict, from_dict, auto_equip
-
-### TUnitStats
-Represents a unit's stats and provides methods to manage them during the game.
-- **Attributes:** health, speed, strength, energy, aim, melee, reflex, psi, bravery, sanity, sight, sense, cover, morale, action_points, size, action_points_left, energy_left, hurt, stun, morale_left
-- **Methods:** __init__, receive_damage, receive_stun, restore_health, restore_stun, restore_energy, restore_morale, use_ap, new_game, new_turn, action_rest, get_effective_ap, is_alive, is_conscious, is_panicked, is_crazy, get_sight, get_health_left, get_stun_left, __add__, sum_with, __repr__
-
-### TUnitType
-Represents a type/template of unit with stats, race, traits, and equipment. Used as a template for creating units in the game.
-- **Attributes:** pid, name, race, sprite, rank, traits, armour, primary, secondary, score_dead, score_alive, items_dead, items_alive, ai_ignore, vip, drop_items, drop_armour
-- **Methods:** __init__, create_unit_from_template
+## Table of Contents
+1. [Overview](#overview)
+2. [System Architecture](#system-architecture)
+3. [Class Purposes and Details](#class-purposes-and-details)
+4. [Integration Guide](#integration-guide)
+5. [API Reference](#api-reference)
 
 ---
 
-See also: `wiki/unit.md` for more details on unit mechanics and structure.
+## Overview
+
+The unit module implements the core systems for XCOM/AlienFall units, including unit templates, stats, traits, inventory, and side/faction logic. It provides the logic for all unit-related operations, from stat management to equipment and combat integration.
+
+## System Architecture
+
+```
+Unit Module
+├── TRace (race template for unit creation)
+├── TSide (faction/side definition)
+├── TTrait (base class for unit traits)
+├── TUnit (individual unit entity)
+├── TUnitInventoryManager (unit inventory management)
+├── TUnitStats (unit stats and management)
+├── InventoryTemplate (saved equipment configurations)
+```
+
+---
+
+## Class Purposes and Details
+
+### TRace
+- Represents a race/type of unit and its basic stats, abilities, and AI behavior.
+- Used as a template for unit creation and stat calculation.
+- Defines immunities, abilities, and combat roles for each race.
+
+### TSide
+- Represents a faction or side in the game (e.g., player, alien, civilian).
+- Used to define unit ownership, allegiance, and combat relationships.
+- Provides constants for all major sides in the game.
+
+### TTrait
+- Represents a trait of a unit, modifying stats and abilities.
+- Base class for all specific trait types (promotions, wounds, effects, etc.).
+- Supports stat modifications, requirements, and battle effects.
+
+### TUnit
+- Represents an individual unit in the game with all its attributes and capabilities.
+- Handles stats, equipment, traits, and status for gameplay.
+- Integrates with race, side, trait, and inventory systems.
+
+### TUnitInventoryManager
+- Unified inventory manager for a single unit.
+- Handles slot logic, stat modification, template save/load, dynamic slot availability, and auto-equip.
+- Supports equipment templates for quick loadouts.
+
+### TUnitStats
+- Handles health, energy, morale, action points, and other core stats for units.
+- Provides methods to manage and update stats during the game.
+- Used by all unit, race, and trait classes for stat management.
+
+### InventoryTemplate
+- Container for saved equipment configurations for units.
+- Allows players to save and quickly restore equipment setups for different scenarios or unit types.
+
+---
+
+## Integration Guide
+
+- TRace, TSide, and TTrait are used for unit creation, faction logic, and trait assignment.
+- TUnit is the main entity for all units in the game, integrating with stats, inventory, and traits.
+- TUnitInventoryManager and InventoryTemplate are used for managing and saving unit equipment.
+- TUnitStats is used throughout the module for stat management and updates.
+- All classes are designed for extensibility and integration with other game systems.
+
+---
+
+## API Reference
+
+- See individual class docstrings and method signatures in the respective Python files for detailed API documentation.
+- All classes are designed for use by both AI agents and human developers, with clear separation of templates, entities, and managers.
+
+---
+
+*This README is automatically generated and should be kept in sync with code and documentation changes.*

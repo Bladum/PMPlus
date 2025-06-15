@@ -1,7 +1,12 @@
 """
-TUnitStats: Represents a unit's stats and provides methods to manage them during the game.
-Purpose: Handles health, energy, morale, action points, and other core stats for units.
-Last update: 2025-06-10
+XCOM Unit Module: unit_stat.py
+
+Represents a unit's stats and provides methods to manage them during the game.
+
+Classes:
+    TUnitStats: Handles health, energy, morale, action points, and other core stats for units.
+
+Last updated: 2025-06-14
 """
 
 class TUnitStats:
@@ -13,28 +18,6 @@ class TUnitStats:
         Initialize a TUnitStats instance.
         Args:
             data (dict, optional): Dictionary of stat values. Defaults to None.
-        Attributes:
-            health (int): Max health.
-            speed (int): Speed stat.
-            strength (int): Strength stat.
-            energy (int): Max energy.
-            aim (int): Aim stat.
-            melee (int): Melee stat.
-            reflex (int): Reflex stat.
-            psi (int): Psi stat.
-            bravery (int): Bravery stat.
-            sanity (int): Sanity stat.
-            sight (tuple): (day, night) sight range.
-            sense (tuple): (day, night) sense range.
-            cover (tuple): (day, night) cover value.
-            morale (int): Max morale.
-            action_points (int): Max action points.
-            size (int): Unit size.
-            action_points_left (int): Current action points.
-            energy_left (int): Current energy.
-            hurt (int): Current damage.
-            stun (int): Current stun damage.
-            morale_left (int): Current morale.
         """
         data = data or {}
 

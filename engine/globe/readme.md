@@ -1,56 +1,83 @@
 # Globe Module
 
-This module contains classes representing the world map, its structure, and related entities in the game. Each class is responsible for a specific aspect of the globe, such as biomes, countries, regions, locations, and radar detection.
+This document is the authoritative design and architecture reference for the XCOM/AlienFall globe/world map systems. It is intended for validation by AI agents and developers to ensure all planned features and classes are implemented as designed. All subsystem documentation is consolidated here.
 
-## Class Summaries
+## Table of Contents
+1. [Overview](#overview)
+2. [System Architecture](#system-architecture)
+3. [Class Purposes and Details](#class-purposes-and-details)
+4. [Integration Guide](#integration-guide)
+5. [API Reference](#api-reference)
+
+---
+
+## Overview
+
+The globe module implements the core world map systems for the XCOM/AlienFall game, including biomes, countries, diplomacy, funding, locations, radar, and world map analytics. It provides the logic for all world-level interactions, analytics, and strategic gameplay.
+
+## System Architecture
+
+```
+Globe Module
+├── TBiome (biome type for world map tiles)
+├── TCountry (country entity and funding)
+├── TDiplomacy (diplomacy manager)
+├── TFunding (funding and monthly report manager)
+├── TLocation (world map location entity)
+├── TGlobalRadar (global radar detection manager)
+```
+
+---
+
+## Class Purposes and Details
 
 ### TBiome
-Represents a biome type assigned to each tile on the world map (e.g., forest, desert, ocean). Used to generate battles with specific terrain types.
-- **Attributes:** pid, name, description, image, type, terrains
-- **Methods:** get_random_terrain()
+- Represents a biome type assigned to each tile on the world map (e.g., forest, desert, ocean).
+- Used to generate battles with specific terrain types and for world map analytics.
+- Supports random terrain selection based on biome weights.
 
 ### TCountry
-Represents a country on the world map, manages funding and relations with XCOM. Owns tiles and can join or leave XCOM.
-- **Attributes:** pid, name, description, color, funding, funding_cap, service_provided, service_forbidden, owned_tiles, initial_relation, relation, active
-- **Methods:** monthly_update(), add_tile(), remove_tile(), calculate_owned_tiles()
+- Represents a country on the world map.
+- Manages funding, relations with XCOM, and country-specific properties for world map analytics and gameplay.
+- Tracks owned tiles, funding, services, and diplomatic status.
 
 ### TDiplomacy
-Manages diplomacy between XCOM and other factions from the faction's perspective. (Currently a placeholder.)
-- **Attributes:** None
-- **Methods:** None
+- Manages diplomacy between XCOM (player) and other factions.
+- Provides methods to get, set, and list diplomatic states (ALLY, NEUTRAL, WAR).
+- Tracks history of state changes for each faction.
 
 ### TFunding
-Manages XCOM's funding based on country scores and generates monthly reports.
-- **Attributes:** countries, month_scores
-- **Methods:** add_tile_score(), monthly_report()
+- Manages XCOM's funding based on country scores and generates monthly reports.
+- Operates from the country perspective and updates funding and relations.
+- Tracks monthly scores and provides summary reports.
 
 ### TLocation
-Represents a single location on the world map (base, city, crash site, etc.). Handles radar detection and visibility.
-- **Attributes:** pid, name, description, position, initial_cover, cover, cover_change, visible
-- **Methods:** update_visibility(), replenish_cover(), get_position(), distance_to()
+- Represents a single location on the world map (base, city, crash site, etc.).
+- Handles radar detection, visibility, and cover mechanics for world map locations.
+- Supports cover replenishment and visibility updates.
 
 ### TGlobalRadar
-Manages radar detection of UFOs and locations on the world map.
-- **Attributes:** world
-- **Methods:** scan()
+- Manages radar detection of UFOs and locations on the world map.
+- Handles radar scanning from bases and crafts, updating cover and visibility for all locations.
+- Integrates with TWorld and TLocation for detection logic.
 
-### TRegion
-Represents a region on the world map, used for mission control and analytics.
-- **Attributes:** pid, name, is_land, tiles, neighbors, description, color, mission_weight, base_cost, service_provided, service_forbidden
-- **Methods:** calculate_region_tiles()
+---
 
-### TWorld
-Represents the world map as a 2D array of tiles. Handles loading from TMX, rendering, and managing cities, countries, and regions.
-- **Attributes:** pid, name, description, size, map_file, countries, bases, factions, regions, tech_start, transfer_list, tiles, cities, factions, diplomacy
-- **Methods:** get_day_night_map(), render_tile_map_to_text(), render_world_layers_to_png(), from_tmx()
+## Integration Guide
 
-### TWorldPoint
-Represents a position on the world map (tile coordinates). Provides utility methods for position handling.
-- **Attributes:** x, y
-- **Methods:** from_tuple(), to_tuple(), distance_to(), manhattan_distance(), __eq__(), __hash__(), __repr__(), __add__(), __sub__(), scale(), is_within_bounds(), midpoint(), get_adjacent_points(), get_adjacent_points_with_diagonals(), round_to_grid()
+- TBiome, TCountry, and TLocation are used for world map analytics, battle generation, and funding.
+- TDiplomacy and TFunding manage strategic relations and monthly funding updates.
+- TGlobalRadar is used for detection and visibility of all world map locations.
+- All classes are designed for extensibility and integration with other game systems.
 
-### TWorldTile
-Represents a single tile on the world map. Assigned to a region, country, and biome. May have locations.
-- **Attributes:** x, y, region_id, country_id, biome_id, locations
-- **Methods:** None
+---
+
+## API Reference
+
+- See individual class docstrings and method signatures in the respective Python files for detailed API documentation.
+- All classes are designed for use by both AI agents and human developers, with clear separation of entities, managers, and analytics.
+
+---
+
+*This README is automatically generated and should be kept in sync with code and documentation changes.*
 

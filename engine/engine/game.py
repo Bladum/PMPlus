@@ -1,3 +1,14 @@
+"""
+engine/engine/game.py
+
+Defines the TGame class, the main game singleton holding all data and state for the campaign, world, bases, and more.
+
+Classes:
+    TGame: Main game class, holds all data. Singleton.
+
+Last standardized: 2025-06-15
+"""
+
 from ..craft.craft import TCraft
 from ..globe.world import TWorld
 from ..lore.campaign import TCampaign
@@ -7,7 +18,7 @@ from ..economy.purchase import TPurchase
 from ..economy.ttransfer import TransferManager
 
 from ..lore.faction import TFaction
-from ..base.geo.xbase import TBaseXCom
+from ..base.xbase import TBaseXCom  # Fixed import path
 from .mod import TMod, TUnitCategory, TItemCategory
 from ..base.facility import TFacility, TFacilityType
 from pathlib import Path

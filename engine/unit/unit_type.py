@@ -1,7 +1,12 @@
 """
-TUnitType: Represents a type/template of unit with stats, race, traits, and equipment.
-Purpose: Used as a template for creating units in the game, combining race, traits, and items.
-Last update: 2025-06-10
+engine/unit/unit_type.py
+
+Defines the TUnitType class, representing a type/template of unit with stats, race, traits, and equipment. Used as a template for creating units in the game, combining race, traits, and items.
+
+Classes:
+    TUnitType: Represents a type/template of unit with stats, race, traits, and equipment.
+
+Last standardized: 2025-06-15
 """
 
 import random

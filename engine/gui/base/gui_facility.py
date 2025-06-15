@@ -1,7 +1,12 @@
 """
-TGuiFacility: Facility screen GUI for manufacturing and base facilities.
-Purpose: Represents the facility management interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_facility.py
+
+Facility Screen GUI for manufacturing and base facility management.
+
+Classes:
+    TGuiFacility: Main facility GUI screen for facility management interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen

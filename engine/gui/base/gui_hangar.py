@@ -1,7 +1,12 @@
 """
-TGuiHangar: Hangar screen GUI for crafts.
-Purpose: Represents the craft management interface in the base GUI system.
-Last update: 2025-06-11
+XCOM GUI Module: gui_hangar.py
+
+Hangar Screen GUI for craft management.
+
+Classes:
+    TGuiHangar: Main hangar GUI screen for craft management interface.
+
+Last updated: 2025-06-11
 """
 
 from gui.gui_core import TGuiCoreScreen
