@@ -1,12 +1,12 @@
 """
-XCOM GUI Module: gui_transfer.py
+engine/gui/base/gui_transfer.py
 
 Transfer Screen GUI for inter-base transfers.
 
 Classes:
     TGuiTransfer: Main transfer GUI screen for inter-base transfer interface.
 
-Last updated: 2025-06-11
+Last standardized: 2025-06-15
 """
 
 from gui.gui_core import TGuiCoreScreen
@@ -16,6 +16,12 @@ class TGuiTransfer(TGuiCoreScreen):
     """
     Transfer screen for inter-base transfers.
     Inherits from TGuiCoreScreen.
+
+    Attributes:
+        None specific (inherits from TGuiCoreScreen)
+
+    Methods:
+        __init__(parent=None): Initialize the Transfer GUI screen.
     """
 
     def __init__(self, parent=None):

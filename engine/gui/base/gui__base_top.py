@@ -1,4 +1,6 @@
 """
+engine/gui/base/gui__base_top.py
+
 Widget for managing the top navigation panel of the XCOM inventory interface.
 
 This class implements the top navigation bar for the game interface,
@@ -6,19 +8,10 @@ providing screen switching between different game views (Barracks, Hangar, etc.)
 and base selection functionality. It displays critical game information
 like current base, date, and available funds.
 
-Interactions:
-- Used by TGuiBase as the main navigation system
-- Emits signals when users change screens or bases
-- Connects to GameData to retrieve base and financial information
-- Provides visual feedback for current screen and base selection
-- Updates when game state changes (new bases, funds, etc.)
+Classes:
+    TGuiBaseTopPanel: Top navigation panel widget for the XCOM GUI.
 
-Key Features:
-- Screen selection buttons with visual active state
-- Base selection grid with availability states
-- Information display for current base, date, and funds
-- Consistent theming via TThemeManager styling system
-- Signal-based communication with parent interfaces
+Last standardized: 2025-06-15
 """
 
 from PySide6.QtCore import Qt, Signal

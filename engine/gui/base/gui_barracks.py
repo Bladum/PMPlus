@@ -1,19 +1,16 @@
 """
-Barracks GUI Module
+engine/gui/base/gui_barracks.py
 
-This module contains the TGuiBarracks implementation for the XCOM inventory system.
-It handles unit management, equipment assignment, loadout templates, and item inventory
-interfaces for the base barracks screen.
+Barracks GUI Module for XCOM/AlienFall
 
-The barracks interface allows players to:
-- View and select units in the current base
-- Equip and unequip items on units
-- Save and load equipment loadout templates
-- View unit stats, traits, and information
-- Manage base personnel
+Implements the barracks management screen, providing unit roster, equipment assignment, loadout templates, and inventory management for the base barracks interface.
 
 Classes:
-    TGuiBarracks: The main barracks GUI screen for unit and inventory management.
+    TGuiBarracks: Main barracks GUI screen for unit and inventory management.
+    UnitListWidget: Custom widget for displaying the list of units in the barracks.
+    ItemListWidget: Custom widget for displaying the list of items available for equipment.
+
+Last standardized: 2025-06-15
 """
 
 import os
@@ -42,29 +39,48 @@ STATS_ATTRIBUTES = ["health", "stamina", "strength", "reactions", "accuracy", "t
 
 class TGuiBarracks(TGuiCoreScreen):
     """
-    TGuiBarracks implements the barracks management screen with unit roster,
-    equipment loadouts, and inventory functionality.
+    Main barracks GUI screen for unit and inventory management.
 
-    The barracks screen provides the following features:
-    - Unit roster display and selection
-    - Equipment assignment to units
-    - Item inventory browsing and filtering
-    - Loadout template saving and loading
-    - Unit stats and traits display
+    Responsibilities:
+    - Display and manage the unit roster for the current base.
+    - Allow equipping and unequipping items on units.
+    - Support saving and loading equipment loadout templates.
+    - Show unit stats, traits, and summary information.
+    - Integrate with unit inventory and item management systems.
 
     Attributes:
-        game: Reference to the main game instance
-        unit_inventory_manager: Manager for unit inventory operations
-        current_unit: Currently selected unit name
-        equipment_slots: List of equipment slot widgets
-        item_list_widget: Widget displaying available items
-        unit_list_widget: Widget displaying available units
-        weight_label: Label showing equipment weight
-        unit_info_label: Label showing unit information
-        load_template_button: Button for loading equipment templates
-        summary_label: Label showing barracks summary information
-    """
+        game: Reference to the main game instance.
+        unit_inventory_manager: Manager for unit inventory operations.
+        current_unit: Currently selected unit name.
+        equipment_slots: List of equipment slot widgets.
+        item_list_widget: Widget displaying available items.
+        unit_list_widget: Widget displaying available units.
+        weight_label: Label showing equipment weight.
+        unit_info_label: Label showing unit information.
+        load_template_button: Button for loading equipment templates.
+        summary_label: Label showing barracks summary information.
 
+    Signals:
+        equipment_changed (str, str): Emitted when equipment changes (slot_name, item_name).
+        unit_equipped (str): Emitted when a unit is equipped (unit_name).
+
+    Methods:
+        __init__(parent=None): Initialize the barracks GUI screen.
+        _setup_ui(): Set up the main UI layout and widgets.
+        _setup_equipment_slots(): Set up equipment slot widgets.
+        _setup_template_controls(): Set up loadout template controls.
+        _setup_weight_label(): Set up the equipment weight label.
+        _setup_unit_avatar(): Set up the unit avatar display.
+        _setup_summary_box(): Set up the summary information box.
+        _setup_unit_list(): Set up the unit list display.
+        _setup_item_list(): Set up the item list display.
+        _setup_stats_box(): Set up the unit stats display.
+        _setup_traits_box(): Set up the unit traits display.
+        _setup_fire_button(): Set up the fire button for units.
+        _setup_basic_info_box(): Set up the basic information display for units.
+        _finalize_ui_setup(): Finalize the UI setup after all components are created.
+
+    """
     # Custom signals for equipment changes
     equipment_changed = Signal(str, str)  # (slot_name, item_name)
     unit_equipped = Signal(str)  # unit_name
@@ -1036,7 +1052,7 @@ class TGuiBarracks(TGuiCoreScreen):
 # Custom widget classes
 class UnitListWidget(QListWidget):
     """
-    Custom list widget for unit selection with filtering capabilities.
+    Custom QListWidget for displaying the list of units in the barracks.
 
     Provides unit selection, filtering by category, and stores unit data.
     """
@@ -1101,7 +1117,7 @@ class UnitListWidget(QListWidget):
 
 class ItemListWidget(QListWidget):
     """
-    Custom list widget for inventory items with filtering and quantity management.
+    Custom QListWidget for displaying the list of items available for equipment.
 
     Provides item filtering by category and maintains item quantities.
     """

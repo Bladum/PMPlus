@@ -1,7 +1,14 @@
 """
+engine/gui/base/gui_purchase.py
+
 Purchase System GUI Interface
+
 Purpose: Provides user interface for purchasing items, units, and crafts
-Last update: 2025-06-12
+
+Classes:
+    TPurchaseGui: Purchase system interface for buying items, units, and crafts.
+
+Last standardized: 2025-06-15
 """
 
 from typing import Dict, List, Optional, Any
@@ -20,6 +27,32 @@ from ..gui.theme_manager import XcomStyle
 class TPurchaseGui(TGuiCoreScreen):
     """
     Purchase system interface for buying items, units, and crafts.
+
+    Attributes:
+        purchase_system: Reference to the purchase system logic
+        current_base: Currently selected base for purchases
+        base_label: QLabel for displaying base info
+
+    Methods:
+        __init__(parent=None): Initialize the purchase GUI
+        _setup_ui(): Setup the user interface
+        _create_header(): Create header with base info and budget
+        _create_regular_purchases_tab(): Create tab for standard purchases
+        _create_black_market_tab(): Create tab for black market purchases
+        _create_orders_tab(): Create tab for active orders
+        _refresh_data(): Refresh purchase data
+        _update_base_info(): Update base info display
+        _update_purchase_list(): Update standard purchase list
+        _update_black_market_list(): Update black market list
+        _update_orders_list(): Update orders list
+        _filter_purchases(category): Filter purchases by category
+        _on_purchase_selected(): Handle purchase selection
+        _update_total_cost(): Update total cost display
+        _make_purchase(): Make a standard purchase
+        _make_black_market_purchase(): Make a black market purchase
+        _cancel_order(): Cancel an order
+        screen_activated(): Called when screen is activated
+        screen_deactivated(): Called when screen is deactivated
     """
     
     def __init__(self, parent=None):
